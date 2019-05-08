@@ -1,8 +1,6 @@
 package com.heaplay.model.beans;
 
-import java.io.Serializable;
-
-public class PurchasableTrackBean extends TrackBean implements Serializable,Cloneable {
+public class PurchasableTrackBean extends TrackBean {
 
 	private static final long serialVersionUID = 1L;
 
