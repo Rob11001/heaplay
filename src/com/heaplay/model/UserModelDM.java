@@ -1,10 +1,12 @@
-package com.project.model;
+package com.heaplay.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+
+import com.heaplay.model.beans.UserBean;
 
 public class UserModelDM implements UserModel {
 	

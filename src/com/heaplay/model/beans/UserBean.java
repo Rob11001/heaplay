@@ -1,8 +1,8 @@
-package com.project.model;
+package com.heaplay.model.beans;
 
 import java.io.Serializable;
 
-public class UserBean implements Serializable {
+public class UserBean implements Serializable,Cloneable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -67,6 +67,25 @@ public class UserBean implements Serializable {
 		this.active = active;
 	}
 
+	@Override
+	public boolean equals(Object otherOb) {
+		if(otherOb == null || otherOb.getClass().getName()!=getClass().getName())
+			return false;
+		UserBean other = (UserBean) otherOb;
+		return other.id == id;
+	}
+
+	@Override
+	public UserBean clone() {
+		UserBean bean = null;
+		try {
+			bean = (UserBean) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return bean;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserBean [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password

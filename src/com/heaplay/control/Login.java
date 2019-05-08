@@ -1,4 +1,4 @@
-package com.project.control;
+package com.heaplay.control;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

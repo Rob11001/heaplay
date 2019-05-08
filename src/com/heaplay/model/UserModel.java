@@ -1,7 +1,9 @@
-package com.project.model;
+package com.heaplay.model;
 
 import java.sql.SQLException;
 import java.util.Collection;
+
+import com.heaplay.model.beans.UserBean;
 
 public interface UserModel {
 	public void doSave(UserBean product) throws SQLException;

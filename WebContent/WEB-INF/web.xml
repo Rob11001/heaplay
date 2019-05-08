@@ -6,7 +6,7 @@
   </welcome-file-list>
   <listener>
   	<listener-class>
-  		com.project.control.ServerListener
+  		com.heaplay.control.ServerListener
   	</listener-class>
   </listener>
 </web-app>

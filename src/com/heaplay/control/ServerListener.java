@@ -1,4 +1,4 @@
-package com.project.control;
+package com.heaplay.control;
 
 import java.sql.SQLException;
 
@@ -7,7 +7,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.project.model.ConnectionPool;
+import com.heaplay.model.ConnectionPool;
 
 public class ServerListener implements ServletContextListener {
 
