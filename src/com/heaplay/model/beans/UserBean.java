@@ -2,6 +2,11 @@ package com.heaplay.model.beans;
 
 import java.io.Serializable;
 
+/**
+ *	DTO dell'User Table 
+ *
+ */
+
 public class UserBean implements Serializable,Cloneable {
 	
 	private static final long serialVersionUID = 1L;
