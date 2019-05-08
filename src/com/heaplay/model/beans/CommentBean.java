@@ -1,7 +1,6 @@
 package com.heaplay.model.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class CommentBean implements Serializable,Cloneable {
 
