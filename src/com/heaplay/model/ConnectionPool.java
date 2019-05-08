@@ -25,7 +25,7 @@ public class ConnectionPool {
 
 		String ip = "localhost";
 		String port = "3306";
-		String db = "project";
+		String db = "heaplay_db";
 		String username = "admin";
 		String password = "Progetto.TSW";
 		
