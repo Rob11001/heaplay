@@ -1,7 +1,9 @@
 package com.heaplay.model.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * DTO della Track table
@@ -23,6 +25,7 @@ public class TrackBean implements Serializable,Cloneable {
 	private long likes;
 	private boolean indexable;
 	private long author;
+	private List<TagBean> tags;
 	
 	public TrackBean() {
 		this.id = this.plays = this.likes = this.author = -1;
@@ -31,6 +34,7 @@ public class TrackBean implements Serializable,Cloneable {
 		this.image = null;
 		this.uploadDate = null;
 		this.indexable = false;
+		this.tags = new ArrayList<TagBean>();
 	}
 
 	public long getId() {
@@ -129,6 +133,14 @@ public class TrackBean implements Serializable,Cloneable {
 		this.author = author;
 	}
 	
+	public List<TagBean> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<TagBean> tags) {
+		this.tags = tags;
+	}
+
 	@Override
 	public boolean equals(Object otherOb) {
 		if(otherOb == null || otherOb.getClass().getName()!=getClass().getName())
@@ -152,7 +164,7 @@ public class TrackBean implements Serializable,Cloneable {
 	public String toString() {
 		return getClass().getSimpleName() + " [id=" + id + ", name=" + name + ", type=" + type + ", plays=" + plays + ", trackExt="
 				+ trackExt + ", imageExt=" + imageExt + ", uploadDate=" + uploadDate + ", likes=" + likes
-				+ ", indexable=" + indexable + ", author=" + author + "]";
+				+ ", indexable=" + indexable + ", author=" + author + "tags="+tags +"]";
 	}
 	
 	
