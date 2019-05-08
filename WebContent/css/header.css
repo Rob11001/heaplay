@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+nav div {
+	display: inline;
+}
+
+nav div.search {
+	float: left;
+}
+
+nav div.login {
+	float: right;
+}
+
