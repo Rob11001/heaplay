@@ -24,6 +24,15 @@ public class TrackBean implements Serializable,Cloneable {
 	private boolean indexable;
 	private long author;
 	
+	public TrackBean() {
+		this.id = this.plays = this.likes = this.author = -1;
+		this.name = this.type = this.trackExt = this.imageExt = "";
+		this.track = null;
+		this.image = null;
+		this.uploadDate = null;
+		this.indexable = false;
+	}
+
 	public long getId() {
 		return id;
 	}
