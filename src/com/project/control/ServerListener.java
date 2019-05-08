@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebListener;
 
 import com.project.model.ConnectionPool;
 
-@WebListener
 public class ServerListener implements ServletContextListener {
 
     public void contextDestroyed(ServletContextEvent sce)  { 
@@ -18,7 +17,7 @@ public class ServerListener implements ServletContextListener {
 			if (pool != null)
 				pool.destroyPool();
 
-			System.out.println("DB Connection Pool successfully destroyed");
+			System.out.println("DB Connection Pool successfully destroyed\n");
 
 		} catch (SQLException e) {
 			System.out.println("Could not correctely destroy DB Connection Pool\n" + e.getMessage());
