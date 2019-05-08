@@ -150,7 +150,7 @@ public class TrackBean implements Serializable,Cloneable {
 
 	@Override
 	public String toString() {
-		return "TrackBean [id=" + id + ", name=" + name + ", type=" + type + ", plays=" + plays + ", trackExt="
+		return getClass().getSimpleName() + " [id=" + id + ", name=" + name + ", type=" + type + ", plays=" + plays + ", trackExt="
 				+ trackExt + ", imageExt=" + imageExt + ", uploadDate=" + uploadDate + ", likes=" + likes
 				+ ", indexable=" + indexable + ", author=" + author + "]";
 	}

@@ -93,7 +93,7 @@ public class UserBean implements Serializable,Cloneable {
 	
 	@Override
 	public String toString() {
-		return "UserBean [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
+		return getClass().getSimpleName()+ " [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
 				+ ", auth=" + auth + ", active=" + active + "]";
 	}
 
