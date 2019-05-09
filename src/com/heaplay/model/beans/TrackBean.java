@@ -2,6 +2,7 @@ package com.heaplay.model.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * DTO della Track table
  * 
  */
-public class TrackBean implements Serializable,Cloneable {
+public class TrackBean implements Serializable, Cloneable, Key<TrackBean> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -166,7 +167,22 @@ public class TrackBean implements Serializable,Cloneable {
 				+ trackExt + ", imageExt=" + imageExt + ", uploadDate=" + uploadDate + ", likes=" + likes
 				+ ", indexable=" + indexable + ", author=" + author + "tags="+tags +"]";
 	}
-	
-	
-	
+
+	/**
+	 * Ritorna (this.id)
+	 */	
+	@Override
+	public Collection<String> getKey() {
+		ArrayList<String> keys = new ArrayList<String>();
+		keys.add(String.valueOf(id));
+		return keys;
+	}
+
+	/**
+	 * Ritorna this.id - otherBean.id
+	 */
+	@Override
+	public int compareKey(TrackBean otherBean) {
+		return (int) (id - otherBean.getId());
+	}
 }

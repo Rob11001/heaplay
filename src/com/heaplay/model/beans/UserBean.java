@@ -1,13 +1,15 @@
 package com.heaplay.model.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *	DTO dell'User Table 
  *
  */
 
-public class UserBean implements Serializable,Cloneable {
+public class UserBean implements Serializable, Cloneable, Key<UserBean> {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -97,4 +99,23 @@ public class UserBean implements Serializable,Cloneable {
 				+ ", auth=" + auth + ", active=" + active + "]";
 	}
 
+	/**
+	 * Ritorna (email)
+	 */
+	@Override
+	public Collection<String> getKey() {
+		ArrayList<String> keys = new ArrayList<String>();
+		keys.add(email);
+		return keys;
+	}
+
+	/**
+	 * Ritorna 0 se this.email = otherBean.email,
+	 * > 0 se this.email > otherBean.email,
+	 * < 0 se this.email < otherBean.email, rispetto all'ordine lessicografico
+	 */
+	@Override
+	public int compareKey(UserBean otherBean) {
+		return email.compareTo(otherBean.getEmail());
+	}
 }

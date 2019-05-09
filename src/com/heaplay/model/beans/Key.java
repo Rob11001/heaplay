@@ -6,5 +6,5 @@ public interface Key<T> {
 	
 	public Collection<String> getKey();
 	
-	public int compareKey(T object);
+	public int compareKey(T otherBean);
 }
