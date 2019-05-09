@@ -1,8 +1,10 @@
 package com.heaplay.model.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
-public class TagBean implements Serializable,Cloneable{
+public class TagBean implements Serializable,Cloneable, Key<TagBean> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,6 +54,24 @@ public class TagBean implements Serializable,Cloneable{
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + " [id=" + id + ", name=" + name + "]";
+	}
+	
+	/**
+	 * Ritorna (this.id)
+	 */
+	@Override
+	public Collection<String> getKey() {
+		ArrayList<String> key = new ArrayList<String>();
+		key.add(String.valueOf(id));
+		return key;
+	}
+
+	/**
+	 * Ritorna this.id - otherBean.id
+	 */
+	@Override
+	public int compareKey(TagBean otherBean) {
+		return (int) (id - otherBean.getId());
 	}
 
 }

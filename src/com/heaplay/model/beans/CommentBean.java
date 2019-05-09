@@ -1,8 +1,10 @@
 package com.heaplay.model.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
-public class CommentBean implements Serializable,Cloneable {
+public class CommentBean implements Serializable,Cloneable, Key<CommentBean> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -70,5 +72,31 @@ public class CommentBean implements Serializable,Cloneable {
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + " [id=" + id + ", userId=" + userId + ", trackId=" + trackId + ", body=" + body + "]";
+	}
+
+	/**
+	 * 	Ritorna (this.id, this.trackId)
+	 */
+	@Override
+	public Collection<String> getKey() {
+		ArrayList<String> key = new ArrayList<String>();
+		key.add(String.valueOf(id));
+		key.add(String.valueOf(trackId));
+		return key;
+	}
+
+	/**
+	 * 	Ritorna 0 se entrambe le chiavi sono uguali,
+	 * 	1 se this.trackId > otherBean.trackId oppure se a parità di trackId, id > otherBean.id,
+	 * 	-1 se this.trackId < otherBean.trackId oppure se a parità di trackId, id < otherBean.id
+	 */
+	@Override
+	public int compareKey(CommentBean otherBean) {
+		if (trackId < otherBean.getTrackId())
+			return -1;
+		if (trackId > otherBean.getTrackId())
+			return 1;
+		else
+			return (int) (id - otherBean.getId());
 	}
 }

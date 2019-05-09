@@ -2,9 +2,10 @@ package com.heaplay.model.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class PlaylistBean implements Serializable,Cloneable {
+public class PlaylistBean implements Serializable,Cloneable, Key<PlaylistBean> {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -86,6 +87,24 @@ public class PlaylistBean implements Serializable,Cloneable {
 	public String toString() {
 		return  getClass().getSimpleName() +" [id=" + id + ", name=" + name + ", privacy=" + privacy + ", author=" + author + ", tracks="
 				+ tracks + "]";
+	}
+
+	/**
+	 * Ritorna (this.id)
+	 */
+	@Override
+	public Collection<String> getKey() {
+		ArrayList<String> key = new ArrayList<String>();
+		key.add(String.valueOf(id));
+		return key;
+	}
+
+	/**
+	 * Ritorna this.id - otherBean.id
+	 */
+	@Override
+	public int compareKey(PlaylistBean otherBean) {
+		return (int) (id - otherBean.getId());			
 	}
 	
 	
