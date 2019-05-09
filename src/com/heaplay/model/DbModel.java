@@ -2,16 +2,15 @@ package com.heaplay.model;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Comparator;
 
-import com.heaplay.model.beans.UserBean;
+public interface DbModel<T, K> {
 
-public interface DbModel {
+	public void doSave(T bean) throws SQLException;
 
-	public void doSave(UserBean product) throws SQLException;
+	public boolean doDelete(Collection<String> keys) throws SQLException;
 
-	public boolean doDelete(int id) throws SQLException;
-
-	public UserBean doRetrieveByKey(String email) throws SQLException;
+	public T doRetrieveByKey(Collection<String> keys) throws SQLException;
 	
-	public Collection<UserBean> doRetrieveAll(String order) throws SQLException;
+	public Collection<T> doRetrieveAll(Comparator<T> comparator) throws SQLException;
 }
