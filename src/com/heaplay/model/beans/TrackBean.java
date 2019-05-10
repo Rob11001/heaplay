@@ -10,7 +10,7 @@ import java.util.List;
  * DTO della Track table
  * 
  */
-public class TrackBean implements Serializable, Cloneable, Key<TrackBean> {
+public class TrackBean extends Bean implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -144,7 +144,7 @@ public class TrackBean implements Serializable, Cloneable, Key<TrackBean> {
 
 	@Override
 	public boolean equals(Object otherOb) {
-		if(otherOb == null || otherOb.getClass().getName()!=getClass().getName())
+		if(otherOb == null || otherOb.getClass() != getClass())
 			return false;
 		TrackBean other = (TrackBean) otherOb;
 		return other.id == id;
@@ -182,7 +182,10 @@ public class TrackBean implements Serializable, Cloneable, Key<TrackBean> {
 	 * Ritorna this.id - otherBean.id
 	 */
 	@Override
-	public int compareKey(TrackBean otherBean) {
-		return (int) (id - otherBean.getId());
+	public int compareKey(Bean otherBean) {
+		if(this.getClass() != otherBean.getClass())
+			return 1;
+		TrackBean other = (TrackBean) otherBean;
+		return (int) (id - other.id);
 	}
 }

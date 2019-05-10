@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class PlaylistBean implements Serializable,Cloneable, Key<PlaylistBean> {
+public class PlaylistBean extends Bean implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -63,7 +63,7 @@ public class PlaylistBean implements Serializable,Cloneable, Key<PlaylistBean> {
 	
 	@Override
 	public boolean equals(Object otherOb) {
-		if(otherOb == null || otherOb.getClass().getName()!=getClass().getName())
+		if(otherOb == null || otherOb.getClass() != getClass())
 			return false;
 		PlaylistBean other = (PlaylistBean) otherOb;
 		return other.id == id;
@@ -83,12 +83,6 @@ public class PlaylistBean implements Serializable,Cloneable, Key<PlaylistBean> {
 		return bean;
 	}
 
-	@Override
-	public String toString() {
-		return  getClass().getSimpleName() +" [id=" + id + ", name=" + name + ", privacy=" + privacy + ", author=" + author + ", tracks="
-				+ tracks + "]";
-	}
-
 	/**
 	 * Ritorna (this.id)
 	 */
@@ -103,10 +97,10 @@ public class PlaylistBean implements Serializable,Cloneable, Key<PlaylistBean> {
 	 * Ritorna this.id - otherBean.id
 	 */
 	@Override
-	public int compareKey(PlaylistBean otherBean) {
-		return (int) (id - otherBean.getId());			
+	public int compareKey(Bean otherBean) {
+		if(this.getClass() != otherBean.getClass())
+			return 1;
+		PlaylistBean other = (PlaylistBean) otherBean;
+		return (int) (id - other.id);			
 	}
-	
-	
-
 }

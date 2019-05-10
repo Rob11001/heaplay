@@ -9,7 +9,7 @@ import java.util.Collection;
  *
  */
 
-public class UserBean implements Serializable, Cloneable, Key<UserBean> {
+public class UserBean extends Bean implements Serializable, Cloneable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -76,7 +76,7 @@ public class UserBean implements Serializable, Cloneable, Key<UserBean> {
 
 	@Override
 	public boolean equals(Object otherOb) {
-		if(otherOb == null || otherOb.getClass().getName()!=getClass().getName())
+		if(otherOb == null || otherOb.getClass() != getClass())
 			return false;
 		UserBean other = (UserBean) otherOb;
 		return other.id == id;
@@ -100,7 +100,7 @@ public class UserBean implements Serializable, Cloneable, Key<UserBean> {
 	}
 
 	/**
-	 * Ritorna (email)
+	 * Ritorna (this.email)
 	 */
 	@Override
 	public Collection<String> getKey() {
@@ -115,7 +115,10 @@ public class UserBean implements Serializable, Cloneable, Key<UserBean> {
 	 * < 0 se this.email < otherBean.email, rispetto all'ordine lessicografico
 	 */
 	@Override
-	public int compareKey(UserBean otherBean) {
-		return email.compareTo(otherBean.getEmail());
+	public int compareKey(Bean otherBean) {
+		if(this.getClass() != otherBean.getClass())
+			return 1;
+		UserBean other = (UserBean) otherBean;
+		return email.compareTo(other.email);
 	}
 }

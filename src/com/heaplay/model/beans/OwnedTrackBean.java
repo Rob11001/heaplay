@@ -49,7 +49,7 @@ public class OwnedTrackBean extends PurchasableTrackBean {
 	}
 	
 	/**
-	 * Ritorna (id, userId)
+	 * Ritorna (this.id, this.userId)
 	 */
 	public Collection<String> getKey() {
 		ArrayList<String> keys = (ArrayList<String>) super.getKey();

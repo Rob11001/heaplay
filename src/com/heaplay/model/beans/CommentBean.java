@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class CommentBean implements Serializable,Cloneable, Key<CommentBean> {
+public class CommentBean extends Bean implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,7 +52,7 @@ public class CommentBean implements Serializable,Cloneable, Key<CommentBean> {
 	
 	@Override
 	public boolean equals(Object otherOb) {
-		if(otherOb == null || otherOb.getClass().getName()!=getClass().getName())
+		if(otherOb == null || otherOb.getClass() != getClass())
 			return false;
 		CommentBean other = (CommentBean) otherOb;
 		return other.id == id && other.trackId == trackId && other.userId == userId;
@@ -87,16 +87,20 @@ public class CommentBean implements Serializable,Cloneable, Key<CommentBean> {
 
 	/**
 	 * 	Ritorna 0 se entrambe le chiavi sono uguali,
-	 * 	1 se this.trackId > otherBean.trackId oppure se a parità di trackId, id > otherBean.id,
-	 * 	-1 se this.trackId < otherBean.trackId oppure se a parità di trackId, id < otherBean.id
+	 * 	1 se this.trackId > otherBean.trackId oppure se a parita' di trackId, id > otherBean.id,
+	 * 	-1 se this.trackId < otherBean.trackId oppure se a parita' di trackId, id < otherBean.id
 	 */
 	@Override
-	public int compareKey(CommentBean otherBean) {
-		if (trackId < otherBean.getTrackId())
+	public int compareKey(Bean otherBean) {
+		if(this.getClass() != otherBean.getClass())
+			return 1;
+		
+		CommentBean other = (CommentBean) otherBean;
+		if (trackId < other.trackId)
 			return -1;
-		if (trackId > otherBean.getTrackId())
+		if (trackId > other.trackId)
 			return 1;
 		else
-			return (int) (id - otherBean.getId());
+			return (int) (id - other.id);
 	}
 }

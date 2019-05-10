@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class TagBean implements Serializable,Cloneable, Key<TagBean> {
+public class TagBean extends Bean implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,7 @@ public class TagBean implements Serializable,Cloneable, Key<TagBean> {
 	
 	@Override
 	public boolean equals(Object otherOb) {
-		if(otherOb == null || otherOb.getClass().getName()!=getClass().getName())
+		if(otherOb == null || otherOb.getClass() != getClass())
 			return false;
 		TagBean other = (TagBean) otherOb;
 		return other.id == id;
@@ -70,8 +70,11 @@ public class TagBean implements Serializable,Cloneable, Key<TagBean> {
 	 * Ritorna this.id - otherBean.id
 	 */
 	@Override
-	public int compareKey(TagBean otherBean) {
-		return (int) (id - otherBean.getId());
+	public int compareKey(Bean otherBean) {
+		if(this.getClass() != otherBean.getClass())
+			return 1;
+		TagBean other = (TagBean) otherBean;
+		return (int) (id - other.id);
 	}
 
 }

@@ -4,13 +4,15 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Comparator;
 
-public interface DbModel<T, K> {
+import com.heaplay.model.beans.Bean;
 
-	public void doSave(T bean) throws SQLException;
+public interface DbModel {
+
+	public void doSave(Bean bean) throws SQLException;
 
 	public boolean doDelete(Collection<String> keys) throws SQLException;
 
-	public T doRetrieveByKey(Collection<String> keys) throws SQLException;
+	public Bean doRetrieveByKey(Collection<String> keys) throws SQLException;
 	
-	public Collection<T> doRetrieveAll(Comparator<T> comparator) throws SQLException;
+	public Collection<Bean> doRetrieveAll(Comparator<Bean> comparator) throws SQLException;
 }
