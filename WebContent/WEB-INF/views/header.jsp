@@ -9,7 +9,7 @@
 			</form>
 		</div>
 		<div class="login">
-			<a href=<%=response.encodeURL("/login.jsp")%>>Login</a>.&nbsp;Utente nuovo? <a href="#">Registrati</a>.
+			<a href=<%=response.encodeURL("login")%>>Login</a>.&nbsp;Utente nuovo? <a href="#">Registrati</a>.
 		</div>
 	</nav>
 </header>
