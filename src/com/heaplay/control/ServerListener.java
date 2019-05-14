@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebListener;
 
 import com.heaplay.model.ConnectionPool;
 
+@WebListener
 public class ServerListener implements ServletContextListener {
 
     public void contextDestroyed(ServletContextEvent sce)  { 
