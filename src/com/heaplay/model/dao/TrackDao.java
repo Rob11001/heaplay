@@ -203,9 +203,6 @@ public class TrackDao implements DaoModel {
 				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 			}
 
-			if (rs != null)
-				rs.close();
-
 		} finally {
 			try {
 				if (ps != null)
@@ -252,9 +249,6 @@ public class TrackDao implements DaoModel {
 				list.add(bean);
 			}
 
-			if (rs != null)
-				rs.close();
-
 		} finally {
 			try {
 				if (ps != null)
@@ -266,7 +260,7 @@ public class TrackDao implements DaoModel {
 		return list;
 	}
 
-	public ArrayList<TrackBean> getTracksByPlayList(Long id) {
+	public ArrayList<TrackBean> getTracksByPlaylist(Long id) {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
@@ -298,9 +292,6 @@ public class TrackDao implements DaoModel {
 				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 				list.add(bean);
 			}
-
-			if (rs != null)
-				rs.close();
 
 		} finally {
 			try {
