@@ -2,7 +2,7 @@ package com.heaplay.model.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  *	DTO dell'User Table 
@@ -103,7 +103,7 @@ public class UserBean extends Bean implements Serializable, Cloneable {
 	 * Ritorna (this.email)
 	 */
 	@Override
-	public Collection<String> getKey() {
+	public List<String> getKey() {
 		ArrayList<String> keys = new ArrayList<String>();
 		keys.add(email);
 		return keys;

@@ -2,7 +2,6 @@ package com.heaplay.model.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -172,7 +171,7 @@ public class TrackBean extends Bean implements Serializable, Cloneable {
 	 * Ritorna (this.id)
 	 */	
 	@Override
-	public Collection<String> getKey() {
+	public List<String> getKey() {
 		ArrayList<String> keys = new ArrayList<String>();
 		keys.add(String.valueOf(id));
 		return keys;

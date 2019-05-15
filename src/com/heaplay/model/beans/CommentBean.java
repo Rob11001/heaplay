@@ -2,7 +2,7 @@ package com.heaplay.model.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class CommentBean extends Bean implements Serializable, Cloneable {
 
@@ -78,7 +78,7 @@ public class CommentBean extends Bean implements Serializable, Cloneable {
 	 * 	Ritorna (this.id, this.trackId)
 	 */
 	@Override
-	public Collection<String> getKey() {
+	public List<String> getKey() {
 		ArrayList<String> key = new ArrayList<String>();
 		key.add(String.valueOf(id));
 		key.add(String.valueOf(trackId));

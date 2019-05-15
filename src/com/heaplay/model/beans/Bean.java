@@ -1,13 +1,13 @@
 package com.heaplay.model.beans;
 
-import java.util.Collection;
+import java.util.List;
 
 public abstract class Bean {
 	/**
 	 *	Ritorna una collezione di valori, indicati con la notazione di tuple (key1, key2, ...)
 	 *	ogni valore e' stato convertito in una String
 	 */
-	public abstract Collection<String> getKey();
+	public abstract List<String> getKey();
 	
 	/**
 	 *	Ritorna 0 se i due Bean sono uguali, 

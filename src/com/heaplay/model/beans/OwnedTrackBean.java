@@ -1,8 +1,8 @@
 package com.heaplay.model.beans;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public class OwnedTrackBean extends PurchasableTrackBean {
 	
@@ -51,7 +51,7 @@ public class OwnedTrackBean extends PurchasableTrackBean {
 	/**
 	 * Ritorna (this.id, this.userId)
 	 */
-	public Collection<String> getKey() {
+	public List<String> getKey() {
 		ArrayList<String> keys = (ArrayList<String>) super.getKey();
 		keys.add(String.valueOf(userId));
 		return keys;
