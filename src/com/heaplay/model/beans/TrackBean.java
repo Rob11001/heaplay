@@ -1,8 +1,8 @@
 package com.heaplay.model.beans;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ public class TrackBean extends Bean implements Serializable, Cloneable {
 	private String trackExt;
 	private byte[] image;
 	private String imageExt;
-	private Date uploadDate;
+	private Timestamp uploadDate;
 	private long likes;
 	private boolean indexable;
 	private long author;
@@ -101,12 +101,12 @@ public class TrackBean extends Bean implements Serializable, Cloneable {
 		this.imageExt = imageExt;
 	}
 	
-	public Date getUploadDate() {
-		return (Date) uploadDate.clone();
+	public Timestamp getUploadDate() {
+		return (Timestamp) uploadDate.clone();
 	}
 	
-	public void setUploadDate(Date uploadDate) {
-		this.uploadDate = (Date) uploadDate.clone();
+	public void setUploadDate( Timestamp uploadDate) {
+		this.uploadDate =  (Timestamp) uploadDate.clone();
 	}
 	
 	public long getLikes() {
