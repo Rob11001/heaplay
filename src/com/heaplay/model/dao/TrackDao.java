@@ -81,8 +81,8 @@ public class TrackDao implements DaoModel {
 
 		String updateQuery = "UPDATE " + TABLE_NAME
 				+ " SET  name=?,type=?,plays=?,track=?,track_extension=?,image=?,image_extension=?,indexable=?,author=?,upload=?,likes=? WHERE id=?";
-		String insertTag = "INSERT INTO  TAGGED(track_id,tag_id) VALUES (?,?) ";
-		String deleteTag = "DELETE FROM TAGGED WHERE track_id=? AND tag_id=?";
+		String insertTagged = "INSERT INTO  TAGGED(track_id,tag_id) VALUES (?,?) ";
+		String deleteTagged = "DELETE FROM TAGGED WHERE track_id=? AND tag_id=?";
 
 		try {
 			con = pool.getConnection();
@@ -108,7 +108,7 @@ public class TrackDao implements DaoModel {
 				ps.close();
 			TagDao tagDao = new TagDao(pool);
 			ArrayList<TagBean> tags = tagDao.getTagsByTrack(trackBean.getId());
-			ps = con.prepareStatement(insertTag);
+			ps = con.prepareStatement(insertTagged);
 
 			for (TagBean tag : trackBean.getTags()) {
 				if (!tags.contains(tag)) {
@@ -116,11 +116,15 @@ public class TrackDao implements DaoModel {
 					ps.setLong(1, trackBean.getId());
 					ps.setLong(2, tag.getId());
 					ps.executeUpdate();
-				}
+				} /*else {
+					ps.clearParameters();
+					if(!tags.get(tags.indexOf(tag)).getName().equals(tag.getName()))		// Controllare se è utile!!!
+						tagDao.doUpdate(tag);
+				}*/
 			}
 			if (ps != null)
 				ps.close();
-			ps = con.prepareStatement(deleteTag);
+			ps = con.prepareStatement(deleteTagged);
 			tags.removeAll(trackBean.getTags());
 			if (tags.size() != 0) {
 				for (TagBean tag : tags) {

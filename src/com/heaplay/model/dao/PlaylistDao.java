@@ -72,7 +72,8 @@ public class PlaylistDao implements DaoModel {
 		Connection con = null;
 		
 		String updateQuery1 = "UPDATE " + TABLE_NAME_1 + " SET name=?,privacy=?,author=?  WHERE id=?";
-		
+		String insertContains = "INSERT INTO contains (playlist_id, track_id) VALUES (?, ?)";
+		String deleteContains = "DELETE FROM contains WHERE playlist_id = ? AND track_id = ?";
 		
 		try {
 			con = pool.getConnection();
@@ -86,8 +87,35 @@ public class PlaylistDao implements DaoModel {
 	
 			int result = ps.executeUpdate();
 			
-			/*Finire con l'update delle track che fanno parte della playlist*/
+			if(ps != null)
+				ps.close();
+						
+			TrackDao trackDao = new TrackDao(pool);
+			ArrayList<TrackBean> tracks = trackDao.getTracksByPlaylist(playlistBean.getId());
+			ps = con.prepareStatement(insertContains);
 			
+			for(TrackBean track : playlistBean.getTracks()) {
+				if(!tracks.contains(track)) {
+					ps.clearParameters();
+					ps.setLong(1, playlistBean.getId());
+					ps.setLong(2, track.getId());
+					ps.executeUpdate();
+				}
+			}
+			
+			if (ps != null)
+				ps.close();
+			
+			ps = con.prepareStatement(deleteContains);
+			tracks.removeAll(playlistBean.getTracks());
+			if (tracks.size() != 0) {
+				for (TrackBean track : tracks) {
+					ps.clearParameters();
+					ps.setLong(1, playlistBean.getId());
+					ps.setLong(2, track.getId());
+					ps.executeUpdate();
+				}
+			}
 			
 			if(result != 0)
 				con.commit();
