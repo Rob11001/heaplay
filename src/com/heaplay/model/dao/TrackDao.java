@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,7 +12,6 @@ import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.Bean;
 import com.heaplay.model.beans.TagBean;
 import com.heaplay.model.beans.TrackBean;
-import com.heaplay.model.beans.UserBean;
 
 public class TrackDao implements DaoModel {
 
@@ -260,7 +258,7 @@ public class TrackDao implements DaoModel {
 		return list;
 	}
 
-	public ArrayList<TrackBean> getTracksByPlaylist(Long id) {
+	public ArrayList<TrackBean> getTracksByPlaylist(Long id) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;

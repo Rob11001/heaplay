@@ -54,14 +54,6 @@ public class UserDao implements DaoModel {
 			}
 		}
 	}
-	
-	/*id integer unsigned auto_increment not null,
-    username varchar(255) not null unique,
-    email varchar(255) not null unique,
-    password varchar(255) not null,
-    auth enum('user', 'admin') default 'user',
-    active boolean default true,
-    primary key(id) */
 
 	@Override
 	public void doUpdate(Bean bean) throws SQLException {
@@ -149,9 +141,6 @@ public class UserDao implements DaoModel {
 				bean.setActive(rs.getBoolean("active"));
 			}
 			
-			if(rs != null)
-				rs.close();
-			
 		} finally {
 			try {
 				if(ps != null)
@@ -161,8 +150,7 @@ public class UserDao implements DaoModel {
 			}
 		}
 		
-		return bean;
-			
+		return bean;			
 	}
 
 	@Override
@@ -192,9 +180,6 @@ public class UserDao implements DaoModel {
 			}
 			
 			list.sort(comparator);
-			
-			if(rs != null)
-				rs.close();
 			
 		} finally {
 			try {
