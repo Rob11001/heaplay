@@ -11,7 +11,6 @@ import java.util.List;
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.Bean;
 import com.heaplay.model.beans.PurchasableTrackBean;
-import com.heaplay.model.beans.TagBean;
 import com.heaplay.model.beans.TrackBean;
 
 public class PurchasableTrackDao implements DaoModel {
