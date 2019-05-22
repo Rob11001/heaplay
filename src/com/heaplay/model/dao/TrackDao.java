@@ -250,7 +250,9 @@ public class TrackDao implements DaoModel {
 				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 				list.add(bean);
 			}
-
+			
+			if(comparator != null)
+				list.sort(comparator);
 		} finally {
 			try {
 				if (ps != null)
