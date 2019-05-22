@@ -23,7 +23,7 @@ public class TrackDao implements DaoModel {
 	}
 
 	@Override
-	public void doSave(Bean bean) throws SQLException {
+	public synchronized void doSave(Bean bean) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 
@@ -75,7 +75,7 @@ public class TrackDao implements DaoModel {
 	}
 
 	@Override
-	public void doUpdate(Bean bean) throws SQLException {
+	public synchronized void doUpdate(Bean bean) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 
@@ -148,7 +148,7 @@ public class TrackDao implements DaoModel {
 	}
 
 	@Override
-	public boolean doDelete(List<String> keys) throws SQLException {
+	public synchronized boolean doDelete(List<String> keys) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		int result = 0;
@@ -172,7 +172,7 @@ public class TrackDao implements DaoModel {
 	}
 
 	@Override
-	public Bean doRetrieveByKey(List<String> keys) throws SQLException {
+	public synchronized Bean doRetrieveByKey(List<String> keys) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
@@ -218,7 +218,7 @@ public class TrackDao implements DaoModel {
 	}
 
 	@Override
-	public List<Bean> doRetrieveAll(Comparator<Bean> comparator) throws SQLException {
+	public synchronized List<Bean> doRetrieveAll(Comparator<Bean> comparator) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
@@ -264,7 +264,7 @@ public class TrackDao implements DaoModel {
 		return list;
 	}
 
-	public ArrayList<TrackBean> getTracksByPlaylist(Long id) throws SQLException {
+	public synchronized ArrayList<TrackBean> getTracksByPlaylist(Long id) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
