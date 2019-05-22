@@ -13,6 +13,24 @@ public class PurchasableTrackBean extends TrackBean {
 		price = 0;
 	}
 	
+	public PurchasableTrackBean(TrackBean bean) {
+		super();
+		setAuthor(bean.getAuthor());
+		setId(bean.getId());
+		setImage(bean.getImage());
+		setImageExt(bean.getImageExt());
+		setIndexable(bean.isIndexable());
+		setLikes(bean.getLikes());
+		setName(bean.getName());
+		setPlays(bean.getPlays());
+		setTags(bean.getTags());
+		setTrack(bean.getTrack());
+		setTrackExt(bean.getTrackExt());
+		setUploadDate(bean.getUploadDate());
+		sold = -1;
+		price = 0;
+	}
+	
 	public long getSold() {
 		return sold;
 	}
