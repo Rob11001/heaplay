@@ -1,7 +1,7 @@
 package com.heaplay.model.beans;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OwnedTrackBean extends PurchasableTrackBean {
@@ -9,10 +9,19 @@ public class OwnedTrackBean extends PurchasableTrackBean {
 	private static final long serialVersionUID = 1L;
 	
 	private long userId;
-	private Timestamp purchaseDate;
+	private Date purchaseDate;	
 	
 	public OwnedTrackBean () {
 		super();
+		userId = -1;
+		purchaseDate = null;
+	}
+	
+	public OwnedTrackBean(PurchasableTrackBean bean) {
+		super(bean);
+		setSold(bean.getSold());
+		setPrice(bean.getPrice());
+		
 		userId = -1;
 		purchaseDate = null;
 	}
@@ -25,11 +34,11 @@ public class OwnedTrackBean extends PurchasableTrackBean {
 		this.userId = userId;
 	}
 	
-	public Timestamp getPurchaseDate() {
+	public Date getPurchaseDate() {
 		return purchaseDate;
 	}
 	
-	public void setPurchaseDate(Timestamp purchaseDate) {
+	public void setPurchaseDate(Date purchaseDate) {
 		this.purchaseDate = purchaseDate;
 	}
 	
@@ -57,3 +66,4 @@ public class OwnedTrackBean extends PurchasableTrackBean {
 		return keys;
 	}	
 }
+ 
