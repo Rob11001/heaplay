@@ -121,13 +121,14 @@ public class UserDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null; 
 		UserBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE email=?";
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE email=? and password=MD5(?)";
 		
 		try {
 			con = pool.getConnection();
 			ps = con.prepareStatement(selectQuery);
 		
 			ps.setString(1, keys.get(0));
+			ps.setString(2, keys.get(1));
 			
 			rs = ps.executeQuery();
 			

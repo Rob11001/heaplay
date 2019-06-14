@@ -3,8 +3,11 @@
 <%
 	String error = (String) request.getAttribute("errorMessage");
 	String email = (String) request.getAttribute("email");
+	String username = (String) request.getAttribute("username");
 	if(email == null)
-		email="";
+		email = "";
+	if(username == null)
+		username = "";
 	/*String previousUrl = request.getRequestURI();
 	if(!previousUrl.startsWith("/login"))
 		session.setAttribute("afterLoginRedirect", previousUrl);
@@ -14,17 +17,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Login</title>
+<title>Register</title>
 <%@ include file="WEB-INF/views/links.jsp" %>
 </head>
 <body>
 <%@ include file="WEB-INF/views/header.jsp" %> 
-<form action="login" method="post">
+<form action="register" method="post">
+	<label for="username">Username: </label>
+	<input type="text" name="username" value="<%=username%>" placeholder="username" required><br/>
 	<label for="email">E-Mail: </label>
 	<input type="text" name="email" value="<%=email%>" required><br/>
 	<label for="password">Password: </label>
 	<input type="password" name="password" value="" required><br/>
-	<input type="submit" value="Login">
+	
+	<input type="submit" value="Register">
 </form>
 <%	if( error != null) {%>
 		<%=error%>
