@@ -25,7 +25,7 @@ public class Login extends HttpServlet {
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		
 		if(userBean != null)
-			response.sendRedirect("/");
+			response.sendRedirect(getServletContext().getContextPath()+"/");
 		else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 			rd.forward(request, response);
@@ -61,10 +61,11 @@ public class Login extends HttpServlet {
 			if(errorMessage.equals(""))	{
 				try {
 					UserDao userDao = new UserDao(pool);
-					userBean = userDao.doRetrieveByKey(userKeys);					//Autenticazione dell'utente
+					userBean = userDao.doRetrieveByKey(userKeys);					
+					//Autenticazione dell'utente con redirezione
 					if(userBean != null && userBean.getId()!= -1) {
 						session.setAttribute("user", userBean);
-						response.sendRedirect("/");
+						response.sendRedirect(getServletContext().getContextPath()+"/");
 					}
 					else {
 						errorMessage = "Email o password inserita non valida"; 
@@ -77,6 +78,7 @@ public class Login extends HttpServlet {
 				}
 			}
 			else {
+				//Rimando al login in caso di errore
 				request.setAttribute("errorMessage", errorMessage);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 				rd.forward(request, response);

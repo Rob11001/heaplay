@@ -9,7 +9,12 @@
 			</form>
 		</div>
 		<div class="login">
-			<a href=<%=response.encodeURL("login")%>>Login</a>.&nbsp;Utente nuovo? <a href="<%=response.encodeURL("register")%>">Registrati</a>.
+			<%if(session.getAttribute("user") == null) {%>
+				<a href=<%=response.encodeURL("login")%>>Login</a>.&nbsp;<br>Utente nuovo? 
+				<a href="<%=response.encodeURL("register")%>">Registrati</a>.<br>
+			<%} else { %>
+				<a href="<%=response.encodeURL("logout")%>">Logout</a><br>
+			<%} %>
 		</div>
 	</nav>
 </header>

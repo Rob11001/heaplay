@@ -24,10 +24,10 @@ public class Register extends HttpServlet {
     	HttpSession session = request.getSession();
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		
-		if(userBean != null)
-			response.sendRedirect("/");
+		if(userBean != null)														//Se già loggato lo mando alla Home
+			response.sendRedirect(getServletContext().getContextPath()+"/");
 		else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp");	//Altrimenti lo mando alla pagian di registrazione
 			rd.forward(request, response);
 		}
 	}
@@ -35,11 +35,12 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
     	UserBean userBean = new UserBean();
-    	String username = request.getParameter("username");
+    	String username = request.getParameter("username");				//Lettura parametri
     	String password = request.getParameter("password");
     	String email = request.getParameter("email");
     	String error = "";
     	
+    	//Controllo parametri
     	if(username != null && !username.trim().equals(""))
     		request.setAttribute("username", username);
     	else
@@ -48,13 +49,14 @@ public class Register extends HttpServlet {
     	if(password != null && !password.trim().equals(""))
     		request.setAttribute("password", password);
     	else 
-    		error += "Password non inserita";
+    		error += " Password non inserita";
     	
     	if(email != null && !email.trim().equals(""))
     		request.setAttribute("email", email);
     	else
     		error += "Email non inserita";
     	
+    	//Creazione dell'account
     	if(error.equals("")) {
     		userBean.setEmail(email);
     		userBean.setPassword(password);
@@ -69,11 +71,13 @@ public class Register extends HttpServlet {
 				keys.add(email);
 				keys.add(password);
 				userBean = userDao.doRetrieveByKey(keys);
+				//Creazione riuscita e redirezione
 				if(userBean != null && userBean.getId() != -1) {
 					request.getSession().setAttribute("user", userBean);
-					response.sendRedirect("/");
+					response.sendRedirect(getServletContext().getContextPath()+"/");
 				}
 				else {
+					//Errore creazione e rinvio alla pagina di registrazione
 					error = "Errore nella registrazione"; 
 					request.setAttribute("errorMessage", error);
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp");
