@@ -22,6 +22,7 @@
 	<div style="color:red" >
 		<p>Benvenuto <%=user.getUsername() %></p>
 	</div>
+	<a href="<%=response.encodeURL("upload")%>">Carica</a>
 <%} %>
 </body>
 </html>
