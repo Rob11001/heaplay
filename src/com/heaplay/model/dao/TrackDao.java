@@ -28,9 +28,10 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 
 		String insertQuery = "INSERT INTO " + TABLE_NAME
-				+ " (name,type,plays,track,track_extension,image,image_extension,indexable,author,upload,likes) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+				+ " (name,type,plays,track,track_extension,image,image_extension,indexable,author,upload_date,likes) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		String insertTags = "INSERT INTO  TAGGED(track_id,tag_id) VALUES (?,?) ";
-
+		String getId = "SELECT id FROM "+ TABLE_NAME + " WHERE name= ? AND author=?";
+		
 		try {
 			con = pool.getConnection();
 			ps = con.prepareStatement(insertQuery);
@@ -52,13 +53,35 @@ public class TrackDao implements DaoModel {
 
 			if (ps != null)
 				ps.close();
-
+			
+			ps = con.prepareStatement(getId);
+			ps.setString(1, trackBean.getName());
+			ps.setLong(2, trackBean.getAuthor());
+			
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			Long id = rs.getLong("id");
+			trackBean.setId(id);
+			
+			if (ps != null)
+				ps.close();
+			
 			ps = con.prepareStatement(insertTags);
 
 			for (TagBean tag : trackBean.getTags()) {
 				ps.clearParameters();
 				ps.setLong(1, trackBean.getId());
-				ps.setLong(2, tag.getId());
+				if(tag.getId() != -1)
+					ps.setLong(2, tag.getId());
+				else {
+					TagDao tagDao = new TagDao(pool);
+					tagDao.doSave(tag);
+					ArrayList<String> keys = new ArrayList<String>();
+					keys.add(tag.getId()+"");
+					keys.add(tag.getName());
+					TagBean tagBean=(TagBean) tagDao.doRetrieveByKey(keys);
+					ps.setLong(2, tagBean.getId());
+				}
 				ps.executeUpdate();
 			}
 

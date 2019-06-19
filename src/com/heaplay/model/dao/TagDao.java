@@ -35,7 +35,7 @@ public class TagDao implements DaoModel {
 			
 			ps.setString(1, tagBean.getName());
 			
-			if(ps.executeUpdate() != 0)
+			if(ps.executeUpdate() != 0) 
 				con.commit();			
 		} finally {
 			try {
@@ -106,7 +106,9 @@ public class TagDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null; 
 		TagBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
+		String selectQuery = keys.size() == 1 ? "SELECT * FROM " + TABLE_NAME + " WHERE id=?" : "SELECT * FROM " + TABLE_NAME + " WHERE name=?";
+		if( keys.size() == 2)
+			keys.remove(0);
 		
 		try {
 			con = pool.getConnection();

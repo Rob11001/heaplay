@@ -28,9 +28,22 @@
 				<input type="file" name="image" id="image" accept="image/*" required />	<br/>
 				
 				<label for="Free">Gratis</label>
-				<input type="radio" name="purchasable" id="Free" value="Gratis">				<br/>
+				<input type="radio" name="purchasable" id="Free" value="Gratis" checked="checked" onclick="createBox(0)"> 
 				<label for="purchasable">A pagamento</label>
-				<input type="radio" name="purchasable" id="purchasable" value="A pagamento">	<br/>
+				<input type="radio" name="purchasable" id="purchasable" value="A pagamento" onclick="createBox(1)">	<br/>
+				
+				<div id="divPrice" style="display:none">
+					<label for="price">Prezzo:</label>
+					<input type="number" name="price" id="price" min="0" max="666">
+				</div>
+				
+				<label for="tags">Tags:</label>
+				<!-- 
+				<select name="tags" id="tags">
+				</select>
+				-->
+				<input type="text" id="tags" name="tags" placeholder="tag"> 					<br/>
+				
 				
 				<input type="hidden" name="authorId" value="<%=user.getId()%>">
 				<br/>
@@ -43,5 +56,16 @@
 		</form>
 	
 	</div>
+	<script type="text/javascript">
+	function createBox(status) {	
+		if(status == 1)
+			$("#divPrice").css("display","block");
+		else
+			$("#divPrice").css("display","none");
+	}
+	</script>
+	
+	<script src="${pageContext.servletContext.contextPath}/js/NewFile.js" ></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 </body>
 </html>

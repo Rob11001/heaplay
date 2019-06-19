@@ -28,7 +28,8 @@ public class TrackBean extends Bean implements Serializable, Cloneable {
 	private List<TagBean> tags;
 	
 	public TrackBean() {
-		this.id = this.plays = this.likes = this.author = -1;
+		this.id = this.author = -1;
+		this.plays = this.likes = 0;
 		this.name = this.type = this.trackExt = this.imageExt = "";
 		this.track = null;
 		this.image = null;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.heaplay.model.ConnectionPool;
+import com.heaplay.model.beans.TagBean;
 import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.TrackDao;
@@ -49,6 +51,12 @@ public class Upload extends HttpServlet {
 		String trackName = request.getParameter("songName");
 		String radioBox = request.getParameter("purchasable");
 		String id = request.getParameter("authorId");
+		//Aggiustare i tags
+		String tags = request.getParameter("tags");
+		ArrayList<TagBean> listTags = new ArrayList<TagBean>();
+		TagBean tagBean = new TagBean();
+		tagBean.setName(tags);
+		listTags.add(tagBean);
 		
 		Part audio = request.getPart("audio");
 		String audioFileName = audio.getSubmittedFileName();
@@ -61,7 +69,7 @@ public class Upload extends HttpServlet {
 		Part image = request.getPart("image");
 		String imageFileName = image.getSubmittedFileName();
 		System.out.println(imageFileName);
-		String imageExt=audioFileName.substring(imageFileName.lastIndexOf('.'),imageFileName.length()).toLowerCase();
+		String imageExt=imageFileName.substring(imageFileName.lastIndexOf('.'),imageFileName.length()).toLowerCase();
 		InputStream imageStream =image.getInputStream();
 		byte[] imageBytes = imageStream.readAllBytes();
 		imageStream.close();
@@ -69,14 +77,20 @@ public class Upload extends HttpServlet {
 		TrackBean trackBean = new TrackBean();
 		trackBean.setAuthor(Long.parseLong(id));
 		trackBean.setIndexable(true);
-		//trackBean.setTags(tags);
 		trackBean.setName(trackName);
 		trackBean.setTrack(audioBytes);
 		trackBean.setTrackExt(audioExt);
-		trackBean.setType(radioBox);
+		
+		if(radioBox.equalsIgnoreCase("Gratis"))
+			trackBean.setType("free");
+		else {
+			trackBean.setType("pagamento");
+			//Creare anche l'ulteriore relazione
+		}
 		trackBean.setImage(imageBytes);
 		trackBean.setImageExt(imageExt);
 		trackBean.setUploadDate(new Timestamp(System.currentTimeMillis()));
+		trackBean.setTags(listTags);
 		
 		try {
 			TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
