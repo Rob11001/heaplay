@@ -18,7 +18,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Register</title>
-<%@ include file="WEB-INF/views/links.jsp" %>
 </head>
 <body>
 <%@ include file="WEB-INF/views/header.jsp" %> 

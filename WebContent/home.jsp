@@ -11,18 +11,18 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Homepage</title>
-<%@ include file="WEB-INF/views/links.jsp" %>
 </head>
-
 
 <body>
 <%@ include file="WEB-INF/views/header.jsp" %> 
+<br>
 <p>Sei nella HomePage</p>
+<br>
 <% if(user != null) {%>
 	<div style="color:red" >
 		<p>Benvenuto <%=user.getUsername() %></p>
 	</div>
 	<a href="<%=response.encodeURL("upload")%>">Carica</a>
-<%} %>
+<% }	%>
 </body>
 </html>

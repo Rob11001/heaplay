@@ -15,10 +15,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
-<%@ include file="WEB-INF/views/links.jsp" %>
 </head>
 <body>
 <%@ include file="WEB-INF/views/header.jsp" %> 
+<br>
 <form action="login" method="post">
 	<label for="email">E-Mail: </label>
 	<input type="text" name="email" value="<%=email%>" required><br/>

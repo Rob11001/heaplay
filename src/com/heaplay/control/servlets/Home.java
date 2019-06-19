@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/")
+@WebServlet("/home")	//Cambiato il mapping per problemi con / nel link dei file esterni
 public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    

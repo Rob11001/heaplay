@@ -19,7 +19,7 @@ public class Logout extends HttpServlet {
 			session.removeAttribute("user");
 			session.invalidate();	
 		}	
-		response.sendRedirect(getServletContext().getContextPath()+"/");	//Redirezione alla home
+		response.sendRedirect(getServletContext().getContextPath()+"/home");	//Redirezione alla home
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
