@@ -11,7 +11,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Upload your file</title>
-<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet"> <!-- Link di stile css necessario per l'autocomplete -->
+<!-- <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet"> --><!-- Link di stile css necessario per l'autocomplete -->
+<style type="text/css">
+	html {
+		position: relative;
+		}
+</style>
 </head>
 
 <body>
@@ -40,8 +45,8 @@
 				</div>
 				
 				<div>		
-  					<label for="tags">Tags: </label>
-  					<input id="tags">
+  					<label for="autocomplete">Tags: </label>
+					<input type="text" name="tags" id="autocomplete" autocomplete="off"/>
 				</div>
 				
 				
@@ -55,9 +60,11 @@
 	</div>
 	
 	<!-- Importazione delle librerie js necessarie-->
-	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script> 
-    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>  <!-- Senza alcun motivo funziona -->
+    <!--  <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
 	<script src="${pageContext.servletContext.contextPath}/js/uploadFunction.js" ></script>	<!-- Permette di indicare il path dinamicamente -->
-	<!--<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script> Non capisco perchè tale libreria jquery non funzioni-->
+	<script src="${pageContext.servletContext.contextPath}/js/jquery.autocomplete.js" ></script>
+	
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>  --> <!-- Non funziona senza alcun motivo apparente -->
 </body>
 </html>
