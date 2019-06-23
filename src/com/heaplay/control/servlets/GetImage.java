@@ -20,18 +20,21 @@ public class GetImage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String id = request.getParameter("id");
     	String ext = request.getParameter("extension");
-    	if( id == null || ext == null) 
+    	if( id == null || ext == null) 												//Controllo probabilmente necessario
     		response.sendRedirect(getServletContext().getContextPath()+"/home");
     	else {
     		ext = ext.substring(ext.indexOf('.'), ext.length());
     		response.setContentType("image/"+ext);
+    		
     		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
     		byte[] imageBytes = null;
+    		
     		try {
 				imageBytes = trackDao.getImage(Long.parseLong(id));
 			} catch (SQLException | NumberFormatException e) {
 				e.printStackTrace();
 			}
+    		
     		OutputStream out = response.getOutputStream();
     		if(imageBytes == null ) {
     			//Prendiamo una immagine di default e la mandiamo
