@@ -28,7 +28,7 @@ public class PurchasableTrackDao implements DaoModel {
 		PreparedStatement ps = null;
 		Connection con = null;
 		
-		String insertQuery = "INSERT INTO "+ TABLE_NAME + " (sold,price) VALUES (?,?)";
+		String insertQuery = "INSERT INTO "+ TABLE_NAME + " (id,sold,price) VALUES (?,?,?)";
 		TrackDao tDao = new TrackDao(pool);
 		tDao.doSave(bean);
 		
@@ -38,8 +38,9 @@ public class PurchasableTrackDao implements DaoModel {
 			
 			PurchasableTrackBean ptBean = (PurchasableTrackBean) bean;
 			
-			ps.setLong(1, ptBean.getSold());
-			ps.setDouble(2, ptBean.getPrice());
+			ps.setLong(1,ptBean.getId());
+			ps.setLong(2, ptBean.getSold());
+			ps.setDouble(3, ptBean.getPrice());
 			
 			int result = ps.executeUpdate();
 

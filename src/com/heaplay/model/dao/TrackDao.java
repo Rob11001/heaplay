@@ -75,11 +75,15 @@ public class TrackDao implements DaoModel {
 					ps.setLong(2, tag.getId());
 				else {
 					TagDao tagDao = new TagDao(pool);
-					tagDao.doSave(tag);
 					ArrayList<String> keys = new ArrayList<String>();
 					keys.add(tag.getId()+"");
 					keys.add(tag.getName());
-					TagBean tagBean=(TagBean) tagDao.doRetrieveByKey(keys);
+					TagBean tagBean=(TagBean) tagDao.doRetrieveByKey(keys);		//Controllo se il tag già esiste
+					if(tagBean == null) {
+						tagDao.doSave(tag);
+						con.commit();
+						tagBean=(TagBean) tagDao.doRetrieveByKey(keys);
+					}		
 					ps.setLong(2, tagBean.getId());
 				}
 				ps.executeUpdate();
@@ -329,5 +333,32 @@ public class TrackDao implements DaoModel {
 			}
 		}
 		return list;
+	}
+	
+	public synchronized byte[] getImage(Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		String selectQuery = "SELECT image FROM " + TABLE_NAME + " WHERE id=?";
+		byte [] image = null;
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+
+			if (rs.next())
+				image = rs.getBytes("image");				
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+
+		return image;
 	}
 }

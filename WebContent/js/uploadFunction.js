@@ -1,23 +1,15 @@
-
-
 $(function() {
-	var availableTags = ["Marco","Roberto","Giuseppe"];	//Capire come effettuare una richiesta al DB in modo da avere i vari tag come array
-	 // $( "#tags" ).autocomplete({ 
-    // $('#autocomplete').autocomplete({
-    // 	lookup: availableTags,
-	// 	forceFixPosition : true ,
-	// 	});
-	$('#autocomplete').autocomplete({
-		serviceUrl: "getTags",
-		type : "get",
-		forceFixPosition : true ,
-		
+	$('#autocomplete').autocomplete({			//Collegamento al input text
+		serviceUrl: "getTags",					//Servlet da chiamare
+		type : "get",							//Tipo di richiesta	
+		focus : true							
 		});
     
 		
 });
-	   		 
-function ShowAndHide(status) {	
+				
+//Mostra e nasconde il tag html su cui è fissato
+function ShowAndHide(status) {					
 		if(status == 1)
 			$("#divPrice").css("display","block");
 		else

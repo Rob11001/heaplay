@@ -17,9 +17,11 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.heaplay.model.ConnectionPool;
+import com.heaplay.model.beans.PurchasableTrackBean;
 import com.heaplay.model.beans.TagBean;
 import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
+import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
 
 @WebServlet("/upload")
@@ -46,7 +48,6 @@ public class Upload extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Bisogna aggiustare il problema di max_allowed_packet di mysql...
 		// Implementare upload e aggiungere i controlli necessari
 		String trackName = request.getParameter("songName");
 		String radioBox = request.getParameter("purchasable");
@@ -75,27 +76,33 @@ public class Upload extends HttpServlet {
 		imageStream.close();
 		
 		TrackBean trackBean = new TrackBean();
+		PurchasableTrackBean purchasableTrack = null;
 		trackBean.setAuthor(Long.parseLong(id));
 		trackBean.setIndexable(true);
 		trackBean.setName(trackName);
 		trackBean.setTrack(audioBytes);
 		trackBean.setTrackExt(audioExt);
-		
-		if(radioBox.equalsIgnoreCase("Gratis"))
-			trackBean.setType("free");
-		else {
-			trackBean.setType("pagamento");
-			//Creare anche l'ulteriore relazione
-		}
 		trackBean.setImage(imageBytes);
 		trackBean.setImageExt(imageExt);
 		trackBean.setUploadDate(new Timestamp(System.currentTimeMillis()));
 		trackBean.setTags(listTags);
+		if(radioBox.equalsIgnoreCase("Gratis"))
+			trackBean.setType("free");
+		else {
+			trackBean.setType("pagamento");
+			double price = Double.parseDouble(request.getParameter("price"));		//Dovremmo controllare che il prezzo passato è valido
+			purchasableTrack = new PurchasableTrackBean(trackBean);
+			purchasableTrack.setPrice(price);
+		}
 		
 		try {
 			TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
 			trackDao.doSave(trackBean);
-			response.sendRedirect(getServletContext().getContextPath()+"/");
+			if(purchasableTrack != null) {
+				PurchasableTrackDao purchasableTrackdao = new PurchasableTrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
+				purchasableTrackdao.doSave(purchasableTrack);
+			}
+			response.sendRedirect(getServletContext().getContextPath()+"/home");	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

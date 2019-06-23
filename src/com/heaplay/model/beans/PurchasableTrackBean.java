@@ -9,7 +9,7 @@ public class PurchasableTrackBean extends TrackBean {
 	
 	public PurchasableTrackBean () {
 		super();
-		sold = -1;
+		sold = 0;
 		price = 0;
 	}
 	
@@ -27,7 +27,8 @@ public class PurchasableTrackBean extends TrackBean {
 		setTrack(bean.getTrack());
 		setTrackExt(bean.getTrackExt());
 		setUploadDate(bean.getUploadDate());
-		sold = -1;
+		setType(bean.getType());
+		sold = 0;
 		price = 0;
 	}
 	

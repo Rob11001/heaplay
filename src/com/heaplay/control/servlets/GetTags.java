@@ -5,8 +5,6 @@ import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.Bean;
@@ -49,10 +46,10 @@ public class GetTags extends HttpServlet {
 				TagBean tagB = (TagBean)b;
 				return tagA.getName().compareToIgnoreCase(tagB.getName());
 			});
+			//Lettura parametri e selezione nella lista di quelli che corrispondono
 			String term = request.getParameter("query");			//Capire quale parametro leggere
-			System.out.println(term);
-			String reg = "Scrivere Regex";
-			listOfTags = (ArrayList<Bean>) listOfTags.stream().filter(p -> ((TagBean)p).getName().matches(reg)).collect(Collectors.toList());
+			listOfTags = (ArrayList<Bean>) listOfTags.stream().filter(p -> ((TagBean)p).getName().contains(term)).collect(Collectors.toList());
+			
 			//Creazione array
 			String [] arrayOfTags = new String[listOfTags.size()];
 			for(int i=0; i < listOfTags.size(); i++) {
@@ -63,7 +60,7 @@ public class GetTags extends HttpServlet {
 			Type type = new TypeToken<String[]>() {}.getType();
 			PrintWriter out = response.getWriter();
 			String gsonObject = gson.toJson(arrayOfTags, type);
-			out.write("{ \"suggestions\":"+gsonObject+" }");
+			out.write("{ \"suggestions\":"+gsonObject+" }"); 			//Vedere di trovare una soluzione più elegante
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
