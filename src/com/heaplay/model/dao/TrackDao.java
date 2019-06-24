@@ -361,4 +361,31 @@ public class TrackDao implements DaoModel {
 
 		return image;
 	}
+	
+	public synchronized byte[] getAudio(Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		String selectQuery = "SELECT track FROM " + TABLE_NAME + " WHERE id=?";
+		byte [] audio = null;
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+
+			if (rs.next())
+				audio = rs.getBytes("track");				
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+
+		return audio;
+	}
 }

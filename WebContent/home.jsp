@@ -21,9 +21,17 @@
 <% if(user != null) {%>
 	<div style="color:red" >
 		<p>Benvenuto <%=user.getUsername() %></p>
-		<p>Image</p>
+		<p>Audio</p>
+	
+		<audio controls preload="auto" >				<!-- Problemi con il caricamento dell'audio -->
+ 			<source src="getAudio?id=8&extension=.mp3" type="audio/mp3" >
+		</audio>
+	
 	</div>
 	<a href="<%=response.encodeURL("upload")%>">Carica</a>
 <% }	%>
+
+	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script> 
 </body>
+
 </html>

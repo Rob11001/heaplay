@@ -20,6 +20,7 @@ public class GetImage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String id = request.getParameter("id");
     	String ext = request.getParameter("extension");
+    	
     	if( id == null || ext == null) 												//Controllo probabilmente necessario
     		response.sendRedirect(getServletContext().getContextPath()+"/home");
     	else {

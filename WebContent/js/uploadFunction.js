@@ -1,8 +1,7 @@
 $(function() {
 	$('#autocomplete').autocomplete({			//Collegamento al input text
 		serviceUrl: "getTags",					//Servlet da chiamare
-		type : "get",							//Tipo di richiesta	
-		focus : true							
+		type : "get"							//Tipo di richiesta							
 		});
     
 		
@@ -14,4 +13,5 @@ function ShowAndHide(status) {
 			$("#divPrice").css("display","block");
 		else
 			$("#divPrice").css("display","none");
-	}		 
+	}		
+	
