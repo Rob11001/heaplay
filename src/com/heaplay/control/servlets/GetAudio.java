@@ -39,10 +39,8 @@ public class GetAudio extends HttpServlet {
     		OutputStream out = response.getOutputStream();
     		if(trackBytes == null ) {
     			//Facciamo qualcosa
-    		} else {
+    		} else 
     			out.write(trackBytes);
-    			System.out.println("Hey");
-    		}
     	}
 		
 		
