@@ -29,10 +29,11 @@
 				<label for="image">Scegli l'immagine</label>
 				<input type="file" name="image" id="image" accept="image/*" required />	<br/>
 				
-				<label for="Free">Gratis</label>
 				<input type="radio" name="purchasable" id="Free" value="Gratis" checked="checked" onclick="ShowAndHide(0)"> 
-				<label for="purchasable">A pagamento</label>
-				<input type="radio" name="purchasable" id="purchasable" value="A pagamento" onclick="ShowAndHide(1)">	<br/>
+				<label for="Free">Gratis</label>
+				
+				<input type="radio" name="purchasable" id="purchasable" value="A pagamento" onclick="ShowAndHide(1)">	
+				<label for="purchasable">A pagamento</label>							<br/>
 				
 				<div id="divPrice" style="display:none">
 					<label for="price">Prezzo:</label>

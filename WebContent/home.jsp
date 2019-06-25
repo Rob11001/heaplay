@@ -23,7 +23,7 @@
 		<p>Audio</p>
 	
 		<audio controls preload="auto" id="audio">				<!-- Problemi con il caricamento dell'audio -->
- 			<!--  <source src="getAudio?id=8&extension=.mp3" type="audio/mp3" > -->
+ 			<source src="getAudio?id=8&extension=.mp3" type="audio/mp3" > 
 		</audio>
 	
 	</div>
