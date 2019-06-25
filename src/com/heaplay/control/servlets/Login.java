@@ -39,7 +39,7 @@ public class Login extends HttpServlet {
 		ArrayList<String> userKeys = new ArrayList<String>();
 		String errorMessage = "";
 		if(userBean != null)													//Controllo esistenza UserBean
-			response.sendRedirect("/");
+			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
 			String email = request.getParameter("email");						//Controllo parametri
 			

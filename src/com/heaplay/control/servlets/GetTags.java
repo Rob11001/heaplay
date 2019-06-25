@@ -30,7 +30,7 @@ public class GetTags extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-	//Non funziona capire perchè
+	//Non funziona capire perchï¿½
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Setto il content-type a json
 		response.setContentType("application/json");
@@ -51,16 +51,16 @@ public class GetTags extends HttpServlet {
 			listOfTags = (ArrayList<Bean>) listOfTags.stream().filter(p -> ((TagBean)p).getName().contains(term)).collect(Collectors.toList());
 			
 			//Creazione array
-			String [] arrayOfTags = new String[listOfTags.size()];
-			for(int i=0; i < listOfTags.size(); i++) {
-				TagBean tag = (TagBean) listOfTags.get(i);
-				arrayOfTags[i] = tag.getName();
-			}
+			ArrayList<String> arrayOfTags = new ArrayList<String>();
+			listOfTags.forEach((bean) -> {
+				arrayOfTags.add(((TagBean) bean).getName());
+			});
+
 			//Creazione oggetto JSON
 			Type type = new TypeToken<String[]>() {}.getType();
 			PrintWriter out = response.getWriter();
-			String gsonObject = gson.toJson(arrayOfTags, type);
-			out.write("{ \"suggestions\":"+gsonObject+" }"); 			//Vedere di trovare una soluzione più elegante
+			String gsonObject = gson.toJson(arrayOfTags.toArray(), type);
+			out.write("{ \"suggestions\":"+gsonObject+" }"); 			//Vedere di trovare una soluzione piï¿½ elegante
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

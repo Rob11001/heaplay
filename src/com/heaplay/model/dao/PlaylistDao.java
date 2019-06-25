@@ -72,8 +72,8 @@ public class PlaylistDao implements DaoModel {
 		Connection con = null;
 		
 		String updateQuery1 = "UPDATE " + TABLE_NAME_1 + " SET name=?,privacy=?,author=?  WHERE id=?";
-		String insertContains = "INSERT INTO contains (playlist_id, track_id) VALUES (?, ?)";
-		String deleteContains = "DELETE FROM contains WHERE playlist_id = ? AND track_id = ?";
+		String insertContains = "INSERT INTO " + TABLE_NAME_2 + " (playlist_id, track_id) VALUES (?, ?)";
+		String deleteContains = "DELETE FROM " + TABLE_NAME_2 + " WHERE playlist_id = ? AND track_id = ?";
 		
 		try {
 			con = pool.getConnection();

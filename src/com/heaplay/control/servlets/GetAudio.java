@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.dao.TrackDao;
 
@@ -27,7 +26,6 @@ public class GetAudio extends HttpServlet {
     	else {
     		ext = ext.substring(ext.indexOf('.'), ext.length());
     		response.setContentType("audio/"+ext);
-    		Gson gson = new Gson();
     		
     		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
     		byte[] trackBytes = null;

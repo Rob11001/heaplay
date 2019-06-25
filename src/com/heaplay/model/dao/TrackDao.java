@@ -29,7 +29,7 @@ public class TrackDao implements DaoModel {
 
 		String insertQuery = "INSERT INTO " + TABLE_NAME
 				+ " (name,type,plays,track,track_extension,image,image_extension,indexable,author,upload_date,likes) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-		String insertTags = "INSERT INTO  TAGGED(track_id,tag_id) VALUES (?,?) ";
+		String insertTags = "INSERT INTO  tagged(track_id,tag_id) VALUES (?,?) ";
 		String getId = "SELECT id FROM "+ TABLE_NAME + " WHERE name= ? AND author=?";
 		
 		try {
@@ -78,7 +78,7 @@ public class TrackDao implements DaoModel {
 					ArrayList<String> keys = new ArrayList<String>();
 					keys.add(tag.getId()+"");
 					keys.add(tag.getName());
-					TagBean tagBean=(TagBean) tagDao.doRetrieveByKey(keys);		//Controllo se il tag già esiste
+					TagBean tagBean=(TagBean) tagDao.doRetrieveByKey(keys);		//Controllo se il tag giï¿½ esiste
 					if(tagBean == null) {
 						tagDao.doSave(tag);
 						con.commit();
@@ -108,8 +108,8 @@ public class TrackDao implements DaoModel {
 
 		String updateQuery = "UPDATE " + TABLE_NAME
 				+ " SET  name=?,type=?,plays=?,track=?,track_extension=?,image=?,image_extension=?,indexable=?,author=?,upload=?,likes=? WHERE id=?";
-		String insertTagged = "INSERT INTO  TAGGED(track_id,tag_id) VALUES (?,?) ";
-		String deleteTagged = "DELETE FROM TAGGED WHERE track_id=? AND tag_id=?";
+		String insertTagged = "INSERT INTO  tagged(track_id,tag_id) VALUES (?,?) ";
+		String deleteTagged = "DELETE FROM tagged WHERE track_id=? AND tag_id=?";
 
 		try {
 			con = pool.getConnection();
@@ -145,7 +145,7 @@ public class TrackDao implements DaoModel {
 					ps.executeUpdate();
 				} /*else {
 					ps.clearParameters();
-					if(!tags.get(tags.indexOf(tag)).getName().equals(tag.getName()))		// Controllare se è utile!!!
+					if(!tags.get(tags.indexOf(tag)).getName().equals(tag.getName()))		// Controllare se ï¿½ utile!!!
 						tagDao.doUpdate(tag);
 				}*/
 			}
