@@ -3,8 +3,6 @@ $(function() {
 		serviceUrl: "getTags",					//Servlet da chiamare
 		type : "get"							//Tipo di richiesta							
 		});
-    
-		
 });
 				
 //Mostra e nasconde il tag html su cui è fissato

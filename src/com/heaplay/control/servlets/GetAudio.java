@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.dao.TrackDao;
 
@@ -26,6 +27,7 @@ public class GetAudio extends HttpServlet {
     	else {
     		ext = ext.substring(ext.indexOf('.'), ext.length());
     		response.setContentType("audio/"+ext);
+    		Gson gson = new Gson();
     		
     		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
     		byte[] trackBytes = null;
@@ -38,7 +40,7 @@ public class GetAudio extends HttpServlet {
     		
     		OutputStream out = response.getOutputStream();
     		if(trackBytes == null ) {
-    			//Prendiamo una immagine di default e la mandiamo
+    			//Facciamo qualcosa
     		} else {
     			out.write(trackBytes);
     			System.out.println("Hey");

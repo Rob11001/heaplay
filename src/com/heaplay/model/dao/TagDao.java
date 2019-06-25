@@ -107,14 +107,13 @@ public class TagDao implements DaoModel {
 		ResultSet rs = null; 
 		TagBean bean = null;
 		String selectQuery = keys.size() == 1 ? "SELECT * FROM " + TABLE_NAME + " WHERE id=?" : "SELECT * FROM " + TABLE_NAME + " WHERE name=?";
-		if( keys.size() == 2)
-			keys.remove(0);
+		String key = keys.get(keys.size() - 1);
 		
 		try {
 			con = pool.getConnection();
 			ps = con.prepareStatement(selectQuery);
 		
-			ps.setString(1, keys.get(0));
+			ps.setString(1, key);
 			
 			rs = ps.executeQuery();
 			
