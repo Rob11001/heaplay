@@ -1,12 +1,16 @@
 @charset "UTF-8";
 
 html {
-	--outside-wrapper-color: #CECECE;
-	--main-wrapper-color: #F0EDEE;
-	--menu-bar-color: #FCA311;
-	--header-height: 45px;
+	--outside-wrapper-color: #2D3142;
+	--main-wrapper-color: #FFFFFF;
+	--menu-bar-main: #EF8354;
+	--menu-bar-main-shade: #DA784D;
+	--menu-bar-secondary: #3D7BCC;
+	--header-height: 50px;
 	margin: 0;
 	padding: 0;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
 }
 
 body {
@@ -22,38 +26,89 @@ header {
 	width: 100%;
 	height: var(--header-height);
 	position: fixed;
-	
-	background-color: var(--menu-bar-color);
-	border-bottom: 2px solid var(--menu-bar-color);
-	border-bottom-left-radius: 50px;
-	border-bottom-right-radius: 50px;
+	background-color: var(--menu-bar-main);
 	box-shadow: 0 1px 0 rgba(12,13,14,0.1), 0 1px 6px rgba(59,64,69,0.1);
+	font-size: 1.1rem;
+}
+
+header a, a:visited {
+	text-decoration: none;
+	color: var(--menu-bar-secondary);
 }
 
 .menu-bar-wrapper {
 	margin: auto;
 	max-width: 90%;
-	height: var(--header-height);
+	height: inherit;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
-.menu-bar-wrapper div {
-	margin: auto;
-}
+/* Sezione Link */
 
 .menu-bar-links {
 	flex: 1;
+	display: flex;
+	padding: 0px 5px;
+
+	justify-content: flex-start;
 }
+
+.menu-bar-links a {
+	padding: 13px 13px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.menu-bar-links a:hover {
+	background-color: var(--menu-bar-main-shade);
+	
+}
+
+/* Sezione Ricerca */
 
 .menu-bar-search {
 	flex: 3;
 }
 
-.menu-bar-user {
-	flex:1;
+.search-box {
+	outline: none;
+	border: 2px solid var(--menu-bar-secondary);
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	font-size: 1.1rem;
+	width: 30%;
+	transition: width 0.5s ease-in-out;
 }
+
+.search-box:focus {
+	width: 60%;
+}
+
+.search-button {
+	outline: none;
+	border: 2px solid #5374AD;
+	border-left: none;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	font-size: 1.1rem;
+	cursor: pointer;
+}
+
+/* Sezione Utente */
+
+.menu-bar-user {
+	flex: 2;
+	text-align: right;
+}
+
+.menu-bar-user a:hover {
+	background-color: var(--menu-bar-main-shade);
+	border-radius: 10px;
+}
+
+
 
 /* Main Content */
 
