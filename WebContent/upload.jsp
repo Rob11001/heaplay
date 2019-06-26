@@ -12,16 +12,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Upload your file</title>
+	<%@ include file="WEB-INF/views/links.jsp"%>
+	<script src = "/js/validate.js"></script>
 </head>
 
 <body>
+<jsp:include page="WEB-INF/views/header.jsp" />
 	<div class="uploadFile">
 		<form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" >
 			<fieldset>
 				<legend>Carica la tua canzone</legend>
 				
 				<label for="songName">Nome con cui sarà visualizzata:</label>
-				<input type="text" name="songName" id="songName" required/>		<br/>
+				<input type="text" name="songName" id="songName" />		<br/>
 				
 				<label for="audio">Scegli la canzone:</label>
 				<input type="file" name="audio" id="audio" accept="audio/*" required />	<br/>

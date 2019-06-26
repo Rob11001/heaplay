@@ -18,10 +18,12 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Register</title>
+<%@ include file="WEB-INF/views/links.jsp"%>
+<script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>
 </head>
 <body>
-<%@ include file="WEB-INF/views/header.jsp" %> 
-<form action="register" method="post">
+<jsp:include page="WEB-INF/views/header.jsp" />
+<form action="register" onsubmit="return validateRegister(this)" method="post">
 	<label for="username">Username: </label>
 	<input type="text" name="username" value="<%=username%>" placeholder="username" required><br/>
 	<label for="email">E-Mail: </label>

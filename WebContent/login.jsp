@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%
 	String error = (String) request.getAttribute("errorMessage");
 	String email = (String) request.getAttribute("email");
@@ -15,19 +15,28 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
+<%@ include file="WEB-INF/views/links.jsp"%>
 </head>
 <body>
-<%@ include file="WEB-INF/views/header.jsp" %> 
-<br>
-<form action="login" method="post">
-	<label for="email">E-Mail: </label>
-	<input type="text" name="email" value="<%=email%>" required><br/>
-	<label for="password">Password: </label>
-	<input type="password" name="password" value="" required><br/>
-	<input type="submit" value="Login">
-</form>
-<%	if( error != null) {%>
-		<%=error%>
-<%	} %>	
+		<jsp:include page="WEB-INF/views/header.jsp" />
+		<div class="content-wrapper">
+
+			<form action="login" method="post">
+				<label for="email">E-Mail: </label> <input type="text" name="email"
+					value="<%=email%>" required><br /> <label for="password">Password:
+				</label> <input type="password" name="password" value="" required><br />
+				<input type="submit" value="Login">
+			</form>
+			<%
+				if (error != null) {
+			%>
+			<%=error%>
+			<%	} %>
+
+		</div>
+
+
+
+
 </body>
 </html>
