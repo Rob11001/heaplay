@@ -14,7 +14,9 @@ public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rs = getServletContext().getRequestDispatcher("/home.jsp");
+		request.setAttribute("jspPath", "/home.jsp");
+		request.setAttribute("pageTitle", "Homepage");
+		RequestDispatcher rs = getServletContext().getRequestDispatcher("/WEB-INF/views/blank.jsp");
 		rs.forward(request, response);
 	}
 	

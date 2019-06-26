@@ -1,20 +1,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.heaplay.model.beans.UserBean"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    session="true"
-    %>
-<!DOCTYPE html>
-<html>
 <%
 	UserBean user = (UserBean)session.getAttribute("user");
 %>
-<head>
-<meta charset="UTF-8">
-<title>Homepage</title>
-</head>
-<body>
-<%@ include file="WEB-INF/views/header.jsp" %> 
 <br>
 <p>Sei nella HomePage</p>
 <br>
@@ -30,7 +18,7 @@
 	 			</audio>
 	 		</div>
 			
-			<div class="controls">	<!-- SarÃ  la classe aventi i controlli del player -->
+			<div class="controls">	<!-- Sarà la classe aventi i controlli del player -->
 				<button class="back"><img src="images/back-button.png" width="25px"></button>
 				<button class="play"><img src="images/play-button.png" width="25px"></button>
 				<button class="forward"><img src="images/forward-button.png" width="25px"></button>
@@ -45,7 +33,7 @@
 				<button class="volume-down">Volume-</button>
 				<button class="load">Carica</button>
 			</div>
-			<div class="image">			<!-- ConterrÃ  l'immagine della track -->
+			<div class="image">			<!-- Conterrà l'immagine della track -->
 				<img src="" alt="">
 				<a></a>
 			</div>
@@ -56,7 +44,4 @@
 <% }	%>
 
 	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script> 
-	 <script src="${pageContext.servletContext.contextPath}/js/uploadAudio.js" ></script>
-</body>
-
-</html>
+	<script src="${pageContext.servletContext.contextPath}/js/uploadAudio.js" ></script>

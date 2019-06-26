@@ -27,7 +27,9 @@ public class Login extends HttpServlet {
 		if(userBean != null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+			request.setAttribute("jspPath", "/login.jsp");
+			request.setAttribute("pageTitle", "Login");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/views/blank.jsp");
 			rd.forward(request, response);
 		}
 	}

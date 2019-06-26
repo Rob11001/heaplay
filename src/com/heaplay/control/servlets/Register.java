@@ -24,10 +24,12 @@ public class Register extends HttpServlet {
     	HttpSession session = request.getSession();
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		
-		if(userBean != null)														//Se già loggato lo mando alla Home
+		if(userBean != null)														//Se giï¿½ loggato lo mando alla Home
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp");	//Altrimenti lo mando alla pagian di registrazione
+			request.setAttribute("jspPath", "/register.jsp");
+			request.setAttribute("pageTitle", "Registrati");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/views/blank.jsp");	//Altrimenti lo mando alla pagian di registrazione
 			rd.forward(request, response);
 		}
 	}
