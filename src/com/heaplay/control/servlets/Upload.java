@@ -56,6 +56,7 @@ public class Upload extends HttpServlet {
 		String trackName = request.getParameter("songName");
 		String radioBox = request.getParameter("purchasable");
 		String id = request.getParameter("authorId");
+		String duration = request.getParameter("duration");
 		//Aggiustare i tags
 		String tags = request.getParameter("tags");
 		ArrayList<TagBean> listTags = new ArrayList<TagBean>();
@@ -82,6 +83,7 @@ public class Upload extends HttpServlet {
 		
 		TrackBean trackBean = new TrackBean();
 		PurchasableTrackBean purchasableTrack = null;
+		
 		trackBean.setAuthor(Long.parseLong(id));
 		trackBean.setIndexable(true);
 		trackBean.setName(trackName);
@@ -91,7 +93,8 @@ public class Upload extends HttpServlet {
 		trackBean.setImageExt(imageExt);
 		trackBean.setUploadDate(new Timestamp(System.currentTimeMillis()));
 		trackBean.setTags(listTags);
-		trackBean.setDuration();
+		trackBean.setDuration(Integer.parseInt(duration));
+		
 		if(radioBox.equalsIgnoreCase("Gratis"))
 			trackBean.setType("free");
 		else {
@@ -111,8 +114,6 @@ public class Upload extends HttpServlet {
 			response.sendRedirect(getServletContext().getContextPath()+"/home");	
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
-
 }

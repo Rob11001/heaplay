@@ -85,6 +85,7 @@ public class TrackDao implements DaoModel {
 						tagBean=(TagBean) tagDao.doRetrieveByKey(keys);
 					}		
 					ps.setLong(2, tagBean.getId());
+					keys.clear();
 				}
 				ps.executeUpdate();
 			}
