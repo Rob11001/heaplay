@@ -1,12 +1,10 @@
 package com.heaplay.control.servlets;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,10 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.PurchasableTrackBean;
@@ -44,11 +38,15 @@ public class Upload extends HttpServlet {
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		
 		if(userBean != null) {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/upload.jsp");
+			request.setAttribute("jspPath", "/upload.jsp");
+			request.setAttribute("pageTitle", "Upload");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
 			rd.forward(request, response);
 		}
 		else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+			request.setAttribute("jspPath", "/login.jsp");
+			request.setAttribute("pageTitle", "Login");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
 			rd.forward(request, response);
 		}
     }
@@ -98,7 +96,7 @@ public class Upload extends HttpServlet {
 			trackBean.setType("free");
 		else {
 			trackBean.setType("pagamento");
-			double price = Double.parseDouble(request.getParameter("price"));		//Dovremmo controllare che il prezzo passato è valido
+			double price = Double.parseDouble(request.getParameter("price"));		//Dovremmo controllare che il prezzo passato ï¿½ valido
 			purchasableTrack = new PurchasableTrackBean(trackBean);
 			purchasableTrack.setPrice(price);
 		}

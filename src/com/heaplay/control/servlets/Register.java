@@ -29,7 +29,7 @@ public class Register extends HttpServlet {
 		else {
 			request.setAttribute("jspPath", "/register.jsp");
 			request.setAttribute("pageTitle", "Registrati");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/views/blank.jsp");	//Altrimenti lo mando alla pagian di registrazione
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");	//Altrimenti lo mando alla pagian di registrazione
 			rd.forward(request, response);
 		}
 	}

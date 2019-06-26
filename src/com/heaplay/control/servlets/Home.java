@@ -16,7 +16,7 @@ public class Home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("jspPath", "/home.jsp");
 		request.setAttribute("pageTitle", "Homepage");
-		RequestDispatcher rs = getServletContext().getRequestDispatcher("/WEB-INF/views/blank.jsp");
+		RequestDispatcher rs = getServletContext().getRequestDispatcher("/_blank.jsp");
 		rs.forward(request, response);
 	}
 	

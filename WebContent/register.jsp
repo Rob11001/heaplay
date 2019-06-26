@@ -11,6 +11,8 @@
 		session.setAttribute("afterLoginRedirect", previousUrl);
 	*/
 %>
+<script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>
+
 <form action="register" onsubmit="return validateRegister(this)" method="post">
 	<label for="username">Username: </label>
 	<input type="text" name="username" value="<%=username%>" placeholder="username" required><br/>

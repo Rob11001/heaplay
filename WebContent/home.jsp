@@ -43,5 +43,4 @@
 	<a href="<%=response.encodeURL("upload")%>">Carica</a>
 <% }	%>
 
-	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script> 
 	<script src="${pageContext.servletContext.contextPath}/js/uploadAudio.js" ></script>

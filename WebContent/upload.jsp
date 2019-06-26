@@ -1,29 +1,15 @@
 <%@page import="com.heaplay.model.beans.UserBean"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
 <%
 	UserBean user = (UserBean)session.getAttribute("user");
 	if(user == null)
 		response.sendRedirect(getServletContext().getContextPath() + "/home");
 %>
-
-<head>
-	<meta charset="UTF-8">
-	<title>Upload your file</title>
-	<%@ include file="WEB-INF/views/links.jsp"%>
-	<script src = "/js/validate.js"></script>
-</head>
-
-<body>
-<jsp:include page="WEB-INF/views/header.jsp" />
 	<div class="uploadFile">
 		<form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" >
 			<fieldset>
 				<legend>Carica la tua canzone</legend>
 				
-				<label for="songName">Nome con cui sar√† visualizzata:</label>
+				<label for="songName">Nome con cui sar‡ visualizzata:</label>
 				<input type="text" name="songName" id="songName" />		<br/>
 				
 				<label for="audio">Scegli la canzone:</label>
@@ -62,7 +48,6 @@
 	</div>
 	
 	<!-- Importazione delle librerie js necessarie-->
-	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>  <!-- Senza alcun motivo funziona -->
     <script src="${pageContext.servletContext.contextPath}/js/uploadFunction.js" ></script>	<!-- Permette di indicare il path dinamicamente -->
 	<script src="${pageContext.servletContext.contextPath}/js/jquery.autocomplete.js" ></script>
 	<!-- <script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>  --> <!-- Non funziona senza alcun motivo apparente -->

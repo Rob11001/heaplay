@@ -9,11 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title><%=pageTitle%></title>
-<%@ include file="/WEB-INF/views/links.jsp"%>
+<%@ include file="/_links.jsp"%>
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/header.jsp" />
+	<jsp:include page="/_header.jsp" />
 	<div class="content-wrapper">
 	
 	<jsp:include page="<%=jspPath%>"/>
@@ -21,7 +21,5 @@
 	</div>
 	
 	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script> 
-	
-
 </body>
 </html>

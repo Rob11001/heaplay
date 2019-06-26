@@ -29,7 +29,7 @@ public class Login extends HttpServlet {
 		else {
 			request.setAttribute("jspPath", "/login.jsp");
 			request.setAttribute("pageTitle", "Login");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/views/blank.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
 			rd.forward(request, response);
 		}
 	}
