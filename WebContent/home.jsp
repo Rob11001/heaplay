@@ -25,7 +25,7 @@
 	
 		<div id="player"> <!-- Classe del player che possiamo mettere in una jsp a parte -->
 			<div>
-				<audio preload="none" id="audio" ontimeupdate="updateCurrentTime(this)" >				<!-- Problemi con il caricamento dell'audio -->
+				<audio preload="metadata" id="audio" ontimeupdate="updateCurrentTime(this)" >				<!-- Problemi con il caricamento dell'audio -->
 					<source src="getAudio?id=8&extension=.mp3" type="audio/mp3"> 		
 	 			</audio>
 	 		</div>
@@ -39,7 +39,7 @@
 				<br>
 				<button class="slidebar">
 					<span id="time">00:00</span>
-					<input type="range" name ="slider" step="1" id="slider" onchange="setCurrentTime(this)" value="0">
+					<input type="range" name ="slider" step="1" id="slider" onchange="setCurrentTime(this)" value="0" min="0" >
 				</button>
 				<button class="volume-up">Volume+</button>
 				<button class="volume-down">Volume-</button>

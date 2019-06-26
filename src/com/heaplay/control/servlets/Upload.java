@@ -1,5 +1,6 @@
 package com.heaplay.control.servlets;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -15,6 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.PurchasableTrackBean;
@@ -65,7 +70,17 @@ public class Upload extends HttpServlet {
 		String audioExt=audioFileName.substring(audioFileName.lastIndexOf('.'),audioFileName.length()).toLowerCase();
 		InputStream audioStream =audio.getInputStream();
 		byte[] audioBytes = audioStream.readAllBytes();
+		double durationInSeconds = 0;
+		try {
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(audioStream));
+			long frameLen = audioInputStream.getFrameLength();
+			AudioFormat format = audioInputStream.getFormat();
+			durationInSeconds = (frameLen+0.0) / format.getFrameRate();
+		} catch (UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+		}
 		audioStream.close();
+
 		
 		Part image = request.getPart("image");
 		String imageFileName = image.getSubmittedFileName();
@@ -86,6 +101,7 @@ public class Upload extends HttpServlet {
 		trackBean.setImageExt(imageExt);
 		trackBean.setUploadDate(new Timestamp(System.currentTimeMillis()));
 		trackBean.setTags(listTags);
+		trackBean.setDuration((int)Math.floor(durationInSeconds));
 		if(radioBox.equalsIgnoreCase("Gratis"))
 			trackBean.setType("free");
 		else {

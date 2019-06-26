@@ -1,10 +1,30 @@
 //Var globale
 var audio;
+const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
+
+
 //Inizializzazione dei vari handlers
 $(document).ready(function init() {
 	audio = $("#audio");
 	addEventHandlers();
 });
+
+
+// (() => {
+// 	$("#audio").on("canplaythrough", function(e){
+//  		var seconds = e.currentTarget.duration;
+// 		 alert(seconds);
+// 	}); 
+// })();
+
+{
+	
+	// $("#audio").on("canplaythrough", function(e){
+  	// 	var seconds = e.currentTarget.duration;
+ 	// 	 alert(seconds);
+ 	// });
+
+}
 
 function addEventHandlers() {
 	$(".load").click(loadAudio);
@@ -20,10 +40,12 @@ function addEventHandlers() {
 //Handlers
 function loadAudio(){
 	audio.trigger('load');
+	
+	audio.currentTime = 100;
 }
 
 function startAudio(){
-    audio.trigger('play');
+	audio.trigger('play');
 }
 
 function pauseAudio(){
@@ -40,7 +62,7 @@ function forwardAudio(){
 	var time = audio.prop("currentTime");
 	audio.prop("currentTime",time+5);
 	if(audio.prop("currentTime") == 0) {
-		audio.trigger("load");
+		loadAudio();
 		audio.prop("currentTime",time+5);
 	}	
 	startAudio();
@@ -50,7 +72,7 @@ function backAudio(){
 	pauseAudio();
 	audio.prop("currentTime",audio.prop("currentTime")-5);
 	if(audio.prop("currentTime") == 0) {
-		audio.trigger("load");
+		loadAudio();
 		audio.prop("currentTime",audio.prop("currentTime")-5);
 	}	
 	startAudio();
@@ -77,13 +99,13 @@ function replayAudio() {
 function setCurrentTime(params) {
 	var time = $(params).val();
 	let min = Math.floor(time/60), sec = Math.round(time%60);
-	min = min < 10 ? "0"+min.toString() : min;						//Serve per formattare i numeri (non esiste un metodo in Javascript per farlo...)
-	sec = sec < 10 ? "0"+sec.toString() : sec;
+	min = timePadder(min);						
+	sec = timePadder(sec);
 
 	$("#time").html( min + ":" + sec);
 	audio.prop("currentTime",time);
 	if(audio.prop("currentTime") == 0) {
-		audio.trigger("load");
+		loadAudio();
 		audio.prop("currentTime",time);
 	}	
 	startAudio();
@@ -94,7 +116,7 @@ function updateCurrentTime (event) {
 	let min = Math.floor(time/60), sec = Math.round(time%60);
 
 	$("#slider").prop("value",Math.floor(time));
-	min = min < 10 ? "0"+min.toString() : min;
-	sec = sec < 10 ? "0"+sec.toString() : sec;
+	min = timePadder(min);
+	sec = timePadder(sec);
 	$("#time").html(min + ":" + sec);
 }
