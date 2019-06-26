@@ -1,3 +1,4 @@
+//Function di autocompletamento
 $(function() {
 	$('#autocomplete').autocomplete({			//Collegamento al input text
 		serviceUrl: "getTags",					//Servlet da chiamare
@@ -12,20 +13,38 @@ function ShowAndHide(status) {
 		else
 			$("#divPrice").css("display","none");
 }		
+
+//Aggiunta dei vari handlers al caricamento
+$(document).ready(() => {
+	let objectUrl;
+	$("#audioFake").on("canplaythrough", function(e){
+		let seconds = e.currentTarget.duration;
+		$("#duration").val(Math.floor(seconds));
+		URL.revokeObjectURL(objectUrl);
+	});
+
+	$("#audio").change(function(e){
+		let file = e.currentTarget.files["0"];
+		objectUrl = window.URL.createObjectURL(file);
+		$("#audioFake").prop("src", objectUrl);
+	});
+});
+
 	
 
-{
-var objectUrl;
-$("#audioFake").on("canplaythrough", function(e){
-    var seconds = e.currentTarget.duration;
-	$("#duration").val(Math.floor(seconds));
-    URL.revokeObjectURL(objectUrl);
-});
 
-$("#audio").change(function(e){
-	var file = e.currentTarget.files["0"];
-	objectUrl = window.URL.createObjectURL(file);
-    $("#audioFake").prop("src", objectUrl);
-});
+// {
+// var objectUrl;
+// $("#audioFake").on("canplaythrough", function(e){
+//     let seconds = e.currentTarget.duration;
+// 	$("#duration").val(Math.floor(seconds));
+//     URL.revokeObjectURL(objectUrl);
+// });
 
-}
+// $("#audio").change(function(e){
+// 	let file = e.currentTarget.files["0"];
+// 	objectUrl = window.URL.createObjectURL(file);
+//     $("#audioFake").prop("src", objectUrl);
+// });
+
+// }

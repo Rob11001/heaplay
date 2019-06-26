@@ -67,8 +67,10 @@ public class TrackDao implements DaoModel {
 				ps.close();
 			
 			ps = con.prepareStatement(insertTags);
-
-			for (TagBean tag : trackBean.getTags()) {
+			
+			ArrayList<TagBean> list = (ArrayList<TagBean>) trackBean.getTags();
+			for (int i = 0 ; i < list.size(); i++) {							//Con il foreach faceva due esecuzioni con un solo bean?!
+				TagBean tag = list.get(i);
 				ps.clearParameters();
 				ps.setLong(1, trackBean.getId());
 				if(tag.getId() != -1)
@@ -82,10 +84,11 @@ public class TrackDao implements DaoModel {
 					if(tagBean == null) {
 						tagDao.doSave(tag);
 						con.commit();
-						tagBean=(TagBean) tagDao.doRetrieveByKey(keys);
-					}		
+						do{														//A volte ritornava null anche se il tag era stato creato
+							tagBean=(TagBean) tagDao.doRetrieveByKey(keys);
+						} while(tagBean == null);
+					}
 					ps.setLong(2, tagBean.getId());
-					keys.clear();
 				}
 				ps.executeUpdate();
 			}
