@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -70,15 +71,6 @@ public class Upload extends HttpServlet {
 		String audioExt=audioFileName.substring(audioFileName.lastIndexOf('.'),audioFileName.length()).toLowerCase();
 		InputStream audioStream =audio.getInputStream();
 		byte[] audioBytes = audioStream.readAllBytes();
-		double durationInSeconds = 0;
-		try {
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(audioStream));
-			long frameLen = audioInputStream.getFrameLength();
-			AudioFormat format = audioInputStream.getFormat();
-			durationInSeconds = (frameLen+0.0) / format.getFrameRate();
-		} catch (UnsupportedAudioFileException e1) {
-			e1.printStackTrace();
-		}
 		audioStream.close();
 
 		
@@ -101,7 +93,7 @@ public class Upload extends HttpServlet {
 		trackBean.setImageExt(imageExt);
 		trackBean.setUploadDate(new Timestamp(System.currentTimeMillis()));
 		trackBean.setTags(listTags);
-		trackBean.setDuration((int)Math.floor(durationInSeconds));
+		trackBean.setDuration();
 		if(radioBox.equalsIgnoreCase("Gratis"))
 			trackBean.setType("free");
 		else {
