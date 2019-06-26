@@ -28,7 +28,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 
 		String insertQuery = "INSERT INTO " + TABLE_NAME
-				+ " (name,type,plays,track,track_extension,image,image_extension,indexable,author,upload_date,likes,duration) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+				+ " (name,type,plays,track,track_extension,image,image_extension,indexable,author,upload_date,likes,duration) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 		String insertTags = "INSERT INTO  tagged(track_id,tag_id) VALUES (?,?) ";
 		String getId = "SELECT id FROM "+ TABLE_NAME + " WHERE name= ? AND author=?";
 		
