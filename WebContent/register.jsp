@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%
 	String error = (String) request.getAttribute("errorMessage");
 	String email = (String) request.getAttribute("email");
@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Register</title>
 <%@ include file="WEB-INF/views/links.jsp"%>
 <script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>
