@@ -53,6 +53,9 @@
 				<br/>
 				<br/>
 				<input type="submit" value="Carica">
+				<audio id="audioFake">
+				</audio>
+				<span id="duration">Hey</span>
 	
 			</fieldset>
 		</form>
