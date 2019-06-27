@@ -1,6 +1,14 @@
 //Var globale
-var audio;
+let audio;
+let playImage="images/play-button.png",pauseImage="images/pause-button.png";
+let playEl;
 const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
+const showHide = (el) => {
+	if($(el).css("display") === "none")
+		$(el).css("display","inline");
+	else
+		$(el).css("display","none");	
+};
 
 //Inizializzazione dei vari handlers
 $(document).ready(function init() {
@@ -10,8 +18,8 @@ $(document).ready(function init() {
 
 function addEventHandlers() {
 	$(".load").click(loadAudio);
-    $(".play").click(startAudio);
-	$(".pause").click(pauseAudio);
+    $(".pause").click(pauseAudio);
+	$(".play").click(startAudio);
 	$(".forward").click(forwardAudio);
 	$(".back").click(backAudio);
     $(".volume-up").click(volumeUp);
@@ -39,7 +47,7 @@ function stopAudio(){
 
 function forwardAudio(){
     pauseAudio();
-	var time = audio.prop("currentTime");
+	let time = audio.prop("currentTime");
 	audio.prop("currentTime",time+5);
 	if(audio.prop("currentTime") == 0) {
 		loadAudio();
@@ -59,17 +67,22 @@ function backAudio(){
 }
 
 function volumeUp(){
-    var volume = audio.prop("volume")+0.2;
+    let volume = audio.prop("volume")+0.2;
     if(volume >1)
         volume = 1;
     audio.prop("volume",volume);
 }
 
 function volumeDown(){
-    var volume = audio.prop("volume")-0.2;
+    let volume = audio.prop("volume")-0.2;
     if(volume <0)
 	    volume = 0;
 	audio.prop("volume",volume);
+}
+
+function setVolume(volume) {
+	let val = volume.value;
+	audio.prop("volume",val);
 }
 
 function replayAudio() {
@@ -77,7 +90,7 @@ function replayAudio() {
 }
 
 function setCurrentTime(params) {
-	var time = $(params).val();
+	let time = $(params).val();
 	let min = Math.floor(time/60), sec = Math.round(time%60);
 	min = timePadder(min);						
 	sec = timePadder(sec);
@@ -92,11 +105,19 @@ function setCurrentTime(params) {
 }
 
 function updateCurrentTime (event) {
-	var time = event.currentTime;
+	let time = event.currentTime;
 	let min = Math.floor(time/60), sec = Math.round(time%60);
 
 	$("#slider").prop("value",Math.floor(time));
 	min = timePadder(min);
 	sec = timePadder(sec);
 	$("#time").html(min + ":" + sec);
+}
+
+function showHideBar (el,otherEl) {
+	showHide(otherEl);
+	showHide(el);
+	$(el).css("pointer-events","none");
+	$(otherEl).css("pointer-events","auto");
+	
 }

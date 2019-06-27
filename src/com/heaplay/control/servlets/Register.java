@@ -72,24 +72,28 @@ public class Register extends HttpServlet {
 				ArrayList<String> keys = new ArrayList<String>();
 				keys.add(email);
 				keys.add(password);
-				userBean = userDao.doRetrieveByKey(keys);
-				//Creazione riuscita e redirezione
-				if(userBean != null && userBean.getId() != -1) {
-					request.getSession().setAttribute("user", userBean);
-					response.sendRedirect(getServletContext().getContextPath()+"/");
-				}
-				else {
-					//Errore creazione e rinvio alla pagina di registrazione
-					error = "Errore nella registrazione"; 
-					request.setAttribute("errorMessage", error);
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/register.jsp");
-					rd.forward(request, response);
-				}
+				do {											//Problemi nel commit della query
+					userBean = userDao.doRetrieveByKey(keys);
+				}while (userBean == null);
 					
 			} catch (SQLException e) {
-				error = e.getMessage();
+				e.printStackTrace();
+			}
+    		
+    		//Creazione riuscita e redirezione
+			if(userBean != null && userBean.getId() != -1) {
+				request.getSession().setAttribute("user", userBean);
+				response.sendRedirect(getServletContext().getContextPath()+"/home");
+			}
+			else {
+				//Errore creazione e rinvio alla pagina di registrazione
+				error = "Errore nella registrazione"; 
+				request.setAttribute("errorMessage", error);
+				request.setAttribute("jspPath", "/register.jsp");
+				request.setAttribute("pageTitle", "Registrati");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");	//Altrimenti lo mando alla pagina di registrazione
+				rd.forward(request, response);
 			}
     	}
 	}
-
 }

@@ -1,6 +1,12 @@
 package com.heaplay.control.servlets;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.sql.SQLException;
 
@@ -38,10 +44,13 @@ public class GetImage extends HttpServlet {
     		
     		OutputStream out = response.getOutputStream();
     		if(imageBytes == null ) {
-    			//Prendiamo una immagine di default e la mandiamo
-    		} else {
-    			out.write(imageBytes);
+    			File file = new File(getServletContext().getRealPath("/images/not_found.png"));
+    			System.out.println(file.getAbsolutePath());
+    			FileInputStream input = new FileInputStream(file);
+    			imageBytes = input.readAllBytes();
+    			input.close();
     		}
+    		out.write(imageBytes);
     	}
     }
 

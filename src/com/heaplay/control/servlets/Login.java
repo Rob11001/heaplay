@@ -72,7 +72,9 @@ public class Login extends HttpServlet {
 					else {
 						errorMessage = "Email o password inserita non valida"; 
 						request.setAttribute("errorMessage", errorMessage);
-						RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+						request.setAttribute("jspPath", "/login.jsp");
+						request.setAttribute("pageTitle", "Login");
+						RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
 						rd.forward(request, response);
 					}
 				} catch (SQLException e) {
