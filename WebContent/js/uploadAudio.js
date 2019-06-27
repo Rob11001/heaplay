@@ -2,29 +2,11 @@
 var audio;
 const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
 
-
 //Inizializzazione dei vari handlers
 $(document).ready(function init() {
 	audio = $("#audio");
 	addEventHandlers();
 });
-
-
-// (() => {
-// 	$("#audio").on("canplaythrough", function(e){
-//  		var seconds = e.currentTarget.duration;
-// 		 alert(seconds);
-// 	}); 
-// })();
-
-{
-	
-	// $("#audio").on("canplaythrough", function(e){
-  	// 	var seconds = e.currentTarget.duration;
- 	// 	 alert(seconds);
- 	// });
-
-}
 
 function addEventHandlers() {
 	$(".load").click(loadAudio);
@@ -40,8 +22,6 @@ function addEventHandlers() {
 //Handlers
 function loadAudio(){
 	audio.trigger('load');
-	
-	audio.currentTime = 100;
 }
 
 function startAudio(){

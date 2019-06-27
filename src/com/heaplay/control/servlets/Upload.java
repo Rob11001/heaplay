@@ -58,11 +58,14 @@ public class Upload extends HttpServlet {
 		String id = request.getParameter("authorId");
 		String duration = request.getParameter("duration");
 		//Aggiustare i tags
-		String tags = request.getParameter("tags");
+		String[] tags = request.getParameterValues("tag");
 		ArrayList<TagBean> listTags = new ArrayList<TagBean>();
-		TagBean tagBean = new TagBean();
-		tagBean.setName(tags);
-		listTags.add(tagBean);
+		
+		for(String name : tags) {
+			TagBean tagBean = new TagBean();
+			tagBean.setName(name);
+			listTags.add(tagBean);
+		}
 		
 		Part audio = request.getPart("audio");
 		String audioFileName = audio.getSubmittedFileName();
@@ -105,11 +108,12 @@ public class Upload extends HttpServlet {
 		}
 		
 		try {
-			TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
-			trackDao.doSave(trackBean);
 			if(purchasableTrack != null) {
 				PurchasableTrackDao purchasableTrackdao = new PurchasableTrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
 				purchasableTrackdao.doSave(purchasableTrack);
+			}else {
+				TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
+				trackDao.doSave(trackBean);
 			}
 			response.sendRedirect(getServletContext().getContextPath()+"/home");	
 		} catch (SQLException e) {

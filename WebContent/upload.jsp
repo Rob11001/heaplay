@@ -12,12 +12,30 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Upload your file</title>
+	<style type="text/css">
+		a#tagButton {
+			border:2px solid #4CAF50;
+		}
+		
+		a#tagButton:hover {
+			background-color: #4CAF50;
+		}
+	
+		input.tagElement {
+			border:2px solid #4CAF50;
+		}
+		
+		input.tagElement:hover {
+			background-color: #4CAF50;
+		}
+	
+	</style>
 	<%@ include file="_links.jsp"%>
 </head>
 
 <body>
 	<div class="uploadFile">
-		<form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" >
+		<form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return validateUpload(this)" >
 			<fieldset>
 				<legend>Carica la tua canzone</legend>
 				
@@ -41,9 +59,10 @@
 					<input type="number" name="price" id="price" min="0" max="666">
 				</div>
 				
-				<div>		
+				<div id="tags">		
   					<label for="autocomplete">Tags: </label>
 					<input type="text" name="tags" id="autocomplete" autocomplete="off"/>
+					<a id = "tagButton" onclick="addTag(this)" >Aggiungi</a>	<br>
 				</div>
 				
 				
