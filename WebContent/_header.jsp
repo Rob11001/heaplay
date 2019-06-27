@@ -1,5 +1,9 @@
+<%@page import="com.heaplay.model.beans.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>  
+<%
+	UserBean user = (UserBean)session.getAttribute("user");
+%>
 <header>
 	<div class="menu-bar">
 		<nav class="links">
@@ -17,7 +21,13 @@
 				<a href=<%=response.encodeURL("login")%>>Login</a>
 				<a href="<%=response.encodeURL("register")%>">Registrati</a>
 			<%} else { %>
-				<a href="<%=response.encodeURL("logout")%>">Logout</a>
+				<div class="dropdown">
+					<a class="dropbtn" href="#"><%=user.getUsername()%></a>
+					<div class="dropdown-content">
+						<a href="<%=response.encodeURL("user/" + user.getUsername()) %>">Area Utente</a>
+						<a href="<%=response.encodeURL("logout")%>">Logout</a>
+					</div>
+				</div>
 			<%} %>
 		</nav>
 	</div>

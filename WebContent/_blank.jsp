@@ -16,7 +16,7 @@
 	<jsp:include page="/_header.jsp" />
 	<div class="content-wrapper">
 	
-	<jsp:include page="<%=jspPath%>"/>
+		<jsp:include page="<%=jspPath%>"/>
 	
 	</div>
 	
