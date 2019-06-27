@@ -1,5 +1,7 @@
 //Var globale
 let audio;
+let playImage="images/play-button.png",pauseImage="images/pause-button.png";
+let playEl;
 const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
 const showHide = (el) => {
 	if($(el).css("display") === "none")
@@ -16,8 +18,8 @@ $(document).ready(function init() {
 
 function addEventHandlers() {
 	$(".load").click(loadAudio);
-    $(".play").click(startAudio);
-	$(".pause").click(pauseAudio);
+    $(".pause").click(pauseAudio);
+	$(".play").click(startAudio);
 	$(".forward").click(forwardAudio);
 	$(".back").click(backAudio);
     $(".volume-up").click(volumeUp);
