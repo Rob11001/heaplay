@@ -86,7 +86,6 @@
 		</div>
 		
 	</div>
-	<a id="prova">Hey</a>
 	<a href="<%=response.encodeURL("upload")%>">Carica</a>
 <% }	%>
 	
