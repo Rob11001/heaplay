@@ -12,7 +12,7 @@ const showHide = (el) => {
 $(document).ready(function init() {
 	addEventHandlers();
 });
-
+//Aggiunta degli handlers per tutte le classi
 function addEventHandlers() {
 	$(".load").click(loadAudio);
     $(".pause").click(pauseAudio);
@@ -26,15 +26,15 @@ function addEventHandlers() {
 function loadAudio(){
 	audio.trigger('load');
 }
-
+//Metodo chiamato per inizializzare
 function startAudio(e){
 	if(audio != undefined || audio != null)
 	 	stopAudio();
-	let parent = $(e.currentTarget).parent().parent();
+	let parent = $(e.currentTarget).parent().parent(); //Risalgo di gerarchie
 	init(parent);
 	playAudio();
 }
-
+//Inizializzazione
 function init(parent) {
 	audio = $(parent).find(".audio");
 	volume = $(parent).find(".volume");
@@ -54,7 +54,7 @@ function playAudio() {
 function pauseAudio(){
     audio.trigger('pause');
 }
-
+//Metodo per resettare l'audio
 function stopAudio(){
     pauseAudio();
 	reset();
@@ -103,7 +103,7 @@ function replayAudio() {
 }
 
 function setCurrentTime(params) {
-	if($(params).is($(slider))){
+	if($(params).is($(slider))){			//Metodo is per vedere se due tag html sono identici
 		let currentTime = $(params).val();
 		let min = Math.floor(currentTime/60), sec = Math.round(currentTime%60);
 		min = timePadder(min);						

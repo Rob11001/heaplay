@@ -1,3 +1,6 @@
+/*Non serve più,ma lo mantengo in caso di necessità*/
+
+
 //Var globale
 let audio;
 let playImage="images/play-button.png",pauseImage="images/pause-button.png";
