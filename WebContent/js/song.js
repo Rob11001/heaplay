@@ -52,7 +52,8 @@ function playAudio() {
 }
 
 function pauseAudio(){
-    audio.trigger('pause');
+	if(audio != undefined)
+		audio.trigger('pause');
 }
 //Metodo per resettare l'audio
 function stopAudio(){
@@ -70,24 +71,28 @@ function reset() {
 }
 
 function forwardAudio(){
-    pauseAudio();
-	let time = audio.prop("currentTime");
-	audio.prop("currentTime",time+5);
-	if(audio.prop("currentTime") == 0) {
-		loadAudio();
+	if(audio != undefined) {
+		pauseAudio();
+		let time = audio.prop("currentTime");
 		audio.prop("currentTime",time+5);
+		if(audio.prop("currentTime") == 0) {
+			loadAudio();
+			audio.prop("currentTime",time+5);
+		}	
+		playAudio();
 	}	
-	playAudio();
 }
  
 function backAudio(){
-	pauseAudio();
-	audio.prop("currentTime",audio.prop("currentTime")-5);
-	if(audio.prop("currentTime") == 0) {
-		loadAudio();
+	if(audio != undefined) {
+		pauseAudio();
 		audio.prop("currentTime",audio.prop("currentTime")-5);
-	}	
-	playAudio();
+		if(audio.prop("currentTime") == 0) {
+			loadAudio();
+			audio.prop("currentTime",audio.prop("currentTime")-5);
+		}	
+		playAudio();
+	}
 }
 
 function setVolume(el) {
@@ -99,7 +104,8 @@ function setVolume(el) {
 }
 
 function replayAudio() {
-	audio.prop("loop") ? audio.prop("loop",false) : audio.prop("loop",true);
+	if(audio != undefined)
+		audio.prop("loop") ? audio.prop("loop",false) : audio.prop("loop",true);
 }
 
 function setCurrentTime(params) {
