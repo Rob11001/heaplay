@@ -109,7 +109,7 @@ nav>a:visited, .dropdown>a:visited {
 	display: none;
 	min-width: 160px;
 	position: absolute;
-	margin-top: 14px;
+	margin-top: 10px; 
 	z-index: 1;
 }
 
