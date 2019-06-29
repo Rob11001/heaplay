@@ -1,12 +1,21 @@
 package com.heaplay.control.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.heaplay.model.ConnectionPool;
+import com.heaplay.model.beans.TrackBean;
+import com.heaplay.model.beans.UserBean;
+import com.heaplay.model.dao.TrackDao;
+import com.heaplay.model.dao.UserDao;
 
 @WebServlet("/user/*")
 public class RewriteUrl extends HttpServlet {
@@ -16,8 +25,33 @@ public class RewriteUrl extends HttpServlet {
     	String URI = request.getRequestURI();
     	String[]params = URI.split("/");
     	String user = params[params.length-1];
+    	UserBean userBean =((UserBean)request.getSession().getAttribute("user"));
+    	String userName = (userBean != null) ? userBean.getUsername() : null;
     	System.out.println(user);
-    	// jsp da chiamare passando il nome dell'utente
+    	if(user.equals(userName)) {
+    		//Creare pagina per l'utente 
+    	}else {
+    		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
+    		UserDao userDao = new UserDao(pool);
+    		TrackDao trackDao = new TrackDao(pool);
+    		UserBean currentUser = null;
+			ArrayList<TrackBean> listOfTracks = null;
+			try {
+				currentUser = userDao.doRetrieveByName(user);
+				if(currentUser != null) {
+					listOfTracks = trackDao.getTracksByAuthor(currentUser.getId());
+					request.setAttribute("user", currentUser);
+		    		request.setAttribute("tracks", listOfTracks);
+		    		request.setAttribute("jspPath", "/users.jsp");
+					request.setAttribute("pageTitle", user);
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+					rd.forward(request, response);
+				}else 
+					;//Mandalo alla pagina di errore
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+    	}
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

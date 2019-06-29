@@ -16,8 +16,8 @@
 		</div>
 		<nav class="user">
 			<%if(session.getAttribute("user") == null) {%>
-				<a href=<%=response.encodeURL("login")%>>Login</a>
-				<a href="<%=response.encodeURL("register")%>">Registrati</a>
+				<a href=<%=response.encodeURL("/heaplay/login")%>>Login</a>
+				<a href="<%=response.encodeURL("/heaplay/register")%>">Registrati</a>
 			<%} else { %>
 				<div class="dropdown">
 					<a class="dropbtn" href="#"><%=user.getUsername()%></a>

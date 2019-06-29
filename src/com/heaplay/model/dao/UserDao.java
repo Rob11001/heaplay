@@ -153,7 +153,43 @@ public class UserDao implements DaoModel {
 		
 		return bean;			
 	}
-
+	
+	public synchronized UserBean doRetrieveByName(String name) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null; 
+		UserBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE username=? ";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+		
+			ps.setString(1, name);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				bean = new UserBean();
+				bean.setUsername(rs.getString("username"));
+				bean.setId(rs.getLong("id"));
+				bean.setEmail(rs.getString("email"));
+				bean.setAuth(rs.getString("auth"));
+				bean.setActive(rs.getBoolean("active"));
+			}
+			
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		
+		return bean;			
+	}
+	
 	@Override
 	public synchronized List<Bean> doRetrieveAll(Comparator<Bean> comparator) throws SQLException {
 		PreparedStatement ps = null;
