@@ -111,7 +111,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 
 		String updateQuery = "UPDATE " + TABLE_NAME
-				+ " SET  name=?,type=?,plays=?,track=?,track_extension=?,image=?,image_extension=?,indexable=?,author=?,upload=?,likes=?,duration=? WHERE id=?";
+				+ " SET  name=?,type=?,plays=?,indexable=?,author=?,upload=?,likes=?,duration=? WHERE id=?";
 		String insertTagged = "INSERT INTO  tagged(track_id,tag_id) VALUES (?,?) ";
 		String deleteTagged = "DELETE FROM tagged WHERE track_id=? AND tag_id=?";
 
@@ -123,16 +123,12 @@ public class TrackDao implements DaoModel {
 			ps.setString(1, trackBean.getName());
 			ps.setString(2, trackBean.getType());
 			ps.setLong(3, trackBean.getPlays());
-			ps.setBytes(4, trackBean.getTrack());
-			ps.setString(5, trackBean.getTrackExt());
-			ps.setBytes(6, trackBean.getImage());
-			ps.setString(7, trackBean.getImageExt());
-			ps.setBoolean(8, trackBean.isIndexable());
-			ps.setLong(9, trackBean.getAuthor());
-			ps.setTimestamp(10, trackBean.getUploadDate());
-			ps.setLong(11, trackBean.getLikes());
-			ps.setLong(12, trackBean.getDuration());
-			ps.setLong(13, trackBean.getId());
+			ps.setBoolean(4, trackBean.isIndexable());
+			ps.setLong(5, trackBean.getAuthor());
+			ps.setTimestamp(6, trackBean.getUploadDate());
+			ps.setLong(7, trackBean.getLikes());
+			ps.setLong(8, trackBean.getDuration());
+			ps.setLong(9, trackBean.getId());
 			
 
 			int result = ps.executeUpdate();
@@ -304,7 +300,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null;
 		TrackBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME + " , CONTAINS WHERE playlist_id=? AND track_id=id";
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + " , contains WHERE playlist_id=? AND track_id=id";
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 
 		try {
@@ -396,5 +392,96 @@ public class TrackDao implements DaoModel {
 		}
 
 		return audio;
+	}
+	
+
+	public synchronized List<TrackBean> doRetrieveByName(String name) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		TrackBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE name=?";
+		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
+
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setString(1, name);
+			rs = ps.executeQuery();
+			TagDao tag = new TagDao(pool);
+
+			while (rs.next()) {
+				bean = new TrackBean();
+				bean.setId(rs.getLong("id"));
+				bean.setAuthor(rs.getLong("author"));
+				bean.setImage(rs.getBytes("image"));
+				bean.setImageExt(rs.getString("image_extension"));
+				bean.setIndexable(rs.getBoolean("indexable"));
+				bean.setLikes(rs.getLong("likes"));
+				bean.setName(rs.getString("name"));
+				bean.setPlays(rs.getLong("plays"));
+				bean.setTrack(rs.getBytes("track"));
+				bean.setTrackExt(rs.getString("track_extension"));
+				bean.setType(rs.getString("type"));
+				bean.setUploadDate(rs.getTimestamp("upload_date"));
+				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
+				bean.setDuration(rs.getInt("duration"));
+				list.add(bean);
+			}
+			
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return list;
+	}
+	
+	public synchronized ArrayList<TrackBean> getTracksByAuthor(Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		TrackBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE author=?";
+		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
+
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			TagDao tag = new TagDao(pool);
+
+			while (rs.next()) {
+				bean = new TrackBean();
+				bean.setId(rs.getLong("id"));
+				bean.setAuthor(rs.getLong("author"));
+				bean.setImage(rs.getBytes("image"));
+				bean.setImageExt(rs.getString("image_extension"));
+				bean.setIndexable(rs.getBoolean("indexable"));
+				bean.setLikes(rs.getLong("likes"));
+				bean.setName(rs.getString("name"));
+				bean.setPlays(rs.getLong("plays"));
+				bean.setTrack(rs.getBytes("track"));
+				bean.setTrackExt(rs.getString("track_extension"));
+				bean.setType(rs.getString("type"));
+				bean.setUploadDate(rs.getTimestamp("upload_date"));
+				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
+				bean.setDuration(rs.getInt("duration"));
+				list.add(bean);
+			}
+
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return list;
 	}
 }

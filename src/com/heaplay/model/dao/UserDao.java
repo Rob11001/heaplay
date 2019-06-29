@@ -180,7 +180,8 @@ public class UserDao implements DaoModel {
 				list.add(bean);
 			}
 			
-			list.sort(comparator);
+			if(comparator != null)
+				list.sort(comparator);
 			
 		} finally {
 			try {

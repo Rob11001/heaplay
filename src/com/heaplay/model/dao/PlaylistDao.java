@@ -235,4 +235,38 @@ public class PlaylistDao implements DaoModel {
 		
 		return list;
 	}
+
+	public synchronized List<PlaylistBean> doRetrieveByName(String name) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null; 
+		List<PlaylistBean> list =  new ArrayList<PlaylistBean>(); 
+		PlaylistBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME_1 + " WHERE name=?";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setString(1, name);
+			rs = ps.executeQuery();
+			TrackDao trackDao = new TrackDao(pool);
+			
+			while(rs.next()) {
+				bean = new PlaylistBean();
+				bean.setName(rs.getString("username"));
+				bean.setAuthor(rs.getLong("author"));
+				bean.setPrivacy(rs.getString("privacy"));
+				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));
+				list.add(bean);
+			}
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return list;
+	}
 }
