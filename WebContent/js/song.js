@@ -32,6 +32,7 @@ function startAudio(e){
 	 	stopAudio();
 	let parent = $(e.currentTarget).parent().parent(); //Risalgo di gerarchie
 	init(parent);
+	loadAudio();
 	playAudio();
 }
 //Inizializzazione
@@ -73,8 +74,7 @@ function reset() {
 function forwardAudio(){
 	if(audio != undefined) {
 		pauseAudio();
-		let time = audio.prop("currentTime");
-		audio.prop("currentTime",time+5);
+		audio.prop("currentTime",audio.prop("currentTime")+5);
 		if(audio.prop("currentTime") == 0) {
 			loadAudio();
 			audio.prop("currentTime",time+5);
@@ -89,7 +89,6 @@ function backAudio(){
 		audio.prop("currentTime",audio.prop("currentTime")-5);
 		if(audio.prop("currentTime") == 0) {
 			loadAudio();
-			audio.prop("currentTime",audio.prop("currentTime")-5);
 		}	
 		playAudio();
 	}
@@ -119,7 +118,7 @@ function setCurrentTime(params) {
 		audio.prop("currentTime",currentTime);
 		if(audio.prop("currentTime") == 0) {
 			loadAudio();
-			audio.prop("currentTime",time);
+			audio.prop("currentTime",currentTime);
 		}	
 		playAudio();
 	}

@@ -13,7 +13,7 @@
 <p>Sei nella HomePage</p>
 <br>
 <% if(user != null) {%>
-	<div style="color:red" >
+	<div style="color:red" id="content">
 		<p>Benvenuto <%=user.getUsername() %></p>
 		<p>Audio</p>
 	

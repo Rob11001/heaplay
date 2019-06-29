@@ -12,9 +12,7 @@
 			<a href="#">Link 3</a>
 		</nav>
 		<div class="search">
-			<form action="" method="get">
-				<input class="search-box" type="text" name="q" placeholder="Cerca..."><button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-			</form>
+			<input class="search-box" type="text" name="q" placeholder="Cerca..."><button class="search-button"><i class="fa fa-search"></i></button>
 		</div>
 		<nav class="user">
 			<%if(session.getAttribute("user") == null) {%>
