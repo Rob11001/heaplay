@@ -94,6 +94,7 @@ public class Search extends HttpServlet {
 	
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private static void  resetBytes(ArrayList list) {			
 		for(int i=0;i<list.size();i++) {
 			TrackBean track = (TrackBean) list.get(i);
