@@ -31,6 +31,8 @@ public class Search extends HttpServlet {
 		response.setContentType("application/json");
 		String query = request.getParameter("q");
 		String filter = request.getParameter("filter");
+		String autocomplete = request.getParameter("auto");
+		
 		
 		if(query != null && !query.equals("") && filter != null && !filter.equals("")) {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
@@ -61,7 +63,15 @@ public class Search extends HttpServlet {
 				e.printStackTrace();
 			}
 			Gson gson = new Gson();
-			String objectJson = gson.toJson(list);
+			String objectJson = null;
+			if(autocomplete == null)
+				objectJson = gson.toJson(list);
+			else {
+				String[] suggestions = new String[list.size()];
+				for(int i=0;i<list.size();i++)
+					suggestions[i] = list.get(i).getBeanName() ;
+				objectJson = gson.toJson(suggestions);
+			}
 			response.getWriter().write(objectJson);
 		}
 		else 
@@ -75,21 +85,7 @@ public class Search extends HttpServlet {
 
 	private ArrayList<Bean> filter(String query,ArrayList<Bean> list) {
 		//Potremmo usare una regex
-		ArrayList<Bean> newList=(ArrayList<Bean>) list.stream().filter(p -> {
-			switch(p.getClass().getSimpleName()) {
-			case "TagBean":
-				return ((TagBean)p).getName().contains(query);
-			case "TrackBean":
-				return ((TrackBean)p).getName().contains(query);
-			case "PlaylistBean":
-				return ((PlaylistBean)p).getName().contains(query);
-			case "UserBean":
-				return ((UserBean)p).getUsername().contains(query);
-			default:
-				return false;
-			}
-		}).collect(Collectors.toList());
-
+		ArrayList<Bean> newList=(ArrayList<Bean>) list.stream().filter(p ->p.getBeanName().contains(query)).collect(Collectors.toList());
 		return newList;
 	
 	}

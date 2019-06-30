@@ -121,4 +121,9 @@ public class UserBean extends Bean implements Serializable, Cloneable {
 		UserBean other = (UserBean) otherBean;
 		return email.compareTo(other.email);
 	}
+
+	@Override
+	public String getBeanName() {
+		return username;
+	}
 }

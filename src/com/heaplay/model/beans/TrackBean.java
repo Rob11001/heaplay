@@ -197,4 +197,9 @@ public class TrackBean extends Bean implements Serializable, Cloneable {
 		TrackBean other = (TrackBean) otherBean;
 		return (int) (id - other.id);
 	}
+
+	@Override
+	public String getBeanName() {
+		return name;
+	}
 }

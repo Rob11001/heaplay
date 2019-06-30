@@ -35,7 +35,7 @@
 
 <body>
 	<div class="uploadFile">
-		<form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return validateUpload(this)" >
+		<form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return validateUpload(this)" autocomplete="off">
 			<fieldset>
 				<legend>Carica la tua canzone</legend>
 				
@@ -61,10 +61,10 @@
 				
 				<div id="tags">		
   					<label for="autocomplete">Tags: </label>
-					<input type="text" name="tags" id="autocomplete" autocomplete="off"/>
+					<input id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
+					<datalist id="tagSuggestions"></datalist>
 					<a id = "tagButton" onclick="addTag(this)" >Aggiungi</a>	<br>
 				</div>
-				
 				
 				<input type="hidden" name="authorId" value="<%=user.getId()%>">
 				<input type="hidden" name="duration" id="duration"> 
@@ -79,10 +79,10 @@
 	</div>
 	
 	<!-- Importazione delle librerie js necessarie-->
-	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>  <!-- Senza alcun motivo funziona -->
+	<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
+<!-- 	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>  Senza alcun motivo funziona -->
     <script src="${pageContext.servletContext.contextPath}/js/jquery.autocomplete.js" ></script>
     <script src="${pageContext.servletContext.contextPath}/js/uploadFunction.js" ></script>	<!-- Permette di indicare il path dinamicamente -->
 	<script src ="${pageContext.servletContext.contextPath}/js/validate.js"></script>
-	<!-- <script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>  --> <!-- Non funziona senza alcun motivo apparente -->
 </body>
 </html>

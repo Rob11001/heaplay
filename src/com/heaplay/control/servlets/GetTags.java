@@ -60,7 +60,7 @@ public class GetTags extends HttpServlet {
 			Type type = new TypeToken<String[]>() {}.getType();
 			PrintWriter out = response.getWriter();
 			String gsonObject = gson.toJson(arrayOfTags.toArray(), type);
-			out.write("{ \"suggestions\":"+gsonObject+" }"); 			//Vedere di trovare una soluzione pi� elegante
+			out.write(gsonObject); 	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

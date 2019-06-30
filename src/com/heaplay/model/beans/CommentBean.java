@@ -103,4 +103,9 @@ public class CommentBean extends Bean implements Serializable, Cloneable {
 		else
 			return (int) (id - other.id);
 	}
+
+	@Override
+	public String getBeanName() {
+		return null;
+	}
 }

@@ -12,7 +12,10 @@
 			<a href="#">Libreria</a>
 		</nav>
 		<div class="search">
-			<input class="search-box" type="text" name="q" placeholder="Cerca..."><button class="search-button"><i class="fa fa-search"></i></button>
+			<input class="search-box" type="text" name="q" placeholder="Cerca..." list="suggestions" onkeyup="autocompleteSearch(this,$('#suggestions'))")>
+			<datalist id="suggestions">
+			</datalist>	
+			<button class="search-button"><i class="fa fa-search"></i></button>
 			<select class="search-select" name="filter">
 				<option value="track">Brani</option>
 				<option value="tag">Tags</option>

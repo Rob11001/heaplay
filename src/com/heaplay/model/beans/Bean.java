@@ -15,4 +15,10 @@ public abstract class Bean {
 	 *	< 0 se this e' minore di otherBean
 	 */
 	public abstract int compareKey(Bean otherBean);
+	
+	/**
+	 * Metodo aggiunto per semplicità
+	 * @return Nome del Bean o null se non possiede il concetto di nome
+	 */
+	public abstract String getBeanName();
 }

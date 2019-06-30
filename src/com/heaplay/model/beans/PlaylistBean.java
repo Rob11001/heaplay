@@ -102,4 +102,9 @@ public class PlaylistBean extends Bean implements Serializable, Cloneable {
 		PlaylistBean other = (PlaylistBean) otherBean;
 		return (int) (id - other.id);			
 	}
+
+	@Override
+	public String getBeanName() {
+		return name;
+	}
 }

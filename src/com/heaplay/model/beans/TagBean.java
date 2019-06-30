@@ -77,4 +77,9 @@ public class TagBean extends Bean implements Serializable, Cloneable {
 		return (int) (id - other.id);
 	}
 
+	@Override
+	public String getBeanName() {
+		return name;
+	}
+
 }
