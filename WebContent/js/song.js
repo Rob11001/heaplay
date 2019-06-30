@@ -3,9 +3,9 @@ let audio,volume,slider,time,playButton;
 const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
 const showHide = (el) => {
 	if($(el).css("display") === "none")
-		$(el).css("display","inline");
+		$(el).removeClass("hidden");
 	else
-		$(el).css("display","none");	
+		$(el).addClass("hidden");	
 };
 
 //Inizializzazione dei vari handlers
@@ -135,12 +135,4 @@ function updateCurrentTime (event) {
 
 	$(slider).prop("value",Math.floor(currentTime));
 	$(time).html(min + ":" + sec);
-}
-
-function showHideBar (el,otherEl) {
-	showHide(otherEl);
-	showHide(el);
-	$(el).css("pointer-events","none");
-	$(otherEl).css("pointer-events","auto");
-	
 }

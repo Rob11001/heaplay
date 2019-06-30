@@ -137,3 +137,13 @@ nav>a:visited, .dropdown>a:visited {
 	max-width: 90%;
 	padding: 10px;
 }
+
+/* Classes of support */
+
+.selected {
+	background-color: var(--main-orange);
+}
+
+.hidden {
+	display: none;
+}

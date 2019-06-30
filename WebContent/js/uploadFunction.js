@@ -48,9 +48,9 @@ $(function() {
 //Mostra e nasconde il tag html su cui è fissato
 function ShowAndHide(status) {					
 		if(status == 1)
-			$("#divPrice").css("display","block");
+			$("#divPrice").removeClass("hidden");
 		else
-			$("#divPrice").css("display","none");
+			$("#divPrice").addClass("hidden");
 }		
 
 function validateUpload(form) {

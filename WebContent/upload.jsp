@@ -54,7 +54,7 @@
 				<input type="radio" name="purchasable" id="purchasable" value="A pagamento" onclick="ShowAndHide(1)">	
 				<label for="purchasable">A pagamento</label>							<br/>
 				
-				<div id="divPrice" style="display:none">
+				<div id="divPrice" class="hidden">
 					<label for="price">Prezzo:</label>
 					<input type="number" name="price" id="price" min="0" max="666">
 				</div>

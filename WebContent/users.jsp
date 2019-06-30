@@ -6,10 +6,18 @@
 	ArrayList<TrackBean> listOfTracks = (ArrayList<TrackBean>)request.getAttribute("tracks");
 	Integer begin = (Integer)request.getAttribute("begin");
 %>
+<div class="selection">
+	<button class="trackButton selected" onclick="selection(this,$('.playlistButton'))">Brani</button>
+	<button class="playlistButton" onclick="selection(this,$('.trackButton'))">Playlist</button>
+</div>
 
-<div class="user-page">
-	<span><%=userPage.getUsername()%></span>
-	<h3>Tracks:</h3>
+<div class="user-tracks">
+	<span class="userName"><%=userPage.getUsername()%></span>
+	
+	<%if(listOfTracks.size() == 0) { %>
+		<p>Non sono presenti brani</p>
+	<%} %>
+	
 	<%for(int i=begin;i<listOfTracks.size() && i<begin + 5;i++) {	//Problema al numero massimo di track che posso mantenere in player in una pagina --> Capire come poter passare ad un altra pagina  per vedere le restanti
 		TrackBean track = listOfTracks.get(i);	
 	%>
@@ -55,6 +63,16 @@
 			<%} %>
 		</form>
 </div>
+
+<div class="user-playlist hidden">
+	<h3>Playlist</h3>
+
+</div>
+
+<div id="content"></div>
+
 <script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
-<script src="${pageContext.servletContext.contextPath}/js/pageShift.js" ></script>
+<script src="${pageContext.servletContext.contextPath}/js/users.js" ></script>
+<script src="${pageContext.servletContext.contextPath}/js/load.js" ></script>
+

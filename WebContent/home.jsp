@@ -13,10 +13,8 @@
 <p>Sei nella HomePage</p>
 <br>
 <% if(user != null) {%>
-	<div style="color:red" id="content">
-		<p>Benvenuto <%=user.getUsername() %></p>
-		<p>Audio</p>
-	
+	<p>Benvenuto <%=user.getUsername() %></p>
+	<div id="content">
 		<div class="song"> <!-- Classe del player che possiamo mettere in una jsp a parte -->
 			<audio preload="metadata" class="audio" ontimeupdate="updateCurrentTime(this)" >				<!-- Problemi con il caricamento dell'audio -->
 				<%if(track != null) {%>
@@ -86,9 +84,11 @@
 		</div>
 		
 	</div>
-	<a href="<%=response.encodeURL("upload")%>">Carica</a>
+
 <% }	%>
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 	<script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
 	<script src="${pageContext.servletContext.contextPath}/js/load.js" ></script>
+	<script src="${pageContext.servletContext.contextPath}/js/users.js" ></script>
+	
