@@ -4,13 +4,13 @@
 <%
 	UserBean userPage= (UserBean)request.getAttribute("user");	
 	ArrayList<TrackBean> listOfTracks = (ArrayList<TrackBean>)request.getAttribute("tracks");
+	Integer begin = (Integer)request.getAttribute("begin");
 %>
-
 
 <div class="user-page">
 	<span><%=userPage.getUsername()%></span>
 	<h3>Tracks:</h3>
-	<%for(int i=0;i<listOfTracks.size() && i<5;i++) {	//Problema al numero massimo di track che posso mantenere in player in una pagina --> Capire come poter passare ad un altra pagina  per vedere le restanti
+	<%for(int i=begin;i<listOfTracks.size() && i<begin + 5;i++) {	//Problema al numero massimo di track che posso mantenere in player in una pagina --> Capire come poter passare ad un altra pagina  per vedere le restanti
 		TrackBean track = listOfTracks.get(i);	
 	%>
 		<div class="song"> <!-- Classe del player che possiamo mettere in una jsp a parte -->
@@ -47,6 +47,14 @@
 			</div>
 		</div>
 		<%} %>
+		<br>
+		<form action="/heaplay/user/<%=userPage.getUsername()%>" method="POST">
+			<input type="hidden" value="<%=begin%>" name="begin">
+			<%for( int i= 0; i< listOfTracks.size(); i+=5) {%>
+				<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	
+			<%} %>
+		</form>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
+<script src="${pageContext.servletContext.contextPath}/js/pageShift.js" ></script>

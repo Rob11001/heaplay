@@ -11,6 +11,7 @@ const showHide = (el) => {
 //Inizializzazione dei vari handlers
 $(document).ready(function init() {
 	addEventHandlers();
+	focusButton();
 });
 //Aggiunta degli handlers per tutte le classi
 function addEventHandlers() {

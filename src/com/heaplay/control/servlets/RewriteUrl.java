@@ -22,12 +22,15 @@ public class RewriteUrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	//Lettura URL e parametri
     	String URI = request.getRequestURI();
-    	String[]params = URI.split("/");
+    	String[] params = URI.split("/");
     	String user = params[params.length-1];
     	UserBean userBean =((UserBean)request.getSession().getAttribute("user"));
+    	Integer begin = request.getParameter("begin") == null ? 0 : Integer.parseInt(request.getParameter("begin"));
     	String userName = (userBean != null) ? userBean.getUsername() : null;
-    	System.out.println(user);
+    	
+    	//Controllo se l'user è quello loggato oppure è un altro
     	if(user.equals(userName)) {
     		//Creare pagina per l'utente 
     	}else {
@@ -42,6 +45,7 @@ public class RewriteUrl extends HttpServlet {
 					listOfTracks = trackDao.getTracksByAuthor(currentUser.getId());
 					request.setAttribute("user", currentUser);
 		    		request.setAttribute("tracks", listOfTracks);
+		    		request.setAttribute("begin", begin);
 		    		request.setAttribute("jspPath", "/users.jsp");
 					request.setAttribute("pageTitle", user);
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
@@ -57,5 +61,4 @@ public class RewriteUrl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
