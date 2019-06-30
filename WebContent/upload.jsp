@@ -81,7 +81,6 @@
 	<!-- Importazione delle librerie js necessarie-->
 	<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 <!-- 	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>  Senza alcun motivo funziona -->
-    <script src="${pageContext.servletContext.contextPath}/js/jquery.autocomplete.js" ></script>
     <script src="${pageContext.servletContext.contextPath}/js/uploadFunction.js" ></script>	<!-- Permette di indicare il path dinamicamente -->
 	<script src ="${pageContext.servletContext.contextPath}/js/validate.js"></script>
 </body>
