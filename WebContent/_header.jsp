@@ -18,7 +18,7 @@
 				<option value="playlist">Playlist</option>
 				<option value="user">Utenti</option>
 			</select><!-- 
-			--><input class="search-box" type="text" name="q" placeholder="Cerca..." list="suggestions" onkeyup="autocompleteSearch(this,$('#suggestions'))")><!--
+			--><input class="search-box" type="text" name="q" placeholder="Cerca..." list="suggestions" onkeyup="autocompleteSearch(this,$('#suggestions'))" onkeypress="searchOnEnterButton(event)"><!--
 			--><datalist id="suggestions"></datalist><button class="search-button"><i class="fa fa-search"></i></button>
 		</div>
 		<nav class="user">

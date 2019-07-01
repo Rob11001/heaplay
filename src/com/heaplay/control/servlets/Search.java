@@ -32,7 +32,9 @@ public class Search extends HttpServlet {
 		String query = request.getParameter("q");
 		String filter = request.getParameter("filter");
 		String autocomplete = request.getParameter("auto");
-		
+		String fromStart = request.getParameter("startFrom");
+		int start = Integer.parseInt(fromStart==null ? "0" : fromStart);
+		int found = 0;
 		
 		if(query != null && !query.equals("") && filter != null && !filter.equals("")) {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
@@ -42,21 +44,33 @@ public class Search extends HttpServlet {
 				case "user": UserDao userDao = new UserDao(pool);
 							list = (ArrayList<Bean>) userDao.doRetrieveAll(null);
 							list = filter(query, list);
+							found = list.size();
+							if(autocomplete == null)
+								list = createSubList(list,start,(start+5) > found ? found : (start+5));
 							break;
 				case "track":TrackDao trackDao = new TrackDao(pool);
 							list = (ArrayList<Bean>) trackDao.doRetrieveAll(null);
 							list = filter(query, list);
+							found = list.size();
+							if(autocomplete == null)
+								list = createSubList(list,start,(start+5) > found ? found : (start+5));	
 							resetBytes(list);
 							break;
 				case "playlist":PlaylistDao playlistDao = new PlaylistDao(pool);
 							list = (ArrayList<Bean>) playlistDao.doRetrieveAll(null);
 							list = filter(query, list);
+							found = list.size();
+							if(autocomplete == null)
+								list = createSubList(list,start,(start+5) > found ? found : (start+5));
 							for(int i=0;i<list.size();i++)
 								resetBytes(((ArrayList<TrackBean>)((PlaylistBean)list.get(i)).getTracks()));
 							break;
 				case "tag":  TagDao tagDao = new TagDao(pool);
 							list = (ArrayList<Bean>) tagDao.doRetrieveAll(null);
 							list = filter(query, list);
+							found = list.size();
+							if(autocomplete == null)
+								list = createSubList(list,start,(start+5) > found ? found : (start+5));
 							break;
 				}
 			} catch (SQLException e) {
@@ -64,8 +78,9 @@ public class Search extends HttpServlet {
 			}
 			Gson gson = new Gson();
 			String objectJson = null;
+			
 			if(autocomplete == null)
-				objectJson = gson.toJson(list);
+				objectJson = "{\"list\":"+gson.toJson(list)+", \"length\":"+found+"}";
 			else {
 				String[] suggestions = new String[list.size()];
 				for(int i=0;i<list.size();i++)
@@ -97,6 +112,13 @@ public class Search extends HttpServlet {
 			track.setImage(null);
 			track.setTrack(null);
 		}
+	}
+	
+	private static ArrayList<Bean> createSubList(ArrayList<Bean> list, int begin, int end) {
+		ArrayList<Bean> sublist = new ArrayList<Bean>();
+		for(int i = begin; i < end; i++)
+			sublist.add(list.get(i));
+		return sublist;
 	}
 
 }

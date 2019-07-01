@@ -42,10 +42,12 @@ public class RewriteUrl extends HttpServlet {
 			try {
 				currentUser = userDao.doRetrieveByName(user);
 				if(currentUser != null) {
-					listOfTracks = trackDao.getTracksByAuthor(currentUser.getId());
+					listOfTracks = trackDao.getTracksByAuthor(currentUser.getId(),begin,5);
+					int numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
 					request.setAttribute("user", currentUser);
 		    		request.setAttribute("tracks", listOfTracks);
 		    		request.setAttribute("begin", begin);
+		    		request.setAttribute("numberOfTracks",numberOfTracks);
 		    		request.setAttribute("jspPath", "/users.jsp");
 					request.setAttribute("pageTitle", user);
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");

@@ -440,12 +440,12 @@ public class TrackDao implements DaoModel {
 		return list;
 	}
 	
-	public synchronized ArrayList<TrackBean> getTracksByAuthor(Long id) throws SQLException {
+	public synchronized ArrayList<TrackBean> getTracksByAuthor(Long id,int begin,int end) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
 		TrackBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE author=?";
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE author=? LIMIT "+begin+","+end;
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 
 		try {
@@ -483,5 +483,29 @@ public class TrackDao implements DaoModel {
 			}
 		}
 		return list;
+	}
+	
+	public synchronized int getNumberOfTracksOfAuthor(Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		String selectQuery = "SELECT count(*) FROM " + TABLE_NAME + " WHERE author=?";
+		int n = 0;
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			if(rs.next())
+				n=rs.getInt(1);
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return n;
 	}
 }

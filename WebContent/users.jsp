@@ -5,6 +5,7 @@
 	UserBean userPage= (UserBean)request.getAttribute("user");
 	ArrayList<TrackBean> listOfTracks = (ArrayList<TrackBean>)request.getAttribute("tracks");
 	Integer begin = (Integer)request.getAttribute("begin");
+	Integer number = (Integer)request.getAttribute("numberOfTracks");
 %>
 
 <nav class="content-nav">
@@ -18,7 +19,7 @@
 		<p>Non sono presenti brani</p>
 	<%} %>
 	
-	<%for(int i=begin;i<listOfTracks.size() && i<begin + 5;i++) {	//Problema al numero massimo di track che posso mantenere in player in una pagina --> Capire come poter passare ad un altra pagina  per vedere le restanti
+	<%for(int i=0;i<listOfTracks.size();i++) {	//Problema al numero massimo di track che posso mantenere in player in una pagina --> Capire come poter passare ad un altra pagina  per vedere le restanti
 		TrackBean track = listOfTracks.get(i);	
 	%>
 		<%@ include file="/_player.jsp"%>
@@ -27,7 +28,7 @@
 		<br>
 		<form action="/heaplay/user/<%=userPage.getUsername()%>" method="POST">
 			<input type="hidden" value="<%=begin%>" name="begin">
-			<%for( int i= 0; i< listOfTracks.size(); i+=5) {%>
+			<%for( int i= 0; i< number; i+=5) {%>
 				<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	
 			<%} %>
 		</form>
@@ -47,4 +48,3 @@
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
 <script src="${pageContext.servletContext.contextPath}/js/users.js" ></script>
 <script src="${pageContext.servletContext.contextPath}/js/load.js" ></script>
-
