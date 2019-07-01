@@ -12,16 +12,14 @@
 			<a href="#">Libreria</a>
 		</nav>
 		<div class="search">
-			<input class="search-box" type="text" name="q" placeholder="Cerca..." list="suggestions" onkeyup="autocompleteSearch(this,$('#suggestions'))")>
-			<datalist id="suggestions">
-			</datalist>	
-			<button class="search-button"><i class="fa fa-search"></i></button>
 			<select class="search-select" name="filter">
 				<option value="track">Brani</option>
 				<option value="tag">Tags</option>
 				<option value="playlist">Playlist</option>
 				<option value="user">Utenti</option>
-			</select>
+			</select><!-- 
+			--><input class="search-box" type="text" name="q" placeholder="Cerca..." list="suggestions" onkeyup="autocompleteSearch(this,$('#suggestions'))")><!--
+			--><datalist id="suggestions"></datalist><button class="search-button"><i class="fa fa-search"></i></button>
 		</div>
 		<nav class="user">
 			<%if(session.getAttribute("user") == null) {%>

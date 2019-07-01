@@ -1,22 +1,22 @@
 @charset "UTF-8";
 
 html { 
-	--outside-wrapper: #2D3142; 
-	--content-wrapper: #FFFFFF;
+	--content-wrapper: white;
+	--main-black: #2D3142; 
 	--main-orange: #EF8354;
 	--main-orange-shade: #DA784D; 
 	--main-blue: #3D7BCC;
 	--header-height: 50px;
+	color: var(--main-black);
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
 }
 
 body {
-	background-color: var(--outside-wrapper);
+	background-color: var(--main-black);
 	margin: 0;
 }
 
-/* Header and Menu Bar */
 header {
 	background-color: var(--main-orange);
 	box-shadow: 0 1px 0 rgba(12, 13, 14, 0.1), 0 1px 6px rgba(59, 64, 69, 0.1);
@@ -32,19 +32,41 @@ nav {
 	padding: 0px 5px;
 }
 
-nav>a, .dropdown>a {
+/* Header Navs Rules */
+
+nav > a, .dropdown > a {
 	color: white;
 	font-weight: bold;
 	text-transform: uppercase;
 	padding: 0.5em;
 }
 
-nav>a:hover, .dropdown>a:hover {
+nav > a:hover, .dropdown > a:hover {
 	background-color: var(--main-orange-shade);
 	border-radius: 10px;
 }
 
-nav>a:visited, .dropdown>a:visited {
+nav > a:visited, .dropdown > a:visited {
+	color: white;
+}
+
+/* Content Navs Rules */
+
+.content-nav {
+	justify-content: center;
+}
+
+.content-nav  a, .content-nav a:visited {
+	border-radius: 10px;
+	color: var(--main-black);
+}
+
+.content-nav a:hover {
+	background-color: var(--main-orange);
+	color: white;
+}
+
+.content-nav a.selected {
 	color: white;
 }
 
@@ -68,13 +90,20 @@ nav>a:visited, .dropdown>a:visited {
 	flex: 3;
 }
 
-.search-box {
+.search-select {
 	border: 2px solid var(--main-blue);
 	border-top-left-radius: 20px;
 	border-bottom-left-radius: 20px;
+	font-size: 1.1rem;
+	text-indent: 5px;
+	width: 11%;
+}
+
+.search-box {
+	border: 2px solid var(--main-blue);
+	border-left: none;
 	font-size: 1em;
-	outline: none;
-	text-indent: 12px;
+	text-indent: 5px;
 	transition: width 0.5s ease-in-out;
 	width: 30%;
 }
@@ -137,6 +166,17 @@ nav>a:visited, .dropdown>a:visited {
 	max-width: 90%;
 	padding: 10px;
 }
+
+/* Player Style */
+
+.play {
+	
+}
+
+.pause {
+	
+}
+
 
 /* Classes of support */
 
