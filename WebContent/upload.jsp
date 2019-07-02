@@ -40,13 +40,17 @@
 				<legend>Carica la tua canzone</legend>
 				
 				<label for="songName">Nome con cui sarà visualizzata:</label>
-				<input type="text" name="songName" id="songName" />		<br/>
+				<input type="text" name="songName" id="songName" required/>		<br/>
 				
 				<label for="audio">Scegli la canzone:</label>
 				<input type="file" name="audio" id="audio" accept="audio/*" required />	<br/>
 				
 				<label for="image">Scegli l'immagine</label>
-				<input type="file" name="image" id="image" accept="image/*" required />	<br/>
+				<input type="file" name="image" id="image" accept="image/*" required />	
+				<br/>
+				<div class="hidden">
+					<img id = "preview" alt="" src="" width="50px">	<br>
+				</div>
 				
 				<input type="radio" name="purchasable" id="Free" value="Gratis" checked="checked" onclick="ShowAndHide(0)"> 
 				<label for="Free">Gratis</label>
