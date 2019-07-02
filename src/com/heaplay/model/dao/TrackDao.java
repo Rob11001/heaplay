@@ -112,7 +112,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 
 		String updateQuery = "UPDATE " + TABLE_NAME
-				+ " SET  name=?,type=?,plays=?,indexable=?,author=?,upload=?,likes=?,duration=? WHERE id=?";
+				+ " SET  name=?,type=?,plays=?,indexable=?,author=?,upload_date=?,likes=?,duration=? WHERE id=?";
 		String insertTagged = "INSERT INTO  tagged(track_id,tag_id) VALUES (?,?) ";
 		String deleteTagged = "DELETE FROM tagged WHERE track_id=? AND tag_id=?";
 

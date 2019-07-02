@@ -8,12 +8,18 @@
 	Integer number = (Integer)request.getAttribute("numberOfTracks");
 %>
 
+
+<img src="/heaplay/getImage?id=<%=userPage.getId()%>&extension=...&user=true" onclick = "inputFile($('#image'))"  width="150px">
+<span class="userName"><%=userPage.getUsername()%></span>
+<%if(userPage.getId() == ((UserBean)session.getAttribute("user")).getId()) {%>
+	<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">
+<%} %>
 <nav class="content-nav">
 	<a class="trackButton selected" onclick="selection(this,$('.playlistButton'))" href="#">Brani</a>
 	<a class="playlistButton" onclick="selection(this,$('.trackButton'))" href="#">Playlist</a>
 </nav>
+
 <div class="user-tracks">
-	<span class="userName"><%=userPage.getUsername()%></span>
 	
 	<%if(listOfTracks.size() == 0) { %>
 		<p>Non sono presenti brani</p>

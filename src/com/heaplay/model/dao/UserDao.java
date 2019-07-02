@@ -60,7 +60,7 @@ public class UserDao implements DaoModel {
 		PreparedStatement ps = null;
 		Connection con = null;
 		
-		String updateQuery = "UPDATE " + TABLE_NAME + " SET email=?,username=?,password=?,auth=?,active=?  WHERE id=?";
+		String updateQuery = "UPDATE " + TABLE_NAME + " SET email=?,username=?,password=?,auth=?,active=?,image=?,image_ext=?  WHERE id=?";
 		
 		try {
 			con = pool.getConnection();
@@ -121,14 +121,15 @@ public class UserDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null; 
 		UserBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE email=? and password=MD5(?)";
+		String selectQuery = (keys.size() == 2) ? "SELECT * FROM " + TABLE_NAME + " WHERE email=? and password=MD5(?)" : "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
 		
 		try {
 			con = pool.getConnection();
 			ps = con.prepareStatement(selectQuery);
 		
 			ps.setString(1, keys.get(0));
-			ps.setString(2, keys.get(1));
+			if(keys.size() == 2)
+				ps.setString(2, keys.get(1));
 			
 			rs = ps.executeQuery();
 			
@@ -140,6 +141,7 @@ public class UserDao implements DaoModel {
 				bean.setAuth(rs.getString("auth"));
 				bean.setPassword(rs.getString("password"));
 				bean.setActive(rs.getBoolean("active"));
+				bean.setUserImageExt(rs.getString("image_ext"));
 			}
 			
 		} finally {
@@ -176,6 +178,7 @@ public class UserDao implements DaoModel {
 				bean.setEmail(rs.getString("email"));
 				bean.setAuth(rs.getString("auth"));
 				bean.setActive(rs.getBoolean("active"));
+				bean.setUserImageExt(rs.getString("image_ext"));
 			}
 			
 		} finally {
@@ -213,6 +216,7 @@ public class UserDao implements DaoModel {
 				bean.setAuth(rs.getString("auth"));
 				bean.setPassword(rs.getString("password"));
 				bean.setActive(rs.getBoolean("active"));
+				bean.setUserImageExt(rs.getString("image_ext"));
 				list.add(bean);
 			}
 			
@@ -229,6 +233,36 @@ public class UserDao implements DaoModel {
 		}
 		
 		return list;
+	}
+	
+	public synchronized byte[] getImage(Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null; 
+		byte[] image = null;
+		String selectQuery = "SELECT image FROM " + TABLE_NAME + " WHERE id=?";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+		
+			ps.setLong(1, id);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) 
+				image = rs.getBytes(1);
+			
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		
+		return image;			
 	}
 
 }
