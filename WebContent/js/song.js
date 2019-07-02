@@ -16,6 +16,7 @@ $(document).ready(function init() {
 //Aggiunta degli handlers per tutte le classi
 function addEventHandlers() {
 	$(".play").click(startAudio);
+	$(".play").click(view);
 }
 
 //Handlers
@@ -141,4 +142,14 @@ function updateCurrentTime (event) {
 
 	$(slider).prop("value",Math.floor(currentTime));
 	$(time).html(min + ":" + sec);
+}
+
+//Funzione che in maniera asincrona incrementa i plays
+function view(e) {
+	let url = $(e.currentTarget).parent().parent().parent().find(".audio").children().prop("src");
+	let id = url.substring(url.indexOf("id")+3,url.indexOf("&"));
+	$.ajax({
+		"type":"GET",
+		"url" : "/heaplay/view?id="+id
+	});
 }

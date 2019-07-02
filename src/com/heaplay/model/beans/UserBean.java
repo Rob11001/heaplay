@@ -19,11 +19,14 @@ public class UserBean extends Bean implements Serializable, Cloneable {
 	private String password;
 	private String auth;
 	private boolean active;
+	private byte[] userImage;
+	private String userImageExt;
 	
 	public UserBean() {
 		id = -1;
-		username = email = password = auth = "";
+		username = email = password = auth = userImageExt = "";
 		active = false;
+		userImage = null;
 	}
 
 	public long getId() {
@@ -32,6 +35,14 @@ public class UserBean extends Bean implements Serializable, Cloneable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public void setUserImage(byte[] img) {
+		this.userImage = img;
+	}
+	
+	public byte[] getUserImage() {
+		return userImage;
 	}
 
 	public String getUsername() {
@@ -74,6 +85,14 @@ public class UserBean extends Bean implements Serializable, Cloneable {
 		this.active = active;
 	}
 
+	public String getUserImageExt() {
+		return userImageExt;
+	}
+
+	public void setUserImageExt(String userImageExt) {
+		this.userImageExt = userImageExt;
+	}
+	
 	@Override
 	public boolean equals(Object otherOb) {
 		if(otherOb == null || otherOb.getClass() != getClass())

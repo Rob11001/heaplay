@@ -61,7 +61,7 @@ public class PurchasableTrackDao implements DaoModel {
 		PreparedStatement ps = null;
 		Connection con = null;
 		
-		String updateQuery = "UPDATE "+ TABLE_NAME + "SET sold=?,price=? WHERE id=?";
+		String updateQuery = "UPDATE "+ TABLE_NAME + " SET sold=? , price=? WHERE id=?";
 		TrackDao tDao = new TrackDao(pool);
 		tDao.doUpdate(bean);
 		
