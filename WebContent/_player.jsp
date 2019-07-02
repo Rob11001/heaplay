@@ -26,9 +26,9 @@
 			<button class="play">
 				<i class="fa fa-play color-white"></i>
 			</button>
-			<button class="pause">
-				<i class="fa fa-pause color-white"></i>
-			</button>
+<!-- 			<button class="pause"> -->
+<!-- 				<i class="fa fa-pause color-white"></i> -->
+<!-- 			</button> -->
 			<button class="slidebar">
 				<span class="song-time">00:00</span> 
 				<input type="range"

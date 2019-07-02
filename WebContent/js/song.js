@@ -1,5 +1,5 @@
 //Var globale
-let audio,volume,slider,time,playButton,pauseButton;
+let audio,volume,slider,time,playButton;
 const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
 const showHide = (el) => {
 	if($(el).css("display") === "none")
@@ -39,21 +39,29 @@ function init(parent) {
 	slider = $(parent).find(".slider-bar");
 	time = $(parent).find(".song-time");
 	playButton = $(parent).find(".play");
-	pauseButton = $(parent).find(".pause");
-	$(playButton).off();
-	$(playButton).click(playAudio);
-	$(pauseButton).off();
-	$(pauseButton).click(pauseAudio);
 	$(slider).prop("value",0);
 }
 
 function playAudio() {
 	audio.trigger("play");
+	//Gestione listener
+	$(playButton).off();
+	$(playButton).click(pauseAudio);
+	//Gestione classe
+	$(playButton).children().removeClass();
+	$(playButton).children().prop("class","fa fa-pause color-white");
 }
 
 function pauseAudio(){
-	if(audio != undefined)
+	if(audio != undefined) {
 		audio.trigger('pause');
+		//Gestione listener
+		$(playButton).off();
+		$(playButton).click(playAudio);
+		//Gestione classe
+		$(playButton).children().removeClass();
+		$(playButton).children().prop("class","fa fa-play color-white");
+	}	
 }
 //Metodo per resettare l'audio
 function stopAudio(){
@@ -65,7 +73,6 @@ function reset() {
 	audio.prop("currentTime",0);
 	playButton.off();
 	playButton.click(startAudio);
-	pauseButton.off();
 	$(slider).prop("value",0);
 	$(time).html("00:00");
 	$(volume).css("display","none");
