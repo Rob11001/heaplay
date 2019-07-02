@@ -28,7 +28,9 @@ public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Set del Content Type
 		response.setContentType("application/json");
+		//Lettura parametri
 		String query = request.getParameter("q");
 		String filter = request.getParameter("filter");
 		String autocomplete = request.getParameter("auto");
@@ -36,10 +38,12 @@ public class Search extends HttpServlet {
 		int start = Integer.parseInt(fromStart==null ? "0" : fromStart);
 		int found = 0;
 		
+		
 		if(query != null && !query.equals("") && filter != null && !filter.equals("")) {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			ArrayList<Bean> list = null;
 			try {
+				//In base al filtro
 				switch(filter) {
 				case "user": UserDao userDao = new UserDao(pool);
 							list = (ArrayList<Bean>) userDao.doRetrieveAll(null);
@@ -66,11 +70,18 @@ public class Search extends HttpServlet {
 								resetBytes(((ArrayList<TrackBean>)((PlaylistBean)list.get(i)).getTracks()));
 							break;
 				case "tag":  TagDao tagDao = new TagDao(pool);
+							TrackDao track = new TrackDao(pool);
 							list = (ArrayList<Bean>) tagDao.doRetrieveAll(null);
 							list = filter(query, list);
 							found = list.size();
-							if(autocomplete == null)
-								list = createSubList(list,start,(start+5) > found ? found : (start+5));
+							if(autocomplete == null) {
+								ArrayList<Bean> listOfTags = new ArrayList<Bean>();
+								for(int i = 0 ; i < found ; i++)
+									listOfTags.addAll(track.getTracksByTag(((TagBean)list.get(i)).getId()));
+								found = listOfTags.size();
+								list = createSubList(listOfTags,start,(start+5) > found ? found : (start+5));
+								resetBytes(list);
+							}
 							break;
 				}
 			} catch (SQLException e) {
@@ -79,6 +90,7 @@ public class Search extends HttpServlet {
 			Gson gson = new Gson();
 			String objectJson = null;
 			
+			// Creazione dell'oggetto JSON in base all'uso in base all'autocompletamento o meno
 			if(autocomplete == null)
 				objectJson = "{\"list\":"+gson.toJson(list)+", \"length\":"+found+"}";
 			else {
@@ -99,7 +111,7 @@ public class Search extends HttpServlet {
 	}
 
 	private ArrayList<Bean> filter(String query,ArrayList<Bean> list) {
-		//Potremmo usare una regex
+		/*String regex = "/^.*"+query+".*$/"; Non usata*/
 		ArrayList<Bean> newList=(ArrayList<Bean>) list.stream().filter(p ->p.getBeanName().contains(query)).collect(Collectors.toList());
 		return newList;
 	

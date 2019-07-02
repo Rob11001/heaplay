@@ -508,4 +508,51 @@ public class TrackDao implements DaoModel {
 		}
 		return n;
 	}
+	
+	public synchronized ArrayList<Bean> getTracksByTag(Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		ArrayList<Bean> list = new ArrayList<Bean>();
+		TrackBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + ",tagged WHERE track_id=id AND tag_id=?";
+		
+		int n = 0;
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			TagDao tag = new TagDao(pool);
+
+			while (rs.next()) {
+				bean = new TrackBean();
+				bean.setId(rs.getLong("id"));
+				bean.setAuthor(rs.getLong("author"));
+				bean.setImage(rs.getBytes("image"));
+				bean.setImageExt(rs.getString("image_extension"));
+				bean.setIndexable(rs.getBoolean("indexable"));
+				bean.setLikes(rs.getLong("likes"));
+				bean.setName(rs.getString("name"));
+				bean.setPlays(rs.getLong("plays"));
+				bean.setTrack(rs.getBytes("track"));
+				bean.setTrackExt(rs.getString("track_extension"));
+				bean.setType(rs.getString("type"));
+				bean.setUploadDate(rs.getTimestamp("upload_date"));
+				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
+				bean.setDuration(rs.getInt("duration"));
+				list.add(bean);
+			}
+			
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return list;
+	}
+	
 }
