@@ -136,9 +136,9 @@ nav > a:visited, .dropdown > a:visited {
 	border-bottom-right-radius: 20px;
 	box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
 	display: none;
+	right: 20px;
 	min-width: 160px;
 	position: absolute;
-	margin-top: 10px; 
 	z-index: 1;
 }
 
@@ -151,6 +151,11 @@ nav > a:visited, .dropdown > a:visited {
 
 .dropdown-content a:hover {
 	background-color: #ddd;
+}
+
+.dropdown-content a:hover:last-child {
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
 }
 
 .dropdown:hover .dropdown-content {
@@ -169,16 +174,102 @@ nav > a:visited, .dropdown > a:visited {
 
 /* Player Style */
 
-.play {
-	
+.song {
+	display: flex;
+	margin: 10px 0;
 }
 
-.pause {
-	
+.song a {
+	color: var(--main-black);
+}
+
+.song a:hover {
+	opacity: 0.8;
+}
+
+.song button {
+	border: none;
+	background-color: transparent;
+}
+
+.song-image {
+	display: inline;
+}
+
+.song-image img {
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.song-info {
+	display: inline;
+	padding: 10px 10px;
+}
+
+.author {
+	display: inline;
+}
+
+.song .play, .song .pause {
+	background-color: var(--main-orange);
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 1em;
+	padding: 5px 10px;
+	text-align: center;
+}
+
+.slider {
+	-webkit-appearance: none;  /* Override default CSS styles */
+	appearance: none;
+	background: #d3d3d3; /* Grey background */
+	border-radius: 5px;
+	height: 8px;
+	opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+	-webkit-transition: .2s; /* 0.2 seconds transition on hover */
+	transition: opacity .2s;
+}
+
+.slider:hover {
+	opacity: 1; /* Fully shown on mouse-over */
+}
+
+.slider::-webkit-slider-thumb  {
+	-webkit-appearance: none; /* Override default look */
+	appearance: none;
+	background-color: var(--main-orange);
+	border-radius: 50%; width : 25px; /* Set a specific slider handle width */
+	cursor: pointer;
+	height: 15px; /* Slider handle height */
+	width: 15px; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+	background-color: var(--main-orange);
+	border-radius: 50%;
+	cursor: pointer; /* Cursor on hover */
+	height: 25px; /* Slider handle height */
+	width: 25px; /* Set a specific slider handle width */
+}
+
+.volume-button {
+	font-size: 1em;
+}
+
+.volume {
+	display: none;
+}
+
+.volume-button:hover .volume {
+	display: inline;
 }
 
 
 /* Classes of support */
+
+.color-white {
+	color: white;
+}
 
 .selected {
 	background-color: var(--main-orange);
