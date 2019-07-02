@@ -39,11 +39,6 @@
 
 </div>
 
-<div class="loading hidden">
-	<img alt="Loading..." src="/heaplay/images/loading.gif" width="50px">
-</div>
-<div id="content"></div>
-
 <script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
 <script src="${pageContext.servletContext.contextPath}/js/users.js" ></script>

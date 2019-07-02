@@ -1,8 +1,10 @@
+<%@page import="com.heaplay.model.beans.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	String jspPath = (String) request.getAttribute("jspPath"); //Mancano i controlli
 	String pageTitle = (String) request.getAttribute("pageTitle");
+	UserBean user = (UserBean) session.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,13 +21,21 @@
 
 	<jsp:include page="/_header.jsp" />
 	
-	<div class="content-wrapper">
+		<div class="content-wrapper">
+			<div class="search-content">	
+				<div class="loading hidden">
+					<img alt="Loading..." src="/heaplay/images/loading.gif" width="50px">
+				</div>
+				<div id="content">		
+				</div>
+			</div>
 	
 		<jsp:include page="<%=jspPath%>"/>
 	
 	</div>
 	
 	<jsp:include page="/_footer.jsp" />
-<!-- 	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script> Da problemi nella upload  -->
+	
+	<!-- 	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script> Da problemi nella upload  -->
 </body>
 </html>

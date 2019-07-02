@@ -13,14 +13,6 @@
 	<p>Benvenuto <%=user.getUsername() %></p>
 <% }	%>
 
-<div id="search-box">	
-	<div class="loading hidden">
-		<img alt="Loading..." src="/heaplay/images/loading.gif" width="50px">
-	</div>
-	<div id="content">			
-	</div>
-</div>
-
 <div id="playlists">
 	<p>Inseriamo qui le playlist più ascoltate</p>
 </div>

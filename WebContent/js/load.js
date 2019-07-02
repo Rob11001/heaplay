@@ -10,7 +10,10 @@
 			$.ajax({
 				"type":"GET",
 				"url" : url,
-				"beforeSend": () => {showHide($(".loading"),$("#content"))},
+				"beforeSend": () => {
+					$(".content-wrapper > *").not(".search-content").remove();
+					showHide($(".loading"),$("#content"));
+				},
 				"complete"  : () => {showHide($("#content"),$(".loading"))},
 				"success": (data) => {
 					let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca

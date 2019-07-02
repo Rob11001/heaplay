@@ -27,10 +27,12 @@ header {
 	top: 0;
 	position: fixed;
 	width: 100%;
+	z-index: 1;
 }
 
 footer {
 	background-color: var(--main-orange);
+	box-shadow: 0 -1px 0 rgba(12, 13, 14, 0.1), 0 -1px 6px rgba(59, 64, 69, 0.1);
 	display: flex;
 	height: var(--footer-height);
 	width: 100%;
@@ -87,7 +89,7 @@ nav > a:visited, .dropdown > a:visited {
 	border: 2px solid var(--main-blue);
 	border-top-left-radius: 20px;
 	border-bottom-left-radius: 20px;
-	font-size: 1.1rem;
+	font-size: 1em;
 	text-indent: 5px;
 	width: 11%;
 }
@@ -111,7 +113,7 @@ nav > a:visited, .dropdown > a:visited {
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
 	cursor: pointer;
-	font-size: 1.1rem;
+	font-size: 1em;
 	outline: none;
 	text-indent: -2px;
 	width: 5%;
@@ -131,7 +133,7 @@ nav > a:visited, .dropdown > a:visited {
 	right: 30px;
 	min-width: 160px;
 	position: absolute;
-	z-index: 1;
+	z-index: 2;
 }
 
 .dropdown-content a {
@@ -166,7 +168,8 @@ nav > a:visited, .dropdown > a:visited {
 	background-color: var(--content-wrapper);
 	margin: var(--header-height) auto 0 auto;
 	max-width: 85%;
-	padding: 10px;
+	min-height: calc(100vh - var(--footer-height) - var(--header-height));
+	padding: 20px;
 }
 
 /* Content Navs Rules */
@@ -282,6 +285,37 @@ nav > a:visited, .dropdown > a:visited {
 	display: inline;
 }
 
+/* Form */
+
+.hr-form {
+	border: 1px solid var(--main-black);
+}
+
+.form-input-text {
+	border: 1px solid grey;
+	border-radius: 3px;
+	font-size: 1.2em;
+	margin-bottom: 20px;
+	opacity: 0.6;
+	text-indent: 3px;
+}
+
+.form-input-text:focus {
+	opacity: 1;
+}
+
+.form-input-submit {
+	background-color: transparent;
+	border: 1px solid var(--main-black);
+	border-radius: 3px;
+	color: var(--main-black);
+	cursor: pointer;
+	font-size: 1.2em;
+}
+
+.form-error {
+	
+}
 
 /* Classes of support */
 

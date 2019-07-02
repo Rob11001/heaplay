@@ -8,14 +8,21 @@
 		session.setAttribute("afterLoginRedirect", previousUrl);
 	*/
 %>
+
+<h2>Login</h2>
+<hr class="hr-form">
 <form action="login" method="post">
-	<label for="email">E-Mail: </label> <input type="text" name="email"
-		value="<%=email%>" required><br /> <label for="password">Password:
-	</label> <input type="password" name="password" value="" required><br />
-	<input type="submit" value="Login">
+	
+	<label for="email">E-Mail<br></label>
+	<input class="form-input-text" type="text" name="email"  value="<%=email%>" required><br/>
+
+	<label for="password">Password<br></label>
+	<input class="form-input-text" type="password" name="password" value="" required><br/>
+
+	<input class="form-input-submit" type="submit" value="Login">
 </form>
 <%
 	if (error != null) {
 %>
-<%=error%>
+<span class="form-error"><%=error%></span>
 <%	} %>
