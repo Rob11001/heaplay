@@ -30,34 +30,31 @@ public class RewriteUrl extends HttpServlet {
     	Integer begin = request.getParameter("begin") == null ? 0 : Integer.parseInt(request.getParameter("begin"));
     	String userName = (userBean != null) ? userBean.getUsername() : null;
     	
-    	//Controllo se l'user è quello loggato oppure è un altro
-    	if(user.equals(userName)) {
-    		//Creare pagina per l'utente 
-    	}else {
-    		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
-    		UserDao userDao = new UserDao(pool);
-    		TrackDao trackDao = new TrackDao(pool);
-    		UserBean currentUser = null;
-			ArrayList<TrackBean> listOfTracks = null;
-			try {
-				currentUser = userDao.doRetrieveByName(user);
-				if(currentUser != null) {
-					listOfTracks = trackDao.getTracksByAuthor(currentUser.getId(),begin,5);
-					int numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
-					request.setAttribute("user", currentUser);
-		    		request.setAttribute("tracks", listOfTracks);
-		    		request.setAttribute("begin", begin);
-		    		request.setAttribute("numberOfTracks",numberOfTracks);
-		    		request.setAttribute("jspPath", "/users.jsp");
-					request.setAttribute("pageTitle", user);
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
-					rd.forward(request, response);
-				}else 
-					;//Mandalo alla pagina di errore
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-    	}
+    	
+		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
+		UserDao userDao = new UserDao(pool);
+		TrackDao trackDao = new TrackDao(pool);
+		UserBean currentUser = null;
+		ArrayList<TrackBean> listOfTracks = null;
+		try {
+			currentUser = userDao.doRetrieveByName(user);
+			if(currentUser != null) {
+				listOfTracks = trackDao.getTracksByAuthor(currentUser.getId(),begin,5);
+				int numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
+				request.setAttribute("user", currentUser);
+	    		request.setAttribute("tracks", listOfTracks);
+	    		request.setAttribute("begin", begin);
+	    		request.setAttribute("numberOfTracks",numberOfTracks);
+	    		request.setAttribute("jspPath", "/users.jsp");
+				request.setAttribute("pageTitle", user);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+				rd.forward(request, response);
+			}else 
+				;//Mandalo alla pagina di errore
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
