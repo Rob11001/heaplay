@@ -1,5 +1,5 @@
 //Var globale
-let audio,volume,slider,time,playButton;
+let audio,volume,slider,time,playButton,pauseButton;
 const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
 const showHide = (el) => {
 	if($(el).css("display") === "none")
@@ -15,12 +15,7 @@ $(document).ready(function init() {
 });
 //Aggiunta degli handlers per tutte le classi
 function addEventHandlers() {
-	$(".load").click(loadAudio);
-    $(".pause").click(pauseAudio);
 	$(".play").click(startAudio);
-	$(".forward").click(forwardAudio);
-	$(".back").click(backAudio);
-	$(".replay").click(replayAudio);
 }
 
 //Handlers
@@ -31,7 +26,7 @@ function loadAudio(){
 function startAudio(e){
 	if(audio != undefined || audio != null)
 	 	stopAudio();
-	let parent = $(e.currentTarget).parent().parent(); //Risalgo di gerarchie
+	let parent = $(e.currentTarget).parent().parent().parent(); //Risalgo di gerarchie
 	init(parent);
 	loadAudio();
 	playAudio();
@@ -44,13 +39,16 @@ function init(parent) {
 	slider = $(parent).find(".slider-bar");
 	time = $(parent).find(".song-time");
 	playButton = $(parent).find(".play");
+	pauseButton = $(parent).find(".pause");
 	$(playButton).off();
 	$(playButton).click(playAudio);
+	$(pauseButton).off();
+	$(pauseButton).click(pauseAudio);
 	$(slider).prop("value",0);
 }
 
 function playAudio() {
-	audio.trigger('play');
+	audio.trigger("play");
 }
 
 function pauseAudio(){
@@ -67,6 +65,7 @@ function reset() {
 	audio.prop("currentTime",0);
 	playButton.off();
 	playButton.click(startAudio);
+	pauseButton.off();
 	$(slider).prop("value",0);
 	$(time).html("00:00");
 	$(volume).css("display","none");
