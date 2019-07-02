@@ -33,6 +33,16 @@ $(document).ready(() => {
 		objectUrl = window.URL.createObjectURL(file);
 		$("#audioFake").prop("src", objectUrl);
 	});
+
+	//Preview dell'immagine
+	$("#image").change(function(e){
+		let file = e.currentTarget.files["0"];
+		let objectUrl = window.URL.createObjectURL(file);
+		$("#preview").prop("src", objectUrl);
+		$("#preview").parent().removeClass("hidden");
+		
+	});
+	
 });	
 		
 //Mostra e nasconde il tag html su cui è fissato
@@ -45,7 +55,7 @@ function ShowAndHide(status) {
 
 function validateUpload(form) {
 	let list = document.getElementsByName("tag");
-	let regex = /^\d{0,2}(\.\d{1,2})?$/
+	let regex = /^\d{0,2}(\.\d{1,2})?$/;
 	if(list.length <= 0 || !validate(form["price"],regex))
 		return false;
 	return true;
@@ -69,19 +79,3 @@ function autocompleteTags(el,suggestions) {
 	}
 
 }
-
-// {
-// var objectUrl;
-// $("#audioFake").on("canplaythrough", function(e){
-//     let seconds = e.currentTarget.duration;
-// 	$("#duration").val(Math.floor(seconds));
-//     URL.revokeObjectURL(objectUrl);
-// });
-
-// $("#audio").change(function(e){
-// 	let file = e.currentTarget.files["0"];
-// 	objectUrl = window.URL.createObjectURL(file);
-//     $("#audioFake").prop("src", objectUrl);
-// });
-
-// }
