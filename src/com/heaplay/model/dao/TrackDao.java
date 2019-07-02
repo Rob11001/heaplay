@@ -365,7 +365,6 @@ public class TrackDao implements DaoModel {
 				pool.releaseConnection(con);
 			}
 		}
-
 		return image;
 	}
 	
@@ -392,7 +391,6 @@ public class TrackDao implements DaoModel {
 				pool.releaseConnection(con);
 			}
 		}
-
 		return audio;
 	}
 	
