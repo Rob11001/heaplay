@@ -18,12 +18,14 @@
 <body>
 
 	<jsp:include page="/_header.jsp" />
+	
 	<div class="content-wrapper">
 	
 		<jsp:include page="<%=jspPath%>"/>
 	
 	</div>
 	
+	<jsp:include page="/_footer.jsp" />
 <!-- 	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script> Da problemi nella upload  -->
 </body>
 </html>

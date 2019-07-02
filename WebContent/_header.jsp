@@ -8,7 +8,6 @@
 	<div class="menu-bar">
 		<nav class="links">
 			<a href="<%=response.encodeURL("/heaplay/home") %>">Home</a>
-			<a href="#">Link 2</a>
 			<a href="#">Libreria</a>
 		</nav>
 		<div class="search">
