@@ -95,6 +95,7 @@ public class TrackDao implements DaoModel {
 
 			if (result != 0)
 				con.commit();
+		
 		} finally {
 			try {
 				if (ps != null)
@@ -328,6 +329,7 @@ public class TrackDao implements DaoModel {
 				bean.setDuration(rs.getInt("duration"));
 				list.add(bean);
 			}
+			
 
 		} finally {
 			try {
