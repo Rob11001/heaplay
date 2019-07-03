@@ -15,8 +15,8 @@ const addTag = (button) => {
 	let divParent = $(button).parent();
 	let val = $(divParent).find("#autocomplete").val();
 	let list = document.getElementsByName("tag");
-	if(val !== "" && !searchElement(list,val))
-		$( "<input type='text' class='tagElement' size=10 readonly='readonly' name='tag' value='"+val+"' onclick='removeTag(this)'>" ).appendTo( divParent );
+	if(val !== "" && !searchElement(list,val)) 
+		$( "<input type='text' class='tag' readonly='readonly' size='" + val.length +"' name='tag' value='" + val + "' onclick='removeTag(this)'>" ).appendTo(divParent.find(".added-tags"));
 };
 
 //Aggiunta dei vari handlers al caricamento

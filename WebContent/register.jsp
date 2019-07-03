@@ -18,7 +18,7 @@
 <form action="register" onsubmit="return validateRegister(this)" method="post">
 
 	<label for="username">Username<br/></label>
-	<input class="form-input-text" type="text" name="username" value="<%=username%>" placeholder="username" required><br/>
+	<input class="form-input-text" type="text" name="username" value="<%=username%>" required><br/>
 	
 	<label for="email">E-Mail<br/></label>
 	<input class="form-input-text" type="text" name="email" value="<%=email%>" required><br/>
@@ -29,5 +29,5 @@
 	<input class="form-input-submit" type="submit" value="Register">
 </form>
 <%	if( error != null) {%>
-		<%=error%>
+<span class="form-error"><%=error%></span>
 <%	} %>

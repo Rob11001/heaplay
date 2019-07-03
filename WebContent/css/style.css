@@ -2,7 +2,8 @@
 
 html { 
 	--content-wrapper: white;
-	--main-black: #2D3142; 
+	--main-black: rgba(45, 49, 66, 1);
+	--main-black60: rgba(45, 49, 66, 0.6);
 	--main-orange: #EF8354;
 	--main-orange-shade: #DA784D; 
 	--main-blue: #3D7BCC;
@@ -94,7 +95,7 @@ nav > a:visited, .dropdown > a:visited {
 	border-top-left-radius: 20px;
 	border-bottom-left-radius: 20px;
 	font-size: 1em;
-	text-indent: 5px;
+	padding: 0 5px;
 	width: 11%;
 }
 
@@ -102,7 +103,7 @@ nav > a:visited, .dropdown > a:visited {
 	border: 2px solid var(--main-blue);
 	border-left: none;
 	font-size: 1em;
-	text-indent: 5px;
+	padding: 0 5px;
 	transition: width 0.5s ease-in-out;
 	width: 30%;
 }
@@ -297,17 +298,16 @@ nav > a:visited, .dropdown > a:visited {
 }
 
 .form-input-text {
-	border: 1px solid var(--main-black);
+	border: 1px solid var(--main-black60);
 	border-radius: 3px;
 	font-size: 1.2em;
 	margin-bottom: 20px;
 	max-width: 35%; /* Ricorda di aumentarlo per view piu' piccole */
-	opacity: 0.5;
-	text-indent: 3px;
+	padding: 0 3px;
 }
 
 .form-input-text:focus {
-	opacity: 1;
+	border: 1px solid var(--main-black);
 }
 
 .form-input-submit {
@@ -330,7 +330,7 @@ nav > a:visited, .dropdown > a:visited {
 } 
 
 .form-input-radio + label {
-	opacity: 0.5;
+	opacity: 0.6;
 }
 
 .form-input-radio:hover + label {
@@ -342,12 +342,17 @@ nav > a:visited, .dropdown > a:visited {
 }
 
 .added-tags {
+	margin-bottom: 20px;
 	display: flex;
 	flex-flow: row wrap;
 }
 
-.tagElement {
-	
+.tag {
+	border: 1px solid var(--main-orange);
+	border-radius: 20px;
+	cursor: pointer;
+	margin: 0 5px;
+	text-align: center;
 }
 
 .form-error {

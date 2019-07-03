@@ -36,11 +36,10 @@
 	</div>
 		
 	<label for="tags">Tag<br/></label>
-	
 	<input class="form-input-text" id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
 	<datalist id="tagSuggestions"></datalist>
 	
-	<button class="form-input-submit" id="tagButton" onclick="addTag(this)">Aggiungi</button><br>
+	<button class="form-input-submit" type="button" id="tagButton" onclick="addTag(this)">Aggiungi</button><br>
 	<div class="added-tags">
 	</div>
 		
@@ -52,5 +51,5 @@
 	</audio>
 </form>
 	
-<script src="${pageContext.servletContext.contextPath}/js/uploadFunction.js" ></script>	<!-- Permette di indicare il path dinamicamente -->
-<script src ="${pageContext.servletContext.contextPath}/js/validate.js"></script>
+<script src="${pageContext.servletContext.contextPath}/js/uploadFunction.js" ></script>
+<script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>
