@@ -21,10 +21,6 @@
 	<p>Inseriamo qui le canzoni più ascoltate</p>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
-<script src="${pageContext.servletContext.contextPath}/js/load.js" ></script>
 <script src="${pageContext.servletContext.contextPath}/js/users.js" ></script>
 <script src="${pageContext.servletContext.contextPath}/js/home.js" ></script>
-
-	

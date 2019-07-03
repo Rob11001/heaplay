@@ -47,8 +47,6 @@
 	<h3>Playlist</h3>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
 <script src="${pageContext.servletContext.contextPath}/js/users.js" ></script>
 <script src="${pageContext.servletContext.contextPath}/js/load.js" ></script>

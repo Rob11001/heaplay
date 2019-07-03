@@ -36,6 +36,7 @@
 	
 	<jsp:include page="/_footer.jsp" />
 	
-	<!-- 	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script> Da problemi nella upload  -->
+	<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
+	<script src="${pageContext.servletContext.contextPath}/js/search.js" ></script>
 </body>
 </html>
