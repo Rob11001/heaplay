@@ -13,11 +13,15 @@
 <hr class="hr-form">
 <form action="login" method="post">
 	
-	<label for="email">E-Mail<br></label>
-	<input class="form-input-text" type="text" name="email"  value="<%=email%>" required><br/>
+	<label for="email">E-Mail<br></label> 
+	<input class="form-input-text" type="text" name="email"  value="<%=email%>"  required>
+	<i class="fa fa-user"></i>
+	<br/>
 
 	<label for="password">Password<br></label>
-	<input class="form-input-text" type="password" name="password" value="" required><br/>
+	<input class="form-input-text" type="password" name="password" value="" required>
+	<i class="fa fa-key"></i>
+	<br/>
 
 	<input class="form-input-submit" type="submit" value="Login">
 </form>

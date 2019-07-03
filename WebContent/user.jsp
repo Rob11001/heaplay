@@ -51,4 +51,3 @@ if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
 <script src="${pageContext.servletContext.contextPath}/js/users.js" ></script>
-<script src="${pageContext.servletContext.contextPath}/js/load.js" ></script>

@@ -45,7 +45,7 @@ public class RewriteUrl extends HttpServlet {
 	    		request.setAttribute("tracks", listOfTracks);
 	    		request.setAttribute("begin", begin);
 	    		request.setAttribute("numberOfTracks",numberOfTracks);
-	    		request.setAttribute("jspPath", "/users.jsp");
+	    		request.setAttribute("jspPath", "/user.jsp");
 				request.setAttribute("pageTitle", user);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
 				rd.forward(request, response);

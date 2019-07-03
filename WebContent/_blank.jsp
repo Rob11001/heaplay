@@ -18,7 +18,8 @@
 <%@ include file="/_links.jsp"%>
 </head>
 <body>
-
+	<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
+	
 	<jsp:include page="/_header.jsp" />
 	
 		<div class="content-wrapper">
@@ -36,7 +37,6 @@
 	
 	<jsp:include page="/_footer.jsp" />
 	
-	<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 	<script src="${pageContext.servletContext.contextPath}/js/search.js" ></script>
 </body>
 </html>
