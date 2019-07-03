@@ -30,7 +30,6 @@ function inputFile(input) {
 }
 
 
-
 $(document).ready(() => {
 	// Capire come prendere dall'input il file e inviarlo alla servlet per salvare l'immagine
 	$("#image").change(function(e){
