@@ -11,7 +11,9 @@
 
 <img src="/heaplay/getImage?id=<%=userPage.getId()%>&extension=...&user=true" onclick = "inputFile($('#image'))"  width="150px">
 <span class="userName"><%=userPage.getUsername()%></span>
-<%if(userPage.getId() == ((UserBean)session.getAttribute("user")).getId()) {%>
+<%
+UserBean currentUser = ((UserBean)session.getAttribute("user"));
+if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 	<form action="/heaplay/uploadImage" name="fileUpload" method="POST" enctype="multipart/form-data"  >
 		<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">
 		<input type="submit" id="srcImg" value="Carica" class="hidden"></input>
