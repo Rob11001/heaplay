@@ -1,5 +1,5 @@
 <div class="song">
-	<audio preload="metadata" class="audio" ontimeupdate="updateCurrentTime(this)">
+	<audio preload="none" class="audio" ontimeupdate="updateCurrentTime(this)">
 		<!-- Problemi con il caricamento dell'audio -->
 		<%if(track != null) {%>
 		<source
