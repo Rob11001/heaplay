@@ -36,6 +36,6 @@ $(document).ready(() => {
 	$("#image").change(function(e){
 		let file = e.currentTarget.files["0"];
 		let objectUrl = window.URL.createObjectURL(file);
-		$("img").prop("src", objectUrl);
+		$("#user-image").prop("src", objectUrl);
 	});		
 });
