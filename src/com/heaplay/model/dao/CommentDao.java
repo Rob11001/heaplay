@@ -27,17 +27,17 @@ public class CommentDao implements DaoModel {
 		PreparedStatement ps = null;
 		Connection con = null;
 		
-		String insertQuery = "INSERT INTO " + TABLE_NAME + " (id,track_id,user_id,body) VALUES (?,?,?,?)";
+		String insertQuery = "INSERT INTO " + TABLE_NAME + " (track_id,user_id,body,author) VALUES (?,?,?,?)";
 		
 		try {
 			con = pool.getConnection();
 			ps = con.prepareStatement(insertQuery);
 			CommentBean commentBean = (CommentBean) bean;
 
-			ps.setLong(1, commentBean.getId());
-			ps.setLong(2, commentBean.getTrackId());
-			ps.setLong(3, commentBean.getUserId());
-			ps.setString(4, commentBean.getBody());
+			ps.setLong(1, commentBean.getTrackId());
+			ps.setLong(2, commentBean.getUserId());
+			ps.setString(3, commentBean.getBody());
+			ps.setString(4, commentBean.getAuthor());
 			
 			int result = ps.executeUpdate();
 			
@@ -58,7 +58,7 @@ public class CommentDao implements DaoModel {
 		PreparedStatement ps = null;
 		Connection con = null;
 		
-		String updateQuery = "UPDATE " + TABLE_NAME + " SET body=? WHERE id=? AND track_id=?";
+		String updateQuery = "UPDATE " + TABLE_NAME + " SET body=?  WHERE id=? AND track_id=?";
 		
 		try {
 			con = pool.getConnection();
@@ -132,6 +132,7 @@ public class CommentDao implements DaoModel {
 				bean.setId(rs.getLong("id"));
 				bean.setTrackId(rs.getLong("track_id"));
 				bean.setUserId(rs.getLong("user_id"));
+				bean.setAuthor(rs.getString("author"));
 			}
 			
 		} finally {
@@ -167,6 +168,7 @@ public class CommentDao implements DaoModel {
 				bean.setId(rs.getLong("id"));
 				bean.setTrackId(rs.getLong("track_id"));
 				bean.setUserId(rs.getLong("user_id"));
+				bean.setAuthor(rs.getString("author"));
 				list.add(bean);
 			}
 			
@@ -183,5 +185,43 @@ public class CommentDao implements DaoModel {
 		
 		return list;
 	}
-
+	
+	public synchronized List<Bean> getCommentsByTrack(Long id,int offset,int numberToLoad) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null; 
+		List<Bean> list =  new ArrayList<Bean>(); 
+		CommentBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME +" WHERE track_id=? LIMIT "+ offset+","+numberToLoad;
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			
+			ps.setLong(1, id);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				bean = new CommentBean();
+				bean.setBody(rs.getString("body"));
+				bean.setId(rs.getLong("id"));
+				bean.setTrackId(rs.getLong("track_id"));
+				bean.setUserId(rs.getLong("user_id"));
+				bean.setAuthor(rs.getString("author"));
+				list.add(bean);
+			}
+			
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		
+		return list;
+	}
+	
 }

@@ -57,6 +57,8 @@ public class Upload extends HttpServlet {
 		String radioBox = request.getParameter("purchasable");
 		String id = request.getParameter("authorId");
 		String duration = request.getParameter("duration");
+		String username = ((UserBean)request.getSession().getAttribute("user")).getUsername();
+		
 		//Aggiustare i tags
 		String[] tags = request.getParameterValues("tag");
 		ArrayList<TagBean> listTags = new ArrayList<TagBean>();
@@ -97,6 +99,7 @@ public class Upload extends HttpServlet {
 		trackBean.setUploadDate(new Timestamp(System.currentTimeMillis()));
 		trackBean.setTags(listTags);
 		trackBean.setDuration(Integer.parseInt(duration));
+		trackBean.setAuthorName(username);
 		
 		if(radioBox.equalsIgnoreCase("Gratis"))
 			trackBean.setType("free");

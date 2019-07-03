@@ -11,6 +11,7 @@ public class CommentBean extends Bean implements Serializable, Cloneable {
 	private long id;
 	private long userId;
 	private long trackId;
+	private String author;
 	private String body;
 	
 	public CommentBean() {
@@ -48,6 +49,14 @@ public class CommentBean extends Bean implements Serializable, Cloneable {
 	
 	public void setBody(String body) {
 		this.body = body;
+	}
+	
+	public String getAuthor() {
+		return author;
+	}
+	
+	public void setAuthor(String body) {
+		this.author = body;
 	}
 	
 	@Override

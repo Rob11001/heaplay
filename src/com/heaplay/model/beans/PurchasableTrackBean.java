@@ -29,6 +29,7 @@ public class PurchasableTrackBean extends TrackBean {
 		setUploadDate(bean.getUploadDate());
 		setType(bean.getType());
 		setDuration(bean.getDuration());
+		setAuthorName(bean.getAuthorName());
 		sold = 0;
 		price = 0;
 	}
