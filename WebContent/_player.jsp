@@ -1,9 +1,9 @@
 <div class="song">
 	<audio preload="none" class="audio" ontimeupdate="updateCurrentTime(this)">
 		<!-- Problemi con il caricamento dell'audio -->
-		<%if(track != null) {%>
+		<% if(track != null) {%>
 		<source
-			src="../getAudio?id=<%=track.getId()%>&extension=<%=track.getTrackExt()%>"
+			src="/heaplay/getAudio?id=<%=track.getId()%>&extension=<%=track.getTrackExt()%>"
 			type="audio/<%=track.getTrackExt().substring(1)%>">
 		<%} %>
 	</audio>
@@ -12,23 +12,20 @@
 		<%if(track != null) {%>
 		<!-- Conterrà l'immagine della track -->
 		<img width="100px"
-			src="../getImage?id=<%=track.getId()%>&extension=<%=track.getImageExt()%>"
+			src="/heaplay/getImage?id=<%=track.getId()%>&extension=<%=track.getImageExt()%>"
 			alt="Errore">
 		<%} %>
 	</div>
 	
 	<div class="song-info">
 		<div class="info">
-			<span><a href="/heaplay/<%=track.getAuthor()%>/<%=track.getName()%>"><%=track.getName()%></a></span> <br>
-			<span>Di <a href="/heaplay/<%=track.getAuthor()%>"><%=track.getAuthor()%></a></span> <!-- Problema per trovare l'autore -->
+			<span><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName()%>?id=<%=track.getId()%>"><%=track.getName()%></a></span> <br>
+			<span>Di <a href="/heaplay/user/<%=track.getAuthorName()%>"><%=track.getAuthorName()%></a></span> <!-- Problema per trovare l'autore - Risolto -->
 		</div>
 		<div class="controls">
 			<button class="play">
 				<i class="fa fa-play color-white"></i>
 			</button>
-<!-- 			<button class="pause"> -->
-<!-- 				<i class="fa fa-pause color-white"></i> -->
-<!-- 			</button> -->
 			<button class="slidebar">
 				<span class="song-time">00:00</span> 
 				<input type="range"

@@ -104,6 +104,8 @@ public class PurchasableTrackDao implements DaoModel {
 		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
 		TrackDao tDao = new TrackDao(pool);
 		TrackBean trackBean = (TrackBean) tDao.doRetrieveByKey(keys);
+		if(trackBean == null)
+			return trackBean;
 		
 		try {
 			con = pool.getConnection();

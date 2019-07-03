@@ -28,7 +28,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 
 		String insertQuery = "INSERT INTO " + TABLE_NAME
-				+ " (name,type,plays,track,track_extension,image,image_extension,indexable,author,upload_date,likes,duration) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ " (name,type,plays,track,track_extension,image,image_extension,indexable,author,upload_date,likes,duration,author_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		String insertTags = "INSERT INTO  tagged(track_id,tag_id) VALUES (?,?) ";
 		String getId = "SELECT id FROM "+ TABLE_NAME + " WHERE name= ? AND author=?";
 		
@@ -49,6 +49,7 @@ public class TrackDao implements DaoModel {
 			ps.setTimestamp(10,trackBean.getUploadDate());
 			ps.setLong(11, trackBean.getLikes());
 			ps.setInt(12, trackBean.getDuration());
+			ps.setString(13, trackBean.getAuthorName());
 			int result = ps.executeUpdate();
 
 			if (ps != null)
@@ -112,7 +113,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 
 		String updateQuery = "UPDATE " + TABLE_NAME
-				+ " SET  name=?,type=?,plays=?,indexable=?,author=?,upload_date=?,likes=?,duration=? WHERE id=?";
+				+ " SET  name=?,type=?,plays=?,indexable=?,author=?,upload_date=?,likes=?,duration=?,author_name=? WHERE id=?";
 		String insertTagged = "INSERT INTO  tagged(track_id,tag_id) VALUES (?,?) ";
 		String deleteTagged = "DELETE FROM tagged WHERE track_id=? AND tag_id=?";
 
@@ -129,7 +130,8 @@ public class TrackDao implements DaoModel {
 			ps.setTimestamp(6, trackBean.getUploadDate());
 			ps.setLong(7, trackBean.getLikes());
 			ps.setLong(8, trackBean.getDuration());
-			ps.setLong(9, trackBean.getId());
+			ps.setString(9, trackBean.getAuthorName());
+			ps.setLong(10, trackBean.getId());
 			
 
 			int result = ps.executeUpdate();
@@ -234,6 +236,7 @@ public class TrackDao implements DaoModel {
 				bean.setUploadDate(rs.getTimestamp("upload_date"));
 				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 				bean.setDuration(rs.getInt("duration"));
+				bean.setAuthorName(rs.getString("author_name"));
 			}
 
 		} finally {
@@ -280,6 +283,7 @@ public class TrackDao implements DaoModel {
 				bean.setUploadDate(rs.getTimestamp("upload_date"));
 				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 				bean.setDuration(rs.getInt("duration"));
+				bean.setAuthorName(rs.getString("author_name"));
 				list.add(bean);
 			}
 			
@@ -327,6 +331,7 @@ public class TrackDao implements DaoModel {
 				bean.setUploadDate(rs.getTimestamp("upload_date"));
 				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 				bean.setDuration(rs.getInt("duration"));
+				bean.setAuthorName(rs.getString("author_name"));
 				list.add(bean);
 			}
 			
@@ -426,6 +431,7 @@ public class TrackDao implements DaoModel {
 				bean.setUploadDate(rs.getTimestamp("upload_date"));
 				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 				bean.setDuration(rs.getInt("duration"));
+				bean.setAuthorName(rs.getString("author_name"));
 				list.add(bean);
 			}
 			
@@ -471,6 +477,7 @@ public class TrackDao implements DaoModel {
 				bean.setUploadDate(rs.getTimestamp("upload_date"));
 				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 				bean.setDuration(rs.getInt("duration"));
+				bean.setAuthorName(rs.getString("author_name"));
 				list.add(bean);
 			}
 
@@ -541,6 +548,7 @@ public class TrackDao implements DaoModel {
 				bean.setUploadDate(rs.getTimestamp("upload_date"));
 				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 				bean.setDuration(rs.getInt("duration"));
+				bean.setAuthorName(rs.getString("author_name"));
 				list.add(bean);
 			}
 			

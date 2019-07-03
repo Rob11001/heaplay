@@ -27,7 +27,7 @@
 				<div class="loading hidden">
 					<img alt="Loading..." src="/heaplay/images/loading.gif" width="50px">
 				</div>
-				<div id="content">		
+				<div id="content" class="user-tracks">		
 				</div>
 			</div>
 	
