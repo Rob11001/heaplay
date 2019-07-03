@@ -12,12 +12,15 @@
 <img src="/heaplay/getImage?id=<%=userPage.getId()%>&extension=...&user=true" onclick = "inputFile($('#image'))"  width="150px">
 <span class="userName"><%=userPage.getUsername()%></span>
 <%if(userPage.getId() == ((UserBean)session.getAttribute("user")).getId()) {%>
-	<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">
+	<form action="/heaplay/uploadImage" name="fileUpload" method="POST" enctype="multipart/form-data"  >
+		<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">
+		<input type="submit" id="srcImg" value="Carica" class="hidden"></input>
+	</form>
 <%} %>
 <nav class="content-nav">
 	<a class="trackButton selected" onclick="selection(this,$('.playlistButton'))" href="#">Brani</a>
 	<a class="playlistButton" onclick="selection(this,$('.trackButton'))" href="#">Playlist</a>
-</nav>
+</nav> 
 
 <div class="user-tracks">
 	
@@ -42,8 +45,8 @@
 
 <div class="user-playlist hidden">
 	<h3>Playlist</h3>
-
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>

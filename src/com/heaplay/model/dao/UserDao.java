@@ -72,7 +72,9 @@ public class UserDao implements DaoModel {
 			ps.setString(3, userBean.getPassword());
 			ps.setString(4, userBean.getAuth());
 			ps.setBoolean(5, userBean.isActive());
-			ps.setLong(6, Long.parseLong(userBean.getKey().get(0)));
+			ps.setBytes(6, userBean.getUserImage());
+			ps.setString(7, userBean.getUserImageExt());
+			ps.setLong(8, userBean.getId());
 	
 			int result = ps.executeUpdate();
 			

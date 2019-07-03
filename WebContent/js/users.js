@@ -26,28 +26,16 @@ function selection(selected,prev){
 
 function inputFile(input) {
 	$(input).trigger("click");
+	$("#srcImg").removeClass("hidden");
 }
+
+
 
 $(document).ready(() => {
 	// Capire come prendere dall'input il file e inviarlo alla servlet per salvare l'immagine
-	// $("#image").change(function(e){
-	// 	let file = e.currentTarget.files["0"];
-	// 	let objectUrl = window.URL.createObjectURL(file);
-	// 	$("img").prop("src", objectUrl);
-		
-	// 	let blob = objectUrl;
-	// 	let ext = file.name.substring(file.name.indexOf("."),file.name.lenght);
-	// 	let data = [blob,ext];
-	// 	data = JSON.stringify(data);
-	// 	alert(data);
-		
-	// 	$.ajax ({
-	// 		"type":"POST",
-	// 		"url" : "/heaplay/uploadImage",
-	// 		"dataType": "json",
-	// 		"data": data,
-	// 		"success": () => {
-	// 			alert("success");
-	// 		}
-	// 	});
-	});
+	$("#image").change(function(e){
+		let file = e.currentTarget.files["0"];
+		let objectUrl = window.URL.createObjectURL(file);
+		$("img").prop("src", objectUrl);
+	});		
+});

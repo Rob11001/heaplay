@@ -28,7 +28,9 @@ public class GetLikedTracks extends HttpServlet {
  		try {
 			list = (ArrayList<Bean>) trackDao.doRetrieveAll((a,b) -> new Long(((TrackBean)a).getLikes() - ((TrackBean)b).getLikes()).intValue());
 			ArrayList<Bean> listOfObjects = new ArrayList<Bean>();
-			listOfObjects.addAll(list.subList(0, 5));
+			int size = list.size();
+			if(size > 0)
+				listOfObjects.addAll(list.subList(0, (size < 5) ? size : 5));
 			resetBytes(listOfObjects);
 			Gson gson = new Gson();
 			String objectJson = gson.toJson(listOfObjects);
