@@ -8,7 +8,7 @@
 	<div class="menu-bar">
 		<nav class="links">
 			<a href="<%=response.encodeURL("/heaplay/home") %>">Home</a>
-			<a href="#">Libreria</a>
+			<a href="<%=response.encodeURL("/heaplay/library") %>">Libreria</a>
 		</nav>
 		<div class="search">
 			<select class="search-select" name="filter">
@@ -28,7 +28,7 @@
 				<div class="dropdown">
 					<a class="dropbtn" href="#"><%=user.getUsername()%></a>
 					<div class="dropdown-content">
-						<a href="<%=response.encodeURL("user/" + user.getUsername()) %>">Area Utente</a>
+						<a href="<%=response.encodeURL("/heaplay/user/" + user.getUsername()) %>">Area Utente</a>
 						<a href="<%=response.encodeURL("/heaplay/upload")%>">Carica</a>
 						<a href="<%=response.encodeURL("/heaplay/logout")%>">Logout</a>
 					</div>
