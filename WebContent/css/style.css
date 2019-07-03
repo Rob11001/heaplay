@@ -39,7 +39,9 @@ footer {
 }
 
 .footer-info {
+	color: white;
 	margin: auto;
+	opacity: 0.9;
 }
 
 nav {
@@ -64,6 +66,8 @@ nav > a:hover, .dropdown > a:hover {
 nav > a:visited, .dropdown > a:visited {
 	color: white;
 }
+
+/* Menu Bar */
 
 .menu-bar {
 	align-items: center;
@@ -162,7 +166,7 @@ nav > a:visited, .dropdown > a:visited {
 	flex-direction: column;
 }
 
-/**************** Main Content ****************/
+/******************************** Main Content ********************************/
 
 .content-wrapper {
 	background-color: var(--content-wrapper);
@@ -193,7 +197,7 @@ nav > a:visited, .dropdown > a:visited {
 }
 
 
-/* Player Style */
+/******************************** Player Style ********************************/
 
 .song {
 	display: flex;
@@ -285,7 +289,7 @@ nav > a:visited, .dropdown > a:visited {
 	display: inline;
 }
 
-/* Form */
+/******************************** Form ********************************/
 
 .hr-form {
 	background-color: var(--main-black);
@@ -293,11 +297,12 @@ nav > a:visited, .dropdown > a:visited {
 }
 
 .form-input-text {
-	border: 1px solid grey;
+	border: 1px solid var(--main-black);
 	border-radius: 3px;
 	font-size: 1.2em;
 	margin-bottom: 20px;
-	opacity: 0.6;
+	max-width: 35%; /* Ricorda di aumentarlo per view piu' piccole */
+	opacity: 0.5;
 	text-indent: 3px;
 }
 
@@ -312,6 +317,37 @@ nav > a:visited, .dropdown > a:visited {
 	color: var(--main-black);
 	cursor: pointer;
 	font-size: 1.2em;
+}
+
+.form-input-file {
+	margin-bottom: 20px;
+}
+
+.radio-buttons {
+	display: flex;
+	flex-flow: row wrap;
+	margin-bottom: 20px;
+} 
+
+.form-input-radio + label {
+	opacity: 0.5;
+}
+
+.form-input-radio:hover + label {
+	opacity: 1;
+}
+
+.form-input-radio:checked + label {
+	opacity: 1;
+}
+
+.added-tags {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.tagElement {
+	
 }
 
 .form-error {

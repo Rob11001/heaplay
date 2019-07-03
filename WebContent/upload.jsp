@@ -14,38 +14,39 @@
 	<input class="form-input-text" type="text" name="songName" id="songName" required/>		<br/>
 	
 	<label for="audio">Carica il Brano<br/></label>
-	<input type="file" name="audio" id="audio" accept="audio/*" required />	<br/>
+	<input class="form-input-file" type="file" name="audio" id="audio" accept="audio/*" required />	<br/>
 	
 	<label for="image">Carica l'Immagine<br/></label>
-	<input type="file" name="image" id="image" accept="image/*" required /><br/>
+	<input class="form-input-file" type="file" name="image" id="image" accept="image/*" required /><br/>
 	
 	<div class="hidden">
 		<img id="preview" alt="" src="" width="50px">	<br>
 	</div>
 	
-	
-	<input type="radio" name="purchasable" id="Free" value="Gratis" checked="checked" onclick="ShowAndHide(0)"> 
-	<label for="Free">Gratis</label>
-	
-	<input type="radio" name="purchasable" id="purchasable" value="A pagamento" onclick="ShowAndHide(1)">	
-	<label for="purchasable">A pagamento</label>							<br/>
-	
+	<div class="radio-buttons">
+		<input class="form-input-radio" type="radio" name="purchasable" id="Free" value="Gratis" checked="checked" onclick="ShowAndHide(0)"> 
+		<label for="Free">Gratis </label>
+		
+		<input class="form-input-radio" type="radio" name="purchasable" id="purchasable" value="A pagamento" onclick="ShowAndHide(1)">	
+		<label for="purchasable">A pagamento</label><br/>
+	</div>
 	<div id="divPrice" class="hidden">
 		<label for="price">Prezzo<br/></label>
 		<input class="form-input-text" type="number" name="price" id="price" min="0" max="666">
 	</div>
+		
+	<label for="tags">Tag<br/></label>
 	
-	<div id="tags">		
-			<label for="autocomplete">Tag<br/></label>
-		<input class="form-input-text" id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
-		<datalist id="tagSuggestions"></datalist>
-		<a class="form-input-submit" id="tagButton" onclick="addTag(this)">Aggiungi</a>	<br>
+	<input class="form-input-text" id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
+	<datalist id="tagSuggestions"></datalist>
+	
+	<button class="form-input-submit" id="tagButton" onclick="addTag(this)">Aggiungi</button><br>
+	<div class="added-tags">
 	</div>
-	
+		
 	<input type="hidden" name="authorId" value="<%=user.getId()%>">
 	<input type="hidden" name="duration" id="duration"> 
-	<br/>
-	<br/>
+	
 	<input class="form-input-submit" type="submit" value="Carica">
 	<audio id="audioFake">
 	</audio>
