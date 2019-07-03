@@ -13,13 +13,11 @@
 	<label for="songName">Nome del Brano<br/></label>
 	<input class="form-input-text" type="text" name="songName" id="songName" required/>		<br/>
 	
-	<label for="audio">Carica il Brano<br/></label>
-	<input class="form-input-file" type="file" name="audio" id="audio" accept="audio/*" required />	<br/>
+	<label class="file-input">Carica il Brano<input class="form-input-file" type="file" name="audio" id="audio" accept="audio/*" required /></label>	<br/>
 	
-	<label for="image">Carica l'Immagine<br/></label>
-	<input class="form-input-file" type="file" name="image" id="image" accept="image/*" required /><br/>
+	<label class="file-input">Carica l'Immagine<input class="form-input-file" type="file" name="image" id="image" accept="image/*" required /></label><br/>
 	
-	<div class="hidden">
+	<div class="img-preview hidden">
 		<img id="preview" alt="" src="" width="50px">	<br>
 	</div>
 	
