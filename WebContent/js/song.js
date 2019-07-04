@@ -1,6 +1,5 @@
 //Var globale
 let audio,volume,slider,time,playButton;
-const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
 const showHide = (el) => {
 	if($(el).css("display") === "none")
 		$(el).removeClass("hidden");

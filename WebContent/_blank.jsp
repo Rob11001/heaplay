@@ -31,7 +31,6 @@
 				<div id="content" class="user-tracks">		
 				</div>
 			</div>
-	
 		<jsp:include page="<%=jspPath%>"/>
 	
 	</div>

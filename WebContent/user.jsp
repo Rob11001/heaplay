@@ -38,7 +38,7 @@ if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 		<%} %>
 		<br>
 		<form action="/heaplay/user/<%=userPage.getUsername()%>" method="POST">
-			<input type="hidden" value="<%=begin%>" name="begin">
+			<input type="hidden" value="<%=begin%>" name="begin" id="currentPage"> 
 			<%for( int i= 0; i< number; i+=5) {%>
 				<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	
 			<%} %>

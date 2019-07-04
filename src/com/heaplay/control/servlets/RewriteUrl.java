@@ -31,7 +31,12 @@ public class RewriteUrl extends HttpServlet {
     		request.setAttribute("trackName", params[params.length-1]);
     		RequestDispatcher rd = getServletContext().getRequestDispatcher("/track");
     		rd.forward(request, response);
-    	} else {			
+    	} else if(params.length == 6){
+    		request.setAttribute("userName", params[params.length-3]);
+    		request.setAttribute("playlistName", params[params.length-1]);
+    		RequestDispatcher rd = getServletContext().getRequestDispatcher("/playlist");
+    		rd.forward(request, response);
+    	} else {
 	    	String user = params[params.length-1];
 	    	UserBean userBean =((UserBean)request.getSession().getAttribute("user"));
 	    	Integer begin = request.getParameter("begin") == null ? 0 : Integer.parseInt(request.getParameter("begin"));

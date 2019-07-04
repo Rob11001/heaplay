@@ -1,5 +1,8 @@
-{
-	const showHide = (x,y) => { 
+const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
+
+$(document).ready( () => {
+
+	const showHide = (x,y) => { 	
 		$(x).show();
 		$(y).hide();
 	};
@@ -72,7 +75,9 @@
 		}	
 	});
 
-}
+});
+
+
 //Dato un bean crea il div corrispondente
 function createDiv(bean,container,typeOfSearch) {
 	//Vari div in base al bean	Completarli
