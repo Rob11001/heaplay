@@ -9,7 +9,7 @@
 %>
 
 
-<img id="user-image" src="/heaplay/getImage?id=<%=currentUser.getId()%>&extension=...&user=true" onclick = "inputFile($('#image'))"  width="150px">
+<img id="user-image" src="/heaplay/getImage?id=<%=currentUser.getId()%>&user=true" onclick = "inputFile($('#image'))"  width="150px">
 <span class="userName"><%=currentUser.getUsername()%></span>
 
 <form action="/heaplay/uploadImage" name="fileUpload" method="POST" enctype="multipart/form-data"  >

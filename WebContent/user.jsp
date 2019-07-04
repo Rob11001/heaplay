@@ -9,7 +9,7 @@
 %>
 
 
-<img id="user-image" src="/heaplay/getImage?id=<%=userPage.getId()%>&extension=...&user=true" onclick = "inputFile($('#image'))"  width="150px">
+<img id="user-image" src="/heaplay/getImage?id=<%=userPage.getId()%>&user=true" onclick = "inputFile($('#image'))"  width="150px">
 <span class="userName"><%=userPage.getUsername()%></span>
 <%
 UserBean currentUser = ((UserBean)session.getAttribute("user"));

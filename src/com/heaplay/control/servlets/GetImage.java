@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
+import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.TrackDao;
 import com.heaplay.model.dao.UserDao;
@@ -25,22 +26,27 @@ public class GetImage extends HttpServlet {
        
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String id = request.getParameter("id");
-    	String ext = request.getParameter("extension");
+    	String ext = request.getParameter("extension"); //Si potrebbe togliere
     	String user = request.getParameter("user");
     	
     	
-    	if( id == null || ext == null) 												//Controllo probabilmente necessario
+    	if( id == null ) 												//Controllo probabilmente necessario
     		response.sendRedirect(getServletContext().getContextPath()+"/home");
     	else {
     		byte[] imageBytes = null;
   
     		if(user == null) {
-	    		ext = ext.substring(ext.indexOf('.'), ext.length());
-	    		response.setContentType("image/"+ext);
-	    		
 	    		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
 	   
 	    		try {
+	    			if(ext == null) {
+	    				List<String> keys = new ArrayList<String>();
+		    			keys.add(id);
+		    			TrackBean bean = (TrackBean) trackDao.doRetrieveByKey(keys);
+	    				ext = bean.getImageExt();
+	    			}	
+	    			ext = ext.substring(ext.indexOf('.'), ext.length());
+		    		response.setContentType("image/"+ext);
 					imageBytes = trackDao.getImage(Long.parseLong(id));
 				} catch (SQLException | NumberFormatException e) {
 					e.printStackTrace();
@@ -52,10 +58,10 @@ public class GetImage extends HttpServlet {
     			keys.add(id);
     			try {
 					UserBean userBean = userDao.doRetrieveByKey(keys);
-					String extension = userBean.getUserImageExt();
+					String extension = (userBean != null) ? userBean.getUserImageExt() : null;
 					extension = (extension == null ) ? "png" : extension.substring(extension.indexOf('.'), extension.length());
 					response.setContentType("image/" + extension);
-					imageBytes = userDao.getImage(userBean.getId());
+					imageBytes = userDao.getImage((userBean != null) ? userBean.getId() : 0);
 					
 				} catch (SQLException e) {
 					e.printStackTrace();

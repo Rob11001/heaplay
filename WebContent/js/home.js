@@ -6,7 +6,6 @@ $(document).ready(() => {
 		"success": (data) => {
 				//Parsing dell'oggetto JSON	
 				let beans = JSON.parse(data);
-				let typeOfSearch = "track";
 				let container = $("#songs");
 				const header = "<p>Canzoni più votate</p>"
 				$(container).empty();	
@@ -15,11 +14,9 @@ $(document).ready(() => {
 				for(let i = 0 ; i < beans.length; i++){
 					//Estrazione del bean
 					let bean = beans[i];
-					createDiv(bean,container,typeOfSearch);
+					createDiv(bean,container,"track");
 				}	
-				//Aggiunta dei vari handlers
-				if(typeOfSearch == "track" || typeOfSearch == "tag")
-					addEventHandlers();
+				addEventHandlers();
 			}
 	});
 });

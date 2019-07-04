@@ -31,7 +31,7 @@ public class PlaylistDao implements DaoModel {
 		PreparedStatement ps = null;
 		Connection con = null;
 		
-		String insertQuery1 = "INSERT INTO " + TABLE_NAME_1 + " (name,privacy,author) VALUES (?,?,?)";
+		String insertQuery1 = "INSERT INTO " + TABLE_NAME_1 + " (name,privacy,author,author_name) VALUES (?,?,?,?)";
 		String insertQuery2 = "INSERT INTO " + TABLE_NAME_2 + " (track_id, playlist_id) VALUES (?,?)";
 		String getId = "SELECT id FROM " + TABLE_NAME_1 +" WHERE name=? AND author=? ";
 		
@@ -43,6 +43,7 @@ public class PlaylistDao implements DaoModel {
 			ps.setString(1, playlistBean.getName());
 			ps.setString(2, playlistBean.getPrivacy());
 			ps.setLong(3, playlistBean.getAuthor());
+			ps.setString(4, playlistBean.getAuthorName());
 			
 			int result = ps.executeUpdate();
 			ps.close();	
@@ -84,7 +85,7 @@ public class PlaylistDao implements DaoModel {
 		PreparedStatement ps = null;
 		Connection con = null;
 		
-		String updateQuery1 = "UPDATE " + TABLE_NAME_1 + " SET name=?,privacy=?,author=?  WHERE id=?";
+		String updateQuery1 = "UPDATE " + TABLE_NAME_1 + " SET name=?,privacy=?,author=?,author_name=?  WHERE id=?";
 		String insertContains = "INSERT INTO " + TABLE_NAME_2 + " (playlist_id, track_id) VALUES (?, ?)";
 		String deleteContains = "DELETE FROM " + TABLE_NAME_2 + " WHERE playlist_id = ? AND track_id = ?";
 		
@@ -96,7 +97,8 @@ public class PlaylistDao implements DaoModel {
 			ps.setString(1, playlistBean.getName());
 			ps.setString(2, playlistBean.getPrivacy());
 			ps.setLong(3, playlistBean.getAuthor());
-			ps.setLong(4, Long.parseLong(playlistBean.getKey().get(0)));
+			ps.setString(4, playlistBean.getAuthorName());
+			ps.setLong(5, Long.parseLong(playlistBean.getKey().get(0)));
 	
 			int result = ps.executeUpdate();
 			
@@ -197,6 +199,7 @@ public class PlaylistDao implements DaoModel {
 				bean.setName(rs.getString("name"));
 				bean.setPrivacy(rs.getString("privacy"));
 				bean.setAuthor(rs.getLong("author"));
+				bean.setAuthorName(rs.getString("author_name"));
 				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));				
 			}
 			
@@ -234,6 +237,7 @@ public class PlaylistDao implements DaoModel {
 				bean.setName(rs.getString("name"));
 				bean.setAuthor(rs.getLong("author"));
 				bean.setPrivacy(rs.getString("privacy"));
+				bean.setAuthorName(rs.getString("author_name"));
 				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));
 				list.add(bean);
 			}
@@ -274,6 +278,7 @@ public class PlaylistDao implements DaoModel {
 				bean.setName(rs.getString("name"));
 				bean.setAuthor(rs.getLong("author"));
 				bean.setPrivacy(rs.getString("privacy"));
+				bean.setAuthorName(rs.getString("author_name"));
 				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));
 				list.add(bean);
 			}
@@ -309,6 +314,7 @@ public class PlaylistDao implements DaoModel {
 				bean.setName(rs.getString("name"));
 				bean.setAuthor(rs.getLong("author"));
 				bean.setPrivacy(rs.getString("privacy"));
+				bean.setAuthorName(rs.getString("author_name"));
 				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));
 				list.add(bean);
 			}

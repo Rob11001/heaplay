@@ -12,6 +12,7 @@ public class PlaylistBean extends Bean implements Serializable, Cloneable {
 	private String name;
 	private String privacy;
 	private long author;
+	private String authorName;
 	private List<TrackBean> tracks;
 	
 	public PlaylistBean() {
@@ -58,6 +59,14 @@ public class PlaylistBean extends Bean implements Serializable, Cloneable {
 	
 	public void setTracks(List<TrackBean> tracks) {
 		this.tracks = tracks;
+	}
+	
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 	
 	@Override
@@ -107,4 +116,5 @@ public class PlaylistBean extends Bean implements Serializable, Cloneable {
 	public String getBeanName() {
 		return name;
 	}
+
 }
