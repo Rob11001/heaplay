@@ -20,8 +20,8 @@ if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 	</form>
 <%} %>
 <nav class="content-nav">
-	<a class="trackButton selected" onclick="selection(this,$('.playlistButton'))" href="#">Brani</a>
-	<a class="playlistButton" onclick="selection(this,$('.trackButton'))" href="#">Playlist</a>
+	<a class="trackButton selected" onclick="selection(this,$('.playlistButton'),$('.user-playlist'),$('.user-tracks'))" href="#">Brani Caricati</a>
+	<a class="playlistButton" onclick="selection(this,$('.trackButton'),$('.user-tracks'),$('.user-playlist'))" href="#">Playlist</a>
 </nav> 
 
 <div class="user-tracks">

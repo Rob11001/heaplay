@@ -6,22 +6,16 @@ function beginValue(button) {
 }
 //Mette il focus alla pagina corrente
 function focusButton() {
-	let val = $("input[type=hidden]").val();
+	let val = $("#currentPage").val();
 	$("#"+val).addClass("selected");
 	$("#"+val).prop("type","button");
 }
 
-function selection(selected,prev){
+function selection(selected,prev,toHide,toShow){
 	$(selected).addClass("selected");
 	$(prev).removeClass("selected");
-	if($(selected).html() == "Brani") {
-		$(".user-tracks").removeClass("hidden");
-		$(".user-playlist").addClass("hidden");
-	}
-	else {
-		$(".user-tracks").addClass("hidden");
-		$(".user-playlist").removeClass("hidden");
-	}
+	$(toShow).removeClass("hidden");
+	$(toHide).addClass("hidden");
 }
 
 function inputFile(input) {

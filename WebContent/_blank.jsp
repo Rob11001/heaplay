@@ -19,6 +19,7 @@
 </head>
 <body>
 	<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
+	<script src="${pageContext.servletContext.contextPath}/js/search.js" ></script>
 	
 	<jsp:include page="/_header.jsp" />
 	
@@ -37,6 +38,5 @@
 	
 	<jsp:include page="/_footer.jsp" />
 	
-	<script src="${pageContext.servletContext.contextPath}/js/search.js" ></script>
 </body>
 </html>

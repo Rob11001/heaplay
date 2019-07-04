@@ -33,6 +33,7 @@ public class PlaylistDao implements DaoModel {
 		
 		String insertQuery1 = "INSERT INTO " + TABLE_NAME_1 + " (name,privacy,author) VALUES (?,?,?)";
 		String insertQuery2 = "INSERT INTO " + TABLE_NAME_2 + " (track_id, playlist_id) VALUES (?,?)";
+		String getId = "SELECT id FROM " + TABLE_NAME_1 +" WHERE name=? AND author=? ";
 		
 		try {
 			con = pool.getConnection();
@@ -44,7 +45,19 @@ public class PlaylistDao implements DaoModel {
 			ps.setLong(3, playlistBean.getAuthor());
 			
 			int result = ps.executeUpdate();
-			ps.close();			
+			ps.close();	
+			con.commit();
+			
+			ps = con.prepareStatement(getId);
+			ps.setString(1, playlistBean.getName());
+			ps.setLong(2, playlistBean.getAuthor());
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next())
+				playlistBean.setId(rs.getLong(1));
+			
+			ps.close();
 			
 			ps = con.prepareStatement(insertQuery2);
 			for (TrackBean b : playlistBean.getTracks()) {
@@ -162,14 +175,16 @@ public class PlaylistDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null; 
 		PlaylistBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME_1 + " WHERE id=?";
+		String selectQuery = (keys.size() == 1) ? "SELECT * FROM " + TABLE_NAME_1 + " WHERE id=?" : "SELECT * FROM " + TABLE_NAME_1 + " WHERE name=? AND author=?";
 		
 		
 		try {
 			con = pool.getConnection();
 			ps = con.prepareStatement(selectQuery);
-		
+			
 			ps.setString(1, keys.get(0));
+			if(keys.size() == 2)
+				ps.setString(2, keys.get(1));
 			
 			rs = ps.executeQuery();
 			
@@ -179,8 +194,8 @@ public class PlaylistDao implements DaoModel {
 			if(rs.next()) {
 				bean = new PlaylistBean();
 				bean.setId(rs.getLong("id"));
-				bean.setName(rs.getString("username"));
-				bean.setPrivacy("privacy");
+				bean.setName(rs.getString("name"));
+				bean.setPrivacy(rs.getString("privacy"));
 				bean.setAuthor(rs.getLong("author"));
 				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));				
 			}
@@ -215,7 +230,8 @@ public class PlaylistDao implements DaoModel {
 			
 			while(rs.next()) {
 				bean = new PlaylistBean();
-				bean.setName(rs.getString("username"));
+				bean.setId(rs.getLong("id"));
+				bean.setName(rs.getString("name"));
 				bean.setAuthor(rs.getLong("author"));
 				bean.setPrivacy(rs.getString("privacy"));
 				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));
@@ -253,7 +269,8 @@ public class PlaylistDao implements DaoModel {
 			
 			while(rs.next()) {
 				bean = new PlaylistBean();
-				bean.setName(rs.getString("username"));
+				bean.setId(rs.getLong("id"));
+				bean.setName(rs.getString("name"));
 				bean.setAuthor(rs.getLong("author"));
 				bean.setPrivacy(rs.getString("privacy"));
 				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));
@@ -267,6 +284,43 @@ public class PlaylistDao implements DaoModel {
 				pool.releaseConnection(con);
 			}
 		}
+		return list;
+	}
+	
+	public synchronized List<PlaylistBean> getPlaylistByAuthor(Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null; 
+		List<PlaylistBean> list =  new ArrayList<PlaylistBean>(); 
+		PlaylistBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME_1+" Where author=?";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			TrackDao trackDao = new TrackDao(pool);
+			
+			while(rs.next()) {
+				bean = new PlaylistBean();
+				bean.setId(rs.getLong("id"));
+				bean.setName(rs.getString("name"));
+				bean.setAuthor(rs.getLong("author"));
+				bean.setPrivacy(rs.getString("privacy"));
+				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));
+				list.add(bean);
+			}
+			
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		
 		return list;
 	}
 }

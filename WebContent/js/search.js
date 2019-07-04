@@ -95,8 +95,14 @@ function createDiv(bean,container,typeOfSearch) {
 
 
 //Esegue una chiamata ad ogni pressione del tasto 
+
 function autocompleteSearch(el,suggestions) {
 	let url = "/heaplay/search?q="+$(el).val()+"&filter="+$(".search-select").val()+"&auto=true";
+	autocomplete(el,suggestions,url);
+}
+
+
+function autocomplete(el,suggestions,url) {
 	if($(el).val().length > 1) {
 		$.ajax({
 			"type":"GET",
