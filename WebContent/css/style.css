@@ -186,6 +186,7 @@ nav > a:visited, .dropdown > a:visited {
 .content-nav  a, .content-nav a:visited {
 	border-radius: 10px;
 	color: var(--main-black);
+	margin: 0 5px;
 }
 
 .content-nav a:hover {
@@ -235,15 +236,24 @@ nav > a:visited, .dropdown > a:visited {
 	display: inline;
 }
 
+
+.circle-icon, .song .play, .song .pause {
+	height: 35px;
+	text-align: center;
+	vertical-align: middle;
+	width: 35px;
+}
+
 .song .play, .song .pause {
 	background-color: var(--main-orange);
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
 	font-size: 1em;
-	padding: 5px 10px;
-	text-align: center;
+	padding-right: 1px;
 }
+
+
 
 .slider {
 	-webkit-appearance: none;  /* Override default CSS styles */
@@ -297,29 +307,46 @@ nav > a:visited, .dropdown > a:visited {
 	border: 1px solid var(--main-black);
 }
 
-.form-input-text {
+.form-input-text, .form-input-submit, .file-input {
 	border: 1px solid var(--main-black60);
 	border-radius: 3px;
+}
+
+.form-input-text:focus, .form-input-submit:hover, .file-input:hover {
+	border: 1px solid var(--main-black);
+}
+
+.form-input-text {
 	font-size: 1.2em;
 	margin-bottom: 20px;
 	max-width: 35%; /* Ricorda di aumentarlo per view piu' piccole */
 	padding: 0 3px;
 }
 
-.form-input-text:focus {
-	border: 1px solid var(--main-black);
-}
-
-.form-input-submit {
+.form-input-submit, .file-input {
+	font-size: 1.2em;
 	background-color: transparent;
-	border: 1px solid var(--main-black);
-	border-radius: 3px;
 	color: var(--main-black);
 	cursor: pointer;
-	font-size: 1.2em;
+}
+
+.file-input {
+	display: inline-block;
+	margin-bottom: 20px;
+	padding: 1px 5px;
 }
 
 .form-input-file {
+	display: none;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	width: 0.1px;
+	z-index: -1;
+}
+
+.image-preview {
 	margin-bottom: 20px;
 }
 
