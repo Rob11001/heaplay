@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
-import com.heaplay.model.beans.Bean;
 import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;

@@ -2,14 +2,22 @@
 <%@page import="com.heaplay.model.beans.TrackBean"%>
 <div>
 	
-	<% TrackBean track = (TrackBean)request.getAttribute("currentTrack"); 
+	<% 
+	TrackBean track = (TrackBean)request.getAttribute("currentTrack"); 
 	if(track != null ) {
 																		%>
 		<%@ include file="/_player.jsp"%>
+		
 	<%} %>
 	<% 
 	UserBean user = (UserBean) session.getAttribute("user");
 	if(user != null) {%>
+		<%if(user.getId() != track.getAuthor()) {%>		
+			<div>
+				<button onclick="addToCart(this)">Aggiungi al carrello</button>
+			</div>
+			<br>
+		<%} %>
 		<div>
 			<textarea rows="2" cols="20" maxlength="255" placeholder="Scrivi un commento"></textarea>
 			<button onclick="uploadComment(this)">Invia</button>

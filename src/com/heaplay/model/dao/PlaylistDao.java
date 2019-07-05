@@ -330,4 +330,41 @@ public class PlaylistDao implements DaoModel {
 		
 		return list;
 	}
+	
+	public synchronized List<PlaylistBean> getMostViewedPlaylists() throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null; 
+		List<PlaylistBean> list =  new ArrayList<PlaylistBean>(); 
+		PlaylistBean bean = null;
+		String selectQuery = "SELECT "+TABLE_NAME_1+".id as id, "+TABLE_NAME_1+".name as name, "+TABLE_NAME_1+".privacy as privacy, "+TABLE_NAME_1+".author as author, "+TABLE_NAME_1+".author_name as author_name FROM " + TABLE_NAME_1 +", tracks,contains WHERE "+TABLE_NAME_1+".id = playlist_id AND track_id = tracks.id GROUP BY "+TABLE_NAME_1+".id ORDER BY plays DESC LIMIT 5";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			rs = ps.executeQuery();
+			TrackDao trackDao = new TrackDao(pool);
+			
+			while(rs.next()) {
+				bean = new PlaylistBean();
+				bean.setId(rs.getLong("id"));
+				bean.setName(rs.getString("name"));
+				bean.setAuthor(rs.getLong("author"));
+				bean.setPrivacy(rs.getString("privacy"));
+				bean.setAuthorName(rs.getString("author_name"));
+				bean.setTracks(trackDao.getTracksByPlaylist(bean.getId()));
+				list.add(bean);
+			}
+			
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		
+		return list;
+	}
 }

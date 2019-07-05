@@ -32,3 +32,39 @@ $(document).ready(() => {
 		$("#user-image").prop("src", objectUrl);
 	});		
 });
+
+function addToCart(button) {
+	let src = $(".audio").children().prop("src");
+	let track_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
+	$.ajax({
+		"type":"GET",
+		"url": "/heaplay/addCart?track_id="+track_id,
+		"success": () => {
+			$(button).off();
+			let div = $(button).parent();
+			$(button).remove();
+			$("<span>Aggiunto al carrello</span>").appendTo(div);
+		}
+	});
+}
+
+function getPlaylist(container) {
+	let src = $('#user-image').prop("src");
+	let user_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
+	$.ajax({
+		"type" : "GET",
+		"url" : "/heaplay/getPlaylists?id="+user_id,
+		"success" : (data) => {
+			$(container).empty();
+			data = JSON.parse(data);
+			for(let i = 0 ; i < data.length; i++){
+				//Estrazione del bean
+				let bean = data[i];
+				createDiv(bean,container,"playlist");
+			}
+			
+			if(data.length == 0)
+				$("<p>Non sono presenti playlist</p>").appendTo(container);
+		}
+	});
+}

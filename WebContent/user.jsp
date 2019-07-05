@@ -21,7 +21,7 @@ if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 <%} %>
 <nav class="content-nav">
 	<a class="trackButton selected" onclick="selection(this,$('.playlistButton'),$('.user-playlist'),$('.user-tracks'))" href="#">Brani Caricati</a>
-	<a class="playlistButton" onclick="selection(this,$('.trackButton'),$('.user-tracks'),$('.user-playlist'))" href="#">Playlist</a>
+	<a class="playlistButton" onclick="selection(this,$('.trackButton'),$('.user-tracks'),$('.user-playlist')),getPlaylist($('.user-playlist'))" href="#">Playlist</a>
 </nav> 
 
 <div class="user-tracks">
@@ -45,7 +45,7 @@ if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 		</form>
 </div>
 
-<div class="user-playlist hidden">
+<div class="user-playlist hidden" >
 	<h3>Playlist</h3>
 </div>
 

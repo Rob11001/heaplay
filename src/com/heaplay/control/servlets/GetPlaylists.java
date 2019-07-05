@@ -3,6 +3,7 @@ package com.heaplay.control.servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -70,9 +71,22 @@ public class GetPlaylists extends HttpServlet {
 					e.printStackTrace();
 				}
 			} else {
-				//Faccio qualcosa
+				for(int i = 0; i < list.size() ; i++)
+					resetBytes(list.get(i).getTracks());
+				Gson gson = new Gson();
+				String object = gson.toJson(list);
+				response.getWriter().write(object);
 			}
 		}
 	}
 
+	
+	private static void  resetBytes(List<TrackBean> list) {			
+		for(int i=0;i<list.size();i++) {
+			TrackBean track = list.get(i);
+			track.setImage(null);
+			track.setTrack(null);
+		}
+	}
+	
 }
