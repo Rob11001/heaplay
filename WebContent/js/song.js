@@ -16,6 +16,7 @@ $(document).ready(function init() {
 function addEventHandlers() {
 	$(".play").click(startAudio);
 	$(".play").click(view);
+	$(".like").click(like);
 }
 
 //Handlers
@@ -150,5 +151,18 @@ function view(e) {
 	$.ajax({
 		"type":"GET",
 		"url" : "/heaplay/view?id="+id
+	});
+}
+
+function like(e) {
+	let url = $(e.currentTarget).parent().parent().parent().find(".audio").children().prop("src");
+	let id = url.substring(url.indexOf("id")+3,url.indexOf("&"));
+	$.ajax({
+		"type":"GET",
+		"url" : "/heaplay/view?id="+id+"&like=true",
+		"success" : () => {
+			$(e.currentTarget).off();
+			//Vedere come focusare il like
+		}
 	});
 }

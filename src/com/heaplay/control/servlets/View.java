@@ -23,6 +23,8 @@ public class View extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
+		String like = request.getParameter("like");
+				
 		if(id == null)
 			response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));
 		else {
@@ -37,7 +39,10 @@ public class View extends HttpServlet {
 					TrackDao trackDao = new TrackDao(pool);
 					bean = (TrackBean) trackDao.doRetrieveByKey(keys);
 					if(bean != null) {
-						bean.setPlays(bean.getPlays()+1);
+						if(like == null)
+							bean.setPlays(bean.getPlays()+1);
+						else 
+							bean.setLikes(bean.getLikes()+1);
 						trackDao.doUpdate(bean);
 					} else 
 						response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));

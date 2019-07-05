@@ -1,3 +1,7 @@
+<%@page import="com.heaplay.model.beans.UserBean"%>
+<%UserBean user = (UserBean)session.getAttribute("user"); 
+%>
+
 <div class="song">
 	<audio preload="none" class="audio" ontimeupdate="updateCurrentTime(this)">
 		<!-- Problemi con il caricamento dell'audio -->
@@ -41,7 +45,11 @@
 				<input type="range" name="volume" step=".1" class="slider volume"
 				onchange="setVolume(this)" value="1" min="0" max="1">
 			</button>
+			<%if(user!=null && user.getId() != track.getAuthor()) {%>
+				<span class="like"><i class="fa fa-thumbs-up"></i></span>
+			<%} %>
 		</div>
+		
 	</div>
 	
 </div>
