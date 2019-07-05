@@ -10,10 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.heaplay.model.ConnectionPool;
+import com.heaplay.model.beans.Cart;
 import com.heaplay.model.beans.PurchasableTrackBean;
 import com.heaplay.model.beans.TrackBean;
+import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
 
@@ -26,6 +29,9 @@ public class Track extends HttpServlet {
 		String id = request.getParameter("id");
 		String userName = (String) request.getAttribute("userName");
 		String trackName = (String) request.getAttribute("trackName");
+		HttpSession session = request.getSession();
+		Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart");
+		UserBean user = (UserBean) session.getAttribute("user");
 		
 		if(id == null || userName == null || trackName == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
@@ -48,6 +54,17 @@ public class Track extends HttpServlet {
 				//Bisognerebbe mandare alla pagina 404
 				response.sendRedirect(getServletContext().getContextPath()+"/home");
 			else {
+				if(user !=  null) {
+					if(cart == null) {
+		    			cart = new Cart<TrackBean>();
+		    			try {
+							cart.setItems(trackDao.getCart(user.getId()));
+							session.setAttribute("cart", cart);
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				}
 				request.setAttribute("currentTrack",track);
 				request.setAttribute("jspPath", "/track.jsp");
 				request.setAttribute("pageTitle", track.getName());

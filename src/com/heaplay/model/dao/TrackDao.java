@@ -563,4 +563,120 @@ public class TrackDao implements DaoModel {
 		return list;
 	}
 	
+	public synchronized ArrayList<TrackBean> getCart(Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
+		TrackBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + ",carted WHERE track_id ="+TABLE_NAME +".id AND user_id=?";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			TagDao tag = new TagDao(pool);
+
+			while (rs.next()) {
+				bean = new TrackBean();
+				bean.setId(rs.getLong("id"));
+				bean.setAuthor(rs.getLong("author"));
+				bean.setImage(rs.getBytes("image"));
+				bean.setImageExt(rs.getString("image_extension"));
+				bean.setIndexable(rs.getBoolean("indexable"));
+				bean.setLikes(rs.getLong("likes"));
+				bean.setName(rs.getString("name"));
+				bean.setPlays(rs.getLong("plays"));
+				bean.setTrack(rs.getBytes("track"));
+				bean.setTrackExt(rs.getString("track_extension"));
+				bean.setType(rs.getString("type"));
+				bean.setUploadDate(rs.getTimestamp("upload_date"));
+				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
+				bean.setDuration(rs.getInt("duration"));
+				bean.setAuthorName(rs.getString("author_name"));
+				if(bean.getType().equals("pagamento")) {
+					PurchasableTrackDao purchasableTrackDao = new PurchasableTrackDao(pool);
+					bean = (TrackBean) purchasableTrackDao.doRetrieveByKey(bean.getKey());
+				}
+				list.add(bean);
+			}
+			
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return list;
+	}
+	
+	public synchronized void saveCart(List<TrackBean> cart,Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		ArrayList<TrackBean> prevCart = new ArrayList<TrackBean>();
+		TrackBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + ",carted WHERE track_id ="+TABLE_NAME +".id AND user_id=?";
+		String insertQuery = "INSERT INTO carted(track_id,user_id) VALUES(?,?) ";
+		String removeQuery = "DELETE FROM carted WHERE track_id=? AND user_id=?";
+		
+		try {
+			doRetrieveByName("");	//Query inutile per appesantire il DB 
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				bean = new TrackBean();
+				bean.setId(rs.getLong("id"));
+				prevCart.add(bean);
+			}
+		
+			boolean delete = cart.size() < prevCart.size();
+			
+			for(int i = 0; i < cart.size() ; i++) {
+				boolean found = false;
+				for(int j = 0;!found && j < prevCart.size() ; j++)
+					if(prevCart.get(j).getId() == cart.get(i).getId() ) { 
+						prevCart.remove(j);
+						found = true;
+					}
+				
+				if(found == false && delete == false) {
+					ps = con.prepareStatement(insertQuery);
+					ps.setLong(1,cart.get(i).getId());
+					ps.setLong(2,id);
+					ps.executeUpdate();
+					ps.close();
+				}
+			}
+			for(int i = 0; i < prevCart.size() ; i++) {
+				ps = con.prepareStatement(removeQuery);
+				ps.setLong(1, prevCart.get(i).getId());
+				ps.setLong(2,id);
+				ps.executeUpdate();
+				ps.close();
+			}
+			
+			con.commit();
+			
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		
+	}
+	
+	
+	
+	
+	
 }

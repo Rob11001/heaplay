@@ -38,11 +38,11 @@ function addToCart(button) {
 	let track_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
 	$.ajax({
 		"type":"GET",
-		"url": "/heaplay/addCart?track_id="+track_id,
+		"url": "/heaplay/addToCart?track_id="+track_id,
 		"success": () => {
 			$(button).off();
 			let div = $(button).parent();
-			$(button).remove();
+			$(div).empty();
 			$("<span>Aggiunto al carrello</span>").appendTo(div);
 		}
 	});

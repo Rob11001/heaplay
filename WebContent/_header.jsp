@@ -30,6 +30,7 @@
 					<div class="dropdown-content">
 						<a href="<%=response.encodeURL("/heaplay/user/" + user.getUsername()) %>">Area Utente</a>
 						<a href="<%=response.encodeURL("/heaplay/upload")%>">Carica</a>
+						<a href="<%=response.encodeURL("/heaplay/cart")%>">Carrello</a>
 						<a href="<%=response.encodeURL("/heaplay/logout")%>">Logout</a>
 					</div>
 				</div>

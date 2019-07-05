@@ -1,3 +1,4 @@
+<%@page import="com.heaplay.model.beans.Cart"%>
 <%@page import="com.heaplay.model.beans.PurchasableTrackBean"%>
 <%@page import="com.heaplay.model.beans.UserBean"%>
 <%@page import="com.heaplay.model.beans.TrackBean"%>
@@ -5,6 +6,7 @@
 	
 	<% 
 	TrackBean track = (TrackBean)request.getAttribute("currentTrack"); 
+	Cart<TrackBean> cart = (Cart<TrackBean>)session.getAttribute("cart");
 	if(track != null ) {
 																		%>
 		<%@ include file="/_player.jsp"%>
@@ -23,7 +25,11 @@
 					<span> Free </span>
 				<%} %>
 				<br>
-				<button onclick="addToCart(this)">Aggiungi al carrello</button>
+				<%if(!cart.getItems().contains(track) /*Vedere come controllare se è stata già acquistata */) { %>
+					<button onclick="addToCart(this)">Aggiungi al carrello</button>
+				<%} else {%>
+					<span>Già aggiunta al carrello</span>
+				<%} %>
 			</div>
 			<br>
 		<%} %>
