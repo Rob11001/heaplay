@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
+import com.heaplay.model.beans.PurchasableTrackBean;
 import com.heaplay.model.beans.TrackBean;
+import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
 
 
@@ -35,10 +37,14 @@ public class Track extends HttpServlet {
 			TrackBean track = null;
 			try {
 				track = (TrackBean) trackDao.doRetrieveByKey(keys);
+				if(track.getType().equals("pagamento")) {
+					PurchasableTrackDao purchasableTrackDao = new PurchasableTrackDao(pool);
+					track = (TrackBean) purchasableTrackDao.doRetrieveByKey(keys); 
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			if(track == null || !track.getAuthorName().equals(userName) || !track.getName().equals(trackName))
+			if(track == null || !track.getAuthorName().equals(userName) || !track.getName().replaceAll("\\s","").equals(trackName))
 				//Bisognerebbe mandare alla pagina 404
 				response.sendRedirect(getServletContext().getContextPath()+"/home");
 			else {

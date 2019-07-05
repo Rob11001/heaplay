@@ -17,9 +17,6 @@ import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.TrackDao;
 import com.heaplay.model.dao.UserDao;
 
-/**
- * Servlet implementation class User
- */
 @WebServlet("/author")
 public class User extends HttpServlet {
 	private static final long serialVersionUID = 1L;

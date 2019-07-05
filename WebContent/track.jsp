@@ -1,3 +1,4 @@
+<%@page import="com.heaplay.model.beans.PurchasableTrackBean"%>
 <%@page import="com.heaplay.model.beans.UserBean"%>
 <%@page import="com.heaplay.model.beans.TrackBean"%>
 <div>
@@ -14,6 +15,14 @@
 	if(user != null) {%>
 		<%if(user.getId() != track.getAuthor()) {%>		
 			<div>
+				<%if(track.getType().equals("pagamento")) { 
+					PurchasableTrackBean pTrack = (PurchasableTrackBean) track;
+				%>
+					<span class="price">Prezzo: <%=pTrack.getPrice()%> </span>
+				<%} else {%>
+					<span> Free </span>
+				<%} %>
+				<br>
 				<button onclick="addToCart(this)">Aggiungi al carrello</button>
 			</div>
 			<br>

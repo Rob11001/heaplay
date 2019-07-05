@@ -26,6 +26,7 @@ public class Playlist extends HttpServlet {
 		String user = (String) request.getAttribute("userName");
 		String playlistName = (String) request.getAttribute("playlistName");
 		String begin = request.getParameter("begin");
+		String id = request.getParameter("id"); 
 		
 		if(user == null || playlistName == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
@@ -41,10 +42,9 @@ public class Playlist extends HttpServlet {
 					/*Pagina di errore*/;
 				else {
 					ArrayList<String> keys = new ArrayList<String>();
-					keys.add(playlistName);
-					keys.add(userBean.getId()+"");
+					keys.add(id);
 					PlaylistBean playlistBean = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
-					if(playlistBean == null)
+					if(playlistBean == null || !playlistBean.getName().replaceAll("\\s","").equals(playlistName) || !playlistBean.getAuthorName().equals(user))
 						/*Pagina di errore*/;
 					else {
 						ArrayList<TrackBean> list = (ArrayList<TrackBean>) playlistBean.getTracks();

@@ -23,7 +23,7 @@
 	
 	<div class="song-info">
 		<div class="info">
-			<span><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName()%>?id=<%=track.getId()%>"><%=track.getName()%></a></span> <br>
+			<span><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName().replaceAll("\\s","")%>?id=<%=track.getId()%>"><%=track.getName()%></a></span> <br>
 			<span>Di <a href="/heaplay/user/<%=track.getAuthorName()%>"><%=track.getAuthorName()%></a></span> <!-- Problema per trovare l'autore - Risolto -->
 		</div>
 		<div class="controls">
