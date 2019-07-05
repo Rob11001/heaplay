@@ -4,10 +4,12 @@
   <welcome-file-list>
     <welcome-file>home</welcome-file>
   </welcome-file-list>
+  
   <error-page>
     <error-code>404</error-code>
     <location>/notfound</location>
   </error-page>
+  
   <filter>
     <filter-name>httpHeaderSecurity</filter-name>
     <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>

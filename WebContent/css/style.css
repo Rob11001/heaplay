@@ -1,12 +1,15 @@
 @charset "UTF-8";
 
-html { 
+:root {
 	--content-wrapper: white;
 	--main-black: rgba(45, 49, 66, 1);
 	--main-black60: rgba(45, 49, 66, 0.6);
 	--main-orange: #EF8354;
 	--main-orange-shade: #DA784D; 
 	--main-blue: #3D7BCC;
+}
+
+html { 
 	--header-height: 50px;
 	--footer-height: 70px;
 	color: var(--main-black);
@@ -25,8 +28,10 @@ header {
 	box-shadow: 0 1px 0 rgba(12, 13, 14, 0.1), 0 1px 6px rgba(59, 64, 69, 0.1);
 	font-size: 1.1em;
 	height: var(--header-height);
-	top: 0;
 	position: fixed;
+	top: 0;
+	transition: top 0.3s;
+	vertical-align: middle;
 	width: 100%;
 	z-index: 1;
 }
@@ -85,22 +90,30 @@ nav > a:visited, .dropdown > a:visited {
 	justify-content: flex-start;
 }
 
+.sandwitch {
+	display: none;
+	margin: auto;
+}
+
 /* Sezione Ricerca */
 .search {
 	flex: 3;
+	display: flex;
+}
+
+.search > * {
+	border: 2px solid var(--main-blue);
 }
 
 .search-select {
-	border: 2px solid var(--main-blue);
 	border-top-left-radius: 20px;
 	border-bottom-left-radius: 20px;
 	font-size: 1em;
 	padding: 0 5px;
-	width: 11%;
+	width: 14%;
 }
 
 .search-box {
-	border: 2px solid var(--main-blue);
 	border-left: none;
 	font-size: 1em;
 	padding: 0 5px;
@@ -109,17 +122,16 @@ nav > a:visited, .dropdown > a:visited {
 }
 
 .search-box:focus {
-	width: 50%;
+	width: 80%;
 }
 
 .search-button {
-	border: 2px solid var(--main-blue);
 	border-left: none;
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
 	cursor: pointer;
 	font-size: 1em;
-	outline: none;
+	padding: 0;
 	text-indent: -2px;
 	width: 5%;
 }
@@ -128,6 +140,11 @@ nav > a:visited, .dropdown > a:visited {
 .user {
 	flex: 1;
 	justify-content: flex-end;
+}
+
+.dropdown:hover .dropdown-content {
+	display: flex;
+	flex-direction: column;
 }
 
 .dropdown-content {
@@ -162,19 +179,14 @@ nav > a:visited, .dropdown > a:visited {
 	border-bottom-right-radius: 20px;
 }
 
-.dropdown:hover .dropdown-content {
-	display: flex;
-	flex-direction: column;
-}
-
 /******************************** Main Content ********************************/
 
 .content-wrapper {
 	background-color: var(--content-wrapper);
-	margin: var(--header-height) auto 0 auto;
+	margin: 0 auto;
 	max-width: 85%;
 	min-height: calc(100vh - var(--footer-height) - var(--header-height));
-	padding: 20px;
+	padding: var(--header-height) 20px;
 }
 
 /* Content Navs Rules */
@@ -225,11 +237,13 @@ nav > a:visited, .dropdown > a:visited {
 
 .song-image img {
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+	height: 100px;
+	width: 100px;
 }
 
 .song-info {
 	display: inline;
-	padding: 10px 10px;
+	padding-left: 10px;
 }
 
 .author {
@@ -250,7 +264,6 @@ nav > a:visited, .dropdown > a:visited {
 	border-radius: 50%;
 	cursor: pointer;
 	font-size: 1em;
-	padding-right: 1px;
 }
 
 
@@ -294,10 +307,6 @@ nav > a:visited, .dropdown > a:visited {
 
 .volume {
 	display: none;
-}
-
-.volume-button:hover .volume {
-	display: inline;
 }
 
 /******************************** Form ********************************/
@@ -383,8 +392,22 @@ nav > a:visited, .dropdown > a:visited {
 }
 
 .form-error {
+	border-bottom: 20px;
+	color: red;
+}
+
+/******************************** Track Page ********************************/
+
+.comment-container {
+	display: flex;
+	flex-flow: column-reverse;;
+	margin-left: 5%;
+}
+
+.comment {
 	
 }
+
 
 /* Classes of support */
 
@@ -398,4 +421,52 @@ nav > a:visited, .dropdown > a:visited {
 
 .hidden {
 	display: none;
+}
+
+
+/* Responsive Design */
+
+@media only screen and (max-width: 420px) {
+	
+	header {
+		height: auto;
+	}	
+	
+	header nav {
+		flex-flow: column wrap;
+		align-items: center;
+	}
+	
+	.menu-bar {
+		flex-flow: column wrap;
+	}
+	
+	.search {
+		display: none;
+		justify-content: center;
+	}
+	
+	.dropdown-content {
+		display: none;
+		border-radius: 0;
+		flex-flow: row;
+		height: 0;
+		justify-content: center;
+		right: 0;
+		transition: height 0.3s ease-out;
+		width: 100%;
+	}
+	
+	.dropdown:hover .dropdown-content {
+		flex-flow: row;
+	}
+	
+	.dropdown-content a:hover {
+		border-radius: 20px;
+	}
+	
+	.content-wrapper {
+		max-width: 100%;
+	}
+	
 }

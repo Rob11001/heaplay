@@ -26,8 +26,13 @@
 	<label for="password">Password<br/></label>
 	<input class="form-input-text" type="password" name="password" value="" required><br/>
 	
+	<span class="form-error">
+	<%
+		if (error != null) {
+	%>
+	<%=error%>
+	<%	} %>
+	</span><br/>
+	
 	<input class="form-input-submit" type="submit" value="Register">
 </form>
-<%	if( error != null) {%>
-<span class="form-error"><%=error%></span>
-<%	} %>

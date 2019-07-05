@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	String error = (String) request.getAttribute("errorMessage");
 	UserBean user = (UserBean)session.getAttribute("user");
 	if(user == null)
 		response.sendRedirect(getServletContext().getContextPath() + "/home");
@@ -43,6 +44,14 @@
 		
 	<input type="hidden" name="authorId" value="<%=user.getId()%>">
 	<input type="hidden" name="duration" id="duration"> 
+	
+	<span class="form-error">
+	<%
+		if (error != null) {
+	%>
+	<%=error%>
+	<%	} %>
+	</span><br/>
 	
 	<input class="form-input-submit" type="submit" value="Carica">
 	<audio id="audioFake">

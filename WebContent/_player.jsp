@@ -15,7 +15,7 @@
 	<div class="song-image">
 		<%if(track != null) {%>
 		<!-- Conterrà l'immagine della track -->
-		<img width="100px"
+		<img 
 			src="/heaplay/getImage?id=<%=track.getId()%>&extension=<%=track.getImageExt()%>"
 			alt="Errore">
 		<%} %>
@@ -40,11 +40,11 @@
 				<span><%=String.format("%2d:%2d", track.getDuration()/60,track.getDuration()%60)%></span>
 				<%} %>
 			</button>
-			<button class="volume-button">
+			<div class="volume-button">
 				<i class="fa fa-volume-up"></i>
 				<input type="range" name="volume" step=".1" class="slider volume"
 				onchange="setVolume(this)" value="1" min="0" max="1">
-			</button>
+			</div>
 			<%if(user!=null && user.getId() != track.getAuthor()) {%>
 				<span class="like"><i class="fa fa-thumbs-up"></i></span>
 			<%} %>

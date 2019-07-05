@@ -11,7 +11,7 @@
 
 <h2>Login</h2>
 <hr class="hr-form">
-<form action="login" method="post">
+<form action="login" onsubmit="return validateRegister(this)" method="post">
 	
 	<label for="email">E-Mail<br></label> 
 	<input class="form-input-text" type="text" name="email"  value="<%=email%>"  required>
@@ -23,10 +23,13 @@
 	<i class="fa fa-key"></i>
 	<br/>
 
+	<span class="form-error">
+	<%
+		if (error != null) {
+	%>
+	<%=error%>
+	<%	} %>
+	</span><br/>
+
 	<input class="form-input-submit" type="submit" value="Login">
 </form>
-<%
-	if (error != null) {
-%>
-<span class="form-error"><%=error%></span>
-<%	} %>

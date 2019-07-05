@@ -84,7 +84,9 @@ public class Login extends HttpServlet {
 			else {
 				//Rimando al login in caso di errore
 				request.setAttribute("errorMessage", errorMessage);
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+				request.setAttribute("jspPath", "/login.jsp");
+				request.setAttribute("pageTitle", "Login");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/blank.jsp");
 				rd.forward(request, response);
 			}
 		}

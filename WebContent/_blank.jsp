@@ -18,8 +18,9 @@
 <%@ include file="/_links.jsp"%>
 </head>
 <body>
-	<script src="https://code.jquery.com/jquery-3.4.1.js" type="text/javascript"></script>
+	<script src="${pageContext.servletContext.contextPath}/js/jquery-3.4.1.min.js" ></script>
 	<script src="${pageContext.servletContext.contextPath}/js/search.js" ></script>
+	<script src="${pageContext.servletContext.contextPath}/js/menu.js" ></script>
 	
 	<jsp:include page="/_header.jsp" />
 	
