@@ -63,6 +63,7 @@ public class Search extends HttpServlet {
 				case "playlist":PlaylistDao playlistDao = new PlaylistDao(pool);
 							list = (ArrayList<Bean>) playlistDao.doRetrieveAll(null);
 							list = filter(query, list);
+							list=(ArrayList<Bean>) list.stream().filter(p ->((PlaylistBean)p).getPrivacy().equals("public")).collect(Collectors.toList());
 							found = list.size();
 							if(autocomplete == null)
 								list = createSubList(list,start,(start+5) > found ? found : (start+5));

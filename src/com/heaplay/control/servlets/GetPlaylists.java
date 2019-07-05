@@ -73,6 +73,8 @@ public class GetPlaylists extends HttpServlet {
 			} else {
 				for(int i = 0; i < list.size() ; i++)
 					resetBytes(list.get(i).getTracks());
+				if(user.getId() != Long.parseLong(id)) 
+					list=(ArrayList<PlaylistBean>) list.stream().filter(p ->p.getPrivacy().equals("public")).collect(Collectors.toList());
 				Gson gson = new Gson();
 				String object = gson.toJson(list);
 				response.getWriter().write(object);

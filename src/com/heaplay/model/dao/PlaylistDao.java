@@ -337,7 +337,7 @@ public class PlaylistDao implements DaoModel {
 		ResultSet rs = null; 
 		List<PlaylistBean> list =  new ArrayList<PlaylistBean>(); 
 		PlaylistBean bean = null;
-		String selectQuery = "SELECT "+TABLE_NAME_1+".id as id, "+TABLE_NAME_1+".name as name, "+TABLE_NAME_1+".privacy as privacy, "+TABLE_NAME_1+".author as author, "+TABLE_NAME_1+".author_name as author_name FROM " + TABLE_NAME_1 +", tracks,contains WHERE "+TABLE_NAME_1+".id = playlist_id AND track_id = tracks.id GROUP BY "+TABLE_NAME_1+".id ORDER BY plays DESC LIMIT 5";
+		String selectQuery = "SELECT "+TABLE_NAME_1+".id as id, "+TABLE_NAME_1+".name as name, "+TABLE_NAME_1+".privacy as privacy, "+TABLE_NAME_1+".author as author, "+TABLE_NAME_1+".author_name as author_name FROM " + TABLE_NAME_1 +", tracks,contains WHERE "+TABLE_NAME_1+".id = playlist_id AND track_id = tracks.id AND privacy = 'public' GROUP BY "+TABLE_NAME_1+".id ORDER BY plays DESC LIMIT 5";
 		
 		try {
 			con = pool.getConnection();
