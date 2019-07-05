@@ -58,6 +58,11 @@
     		<input id="playlist-selection" type="text" list="listOfPlaylist" name="playlistName" onkeyup="autocompletePlaylist(this,$('#listOfPlaylist'))">
     		<datalist id="listOfPlaylist">
     		</datalist>
+    		<br>
+    		<input type="radio" value="public" name="privacy" placeholder="Pubblica" checked="checked">
+    		<label>Pubblica</label>
+    		<input type="radio" value="private" name="privacy" placeholder="Privata">
+    		<label>Privata</label>
     		<input type="hidden" name="track_id" id="track_id">
     		<input type="submit" value="Aggiungi">
     	</div>

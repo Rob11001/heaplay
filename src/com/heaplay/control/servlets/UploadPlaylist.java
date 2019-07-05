@@ -25,7 +25,7 @@ public class UploadPlaylist extends HttpServlet {
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String track_id = request.getParameter("track_id");
 		String playlistName = request.getParameter("playlistName");
-		String privacy = "public";	//Vedere come realizzarlo
+		String privacy = request.getParameter("privacy");	//Vedere come realizzarlo
 		
 		if(user == null || track_id == null || playlistName == null) 
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
