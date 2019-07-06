@@ -30,7 +30,7 @@ public class ConnectionPool {
 		String password = "Progetto.TSW";
 		
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db+"?serverTimezone=UTC", username, password);
-
+		newConnection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 		newConnection.setAutoCommit(false);
 		return newConnection;
 	}
