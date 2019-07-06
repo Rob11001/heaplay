@@ -3,7 +3,7 @@ var prevScrollpos = window.pageYOffset;
 $(document).ready(() => {
 	
 	const dropdown = (show) => {
-		if(show == undefined) {
+		if(show === undefined) {
 			if($(".dropdown-content").css("display") == "none") {
 				$(".dropdown-content").css("display", "flex");
 				$(".dropdown-content").css("height", "auto");
@@ -27,11 +27,9 @@ $(document).ready(() => {
 	
 	mql.addListener((mq) => {
 		if (mq.matches) {
-            $(".dropdown .dropbtn").click(() => {
-            	dropdown();
-            });
+            $(".dropbtn").click(dropdown());
         } else {
-        	$(".dropdown .dropbtn").off("click");
+        	$(".dropbtn").off("click");
         }
 	});
 	
@@ -43,8 +41,8 @@ $(document).ready(() => {
 		if (prevScrollpos > currentScrollPos) {
 			header.css("top", "0")
 		} else {
-			dropdown(false);
-			header.css("top", -headerHeight-5);
+			$(".dropbtn").trigger("click", false);
+			header.css("top", -(headerHeight-5));
 		}
 		prevScrollpos = currentScrollPos;
 	}

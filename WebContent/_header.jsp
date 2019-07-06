@@ -26,7 +26,9 @@
 				<a href="<%=response.encodeURL("/heaplay/register")%>">Registrati</a>
 			<%} else { %>
 				<div class="dropdown">
-					<a class="dropbtn" href="#"><%=user.getUsername()%></a>
+					<div class="dropbtn">
+						<a href="#"><%=user.getUsername()%></a>
+					</div>					
 					<div class="dropdown-content">
 						<a href="<%=response.encodeURL("/heaplay/user/" + user.getUsername()) %>">Area Utente</a>
 						<a href="<%=response.encodeURL("/heaplay/upload")%>">Carica</a>

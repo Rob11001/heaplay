@@ -57,19 +57,19 @@ nav {
 
 /* Header Navs Rules */
 
-nav > a, .dropdown > a {
+nav > a, .dropbtn > a {
 	color: white;
 	font-weight: bold;
 	text-transform: uppercase;
 	padding: 0.5em;
 }
 
-nav > a:hover, .dropdown > a:hover {
+nav > a:hover, .dropbtn > a:hover {
 	background-color: var(--main-orange-shade);
 	border-radius: 10px;
 }
 
-nav > a:visited, .dropdown > a:visited {
+nav > a:visited, .dropbtn > a:visited {
 	color: white;
 }
 
@@ -88,11 +88,6 @@ nav > a:visited, .dropdown > a:visited {
 .links {
 	flex: 1;
 	justify-content: flex-start;
-}
-
-.sandwitch {
-	display: none;
-	margin: auto;
 }
 
 /* Sezione Ricerca */
@@ -309,6 +304,10 @@ nav > a:visited, .dropdown > a:visited {
 	display: none;
 }
 
+.volume-button:hover .volume {
+	display: inline;
+}
+
 /******************************** Form ********************************/
 
 .hr-form {
@@ -446,6 +445,10 @@ nav > a:visited, .dropdown > a:visited {
 		justify-content: center;
 	}
 	
+	.dropbtn {
+		display: flex;
+	}
+
 	.dropdown-content {
 		display: none;
 		border-radius: 0;
