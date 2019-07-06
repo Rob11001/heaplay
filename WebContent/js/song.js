@@ -142,7 +142,14 @@ function updateCurrentTime (event) {
 
 	$(slider).prop("value",Math.floor(currentTime));
 	$(time).html(min + ":" + sec);
+	
+	//Necessario a capire se scorrere
+	if($("#playlist-page") != undefined && Math.round(event.duration) == Math.round(currentTime))
+		next();
+	
 }
+
+/*********Plays e Likes ***********/
 
 //Funzione che in maniera asincrona incrementa i plays
 function view(e) {
@@ -165,4 +172,35 @@ function like(e) {
 			//Vedere come focusare il like
 		}
 	});
+}
+
+
+/********* Playlist ************/
+
+const changeAudio = (parent) => {
+	if(audio != undefined)
+		stopAudio();
+	init(parent);
+	loadAudio();
+	playAudio();
+};
+
+const findIndex = (audio,array) => {
+	for(let i = 0 ; i < array.length ; i++)
+		if(audio.is(array[i])) 
+			return i;	
+};
+
+function next() {
+	let array = $(".audio");
+	let i = (audio != undefined)  ? findIndex(audio,array) : -1;
+	changeAudio($(array[(i+1)%array.length]).parent())
+	
+}
+
+function prev() {
+	let array = $(".audio");
+	let i = (audio != undefined)  ? findIndex(audio,array) : 1; 
+	i = (i==0) ? array.length : i;
+	changeAudio($(array[(i-1)%array.length]).parent())
 }

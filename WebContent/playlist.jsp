@@ -12,9 +12,11 @@ Integer begin = (Integer) request.getAttribute("begin");
 
 %>
 
-<div>
+<div id = "playlist-page">
 	<h3>Playlist</h3>
 	<p>Qui mettiamo un logo e uno sfondo con nome dell'autore della playlist</p>
+	<!-- Settare una grandezza migliore per le frecce -->
+	<a onclick="prev()"><i class="fas fa-chevron-circle-left"></i></a> <a onclick="next()"><i class="fas fa-chevron-circle-right"></i></a>
 </div>
 
 <div class="user-tracks">
