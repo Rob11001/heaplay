@@ -7,6 +7,7 @@
 	<% 
 	TrackBean track = (TrackBean)request.getAttribute("currentTrack"); 
 	Cart<TrackBean> cart = (Cart<TrackBean>)session.getAttribute("cart");
+	String owned = (String)request.getAttribute("owned");
 	if(track != null ) {
 																		%>
 		<%@ include file="/_player.jsp"%>
@@ -25,10 +26,12 @@
 					<span> Free </span>
 				<%} %>
 				<br>
-				<%if(!cart.getItems().contains(track) /*Vedere come controllare se è stata già acquistata */) { %>
+				<%if(!cart.getItems().contains(track) && owned.equals("false")) { %>
 					<button onclick="addToCart(this)">Aggiungi al carrello</button>
-				<%} else {%>
+				<%} else if(owned.equals("false")){%>
 					<span>Già aggiunta al carrello</span>
+				<%} else {%>
+					<span>Acquistata</span>
 				<%} %>
 			</div>
 			<br>

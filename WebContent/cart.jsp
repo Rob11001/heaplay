@@ -35,12 +35,16 @@
 		<%} 
 		if(list.size() == 0) { %>
 			<p>Il tuo carrello è al momento vuoto</p>
-		<%} %>	
+		<%} else {%>
+			<br>
+			<div class="cart-sum" >
+				<span>Costo Totale : <span id="sum"><%=String.format("%.2f",sum) %></span></span> <br>
+				<button onclick="purchase()">Acquista</button>
+			</div>
+		<%} %>
 	</div>
-	<br>
-	<div class="cart-sum" >
-		<span>Costo Totale : <span id="sum"><%=String.format("%.2f",sum) %></span></span> <br>
-		<button>Acquista</button>
+	<div class="loading-cart hidden">
+		<img alt="Loading..." src="/heaplay/images/loading.gif" width="50px">
 	</div>
 </div>
 

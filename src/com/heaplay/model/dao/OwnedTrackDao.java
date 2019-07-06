@@ -12,6 +12,7 @@ import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.Bean;
 import com.heaplay.model.beans.OwnedTrackBean;
 import com.heaplay.model.beans.PurchasableTrackBean;
+import com.heaplay.model.beans.TrackBean;
 
 public class OwnedTrackDao implements DaoModel {
 
@@ -28,10 +29,10 @@ public class OwnedTrackDao implements DaoModel {
 		Connection con = null;
 		OwnedTrackBean owBean = (OwnedTrackBean) bean;
 		
-		String insertQuery = "INSERT INTO " + TABLE_NAME + " (user_id, purchase_date) VALUES (?, ?)";
+		String insertQuery = "INSERT INTO " + TABLE_NAME + " (user_id, purchase_date,track_id) VALUES (?, ?,?)";
 		
-		PurchasableTrackDao pDao = new PurchasableTrackDao(pool);
-		pDao.doSave(owBean);
+//		PurchasableTrackDao pDao = new PurchasableTrackDao(pool);
+//		pDao.doSave(owBean);
 		
 		try {
 			con = pool.getConnection();
@@ -39,6 +40,7 @@ public class OwnedTrackDao implements DaoModel {
 			
 			ps.setLong(1, owBean.getUserId());
 			ps.setTimestamp(2, owBean.getPurchaseDate());
+			ps.setLong(3, owBean.getId());
 			
 			if(ps.executeUpdate() != 0)
 				con.commit();			
@@ -121,8 +123,11 @@ public class OwnedTrackDao implements DaoModel {
 		
 		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE track_id=? AND user_id=?";
 		PurchasableTrackDao pDao = new PurchasableTrackDao(pool);
-		PurchasableTrackBean purchasableBean = (PurchasableTrackBean) pDao.doRetrieveByKey(keys.subList(0, 0));
-		
+		PurchasableTrackBean purchasableBean = (PurchasableTrackBean) pDao.doRetrieveByKey(keys.subList(0, 1));
+		if(purchasableBean == null) {
+			TrackDao trackDao = new TrackDao(pool);
+			purchasableBean = new PurchasableTrackBean((TrackBean) trackDao.doRetrieveByKey(keys.subList(0, 1)));
+		}
 		try {
 			con = pool.getConnection();
 			ps = con.prepareStatement(selectQuery);

@@ -14,9 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.Cart;
+import com.heaplay.model.beans.OwnedTrackBean;
 import com.heaplay.model.beans.PurchasableTrackBean;
 import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
+import com.heaplay.model.dao.OwnedTrackDao;
 import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
 
@@ -33,6 +35,7 @@ public class Track extends HttpServlet {
 		Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart");
 		UserBean user = (UserBean) session.getAttribute("user");
 		
+		
 		if(id == null || userName == null || trackName == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
@@ -41,6 +44,7 @@ public class Track extends HttpServlet {
 			ArrayList<String> keys = new ArrayList<String>();
 			keys.add(id);
 			TrackBean track = null;
+			String owned = "false";
 			try {
 				track = (TrackBean) trackDao.doRetrieveByKey(keys);
 				if(track.getType().equals("pagamento")) {
@@ -55,16 +59,24 @@ public class Track extends HttpServlet {
 				response.sendRedirect(getServletContext().getContextPath()+"/home");
 			else {
 				if(user !=  null) {
-					if(cart == null) {
-		    			cart = new Cart<TrackBean>();
-		    			try {
+					try {
+						if(cart == null) {
+							cart = new Cart<TrackBean>();
 							cart.setItems(trackDao.getCart(user.getId()));
-							session.setAttribute("cart", cart);
-						} catch (SQLException e) {
-							e.printStackTrace();
+							session.setAttribute("cart", cart);	
 						}
+						OwnedTrackDao ownedTrackDao = new OwnedTrackDao(pool);
+						keys.clear();
+						keys.add(track.getId()+"");
+						keys.add(user.getId()+"");
+						OwnedTrackBean bean = (OwnedTrackBean) ownedTrackDao.doRetrieveByKey(keys);
+						owned = (bean == null) ? "false" : "true";
+						request.setAttribute("owned", owned);
+					} catch (SQLException e) {
+						e.printStackTrace();
 					}
 				}
+				
 				request.setAttribute("currentTrack",track);
 				request.setAttribute("jspPath", "/track.jsp");
 				request.setAttribute("pageTitle", track.getName());

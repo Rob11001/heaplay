@@ -621,6 +621,56 @@ public class TrackDao implements DaoModel {
 		TrackBean bean = null;
 		String selectQuery = "SELECT * FROM " + TABLE_NAME + ",carted WHERE track_id ="+TABLE_NAME +".id AND user_id=?";
 		String insertQuery = "INSERT INTO carted(track_id,user_id) VALUES(?,?) ";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				bean = new TrackBean();
+				bean.setId(rs.getLong("id"));
+				prevCart.add(bean);
+			}
+		
+			for(int i = 0; i < cart.size() ; i++) {
+				boolean found = false;
+				for(int j = 0;!found && j < prevCart.size() ; j++)
+					if(prevCart.get(j).getId() == cart.get(i).getId() ) { 
+						prevCart.remove(j);
+						found = true;
+					}
+				
+				if(found == false ) {
+					ps = con.prepareStatement(insertQuery);
+					ps.setLong(1,cart.get(i).getId());
+					ps.setLong(2,id);
+					ps.executeUpdate();
+					ps.close();
+				}
+			}
+			
+			con.commit();
+			
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		
+	}
+	
+	public synchronized void updateCart(List<TrackBean> cart,Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		ArrayList<TrackBean> prevCart = new ArrayList<TrackBean>();
+		TrackBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + ",carted WHERE track_id ="+TABLE_NAME +".id AND user_id=?";
 		String removeQuery = "DELETE FROM carted WHERE track_id=? AND user_id=?";
 		
 		try {
@@ -636,8 +686,6 @@ public class TrackDao implements DaoModel {
 				prevCart.add(bean);
 			}
 		
-			boolean delete = cart.size() < prevCart.size();
-			
 			for(int i = 0; i < cart.size() ; i++) {
 				boolean found = false;
 				for(int j = 0;!found && j < prevCart.size() ; j++)
@@ -645,15 +693,8 @@ public class TrackDao implements DaoModel {
 						prevCart.remove(j);
 						found = true;
 					}
-				
-				if(found == false && delete == false) {
-					ps = con.prepareStatement(insertQuery);
-					ps.setLong(1,cart.get(i).getId());
-					ps.setLong(2,id);
-					ps.executeUpdate();
-					ps.close();
-				}
 			}
+			
 			for(int i = 0; i < prevCart.size() ; i++) {
 				ps = con.prepareStatement(removeQuery);
 				ps.setLong(1, prevCart.get(i).getId());
@@ -674,8 +715,6 @@ public class TrackDao implements DaoModel {
 		}
 		
 	}
-	
-	
 	
 	
 	

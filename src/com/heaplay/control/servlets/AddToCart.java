@@ -14,8 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.Cart;
+import com.heaplay.model.beans.OwnedTrackBean;
 import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
+import com.heaplay.model.dao.OwnedTrackDao;
 import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
 
@@ -47,7 +49,7 @@ public class AddToCart extends HttpServlet {
 					list = (ArrayList<TrackBean>) list.stream().filter((p) -> p.getId() != Long.parseLong(track_id)).collect(Collectors.toList());
 					if(size != list.size()) {
 						cart.setItems(list);
-						trackDao.saveCart(cart.getItems(),user.getId());
+						trackDao.updateCart(cart.getItems(),user.getId());
 					}
 				} else {
 					ArrayList<String> keys = new ArrayList<String>();
@@ -59,7 +61,13 @@ public class AddToCart extends HttpServlet {
 					}
 
 					ArrayList<TrackBean> list = (ArrayList<TrackBean>) cart.getItems().stream().filter((p) -> p.getId() != Long.parseLong(track_id)).collect(Collectors.toList());
-					if(list.size() ==  cart.getItems().size()) {
+					OwnedTrackDao ownedTrackDao = new OwnedTrackDao(pool);
+					keys.clear();
+					keys.add(track_id);
+					keys.add(user.getId()+"");
+					OwnedTrackBean bean = (OwnedTrackBean) ownedTrackDao.doRetrieveByKey(keys);
+					
+					if(list.size() ==  cart.getItems().size() && bean == null) {
 						cart.addItem(trackToAdd);
 						trackDao.saveCart(cart.getItems(), user.getId());
 					}
