@@ -35,7 +35,7 @@ public class GetImage extends HttpServlet {
     	else {
     		byte[] imageBytes = null;
   
-    		if(user == null) {
+    		if(user == null && Long.parseLong(id) != -1) {
 	    		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
 	   
 	    		try {
@@ -52,7 +52,7 @@ public class GetImage extends HttpServlet {
 					e.printStackTrace();
 				}
     		}
-    		else {
+    		else if(Long.parseLong(id) != -1){
     			UserDao userDao = new UserDao((ConnectionPool) getServletContext().getAttribute("pool"));
     			List<String> keys = new ArrayList<String>();
     			keys.add(id);

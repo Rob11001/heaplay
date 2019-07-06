@@ -23,3 +23,19 @@ function autocompletePlaylist(el,suggestions) {
 	let url = "/heaplay/getPlaylists?autocomplete="+auto+"&track_id="+track_id;
 	autocomplete(el,suggestions,url);
 }
+
+function removeFromPlaylist(button) {
+	let url = $("<form>").prop("action");
+	let play_id = url.substring(url.indexOf("id")+3,url.length);
+	let parent = $(button).parent();
+	url = $(parent).find(".audio").children().prop("src");
+	let track_id = url.substring(url.indexOf("id")+3,url.indexOf("&"));
+
+	$.ajax({
+		"type":"GET",
+		"url": "/heaplay/removeFromPlaylist?track_id="+track_id+"&play_id="+play_id,
+		"success" : () => {
+			$(parent).remove();
+		}
+	});
+}

@@ -27,11 +27,14 @@ Integer begin = (Integer) request.getAttribute("begin");
 	%>
 		<div>
 			<%@ include file="/_player.jsp"%>
+			<%if(currentUser != null && currentUser.getId() == userPage.getId()) {%>
+				<button onclick="removeFromPlaylist(this)">Rimuovi</button>
+			<%} %>
 		</div>
 	<%} %>
 	<br>
 
-<form action="/heaplay/user/<%=userPage.getUsername()%>/playlist/<%=playlist.getName()%>" method="POST"> 
+<form action="/heaplay/user/<%=userPage.getUsername()%>/playlist/<%=playlist.getName()%>?id=<%=playlist.getId()%>" method="POST"> 
 		<input type="hidden" value="<%=begin%>" name="begin" id="currentPage">
 		<%for( int i= 0; i< number; i+=10) {%>
 			<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	
@@ -42,3 +45,4 @@ Integer begin = (Integer) request.getAttribute("begin");
 
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
 <script src="${pageContext.servletContext.contextPath}/js/users.js" ></script>
+<script src="${pageContext.servletContext.contextPath}/js/playlist.js" ></script>

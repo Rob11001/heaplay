@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,53 +16,37 @@ import com.heaplay.model.beans.PlaylistBean;
 import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.PlaylistDao;
-import com.heaplay.model.dao.TrackDao;
 
-@WebServlet("/uploadPlaylist")
-public class UploadPlaylist extends HttpServlet {
+@WebServlet("/removeFromPlaylist")
+public class RemoveTrackFromPlaylist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String track_id = request.getParameter("track_id");
-		String playlistName = request.getParameter("playlistName");
-		String privacy = request.getParameter("privacy");	//Vedere come realizzarlo
+		String play_id = request.getParameter("play_id");
 		
-		if(user == null || track_id == null || playlistName == null) 
+		if(user == null || track_id == null || play_id == null) 
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
-			PlaylistDao playlistDao = new PlaylistDao(pool);
-			TrackDao trackDao = new TrackDao(pool);
+			PlaylistDao playlistDao =  new PlaylistDao(pool);
 			ArrayList<String> keys = new ArrayList<String>();
-			keys.add(playlistName);
-			keys.add(user.getId()+"");
+			keys.add(play_id);
+			PlaylistBean playlist = null;
+			ArrayList<TrackBean> list = null;
 			try {
-				PlaylistBean playlist = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
-				if(playlist == null) {
-					playlist = new PlaylistBean();
-					playlist.setAuthor(user.getId());
-					playlist.setName(playlistName);
-					playlist.setPrivacy(privacy);
-					playlist.setAuthorName(user.getUsername());
-				} 
-				keys.clear();
-				keys.add(track_id);
-				TrackBean track = (TrackBean) trackDao.doRetrieveByKey(keys);
-				ArrayList<TrackBean> list = (ArrayList<TrackBean>) playlist.getTracks();
-				if(!list.contains(track)) {
-					list.add(track);
-					playlist.setTracks(list);
-					if(list.size() == 1)
-						playlistDao.doSave(playlist);
-					else
-						playlistDao.doUpdate(playlist);
-				} else 
-					//Vedere cosa fare; 
-					;
-				response.sendRedirect(getServletContext().getContextPath()+"/library");
+				playlist = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
+				list = (ArrayList<TrackBean>) playlist.getTracks();
+				for(int i = 0; i < list.size() ; i++)
+					if(list.get(i).getId() == Long.parseLong(track_id)) {
+						list.remove(i);
+						playlistDao.doUpdate(playlist);	
+						break;
+					}
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
 			} catch (SQLException e) {
-				
 				e.printStackTrace();
 			}
 		}
