@@ -6,6 +6,7 @@
 	ArrayList<TrackBean> listOfTracks = (ArrayList<TrackBean>)request.getAttribute("tracks");
 	Integer begin = (Integer)request.getAttribute("begin");
 	Integer number = (Integer)request.getAttribute("numberOfTracks");
+	String owned = (String) request.getAttribute("owned");
 %>
 
 
@@ -18,8 +19,8 @@
 </form>
 
 <nav class="content-nav">
-	<a class="trackButton selected" onclick="selection(this,$('.ownedTrackButton'),$('.user-ownedtracks'),$('.user-tracks'))" href="#">Caricati</a>
-	<a class="ownedTrackButton" onclick="selection(this,$('.trackButton'),$('.user-tracks'),$('.user-ownedtracks'))" href="#">Acquistati</a>
+	<a class="trackButton <%=owned==null ? "selected": "" %>"  href="/heaplay/library">Caricati</a>
+	<a class="ownedTrackButton <%=owned!=null ? "selected": "" %>"  href="/heaplay/library?track=owned">Acquistati</a>
 </nav> 
 
 <div class="user-tracks">
@@ -36,7 +37,7 @@
 		</div>
 	<%} %>
 	<br>
-	<form action="/heaplay/user/<%=currentUser.getUsername()%>" method="POST">
+	<form action="/heaplay/library<%=(owned!=null)? "?track=owned" : "" %>" method="POST">
 		<input type="hidden" value="<%=begin%>" name="begin" id="currentPage">
 		<%for( int i= 0; i< number; i+=5) {%>
 			<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	

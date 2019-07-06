@@ -164,8 +164,8 @@ public class OwnedTrackDao implements DaoModel {
 		OwnedTrackBean bean = null;
 		
 		String selectQuery = "SELECT * FROM " + TABLE_NAME;
-		PurchasableTrackDao pDao = new PurchasableTrackDao(pool);
-		listPurchasableTrackBean = (ArrayList<Bean>) pDao.doRetrieveAll(null);
+		TrackDao trackDao = new TrackDao(pool);
+		listPurchasableTrackBean = (ArrayList<Bean>) trackDao.doRetrieveAll(null);
 		
 		try {
 			con = pool.getConnection();
@@ -175,7 +175,7 @@ public class OwnedTrackDao implements DaoModel {
 			
 			while (rs.next()) {
 				for(Bean b : listPurchasableTrackBean) {
-					PurchasableTrackBean trackBean = (PurchasableTrackBean) b;
+					PurchasableTrackBean trackBean = new PurchasableTrackBean( (TrackBean) b);
 					if(Long.parseLong(b.getKey().get(0)) == rs.getLong("track_id")) { 
 						bean = new OwnedTrackBean(trackBean);
 						bean.setUserId(rs.getLong("user_id"));
@@ -198,4 +198,82 @@ public class OwnedTrackDao implements DaoModel {
 		return list;
 	}
 
+	public synchronized List<TrackBean> getOwnedTrackByUser(Long id,int begin,int end) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
+		
+		String selectQuery = "SELECT * FROM " + TABLE_NAME +",tracks WHERE user_id=? AND track_id=id LIMIT "+begin+","+end;
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				TrackBean bean = new TrackBean();
+				bean.setId(rs.getLong("id"));
+				bean.setAuthor(rs.getLong("author"));
+				bean.setImage(rs.getBytes("image"));
+				bean.setImageExt(rs.getString("image_extension"));
+				bean.setIndexable(rs.getBoolean("indexable"));
+				bean.setLikes(rs.getLong("likes"));
+				bean.setName(rs.getString("name"));
+				bean.setPlays(rs.getLong("plays"));
+				bean.setTrack(rs.getBytes("track"));
+				bean.setTrackExt(rs.getString("track_extension"));
+				bean.setType(rs.getString("type"));
+				bean.setUploadDate(rs.getTimestamp("upload_date"));
+				//Non ho preso i tag
+				bean.setDuration(rs.getInt("duration"));
+				bean.setAuthorName(rs.getString("author_name"));
+				OwnedTrackBean owned = new OwnedTrackBean(new PurchasableTrackBean(bean));
+				owned.setUserId(id);
+				owned.setPurchaseDate(rs.getTimestamp("purchase_date"));
+				list.add(owned);
+			}
+				
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return list;
+	}
+
+	public synchronized int getNumberOfTrackByUser(Long id) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		int number = 0;
+		
+		String selectQuery = "SELECT count(*) FROM " + TABLE_NAME +",tracks WHERE user_id=? AND track_id=id ";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, id);
+			
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				number = rs.getInt(1);
+			}
+				
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return number;
+	}
 }
