@@ -451,7 +451,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null;
 		TrackBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE author=? AND indexable='1' LIMIT "+begin+","+end;
+		String selectQuery = (begin!=-1 && end != -1) ? "SELECT * FROM " + TABLE_NAME + " WHERE author=? AND indexable='1' LIMIT "+begin+","+end : "SELECT * FROM " + TABLE_NAME + " WHERE author=? AND indexable='1'";
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 
 		try {

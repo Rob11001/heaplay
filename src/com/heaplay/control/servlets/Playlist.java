@@ -59,7 +59,8 @@ public class Playlist extends HttpServlet {
 					} else {
 						ArrayList<TrackBean> list = (ArrayList<TrackBean>) playlistBean.getTracks();
 						int size = list.size();
-						list = (ArrayList<TrackBean>) list.stream().filter((p) ->((TrackBean)p).isIndexable()).collect(Collectors.toList());
+						if(playlistBean.getPrivacy().equals("public"))
+							list = (ArrayList<TrackBean>) list.stream().filter((p) ->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 						if(size > list.size()) {
 							//Elimino quando serve le track non più indexable dalla playlist
 							size = list.size();

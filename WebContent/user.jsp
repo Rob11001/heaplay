@@ -6,13 +6,21 @@
 	ArrayList<TrackBean> listOfTracks = (ArrayList<TrackBean>)request.getAttribute("tracks");
 	Integer begin = (Integer)request.getAttribute("begin");
 	Integer number = (Integer)request.getAttribute("numberOfTracks");
+	UserBean currentUser = ((UserBean)session.getAttribute("user"));
+
 %>
 
 
 <img id="user-image" src="/heaplay/getImage?id=<%=userPage.getId()%>&user=true" onclick = "inputFile($('#image'))"  width="150px">
 <span class="userName"><%=userPage.getUsername()%></span>
+<%if (currentUser != null && currentUser.getAuth().equals("admin")) {%>
+	<form action="/heaplay/removeUser" method="POST">
+		<input type="hidden" name="user_id" value="<%=userPage.getId()%>">
+		<input type="submit" value="Elimina Utente">
+	</form>	
+<% } %>
+
 <%
-UserBean currentUser = ((UserBean)session.getAttribute("user"));
 if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 	<form action="/heaplay/uploadImage" name="fileUpload" method="POST" enctype="multipart/form-data"  >
 		<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">

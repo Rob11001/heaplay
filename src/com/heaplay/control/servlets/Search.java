@@ -48,6 +48,7 @@ public class Search extends HttpServlet {
 				case "user": UserDao userDao = new UserDao(pool);
 							list = (ArrayList<Bean>) userDao.doRetrieveAll(null);
 							list = filter(query, list);
+							list = (ArrayList<Bean>) list.stream().filter((p)->((UserBean)p).isActive()).collect(Collectors.toList());
 							found = list.size();
 							if(autocomplete == null)
 								list = createSubList(list,start,(start+5) > found ? found : (start+5));
@@ -55,6 +56,7 @@ public class Search extends HttpServlet {
 				case "track":TrackDao trackDao = new TrackDao(pool);
 							list = (ArrayList<Bean>) trackDao.doRetrieveAll(null);
 							list = filter(query, list);
+							list = (ArrayList<Bean>) list.stream().filter((p)->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 							found = list.size();
 							if(autocomplete == null)
 								list = createSubList(list,start,(start+5) > found ? found : (start+5));	
