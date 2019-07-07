@@ -8,7 +8,9 @@
 	<div class="menu-bar">
 		<nav class="links">
 			<a href="<%=response.encodeURL("/heaplay/home") %>">Home</a>
-			<a href="<%=response.encodeURL("/heaplay/library") %>">Libreria</a>
+			<%if(user == null || !user.getAuth().equals("admin")) {%>
+				<a href="<%=response.encodeURL("/heaplay/library") %>">Libreria</a>
+			<%} %>
 		</nav>
 		<div class="search">
 			<select class="search-select" name="filter">
@@ -21,7 +23,7 @@
 			--><datalist id="suggestions"></datalist><button class="search-button"><i class="fa fa-search"></i></button>
 		</div>
 		<nav class="user">
-			<%if(session.getAttribute("user") == null) {%>
+			<%if(user == null) {%>
 				<a href=<%=response.encodeURL("/heaplay/login")%>>Login</a>
 				<a href="<%=response.encodeURL("/heaplay/register")%>">Registrati</a>
 			<%} else { %>
@@ -30,9 +32,11 @@
 						<a href="#"><%=user.getUsername()%></a>
 					</div>					
 					<div class="dropdown-content">
-						<a href="<%=response.encodeURL("/heaplay/user/" + user.getUsername()) %>">Area Utente</a>
-						<a href="<%=response.encodeURL("/heaplay/upload")%>">Carica</a>
-						<a href="<%=response.encodeURL("/heaplay/cart")%>">Carrello</a>
+						<%if(!user.getAuth().equals("admin")) {%>
+							<a href="<%=response.encodeURL("/heaplay/user/" + user.getUsername()) %>">Area Utente</a>
+							<a href="<%=response.encodeURL("/heaplay/upload")%>">Carica</a>
+							<a href="<%=response.encodeURL("/heaplay/cart")%>">Carrello</a>
+						<%} %>
 						<a href="<%=response.encodeURL("/heaplay/logout")%>">Logout</a>
 					</div>
 				</div>

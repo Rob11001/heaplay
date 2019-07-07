@@ -23,7 +23,7 @@
 	<a href='/heaplay/user/bean.authorName/playlist/bean.name'><img width='100px' alt='Non trovata' src='/heaplay/getImage?id=" + bean.tracks[0].id + "&extension=...&user=true'></a>
 	<div class='playlist-info'>
 		<span><a href='/heaplay/user/bean.authorName/playlist/bean.name'>bean.name</a></span>	<br>
-		<span><a href='/heaplay/user/bean.authorName'>di bean.authorName</a></span>
+		<span><a href='/heaplay/user/bean.authorName'>bean.authorName</a></span>
 	</div>
 </div>
 

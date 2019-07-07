@@ -33,7 +33,9 @@
 	%>
 		<div>
 			<%@ include file="/_player.jsp"%>
-			<button class="playlist-button" onclick="addToPlaylist(this)"><span>Aggiungi ad una playlist</span></button>
+			<%if(track.isIndexable()) {%>
+				<button class="playlist-button" onclick="addToPlaylist(this)"><span>Aggiungi ad una playlist</span></button>
+			<% }%>
 		</div>
 	<%} %>
 	<br>

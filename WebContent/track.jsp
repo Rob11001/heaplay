@@ -15,8 +15,14 @@
 	<%} %>
 	<% 
 	UserBean user = (UserBean) session.getAttribute("user");
-	if(user != null) {%>
-		<%if(user.getId() != track.getAuthor()) {%>		
+	if(user != null) {
+		if(user.getId() != track.getAuthor()) {
+			if(user.getAuth().equals("admin")) { %>		
+				<form action="/heaplay/removeTrack" method="POST">
+					<input type="hidden" name="track_id" value="<%=track.getId()%>">
+					<input type="submit" value="Blocca">
+				</form>	
+			<% } else {%>
 			<div>
 				<%if(track.getType().equals("pagamento")) { 
 					PurchasableTrackBean pTrack = (PurchasableTrackBean) track;
@@ -34,6 +40,7 @@
 					<span>Acquistata</span>
 				<%} %>
 			</div>
+			<% } %>
 			<br>
 		<%} %>
 		<div>

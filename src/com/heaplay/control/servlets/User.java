@@ -38,7 +38,7 @@ public class User extends HttpServlet {
 		
 		try {
 			currentUser = userDao.doRetrieveByName(user);
-			if(currentUser != null) {
+			if(currentUser != null && currentUser.isActive()) {
 				listOfTracks = trackDao.getTracksByAuthor(currentUser.getId(),begin,5);
 				int numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
 				request.setAttribute("user", currentUser);
