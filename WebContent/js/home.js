@@ -7,7 +7,7 @@ $(document).ready(() => {
 				//Parsing dell'oggetto JSON	
 				let beans = JSON.parse(data);
 				let container = $("#songs");
-				const header = "<p>Canzoni più votate</p>"
+				const header = "<h3>Canzoni più votate</h3>"
 				$(container).empty();	
 				$(header).appendTo($(container));
 				//Creazione dei div
@@ -25,7 +25,7 @@ $(document).ready(() => {
 		"url" : "/heaplay/getBestPlaylists",
 		"success": (beans) => {
 				let container = $("#playlists");
-				const header = "<p>Playlist più ascoltate</p>"
+				const header = "<h3>Playlist più ascoltate</h3>"
 				$(container).empty();	
 				$(header).appendTo($(container));
 				//Creazione dei div
