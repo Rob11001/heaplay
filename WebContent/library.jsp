@@ -33,7 +33,7 @@
 	%>
 		<div>
 			<%@ include file="/_player.jsp"%>
-			<button onclick="addToPlaylist(this)">Aggiungi ad una playlist</button>
+			<button class="playlist-button" onclick="addToPlaylist(this)"><span>Aggiungi ad una playlist</span></button>
 		</div>
 	<%} %>
 	<br>
@@ -50,27 +50,35 @@
 </div>
 
 <div class="playlist-form hidden">  
-  	<form class="playlist-form-content animate" action="/heaplay/uploadPlaylist" method="POST">
+  	<form class="playlist-form-content animate" action="/heaplay/uploadPlaylist" method="POST" onsubmit="return validatePlaylist(this)">
     	<div class="container" >
     		<span onclick="showHide($('.playlist-form'))" class="close" title="Chiudi">&times;</span>
 		</div>
-    	<div class="container-playlist">
-    		<label for="playlist-selection">Seleziona la playlist: </label>
-    		<input id="playlist-selection" type="text" list="listOfPlaylist" name="playlistName" onkeyup="autocompletePlaylist(this,$('#listOfPlaylist'))">
-    		<datalist id="listOfPlaylist">
-    		</datalist>
-    		<br>
-    		<input type="radio" value="public" name="privacy" placeholder="Pubblica" checked="checked">
-    		<label>Pubblica</label>
-    		<input type="radio" value="private" name="privacy" placeholder="Privata">
-    		<label>Privata</label>
-    		<input type="hidden" name="track_id" id="track_id">
-    		<input type="submit" value="Aggiungi">
-    	</div>
-		
-    	<div class="container">
-    	  <button class="close-button" type="button" onclick="showHide($('.playlist-form'))">Cancel</button>
-    	</div>
+    	<fieldset>
+    		<legend>Playlist</legend>
+    		<div class="container-playlist">
+    			<div class="playlist-selection">
+    				<label for="playlist-selection">Seleziona la playlist : </label>
+    				<input id="playlist-selection" type="text" list="listOfPlaylist" name="playlistName" placeholder="Inserire nome playlist" onkeyup="autocompletePlaylist(this,$('#listOfPlaylist'))">
+    				<datalist id="listOfPlaylist">
+    				</datalist>
+    			</div>
+    			<div class="radio-buttons">
+    				<input id="public-button" class="form-input-radio" type="radio" value="public" name="privacy" placeholder="Pubblica" checked="checked">
+    				<label for="public-button" >Pubblica</label>
+    				
+    				<input id ="private-button" class="form-input-radio" type="radio" value="private" name="privacy" placeholder="Privata">
+    				<label for ="private-button">Privata</label>
+    			</div>
+    			
+    			<input type="hidden" name="track_id" id="track_id">
+    			<div>
+    				<input class="button" type="submit" value="Aggiungi">
+    				<button class="close-button" type="button" onclick="showHide($('.playlist-form'))">Annulla</button>
+    			</div>
+    		</div>
+    	</fieldset>
+    	
   </form>
 </div>
 

@@ -36,6 +36,8 @@ public class UploadPlaylist extends HttpServlet {
 			ArrayList<String> keys = new ArrayList<String>();
 			keys.add(playlistName);
 			keys.add(user.getId()+"");
+			boolean isNew = false;
+			
 			try {
 				PlaylistBean playlist = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
 				if(playlist == null) {
@@ -44,6 +46,7 @@ public class UploadPlaylist extends HttpServlet {
 					playlist.setName(playlistName);
 					playlist.setPrivacy(privacy);
 					playlist.setAuthorName(user.getUsername());
+					isNew = true;
 				} 
 				keys.clear();
 				keys.add(track_id);
@@ -52,7 +55,7 @@ public class UploadPlaylist extends HttpServlet {
 				if(!list.contains(track)) {
 					list.add(track);
 					playlist.setTracks(list);
-					if(list.size() == 1)
+					if(isNew)
 						playlistDao.doSave(playlist);
 					else
 						playlistDao.doUpdate(playlist);

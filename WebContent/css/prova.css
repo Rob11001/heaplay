@@ -1,7 +1,8 @@
+/********Playlist Form *******/
+
 /* The playlist-form (background) */
 .playlist-form {
   position: fixed; /* Stay in place */
-  display: flexbox;
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
@@ -20,6 +21,9 @@
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
   width: 60%; /* Could be more or less, depending on screen size */
+  border: 1px solid;
+  padding: 20px;
+  padding-top: 0px;
 }
 
 /* The Close Button (x) */
@@ -48,12 +52,62 @@
 
 .container-playlist {
 	display: flex;
-	flex-direction:row;
+	flex-direction:column;
 }
 
 .close-button {
-	display: flex;
+	display: inline-flex;
 	align-self: flex-end;
+}
+
+.playlist-selection {
+	display: flex;
+}
+
+.playlist-type {
+	display: flex;
+}
+
+.button:hover {
+	color: orange;
+}
+
+.playlist-button {
+	display: inline-block;
+ 	border-radius: 5px;
+	background-color: #f4511e;
+	border: none;
+	padding: 5px;
+	text-align: center;
+	color: white;
+	transition: all 0.3s;
+	cursor: pointer;
+	margin: 5px;
+}
+
+.playlist-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.playlist-button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -25px;
+  transition: 0.5s;
+}
+
+.playlist-button:hover span {
+  padding-right: 25px;
+}
+
+.playlist-button:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 /* Add Zoom Animation */

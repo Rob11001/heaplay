@@ -3,7 +3,6 @@ package com.heaplay.control.servlets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -35,7 +34,6 @@ public class UploadImage extends HttpServlet {
 		
 		if(image != null) {
 			String imageFileName = image.getSubmittedFileName();
-			System.out.println(imageFileName);
 			String imageExt = imageFileName.substring(imageFileName.lastIndexOf('.'),imageFileName.length()).toLowerCase();
 			InputStream imageStream =image.getInputStream();
 			byte[] imageBytes = imageStream.readAllBytes();
@@ -50,7 +48,7 @@ public class UploadImage extends HttpServlet {
 					user.setUserImageExt(imageExt);
 					user.setUserImage(imageBytes);
 					userDao.doUpdate(user);
-					response.sendRedirect(getServletContext().getContextPath()+"/user/"+user.getUsername());
+					response.sendRedirect(getServletContext().getContextPath()+"/library");
 				} catch (SQLException e) {
 					e.printStackTrace();
 					response.sendError(response.SC_INTERNAL_SERVER_ERROR);

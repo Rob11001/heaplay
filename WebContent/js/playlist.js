@@ -16,6 +16,17 @@ function addToPlaylist(button) {
 	showHide($(".playlist-form"));
 }
 
+function validatePlaylist(form) {
+	let input = form["playlistName"];
+	let bool = $(input).val() != "";
+	if(bool == false) 
+		$(input).css("border-color","red");
+	else
+		$(input).css("border-color","");
+		
+	return bool;	
+}
+
 function autocompletePlaylist(el,suggestions) {
 	let auto = $(el).val();
 	let audioSrc = $('#track_id').val();
@@ -39,3 +50,5 @@ function removeFromPlaylist(button) {
 		}
 	});
 }
+
+
