@@ -42,7 +42,7 @@ $(document).ready( () => {
 	});
 
 	$(window).scroll(() => {
-		letcontainer = $("#content .flex-container");
+		let container = $("#content .flex-container");
 		let numberOfElements = $(container).children().length - 1;
 		
 		//Effettuo la chiamata solo quando ho già effettuato una ricerca e ho raggiunto il bottom della pagina

@@ -18,7 +18,7 @@
 <%@ include file="/_links.jsp"%>
 </head>
 <body>
-	<script src="${pageContext.servletContext.contextPath}/js/jquery-3.4.1.min.js" ></script>
+	<script src="${pageContext.servletContext.contextPath}/js/_jquery-3.4.1.min.js" ></script>
 	<script src="${pageContext.servletContext.contextPath}/js/search.js" ></script>
 	<script src="${pageContext.servletContext.contextPath}/js/menu.js" ></script>
 	
@@ -35,10 +35,11 @@
 				</div>
 			</div>
 		<jsp:include page="<%=jspPath%>"/>
-	
+		
 	</div>
 	
 	<jsp:include page="/_footer.jsp" />
+	
 	
 </body>
 </html>
