@@ -14,11 +14,17 @@
 <% }	%>
 
 <div id="playlists">
-	<p>Inseriamo qui le playlist più ascoltate</p>
+	<p>Playlist più ascoltate</p>
+	<div class="flex-container">
+	
+	</div>
 </div>
 
 <div id="songs">
-	<p>Inseriamo qui le canzoni più ascoltate</p>
+	<p>Canzoni più ascoltate</p>
+	<div class="flex-container">
+	
+	</div>
 </div>
 
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>

@@ -23,6 +23,14 @@ body {
 	margin: 0;
 }
 
+a {
+	color: var(--main-black);
+}
+
+a:hover {
+	opacity: 0.8;
+}
+
 header {
 	background-color: var(--main-orange);
 	box-shadow: 0 1px 0 rgba(12, 13, 14, 0.1), 0 1px 6px rgba(59, 64, 69, 0.1);
@@ -67,6 +75,7 @@ nav > a, .dropbtn > a {
 nav > a:hover, .dropbtn > a:hover {
 	background-color: var(--main-orange-shade);
 	border-radius: 10px;
+	opacity: 1;
 }
 
 nav > a:visited, .dropbtn > a:visited {
@@ -137,11 +146,14 @@ nav > a:visited, .dropbtn > a:visited {
 	justify-content: flex-end;
 }
 
-.dropdown:hover .dropdown-content {
-	display: flex;
-	flex-direction: column;
-}
+@media only screen and (min-width: 1024px) {
 
+	.dropdown:hover .dropdown-content {
+		display: flex;
+		flex-direction: column;
+	}
+
+}
 .dropdown-content {
 	background-color: #f9f9f9;
 	border-radius: 20px;
@@ -162,6 +174,7 @@ nav > a:visited, .dropbtn > a:visited {
 
 .dropdown-content a:hover {
 	background-color: #ddd;
+	opacity: 1;
 }
 
 .dropdown-content a:hover:first-child {
@@ -206,19 +219,27 @@ nav > a:visited, .dropbtn > a:visited {
 }
 
 
+.flex-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+
+.loading {
+	text-align: center;
+}
+
+.loading img {
+	width: 70px;
+}
+
+
 /******************************** Player Style ********************************/
 
 .song {
 	display: flex;
-	margin: 10px 0;
-}
-
-.song a {
-	color: var(--main-black);
-}
-
-.song a:hover {
-	opacity: 0.8;
+	margin: 10px 5px 10px 0;
+	white-space: nowrap;
 }
 
 .song button {
@@ -232,11 +253,11 @@ nav > a:visited, .dropbtn > a:visited {
 
 .song-image img {
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-	height: 100px;
-	width: 100px;
+	height: 110px;
+	width: 110px;
 }
 
-.song-info {
+.song-content {
 	display: inline;
 	padding-left: 10px;
 }
@@ -261,7 +282,43 @@ nav > a:visited, .dropbtn > a:visited {
 	font-size: 1em;
 }
 
+.song-info {
+	display: flex;
+}
 
+.info {
+	display: inline-block;
+}
+
+.play {
+	margin-right: 5px;
+}
+
+.author {
+	font-size: 0.8em;
+	color: gray;	
+}
+
+.song-name {
+	font-weight: 600;
+}
+
+
+/* Controls */
+
+.controls {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
+.fa-volume-down, .fa-volume-up {
+	font-size: 0.9em;
+}
+
+.controls td {
+	text-align: center;
+}
 
 .slider {
 	-webkit-appearance: none;  /* Override default CSS styles */
@@ -294,18 +351,6 @@ nav > a:visited, .dropbtn > a:visited {
 	cursor: pointer; /* Cursor on hover */
 	height: 25px; /* Slider handle height */
 	width: 25px; /* Set a specific slider handle width */
-}
-
-.volume-button {
-	font-size: 1em;
-}
-
-.volume {
-	display: none;
-}
-
-.volume-button:hover .volume {
-	display: inline;
 }
 
 /******************************** Form ********************************/
@@ -403,10 +448,6 @@ nav > a:visited, .dropbtn > a:visited {
 	margin-left: 5%;
 }
 
-.comment {
-	
-}
-
 
 /* Classes of support */
 
@@ -458,10 +499,6 @@ nav > a:visited, .dropbtn > a:visited {
 		right: 0;
 		transition: height 0.3s ease-out;
 		width: 100%;
-	}
-	
-	.dropdown:hover .dropdown-content {
-		flex-flow: row;
 	}
 	
 	.dropdown-content a:hover {

@@ -21,35 +21,39 @@
 		<%} %>
 	</div>
 	
-	<div class="song-info">
-		<div class="info">
-			<span><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName().replaceAll("\\s","")%>?id=<%=track.getId()%>"><%=track.getName()%></a></span> <br>
-			<span>Di <a href="/heaplay/user/<%=track.getAuthorName()%>"><%=track.getAuthorName()%></a></span> <!-- Problema per trovare l'autore - Risolto -->
-		</div>
-		<div class="controls">
+	<div class="song-content">
+		<div class="song-info">
 			<button class="play">
-				<i class="fa fa-play color-white"></i>
+					<i class="fa fa-play color-white"></i>
 			</button>
-			<button class="slidebar">
-				<span class="song-time">00:00</span> 
-				<input type="range"
-					name="slider" step="1" class="slider slider-bar"
-					onchange="setCurrentTime(this)" value="0" min="0"
-					max=<%=track!=null ? track.getDuration() : 100%>>
-				<%if(track != null) {%>
-				<span><%=String.format("%2d:%2d", track.getDuration()/60,track.getDuration()%60)%></span>
-				<%} %>
-			</button>
-			<div class="volume-button">
-				<i class="fa fa-volume-up"></i>
-				<input type="range" name="volume" step=".1" class="slider volume"
-				onchange="setVolume(this)" value="1" min="0" max="1">
+			<div>
+				<span class="author"><a href="/heaplay/user/<%=track.getAuthorName()%>"><%=track.getAuthorName()%></a></span><br>
+				<span class="song-name"><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName().replaceAll("\\s","")%>?id=<%=track.getId()%>"><%=track.getName()%></a></span>
 			</div>
-			<%if(user!=null && user.getId() != track.getAuthor()) {%>
-				<span class="like"><i class="fa fa-thumbs-up"></i></span>
-			<%} %>
 		</div>
 		
-	</div>
-	
+		<div class="controls">
+			<table>
+				<tr>
+					<td><span class="song-time">00:00</span></td>
+					<td><input type="range"
+					name="slider" step="1" class="slider slider-bar"
+					onchange="setCurrentTime(this)" value="0" min="0"
+					max=<%=track!=null ? track.getDuration() : 100%>></td>
+					<td><%if(track != null) {%>
+						<span><%=String.format("%2d:%2d", track.getDuration()/60,track.getDuration()%60)%></span>
+					<%} %></td>
+				</tr>
+				<tr>
+					<td><i class="fa fa-volume-down"></i></td>
+					<td><input type="range" name="volume" step=".1" class="slider volume"
+						onchange="setVolume(this)" value="1" min="0" max="1"></td>
+					<td><i class="fa fa-volume-up"></i></td>
+				</tr>
+			</table>
+		</div>
+		
+		<span class="like"><i class="fa fa-thumbs-up"></i></span>
+		
+	</div>	
 </div>

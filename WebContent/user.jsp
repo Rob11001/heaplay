@@ -26,23 +26,24 @@ if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 
 <div class="user-tracks">
 	
-	<%if(listOfTracks.size() == 0) { %>
-		<p>Non sono presenti brani</p>
-	<%} %>
-	
-	<%for(int i=0;i<listOfTracks.size();i++) {	//Problema al numero massimo di track che posso mantenere in player in una pagina --> Capire come poter passare ad un altra pagina  per vedere le restanti
-		TrackBean track = listOfTracks.get(i);	
-	%>
-		<%@ include file="/_player.jsp"%>
-		
+	<div class="flex-container">
+		<%if(listOfTracks.size() == 0) { %>
+			<p>Non sono presenti brani</p>
 		<%} %>
-		<br>
-		<form action="/heaplay/user/<%=userPage.getUsername()%>" method="POST">
-			<input type="hidden" value="<%=begin%>" name="begin" id="currentPage"> 
-			<%for( int i= 0; i< number; i+=5) {%>
-				<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	
-			<%} %>
-		</form>
+		
+		<%for(int i=0;i<listOfTracks.size();i++) {	//Problema al numero massimo di track che posso mantenere in player in una pagina --> Capire come poter passare ad un altra pagina  per vedere le restanti
+			TrackBean track = listOfTracks.get(i);	
+		%>
+			<%@ include file="/_player.jsp"%>
+			
+		<%} %>
+	</div>
+	<form action="/heaplay/user/<%=userPage.getUsername()%>" method="POST">
+		<input type="hidden" value="<%=begin%>" name="begin" id="currentPage"> 
+		<%for( int i= 0; i< number; i+=5) {%>
+			<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	
+		<%} %>
+	</form>
 </div>
 
 <div class="user-playlist hidden" >
