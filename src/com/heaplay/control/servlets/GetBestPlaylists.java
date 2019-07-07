@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +27,11 @@ public class GetBestPlaylists extends HttpServlet {
 		PlaylistDao playlistDao = new PlaylistDao((ConnectionPool) getServletContext().getAttribute("pool"));
 		try {
 			ArrayList<PlaylistBean> list = (ArrayList<PlaylistBean>) playlistDao.getMostViewedPlaylists();
-			for(int i = 0 ; i < list.size() ; i++)
+			for(int i = 0 ; i < list.size() ; i++) {
 				resetBytes(list.get(i).getTracks());
+				List<TrackBean> listOfTracks = (List<TrackBean>) list.get(i).getTracks().stream().filter((p) ->p.isIndexable()).collect(Collectors.toList());
+				list.get(i).setTracks(listOfTracks);
+			}	
 			Gson gson = new Gson();
 			String object = gson.toJson(list);
 			response.getWriter().write(object);

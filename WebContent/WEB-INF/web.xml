@@ -4,17 +4,14 @@
   <welcome-file-list>
     <welcome-file>home</welcome-file>
   </welcome-file-list>
-  
   <error-page>
     <error-code>404</error-code>
     <location>/_error_page.jsp</location>
   </error-page>
-  
-   <error-page>
+  <error-page>
     <error-code>500</error-code>
     <location>/_error_page.jsp</location>
   </error-page>
-  
   <filter>
     <filter-name>httpHeaderSecurity</filter-name>
     <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>

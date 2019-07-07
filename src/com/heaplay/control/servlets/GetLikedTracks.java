@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,7 @@ public class GetLikedTracks extends HttpServlet {
  		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
  		try {
 			list = (ArrayList<Bean>) trackDao.doRetrieveAll((a,b) -> new Long(((TrackBean)a).getLikes() - ((TrackBean)b).getLikes()).intValue());
+			list = (ArrayList<Bean>) list.stream().filter((p) ->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 			ArrayList<Bean> listOfObjects = new ArrayList<Bean>();
 			int size = list.size();
 			if(size > 0)

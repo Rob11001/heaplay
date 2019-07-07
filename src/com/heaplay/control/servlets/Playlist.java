@@ -3,6 +3,7 @@ package com.heaplay.control.servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
+import com.heaplay.model.beans.Bean;
 import com.heaplay.model.beans.PlaylistBean;
 import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
@@ -57,6 +59,13 @@ public class Playlist extends HttpServlet {
 					} else {
 						ArrayList<TrackBean> list = (ArrayList<TrackBean>) playlistBean.getTracks();
 						int size = list.size();
+						list = (ArrayList<TrackBean>) list.stream().filter((p) ->((TrackBean)p).isIndexable()).collect(Collectors.toList());
+						if(size > list.size()) {
+							//Elimino quando serve le track non più indexable dalla playlist
+							size = list.size();
+							playlistBean.setTracks(list);
+							playlistDao.doUpdate(playlistBean);
+						}
 						ArrayList<TrackBean> sublist = new ArrayList<TrackBean>();
 						sublist.addAll(list.subList(start, list.size() < start+10 ? list.size() : start+10));
 						playlistBean.setTracks(sublist);

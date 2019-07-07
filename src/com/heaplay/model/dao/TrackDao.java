@@ -451,7 +451,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null;
 		TrackBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE author=? LIMIT "+begin+","+end;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE author=? AND indexable='1' LIMIT "+begin+","+end;
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 
 		try {
@@ -496,7 +496,7 @@ public class TrackDao implements DaoModel {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
-		String selectQuery = "SELECT count(*) FROM " + TABLE_NAME + " WHERE author=?";
+		String selectQuery = "SELECT count(*) FROM " + TABLE_NAME + " WHERE author=? AND indexable='1'";
 		int n = 0;
 		try {
 			con = pool.getConnection();
