@@ -17,6 +17,7 @@ public class Logout extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if(session != null) {									//Invalidamento della sessione
 			session.removeAttribute("user");
+			session.removeAttribute("cart");
 			session.invalidate();	
 		}	
 		response.sendRedirect(getServletContext().getContextPath()+"/home");	//Redirezione alla home

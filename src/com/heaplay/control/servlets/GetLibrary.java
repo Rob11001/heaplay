@@ -56,6 +56,7 @@ public class GetLibrary extends HttpServlet {
 				rd.forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
+				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 			}
 		}
 	}

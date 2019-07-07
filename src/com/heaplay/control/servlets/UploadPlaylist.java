@@ -61,8 +61,8 @@ public class UploadPlaylist extends HttpServlet {
 					;
 				response.sendRedirect(getServletContext().getContextPath()+"/library");
 			} catch (SQLException e) {
-				
 				e.printStackTrace();
+				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 			}
 		}
 	}

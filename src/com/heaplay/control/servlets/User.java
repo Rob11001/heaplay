@@ -29,12 +29,13 @@ public class User extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user = (String) request.getAttribute("userName");
     	Integer begin = request.getParameter("begin") == null ? 0 : Integer.parseInt(request.getParameter("begin"));
-    	
 		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 		UserDao userDao = new UserDao(pool);
 		TrackDao trackDao = new TrackDao(pool);
 		UserBean currentUser = null;
 		ArrayList<TrackBean> listOfTracks = null;
+		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
+		
 		try {
 			currentUser = userDao.doRetrieveByName(user);
 			if(currentUser != null) {
@@ -48,10 +49,15 @@ public class User extends HttpServlet {
 				request.setAttribute("pageTitle", user);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
 				rd.forward(request, response);
-			}else 
-				;//Mandalo alla pagina di errore
+			}else {
+				//Pagina di errore
+				request.setAttribute("error_title", "Pagina non trovata - 404");
+				request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
+				response.sendError(response.SC_NOT_FOUND);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 }

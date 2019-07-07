@@ -36,7 +36,7 @@ public class GetLikedTracks extends HttpServlet {
 			String objectJson = gson.toJson(listOfObjects);
 			response.getWriter().write(objectJson);
  		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();	
 		}
  	}
 

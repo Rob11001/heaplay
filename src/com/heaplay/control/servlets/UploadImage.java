@@ -32,7 +32,7 @@ public class UploadImage extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Part image = request.getPart("image");
-		System.out.println(image);
+		
 		if(image != null) {
 			String imageFileName = image.getSubmittedFileName();
 			System.out.println(imageFileName);
@@ -53,6 +53,7 @@ public class UploadImage extends HttpServlet {
 					response.sendRedirect(getServletContext().getContextPath()+"/user/"+user.getUsername());
 				} catch (SQLException e) {
 					e.printStackTrace();
+					response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 				}
 			}
 		} else 

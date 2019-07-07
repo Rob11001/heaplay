@@ -28,6 +28,7 @@ public class Playlist extends HttpServlet {
 		String begin = request.getParameter("begin");
 		String id = request.getParameter("id"); 
 		UserBean currentUser = (UserBean) request.getSession().getAttribute("user");
+		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		
 		if(user == null || playlistName == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
@@ -39,15 +40,21 @@ public class Playlist extends HttpServlet {
 				PlaylistDao playlistDao = new PlaylistDao(pool);
 				
 				UserBean userBean = userDao.doRetrieveByName(user);
-				if(userBean == null)
-					/*Pagina di errore*/;
-				else {
+				if(userBean == null) {
+					/*Pagina di errore*/
+					request.setAttribute("error_title", "Pagina non trovata - 404");
+					request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
+					response.sendError(response.SC_NOT_FOUND);
+				} else {
 					ArrayList<String> keys = new ArrayList<String>();
 					keys.add(id);
 					PlaylistBean playlistBean = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
-					if(playlistBean == null || !playlistBean.getName().replaceAll("\\s","").equals(playlistName) || !playlistBean.getAuthorName().equals(user) || (playlistBean.getPrivacy().equals("private") && (currentUser == null || !playlistBean.getAuthorName().equals(currentUser.getUsername()))))
-						/*Pagina di errore*/;
-					else {
+					if(playlistBean == null || !playlistBean.getName().replaceAll("\\s","").equals(playlistName) || !playlistBean.getAuthorName().equals(user) || (playlistBean.getPrivacy().equals("private") && (currentUser == null || !playlistBean.getAuthorName().equals(currentUser.getUsername())))) {
+						/*Pagina di errore*/
+						request.setAttribute("error_title", "Pagina non trovata - 404");
+						request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
+						response.sendError(response.SC_NOT_FOUND);
+					} else {
 						ArrayList<TrackBean> list = (ArrayList<TrackBean>) playlistBean.getTracks();
 						int size = list.size();
 						ArrayList<TrackBean> sublist = new ArrayList<TrackBean>();
@@ -58,13 +65,14 @@ public class Playlist extends HttpServlet {
 						request.setAttribute("number", size);
 						request.setAttribute("begin", start);
 						request.setAttribute("jspPath", "/playlist.jsp");
-						request.setAttribute("pageTitle", playlistName);
+						request.setAttribute("pageTitle", playlistBean.getName());
 						RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
 						rd.forward(request, response);
 					}
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 			}
 			
 		}

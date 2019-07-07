@@ -71,13 +71,12 @@ public class Register extends HttpServlet {
 				userDao.doSave(userBean);
 				ArrayList<String> keys = new ArrayList<String>();
 				keys.add(email);
-				keys.add(password);
-				do {											//Problemi nel commit della query
-					userBean = userDao.doRetrieveByKey(keys);
-				}while (userBean == null);
+				keys.add(password);											//Problemi nel commit della query
+				userBean = userDao.doRetrieveByKey(keys);
 					
 			} catch (SQLException e) {
 				e.printStackTrace();
+				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 			}
     		
     		//Creazione riuscita e redirezione

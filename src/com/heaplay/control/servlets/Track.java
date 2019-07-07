@@ -34,7 +34,7 @@ public class Track extends HttpServlet {
 		HttpSession session = request.getSession();
 		Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart");
 		UserBean user = (UserBean) session.getAttribute("user");
-		
+		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		
 		if(id == null || userName == null || trackName == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
@@ -53,11 +53,14 @@ public class Track extends HttpServlet {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 			}
-			if(track == null || !track.getAuthorName().equals(userName) || !track.getName().replaceAll("\\s","").equals(trackName))
-				//Bisognerebbe mandare alla pagina 404
-				response.sendRedirect(getServletContext().getContextPath()+"/home");
-			else {
+			if(track == null || !track.getAuthorName().equals(userName) || !track.getName().replaceAll("\\s","").equals(trackName)) {
+				//pagina di errore
+				request.setAttribute("error_title", "Pagina non trovata - 404");
+				request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
+				response.sendError(response.SC_NOT_FOUND);
+			} else {
 				if(user !=  null) {
 					try {
 						if(cart == null) {
@@ -74,6 +77,7 @@ public class Track extends HttpServlet {
 						request.setAttribute("owned", owned);
 					} catch (SQLException e) {
 						e.printStackTrace();
+						response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 					}
 				}
 				

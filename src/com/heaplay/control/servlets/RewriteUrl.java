@@ -25,6 +25,9 @@ public class RewriteUrl extends HttpServlet {
     	//Lettura URL e parametri
     	String URI = request.getRequestURI();
     	String[] params = URI.split("/");
+    	StringBuffer url = request.getRequestURL();
+    	
+    	request.setAttribute("requestURL", url);
     	
     	if(params.length == 5 && params[params.length - 3].equals("user")) {
     		request.setAttribute("userName", params[params.length-2]);
@@ -40,9 +43,12 @@ public class RewriteUrl extends HttpServlet {
 	    	request.setAttribute("userName", params[params.length-1]);
 	    	RequestDispatcher rd = getServletContext().getRequestDispatcher("/author");
     		rd.forward(request, response);
-    	} else 
+    	} else {
     		//Pagina di errore
-    		;
+    		request.setAttribute("error_title", "Pagina non trovata - 404");
+			request.setAttribute("error", "La pagina \""+ url + "\" non è stata trovata o non esiste");
+			response.sendError(response.SC_NOT_FOUND);
+    	}	
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
