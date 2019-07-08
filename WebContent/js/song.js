@@ -36,7 +36,7 @@ function startAudio(e){
 function init(parent) {
 	audio = $(parent).find(".audio");
 	volume = $(parent).find(".volume");
-	//$(volume).css("display","inline");
+	$(volume).parent().parent().removeClass("hidden");
 	slider = $(parent).find(".slider-bar");
 	time = $(parent).find(".song-time");
 	playButton = $(parent).find(".play");
@@ -76,7 +76,7 @@ function reset() {
 	playButton.click(startAudio);
 	$(slider).prop("value",0);
 	$(time).html("00:00");
-	//$(volume).css("display","none");
+	$(volume).parent().parent().addClass("hidden");
 }
 
 function forwardAudio(){
