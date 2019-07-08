@@ -446,12 +446,13 @@ public class TrackDao implements DaoModel {
 		return list;
 	}
 	
-	public synchronized ArrayList<TrackBean> getTracksByAuthor(Long id,int begin,int end) throws SQLException {
+	public synchronized ArrayList<TrackBean> getTracksByAuthor(Long id,int begin,int end,String all) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
 		TrackBean bean = null;
-		String selectQuery = (begin!=-1 && end != -1) ? "SELECT * FROM " + TABLE_NAME + " WHERE author=? AND indexable='1' LIMIT "+begin+","+end : "SELECT * FROM " + TABLE_NAME + " WHERE author=? AND indexable='1'";
+		String allSelection =  (!all.equals("all")) ?   "AND indexable='1'" : "";
+		String selectQuery = (begin!=-1 && end != -1) ? "SELECT * FROM " + TABLE_NAME + " WHERE author=? AND indexable='1' LIMIT "+begin+","+end : "SELECT * FROM " + TABLE_NAME + " WHERE author=? "+ allSelection ;
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 
 		try {
@@ -524,7 +525,6 @@ public class TrackDao implements DaoModel {
 		TrackBean bean = null;
 		String selectQuery = "SELECT * FROM " + TABLE_NAME + ",tagged WHERE track_id=id AND tag_id=?";
 		
-		int n = 0;
 		try {
 			con = pool.getConnection();
 			ps = con.prepareStatement(selectQuery);

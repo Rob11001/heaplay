@@ -76,3 +76,46 @@
 			<span class='like'><i class='fa fa-thumbs-up'></i></span>
 	</div>
 </div>
+
+// Esempio div di una track nell'admin
+<tr>
+	<td><span class='song-name'><a
+			href='/heaplay/user/"+bean.authorName+"/"+bean.name.replace(/\s/g,'
+			')+"?id="+bean.id+"'>"+bean.name+"</a></span></td>
+	<td><span class='author'><a
+			href='/heaplay/user/"+bean.authorName+"'>"+bean.authorName+"</a></span></td>
+	<td><span>+bean.type+</span>
+	</td>
+	<td><input type='hidden' name='track_id' value='"+bean.id+"'>
+	<button value='Blocca'>Blocca</button>
+	<button>Sblocca</button>
+	<button>Rimuovi</button>
+	</td>
+</tr>
+
+//Esempio div di un user nell' admin
+<tr>
+	<td>
+	<span class='author'><a
+			href='/heaplay/user/"+bean.authorName+"'>"+bean.authorName+"</a></span>
+	</td>
+	<td><span>bean.auth</span></td>
+	<td><span>bean.active</span></td>
+	<td>
+		<input type='hidden' value='bean.id'>
+		<button>Blocca</button>
+		<button>Sblocca</button>
+		<button>Rimuovi</button>
+	</td>
+</tr>
+
+//Esempio div di un tag nell' admin
+<tr>
+	<td>
+		<span>bean.name</span>
+	</td>
+	<td>
+		<input type='hidden' value='bean.id'>
+		<button>Rimuovi</button>
+	</td>
+</tr>

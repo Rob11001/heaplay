@@ -37,7 +37,7 @@ public class Search extends HttpServlet {
 		String fromStart = request.getParameter("startFrom");
 		int start = Integer.parseInt(fromStart==null ? "0" : fromStart);
 		int found = 0;
-		
+		UserBean user =(UserBean) request.getSession().getAttribute("user");
 		
 		if(query != null && !query.equals("") && filter != null && !filter.equals("")) {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
@@ -48,7 +48,8 @@ public class Search extends HttpServlet {
 				case "user": UserDao userDao = new UserDao(pool);
 							list = (ArrayList<Bean>) userDao.doRetrieveAll(null);
 							list = filter(query, list);
-							list = (ArrayList<Bean>) list.stream().filter((p)->((UserBean)p).isActive()).collect(Collectors.toList());
+							if(user == null || !user.getAuth().equals("admin"))
+								list = (ArrayList<Bean>) list.stream().filter((p)->((UserBean)p).isActive()).collect(Collectors.toList());
 							found = list.size();
 							if(autocomplete == null)
 								list = createSubList(list,start,(start+5) > found ? found : (start+5));
@@ -56,7 +57,8 @@ public class Search extends HttpServlet {
 				case "track":TrackDao trackDao = new TrackDao(pool);
 							list = (ArrayList<Bean>) trackDao.doRetrieveAll(null);
 							list = filter(query, list);
-							list = (ArrayList<Bean>) list.stream().filter((p)->((TrackBean)p).isIndexable()).collect(Collectors.toList());
+							if(user == null || !user.getAuth().equals("admin"))
+								list = (ArrayList<Bean>) list.stream().filter((p)->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 							found = list.size();
 							if(autocomplete == null)
 								list = createSubList(list,start,(start+5) > found ? found : (start+5));	
@@ -77,11 +79,13 @@ public class Search extends HttpServlet {
 							list = (ArrayList<Bean>) tagDao.doRetrieveAll(null);
 							list = filter(query, list);
 							found = list.size();
-							if(autocomplete == null) {
+							if(autocomplete == null && (user == null || !user.getAuth().equals("admin"))) {
 								ArrayList<Bean> listOfTags = new ArrayList<Bean>();
 								for(int i = 0 ; i < found ; i++)
 									listOfTags.addAll(track.getTracksByTag(((TagBean)list.get(i)).getId()));
-								found = listOfTags.size();
+								if(user == null || !user.getAuth().equals("admin"))
+									list = (ArrayList<Bean>) listOfTags.stream().filter((p)->((TrackBean)p).isIndexable()).collect(Collectors.toList());
+								found = list.size();
 								list = createSubList(listOfTags,start,(start+5) > found ? found : (start+5));
 								resetBytes(list);
 							}

@@ -39,7 +39,7 @@ public class GetLibrary extends HttpServlet {
 			try {
 				int numberOfTracks = 0;
 				if(owned == null) {
-					listOfTracks = trackDao.getTracksByAuthor(userBean.getId(),begin,5);
+					listOfTracks = trackDao.getTracksByAuthor(userBean.getId(),begin,5,"");
 					numberOfTracks = trackDao.getNumberOfTracksOfAuthor(userBean.getId());
 				} else {
 					OwnedTrackDao ownedTrackDao = new OwnedTrackDao(pool);
