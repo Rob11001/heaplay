@@ -29,6 +29,8 @@ public class RemoveUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String user_id = request.getParameter("user_id");
+		String disable = request.getParameter("disable");
+		String enable  = request.getParameter("enable");
 		
 		if(user == null || !user.getAuth().equals("admin") || user_id == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
@@ -38,22 +40,34 @@ public class RemoveUser extends HttpServlet {
 			TrackDao trackDao = new TrackDao(pool);
 			
 			try {
-				ArrayList<TrackBean> list = trackDao.getTracksByAuthor(Long.parseLong(user_id), -1, -1);
-				boolean flag = false;
-				for (int i = 0 ; i < list.size(); i++)
-					if(list.get(i).getType().equals("pagamento")) {
-						flag=true;
-						list.get(i).setIndexable(false);
-						trackDao.doUpdate(list.get(i));
-					} else 
-						trackDao.doDelete(list.get(i).getKey());
-				ArrayList<String> keys = new ArrayList<String>();
-				keys.add(user_id);
-				UserBean userBean = userDao.doRetrieveByKey(keys);
-				if(!flag) 
-					userDao.doDelete(keys);
-				else {
-					userBean.setActive(false);
+				ArrayList<TrackBean> list = trackDao.getTracksByAuthor(Long.parseLong(user_id), -1, -1,"all");
+				if(enable == null) {
+					boolean flag = false;
+					for (int i = 0 ; i < list.size(); i++)
+						if(disable != null || list.get(i).getType().equals("pagamento")) {
+							flag=true;
+							list.get(i).setIndexable(false);
+							trackDao.doUpdate(list.get(i));
+						} else 
+							trackDao.doDelete(list.get(i).getKey());
+					ArrayList<String> keys = new ArrayList<String>();
+					keys.add(user_id);
+					UserBean userBean = userDao.doRetrieveByKey(keys);
+					if(disable == null && !flag) 
+						userDao.doDelete(keys);
+					else {
+						userBean.setActive(false);
+						userDao.doUpdate(userBean);
+					}
+				} else {
+					for (int i = 0 ; i < list.size(); i++) {
+							list.get(i).setIndexable(true);
+							trackDao.doUpdate(list.get(i));
+						} 
+					ArrayList<String> keys = new ArrayList<String>();
+					keys.add(user_id);
+					UserBean userBean = userDao.doRetrieveByKey(keys);
+					userBean.setActive(true);
 					userDao.doUpdate(userBean);
 				}
 				response.sendRedirect(getServletContext().getContextPath()+"/home");

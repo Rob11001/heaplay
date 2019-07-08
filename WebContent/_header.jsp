@@ -16,7 +16,9 @@
 			<select class="search-select" name="filter">
 				<option value="track">Brani</option>
 				<option value="tag">Tags</option>
-				<option value="playlist">Playlist</option>
+				<%if(user == null || !user.getAuth().equals("admin")) { %>
+					<option value="playlist">Playlist</option>
+				<%} %>
 				<option value="user">Utenti</option>
 			</select><!-- 
 			--><input class="search-box" type="text" name="q" placeholder="Cerca..." list="suggestions" onkeyup="autocompleteSearch(this,$('#suggestions'))" onkeypress="searchOnEnterButton(event)"><!--

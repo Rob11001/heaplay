@@ -26,6 +26,8 @@ public class RemoveTrack extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String track_id = request.getParameter("track_id");
+		String disable = request.getParameter("disable");
+		String enable = request.getParameter("enable");
 		
 		if(user == null || !user.getAuth().equals("admin") || track_id == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
@@ -38,13 +40,15 @@ public class RemoveTrack extends HttpServlet {
 				if(track == null) {
 					//Fare qualcosa
 				} else {
-					if(track.getType().equals("pagamento") ) {
+					if(enable != null) {
+						track.setIndexable(true);
+						trackDao.doUpdate(track);
+					} else if(track.getType().equals("pagamento") || disable != null ) {
 						track.setIndexable(false);
 						trackDao.doUpdate(track);
 					} else {
 						trackDao.doDelete(keys);
 					}
-					response.sendRedirect(getServletContext().getContextPath()+"/home");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
