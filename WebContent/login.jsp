@@ -13,16 +13,18 @@
 <hr class="hr-form">
 <form action="login" onsubmit="return validateForm()" method="post">
 	
-	<label for="email">E-Mail<br></label> 
-	<input class="form-input-text" type="text" name="email"  value="<%=email%>" >
-	<i class="fa fa-user"></i>
-	<br/>
-
-	<label for="password">Password<br></label>
-	<input class="form-input-text" type="password" name="password" value="">
-	<i class="fa fa-key"></i>
-	<br/>
-
+	<label for="email">E-Mail<br/></label> 
+	<div class="form-field">
+		<span class="field-icon"><i class="fa fa-user"></i></span>
+		<input class="form-input-text" type="text" name="email"  value="<%=email%>" >
+	</div>
+		
+	<label for="password">Password<br/></label>
+	<div class="form-field">
+		<span class="field-icon"><i class="fa fa-key"></i></span>
+		<input class="form-input-text" type="password" name="password" value="">
+	</div>
+	
 	<span class="form-error">
 	<%
 		if (error != null) {

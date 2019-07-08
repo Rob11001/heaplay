@@ -12,33 +12,47 @@
 <form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()" autocomplete="off">
 				
 	<label for="songName">Nome del Brano*<br/></label>
-	<input class="form-input-text" type="text" name="songName" id="songName" />		<br/>
-	
-	<label class="file-input">Carica il Brano<input class="form-input-file" type="file" name="audio" id="audio" accept="audio/*" /></label>	<br/>
-	
-	<label class="file-input">Carica l'Immagine<input class="form-input-file" type="file" name="image" id="image" accept="image/*" /></label><br/>
-	
-	<div class="img-preview hidden">
-		<img id="preview" alt="" src="" width="50px">	<br>
+	<div class="form-field">
+		<span class="field-icon"><i class="fa fa-music"></i></span>
+		<input class="form-input-text" type="text" name="songName" id="songName" />
 	</div>
 	
-	<div class="radio-buttons">
+	<div class="form-field">
+		<label class="file-input">Carica il Brano<input class="form-input-file" type="file" name="audio" id="audio" accept="audio/*" /></label>
+		<span id="check"><i class="fa fa-check"></i></span>
+	</div>
+	
+	<div class="form-field" style="align-items: center">
+		<label class="file-input">Carica l'Immagine<input class="form-input-file" type="file" name="image" id="image" accept="image/*" /></label>
+		<div class="song-image hidden" style="margin-left: 15px">
+			<img id="preview" alt="" src="">
+		</div>
+	</div>
+	
+	<div class="form-field">
 		<input class="form-input-radio" type="radio" name="purchasable" id="Free" value="Gratis" checked="checked" onclick="ShowAndHide(0)"> 
 		<label for="Free">Gratis </label>
 		
 		<input class="form-input-radio" type="radio" name="purchasable" id="purchasable" value="A pagamento" onclick="ShowAndHide(1)">	
-		<label for="purchasable">A pagamento</label><br/>
+		<label for="purchasable">A pagamento</label>
 	</div>
+	
 	<div id="divPrice" class="hidden">
-		<label for="price">Prezzo<br/></label>
-		<input class="form-input-text" type="text" name="price" id="price" min="0" max="666">
+		<label for="price">Prezzo*<br/></label>
+		<div class="form-field">
+			<span class="field-icon"><i class="fa fa-dollar-sign"></i></span>
+			<input class="form-input-text" type="text" name="price" id="price" min="0" max="666">
+		</div>
 	</div>
 		
 	<label for="tags">Tag*<br/></label>
-	<input class="form-input-text" id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
+	<div class="form-field">
+		<span class="field-icon"><i class="fa fa-hashtag"></i></span>
+		<input class="form-input-text" id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
+		<button class="form-input-button" type="button" id="tagButton" onclick="addTag(this)">Aggiungi</button>
+	</div>
 	<datalist id="tagSuggestions"></datalist>
 	
-	<button class="form-input-button" type="button" id="tagButton" onclick="addTag(this)">Aggiungi</button><br>
 	<div class="added-tags">
 	</div>
 		

@@ -17,16 +17,29 @@
 <form action="register" onsubmit="return validateForm()" method="post">
 
 	<label for="username">Username<br/></label>
-	<input class="form-input-text" type="text" name="username" value="<%=username%>"><br/>
+	<div class="form-field">
+		<span class="field-icon"><i class="fa fa-user"></i></span>
+		<input class="form-input-text" type="text" name="username" value="<%=username%>">
+	</div>
+	
 	
 	<label for="email">E-Mail<br/></label>
-	<input class="form-input-text" type="text" name="email" value="<%=email%>"><br/>
+	<div class="form-field">
+		<span class="field-icon"><i class="fa fa-envelope"></i></span>
+		<input class="form-input-text" type="text" name="email" value="<%=email%>"><br/>
+	</div>
 	
 	<label for="password">Password<br/></label>
-	<input class="form-input-text" type="password" name="password" value=""><br/>
+	<div class="form-field">
+		<span class="field-icon"><i class="fa fa-key"></i></span>
+		<input class="form-input-text" type="password" name="password" value=""><br/>
+	</div>
 	
 	<label for="repeat-password">Ripeti Password<br/></label>
-	<input class="form-input-text" type="password" name="repeat-password" value=""><br/>
+	<div class="form-field">
+		<span class="field-icon"><i class="fa fa-key"></i></span>
+		<input class="form-input-text" type="password" name="repeat-password" value=""><br/>
+	</div>
 	
 	<span class="form-error">
 	<%

@@ -13,8 +13,11 @@ html {
 	--header-height: 50px;
 	--footer-height: 70px;
 	color: var(--main-black);
-	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
+}
+
+html * {
+	font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -287,6 +290,7 @@ nav > a:visited, .dropbtn > a:visited {
 
 .song-info {
 	display: flex;
+	align-items: cente;
 }
 
 .info {
@@ -392,6 +396,21 @@ form[name=fileUpload] {
 	border: 1px solid var(--main-black);
 }
 
+.form-field {
+	display: flex;
+	margin-bottom: 20px;
+	flex-flow: row wrap;
+}
+
+.field-icon {
+	border: 1px solid var(--main-black60);
+	border-bottom-left-radius: 2px;
+	border-top-left-radius: 2px;
+	border-right: 0;
+	margin-right: 0;
+	padding: 4px 8px;
+}
+
 .form-input-text, .form-input-button, .file-input {
 	border-radius: 2px;
 	font-size: 1.1em;
@@ -399,13 +418,13 @@ form[name=fileUpload] {
 
 .form-input-text {
 	border: 1px solid var(--main-black60);
-	height: 28px;
-	margin-bottom: 20px;
-	max-width: 35%;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	width: 35%;
 	padding: 0 3px;
 }
 
-.form-input-text:hover {
+.form-field:hover .form-input-text, .form-field:hover .field-icon{
 	border: 1px solid var(--main-black);
 }
 
@@ -421,7 +440,6 @@ form[name=fileUpload] {
 	display: inline-block;
 	font-weight: bold;
 	line-height: 28px;
-	margin-bottom: 20px;
 	padding: 1px 6px;
 	vertical-align: middle;
 }
@@ -440,16 +458,6 @@ form[name=fileUpload] {
 	z-index: -1;
 }
 
-.image-preview {
-	margin-bottom: 20px;
-}
-
-.radio-buttons {
-	display: flex;
-	flex-flow: row wrap;
-	margin-bottom: 20px;
-} 
-
 .form-input-radio + label {
 	opacity: 0.6;
 }
@@ -465,6 +473,17 @@ form[name=fileUpload] {
 .form-input-textarea {
 	resize: none;
 	max-width: 100%;
+}
+
+#tagButton {
+	margin-left: 3px;
+}
+
+#check {
+	align-self: center;
+	color: green;
+	display: none;
+	margin-left: 15px;
 }
 
 .added-tags {
@@ -488,7 +507,9 @@ form[name=fileUpload] {
 }
 
 .field-error {
+	align-self: center;
 	color: red;
+	display: inline-block;
 	margin-left: 3px;
 }
 
@@ -536,7 +557,7 @@ form[name=fileUpload] {
 
 /* Responsive Design */
 
-@media only screen and (max-width: 1024) {
+@media only screen and (max-width: 1024px) {
 	
 	nav > a:hover, .dropbtn > a:hover {
 		background-color: transparent;
@@ -545,7 +566,7 @@ form[name=fileUpload] {
 	
 	
 	.form-input-text {
-		max-width: 100%;
+		width: 50%;
 	}
 }
 
@@ -615,4 +636,8 @@ form[name=fileUpload] {
 		margin-left: -8px;
 		margin-right: -8px;
 	}	
+	
+	.form-input-text {
+		width: 70%;
+	}
 }

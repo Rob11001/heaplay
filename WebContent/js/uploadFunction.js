@@ -12,7 +12,7 @@ const removeTag = (object) =>{
 };
 
 const addTag = (button) => {
-	let divParent = $(button).parent();
+	let divParent = $(button).parent().parent();
 	let val = $(divParent).find("#autocomplete").val();
 	let list = document.getElementsByName("tag");
 	if(val !== "" && !searchElement(list,val)) {
@@ -35,6 +35,7 @@ $(document).ready(() => {
 		let file = e.currentTarget.files["0"];
 		objectUrl = window.URL.createObjectURL(file);
 		$("#audioFake").prop("src", objectUrl);
+		$("#check").fadeIn(); /* Controllare se e' giusto che stia qui */
 	});
 
 	//Preview dell'immagine

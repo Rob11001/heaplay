@@ -3,7 +3,6 @@ function validateForm() {
 	let formError = $(".form-error");
 	
 	$("form input").not("input[name='tags'], #divPrice:hidden input[name='price']").each((i, el) => {
-		console.log(el.name);
 		if(el.value == "") {
 			el.style.borderColor = "red";
 			valid = false;
@@ -53,7 +52,7 @@ function validateForm() {
 				username.next(".field-error").remove();
 			}
 			else if (username.next(".field-error").length == 0) {
-				username.after("<span class='field-error'>L'username deve contenere almeno tre caratteri</span>");
+				username.after("<span class='field-error'>L'username deve contenere almeno tre caratteri, non sono ammessi caratteri speciali</span>");
 			}
 			
 		});
@@ -98,15 +97,17 @@ function validateForm() {
 		}
 	}
 	
-	if(tags.length == 0) {
-		valid = false;
-		if(tagButton.next(".field-error").length == 0){
-			tagField.css("border-color", "red");
-			tagButton.after("<span class='field-error'>Devi inserire almeno un tag</span>")
+	if(tagField.length != 0) {
+		if(tags.length == 0) {
+			valid = false;
+			if(tagButton.next(".field-error").length == 0){
+				tagField.css("border-color", "red");
+				tagButton.after("<span class='field-error'>Devi inserire almeno un tag</span>")
+			}
+		} else {
+			tagField.css("border-color", "");
+			tagButton.next(".field-error").remove();
 		}
-	} else {
-		tagField.css("border-color", "");
-		tagButton.next(".field-error").remove();
 	}
 	
 	return valid;		
