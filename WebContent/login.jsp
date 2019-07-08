@@ -11,15 +11,15 @@
 
 <h2>Login</h2>
 <hr class="hr-form">
-<form action="login" onsubmit="return validateRegister(this)" method="post">
+<form action="login" onsubmit="return validateForm()" method="post">
 	
 	<label for="email">E-Mail<br></label> 
-	<input class="form-input-text" type="text" name="email"  value="<%=email%>"  required>
+	<input class="form-input-text" type="text" name="email"  value="<%=email%>" >
 	<i class="fa fa-user"></i>
 	<br/>
 
 	<label for="password">Password<br></label>
-	<input class="form-input-text" type="password" name="password" value="" required>
+	<input class="form-input-text" type="password" name="password" value="">
 	<i class="fa fa-key"></i>
 	<br/>
 
@@ -33,3 +33,5 @@
 
 	<button class="form-input-button" type="submit">Login</button>
 </form>
+
+<script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>

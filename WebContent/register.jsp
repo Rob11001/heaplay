@@ -11,20 +11,22 @@
 		session.setAttribute("afterLoginRedirect", previousUrl);
 	*/
 %>
-<script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>
 
 <h2>Registrazione</h2>
 <hr class="hr-form">
-<form action="register" onsubmit="return validateRegister(this)" method="post">
+<form action="register" onsubmit="return validateForm()" method="post">
 
 	<label for="username">Username<br/></label>
-	<input class="form-input-text" type="text" name="username" value="<%=username%>" required><br/>
+	<input class="form-input-text" type="text" name="username" value="<%=username%>"><br/>
 	
 	<label for="email">E-Mail<br/></label>
-	<input class="form-input-text" type="text" name="email" value="<%=email%>" required><br/>
+	<input class="form-input-text" type="text" name="email" value="<%=email%>"><br/>
 	
 	<label for="password">Password<br/></label>
-	<input class="form-input-text" type="password" name="password" value="" required><br/>
+	<input class="form-input-text" type="password" name="password" value=""><br/>
+	
+	<label for="repeat-password">Ripeti Password<br/></label>
+	<input class="form-input-text" type="password" name="repeat-password" value=""><br/>
 	
 	<span class="form-error">
 	<%
@@ -36,3 +38,5 @@
 	
 	<button class="form-input-button" type="submit">Registrati</button>
 </form>
+
+<script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>

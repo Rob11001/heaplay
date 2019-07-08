@@ -9,14 +9,14 @@
 %>
 <h2>Carica</h2>
 <hr class="hr-form">
-<form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return validateUpload(this)" autocomplete="off">
+<form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()" autocomplete="off">
 				
-	<label for="songName">Nome del Brano<br/></label>
-	<input class="form-input-text" type="text" name="songName" id="songName" required/>		<br/>
+	<label for="songName">Nome del Brano*<br/></label>
+	<input class="form-input-text" type="text" name="songName" id="songName" />		<br/>
 	
-	<label class="file-input">Carica il Brano<input class="form-input-file" type="file" name="audio" id="audio" accept="audio/*" required /></label>	<br/>
+	<label class="file-input">Carica il Brano<input class="form-input-file" type="file" name="audio" id="audio" accept="audio/*" /></label>	<br/>
 	
-	<label class="file-input">Carica l'Immagine<input class="form-input-file" type="file" name="image" id="image" accept="image/*" required /></label><br/>
+	<label class="file-input">Carica l'Immagine<input class="form-input-file" type="file" name="image" id="image" accept="image/*" /></label><br/>
 	
 	<div class="img-preview hidden">
 		<img id="preview" alt="" src="" width="50px">	<br>
@@ -31,10 +31,10 @@
 	</div>
 	<div id="divPrice" class="hidden">
 		<label for="price">Prezzo<br/></label>
-		<input class="form-input-text" type="number" name="price" id="price" min="0" max="666">
+		<input class="form-input-text" type="text" name="price" id="price" min="0" max="666">
 	</div>
 		
-	<label for="tags">Tag<br/></label>
+	<label for="tags">Tag*<br/></label>
 	<input class="form-input-text" id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
 	<datalist id="tagSuggestions"></datalist>
 	

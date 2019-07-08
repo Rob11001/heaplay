@@ -56,14 +56,6 @@ function ShowAndHide(status) {
 			$("#divPrice").addClass("hidden");
 }		
 
-function validateUpload(form) {
-	let list = document.getElementsByName("tag");
-	let regex = /^\d{0,2}(\.\d{1,2})?$/;
-	if(list.length <= 0 || !validate(form["price"],regex))
-		return false;
-	return true;
-}
-
 function autocompleteTags(el,suggestions) {
 	let url = "/heaplay/getTags?query="+$(el).val();
 	if($(el).val().length > 1) {
