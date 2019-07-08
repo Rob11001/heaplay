@@ -35,9 +35,7 @@ public class Admin extends HttpServlet {
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
 				rd.forward(request, response);
 			} else if(operation.equals("info")) {
-				request.setAttribute("jspPath", "/administration.jsp");
-				request.setAttribute("pageTitle", "Informazioni");
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/info");
 				rd.forward(request, response);
 			} else {
 				response.sendRedirect(getServletContext().getContextPath()+"/home");
