@@ -717,5 +717,71 @@ public class TrackDao implements DaoModel {
 	}
 	
 	
+	public synchronized long getNumberOfTracks() throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		String selectQuery = "SELECT count(*) FROM " + TABLE_NAME + " WHERE indexable='1'";
+		long n = 0;
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			rs = ps.executeQuery();
+			if(rs.next())
+				n=rs.getLong(1);
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return n;
+	}
 	
+	public synchronized ArrayList<TrackBean> getTracksByParameter(String param,int begin,int end) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		TrackBean bean = null;
+		String selectQuery ="SELECT * FROM " + TABLE_NAME + " WHERE indexable='1'  ORDER BY "+param+" DESC LIMIT "+begin+","+end;
+		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
+
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			rs = ps.executeQuery();
+			TagDao tag = new TagDao(pool);
+
+			while (rs.next()) {
+				bean = new TrackBean();
+				bean.setId(rs.getLong("id"));
+				bean.setAuthor(rs.getLong("author"));
+				bean.setImage(rs.getBytes("image"));
+				bean.setImageExt(rs.getString("image_extension"));
+				bean.setIndexable(rs.getBoolean("indexable"));
+				bean.setLikes(rs.getLong("likes"));
+				bean.setName(rs.getString("name"));
+				bean.setPlays(rs.getLong("plays"));
+				bean.setTrack(rs.getBytes("track"));
+				bean.setTrackExt(rs.getString("track_extension"));
+				bean.setType(rs.getString("type"));
+				bean.setUploadDate(rs.getTimestamp("upload_date"));
+				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
+				bean.setDuration(rs.getInt("duration"));
+				bean.setAuthorName(rs.getString("author_name"));
+				list.add(bean);
+			}
+
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return list;
+	}
 }

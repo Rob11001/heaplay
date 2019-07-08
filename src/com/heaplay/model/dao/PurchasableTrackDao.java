@@ -175,4 +175,45 @@ public class PurchasableTrackDao implements DaoModel {
 		return list;
 	}
 
+	public synchronized ArrayList<TrackBean> getMostSoldTracks() throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null;
+		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
+		ArrayList<Bean> listTrackBean = new ArrayList<Bean>();
+		PurchasableTrackBean bean = null;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME + " ORDER BY sold DESC";
+		TrackDao tDao = new TrackDao(pool);
+		listTrackBean = (ArrayList<Bean>) tDao.doRetrieveAll(null);
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				for(Bean b : listTrackBean) {
+					TrackBean trackBean = (TrackBean) b;
+					if(trackBean.getId() == rs.getLong("id") && trackBean.isIndexable()) { 
+						bean = new PurchasableTrackBean(trackBean);
+						bean.setSold(rs.getLong("sold"));
+						bean.setPrice(rs.getDouble("price"));
+						list.add(bean);
+						break;
+					}
+					if(list.size() == 5)
+						break;
+				}
+			}
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		return list;
+	}
 }

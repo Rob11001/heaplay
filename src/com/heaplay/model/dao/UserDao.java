@@ -266,5 +266,33 @@ public class UserDao implements DaoModel {
 		
 		return image;			
 	}
+	
+	public synchronized long getNumbersOfUsers() throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null; 
+		long number = 0;
+		String selectQuery = "SELECT count(*) FROM " + TABLE_NAME + " WHERE auth='user' AND active='1'";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) 
+				number = rs.getLong(1);
+			
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		
+		return number;			
+	}
 
 }
