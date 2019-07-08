@@ -44,7 +44,7 @@
 						<span><%=String.format("%2d:%2d", track.getDuration()/60,track.getDuration()%60)%></span>
 					<%} %></td>
 				</tr>
-				<tr>
+				<tr class="hidden">
 					<td><i class="fa fa-volume-down"></i></td>
 					<td><input type="range" name="volume" step=".1" class="slider volume"
 						onchange="setVolume(this)" value="1" min="0" max="1"></td>
