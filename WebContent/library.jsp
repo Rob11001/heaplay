@@ -9,9 +9,10 @@
 	String owned = (String) request.getAttribute("owned");
 %>
 
-
-<img id="user-image" src="/heaplay/getImage?id=<%=currentUser.getId()%>&user=true" onclick = "inputFile($('#image'))"  width="150px">
-<span class="userName"><%=currentUser.getUsername()%></span>
+<div class="user-header">
+	<img class="user-image" src="/heaplay/getImage?id=<%=currentUser.getId()%>&user=true" onclick = "inputFile($('#image'))"  width="150px">
+	<span class="user-name"><%=currentUser.getUsername()%></span>
+</div>
 
 <form action="/heaplay/uploadImage" name="fileUpload" method="POST" enctype="multipart/form-data"  >
 	<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">

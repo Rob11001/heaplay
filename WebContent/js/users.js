@@ -29,7 +29,7 @@ $(document).ready(() => {
 	$("#image").change(function(e){
 		let file = e.currentTarget.files["0"];
 		let objectUrl = window.URL.createObjectURL(file);
-		$("#user-image").prop("src", objectUrl);
+		$(".user-image").prop("src", objectUrl);
 	});		
 });
 
@@ -49,7 +49,7 @@ function addToCart(button) {
 }
 
 function getPlaylist(container) {
-	let src = $('#user-image').prop("src");
+	let src = $('.user-image').prop("src");
 	let user_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
 	$.ajax({
 		"type" : "GET",
