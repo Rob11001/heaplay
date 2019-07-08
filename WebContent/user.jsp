@@ -10,15 +10,16 @@
 
 %>
 
-
-<img id="user-image" src="/heaplay/getImage?id=<%=userPage.getId()%>&user=true" onclick = "inputFile($('#image'))"  width="150px">
-<span class="userName"><%=userPage.getUsername()%></span>
-<%if (currentUser != null && currentUser.getAuth().equals("admin")) {%>
-	<form action="/heaplay/removeUser" method="POST">
-		<input type="hidden" name="user_id" value="<%=userPage.getId()%>">
-		<input type="submit" value="Elimina Utente">
-	</form>	
-<% } %>
+<div class="user-header">
+	<img class="user-image" src="/heaplay/getImage?id=<%=userPage.getId()%>&user=true" onclick = "inputFile($('#image'))"  width="150px">
+	<span class="user-name"><%=userPage.getUsername()%></span>
+	<%if (currentUser != null && currentUser.getAuth().equals("admin")) {%>
+		<form action="/heaplay/removeUser" method="POST">
+			<input type="hidden" name="user_id" value="<%=userPage.getId()%>">
+			<input type="submit" value="Elimina Utente">
+		</form>	
+	<% } %>
+</div>
 
 <%
 if(currentUser != null && userPage.getId() == currentUser.getId()) {%>

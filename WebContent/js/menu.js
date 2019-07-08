@@ -40,7 +40,7 @@ $(document).ready(() => {
 			
 		if (prevScrollpos > currentScrollPos) {
 			header.css("top", "0")
-		} else {
+		} else if(currentScrollPos > headerHeight) {
 			if(dropContent.css("display") == "flex")
 				dropdown.trigger("click");
 			header.css("top", -(headerHeight-5));
