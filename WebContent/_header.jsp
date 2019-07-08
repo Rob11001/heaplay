@@ -38,7 +38,10 @@
 							<a href="<%=response.encodeURL("/heaplay/user/" + user.getUsername()) %>">Area Utente</a>
 							<a href="<%=response.encodeURL("/heaplay/upload")%>">Carica</a>
 							<a href="<%=response.encodeURL("/heaplay/cart")%>">Carrello</a>
-						<%} %>
+						<%} else {%>
+							<a href="<%=response.encodeURL("/heaplay/operation?op=register")%>">Registra Admin</a>
+							<a href="<%=response.encodeURL("/heaplay/operation?op=info")%>">Info</a>
+						<% } %>
 						<a href="<%=response.encodeURL("/heaplay/logout")%>">Logout</a>
 					</div>
 				</div>
