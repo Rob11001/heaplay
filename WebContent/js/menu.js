@@ -1,18 +1,25 @@
 var prevScrollpos = window.pageYOffset;
 
 $(document).ready(() => {
-	
+		
 	let dropdown = $(".dropdown");
 	let dropContent = $(".dropdown-content");
 	
+	const setPadding = () => {
+		let header = $("header");
+		let headerHeight = header.height();
+
+		$(".content-wrapper").css("padding-top", headerHeight + 10);
+	};
+	
 	const drop = () => {
-		console.log("Click!");
 		if(dropContent.css("display") == "none") 
 			dropContent.css("display", "flex");
 		else 
 			dropContent.hide(400)
 	};
 	
+	setPadding();
 	
 	let mqList = window.matchMedia("(max-width: 1024px)");
 	if(mqList.matches)
@@ -20,7 +27,6 @@ $(document).ready(() => {
 	
 	mqList.addListener((e) => {
 		if(e.matches) {
-			console.log("Test1")
 			dropdown.on("click", drop);
 		} else {
 			dropdown.off("click");
@@ -41,6 +47,8 @@ $(document).ready(() => {
 		}
 		prevScrollpos = currentScrollPos;
 	};
+	
+	window.onresize = setPadding;
 	
 	$(document).click(() => dropContent.hide(400));
 

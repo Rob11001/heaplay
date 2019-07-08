@@ -222,7 +222,11 @@ nav > a:visited, .dropbtn > a:visited {
 .flex-container {
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-between;
+	justify-content: space-around;
+}
+
+.flex-container > * {
+	padding: 10px;
 }
 
 .loading {
@@ -238,7 +242,6 @@ nav > a:visited, .dropbtn > a:visited {
 
 .song {
 	display: flex;
-	margin: 10px 5px 10px 0;
 	white-space: nowrap;
 }
 
@@ -364,27 +367,26 @@ form[name=fileUpload] {
 	border: 1px solid var(--main-black);
 }
 
-.form-input-text, .form-input-submit, .file-input {
-	border: 1px solid var(--main-black60);
-	border-radius: 3px;
-}
-
-.form-input-text:focus, .form-input-submit:hover, .file-input:hover {
-	border: 1px solid var(--main-black);
+.form-input-text, .form-input-button, .file-input {
+	border-radius: 2px;
 }
 
 .form-input-text {
-	font-size: 1.2em;
+	border: 1px solid var(--main-black60);
 	margin-bottom: 20px;
-	max-width: 35%; /* Ricorda di aumentarlo per view piu' piccole */
+	max-width: 35%;
 	padding: 0 3px;
 }
 
-.form-input-submit, .file-input {
-	font-size: 1.2em;
-	background-color: transparent;
-	color: var(--main-black);
+.form-input-text:hover {
+	border: 1px solid var(--main-black);
+}
+
+.form-input-button, .file-input {
+	background-color: var(--main-orange);
+	color: white;
 	cursor: pointer;
+	text-transform: uppercase;
 }
 
 .file-input {
@@ -444,12 +446,35 @@ form[name=fileUpload] {
 	color: red;
 }
 
+.form-input-textarea {
+	resize: none;
+	max-width: 100%;
+}
+
 /******************************** Track Page ********************************/
+
+.write-comment {
+	display: flex;
+}
+
 
 .comment-container {
 	display: flex;
 	flex-flow: column-reverse;;
 	margin-left: 5%;
+}
+
+.comment {
+	margin: 4px 0;
+}
+
+.comment-author {
+	display: block;
+	margin-bottom: 1px;
+}
+
+.comment-body {
+	padding-left: 3px;
 }
 
 

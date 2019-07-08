@@ -34,5 +34,5 @@
 	<%	} %>
 	</span><br/>
 	
-	<input class="form-input-submit" type="submit" value="Register">
+	<button class="form-input-button" type="submit">Registrami</button>
 </form>

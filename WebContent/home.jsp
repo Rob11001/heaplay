@@ -6,9 +6,7 @@
 <%
 	UserBean user = (UserBean)session.getAttribute("user");
 %>
-<br>
 <p>Sei nella HomePage</p>
-<br>
 <% if(user != null) {%>
 	<p>Benvenuto <%=user.getUsername() %></p>
 <% }	%>

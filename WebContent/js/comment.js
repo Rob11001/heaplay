@@ -12,10 +12,8 @@ const loadComments = () => {
 				//Parsing dell'oggetto JSON	
 				let beans = JSON.parse(data);
 
-				const header = "<p>Commenti</p>"
 				if(begin <= 0) {
 					$(container).empty();	
-					$(header).appendTo($(container));
 				}	
 				if(beans.length < 10)
 					$(window).off();

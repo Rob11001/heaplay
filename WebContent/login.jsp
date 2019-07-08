@@ -31,5 +31,5 @@
 	<%	} %>
 	</span><br/>
 
-	<input class="form-input-submit" type="submit" value="Login">
+	<button class="form-input-button" type="submit">Login</button>
 </form>

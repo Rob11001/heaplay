@@ -43,14 +43,15 @@
 			<% } %>
 			<br>
 		<%} %>
-		<div>
-			<textarea rows="2" cols="20" maxlength="255" placeholder="Scrivi un commento"></textarea>
-			<button onclick="uploadComment(this)">Invia</button>
+		<div class="write-comment">
+			<textarea class="form-input-textarea" rows="2" cols="20" maxlength="255" placeholder="Scrivi un commento"></textarea>
+			<button class="form-input-button" onclick="uploadComment(this)">Invia</button>
 		</div>
 	<%} else { %>
 		<p>Link per loggare oppure registrarsi per lasciare un commento</p>
 	<%} %>
-	
+	<h3>Commenti</h3>
+	<hr class="hr-form">
 	<div class="comment-container">
 	</div>
 	

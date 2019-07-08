@@ -38,7 +38,7 @@
 	<input class="form-input-text" id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
 	<datalist id="tagSuggestions"></datalist>
 	
-	<button class="form-input-submit" type="button" id="tagButton" onclick="addTag(this)">Aggiungi</button><br>
+	<button class="form-input-button" type="button" id="tagButton" onclick="addTag(this)">Aggiungi</button><br>
 	<div class="added-tags">
 	</div>
 		
@@ -53,7 +53,7 @@
 	<%	} %>
 	</span><br/>
 	
-	<input class="form-input-submit" type="submit" value="Carica">
+	<button class="form-input-button" type="submit">Carica</button>
 	<audio id="audioFake">
 	</audio>
 </form>
