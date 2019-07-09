@@ -22,26 +22,28 @@ public class GetInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Dao
 		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 		UserDao userDao = new UserDao(pool);
 		TrackDao trackDao = new TrackDao(pool);
 		PurchasableTrackDao purchasableTrackDao = new PurchasableTrackDao(pool);
 		
 		try {
+			//Lettura mediante i vari Dao
 			long numberOfUsers = userDao.getNumbersOfUsers();
 			long numberOfTracks = trackDao.getNumberOfTracks();
 			ArrayList<TrackBean> listOfViewed = trackDao.getTracksByParameter("plays", 0, 5);
 			ArrayList<TrackBean> listOfLiked = trackDao.getTracksByParameter("likes", 0, 5);
 			ArrayList<TrackBean> listOfSold = purchasableTrackDao.getMostSoldTracks();
-			
+			//Set degli attributi
 			request.setAttribute("iscritti", numberOfUsers);
 			request.setAttribute("numeroBrani", numberOfTracks);
 			request.setAttribute("mostViewed", listOfViewed);
 			request.setAttribute("mostLiked", listOfLiked);
 			request.setAttribute("mostSold", listOfSold);
-			
 			request.setAttribute("jspPath", response.encodeURL("admin/info.jsp"));
 			request.setAttribute("pageTitle", "Info");
+			//Forward
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 			rd.forward(request, response);
 			

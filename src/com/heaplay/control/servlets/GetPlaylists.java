@@ -29,14 +29,17 @@ public class GetPlaylists extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		String id = request.getParameter("id");
-		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String autocomplete = request.getParameter("autocomplete");
 		String track_id = request.getParameter("track_id");
+		UserBean user = (UserBean) request.getSession().getAttribute("user");
+		
 		
 		if(id == null && user == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
+			
 			id = (id !=  null) ? id : user.getId()+"";
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			PlaylistDao playlistDao =  new PlaylistDao(pool);

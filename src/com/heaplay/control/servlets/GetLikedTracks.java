@@ -26,17 +26,22 @@ public class GetLikedTracks extends HttpServlet {
  		response.setContentType("application/JSON");
  		ArrayList<Bean> list = new ArrayList<Bean>();
  		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
+ 		
  		try {
-			list = (ArrayList<Bean>) trackDao.doRetrieveAll((a,b) -> new Long(((TrackBean)a).getLikes() - ((TrackBean)b).getLikes()).intValue());
+			//Filtro delle tracks
+ 			list = (ArrayList<Bean>) trackDao.doRetrieveAll((a,b) -> new Long(((TrackBean)a).getLikes() - ((TrackBean)b).getLikes()).intValue());
 			list = (ArrayList<Bean>) list.stream().filter((p) ->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 			ArrayList<Bean> listOfObjects = new ArrayList<Bean>();
+			//Selezione delle prime 5
 			int size = list.size();
 			if(size > 0)
 				listOfObjects.addAll(list.subList(0, (size < 5) ? size : 5));
 			resetBytes(listOfObjects);
+			//Conversione in JSON
 			Gson gson = new Gson();
 			String objectJson = gson.toJson(listOfObjects);
 			response.getWriter().write(objectJson);
+			
  		} catch (SQLException e) {
 			e.printStackTrace();	
 		}

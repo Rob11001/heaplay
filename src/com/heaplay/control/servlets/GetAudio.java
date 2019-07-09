@@ -18,11 +18,14 @@ public class GetAudio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		String id = request.getParameter("id");
     	String ext = request.getParameter("extension");
+    	
     	if( id == null || ext == null) 												//Controllo probabilmente necessario
     		response.sendRedirect(getServletContext().getContextPath()+"/home");
     	else {
+    		//Set content type
     		ext = ext.substring(ext.indexOf('.'), ext.length());
     		response.setContentType("audio/"+ext);
     		
@@ -30,6 +33,7 @@ public class GetAudio extends HttpServlet {
     		byte[] trackBytes = null;
     		
     		try {
+    			//Lettura bytes
 				trackBytes = trackDao.getAudio(Long.parseLong(id));
 			} catch (SQLException | NumberFormatException e) {
 				e.printStackTrace();
@@ -41,8 +45,6 @@ public class GetAudio extends HttpServlet {
     		} else 
     			out.write(trackBytes);
     	}
-		
-		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

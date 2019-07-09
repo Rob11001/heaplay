@@ -71,22 +71,20 @@ public class Register extends HttpServlet {
 				userDao.doSave(userBean);
 				ArrayList<String> keys = new ArrayList<String>();
 				keys.add(email);
-				keys.add(password);											//Problemi nel commit della query
+				keys.add(password);											
 				userBean = userDao.doRetrieveByKey(keys);
 					
 			} catch (SQLException e) {
-				e.printStackTrace();
-				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+				error = "Username o Email non disponibili";
+				
 			}
     		
     		//Creazione riuscita e redirezione
 			if(userBean != null && userBean.getId() != -1) {
 				request.getSession().setAttribute("user", userBean);
 				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
-			}
-			else {
+			} else {
 				//Errore creazione e rinvio alla pagina di registrazione
-				error = "Errore nella registrazione"; 
 				request.setAttribute("errorMessage", error);
 				request.setAttribute("jspPath", "/register.jsp");
 				request.setAttribute("pageTitle", "Registrati");
