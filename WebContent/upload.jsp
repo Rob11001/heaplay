@@ -17,13 +17,15 @@
 		<input class="form-input-text" type="text" name="songName" id="songName" />
 	</div>
 	
-	<div class="form-field">
+	<div class="form-field" id="track-field">
 		<label class="file-input">Carica il Brano<input class="form-input-file" type="file" name="audio" id="audio" accept="audio/*" /></label>
-		<span id="check"><i class="fa fa-check"></i></span>
+		<span class="cross"><i class="fa fa-times"></i></span>
+		<span class="check"><i class="fa fa-check"></i></span>
 	</div>
 	
-	<div class="form-field" style="align-items: center">
+	<div class="form-field" id="image-field" style="align-items: center">
 		<label class="file-input">Carica l'Immagine<input class="form-input-file" type="file" name="image" id="image" accept="image/*" /></label>
+		<span class="cross"><i class="fa fa-times"></i></span>
 		<div class="song-image hidden" style="margin-left: 15px">
 			<img id="preview" alt="" src="">
 		</div>

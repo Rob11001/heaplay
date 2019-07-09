@@ -290,7 +290,7 @@ nav > a:visited, .dropbtn > a:visited {
 
 .song-info {
 	display: flex;
-	align-items: cente;
+	align-items: center;
 }
 
 .info {
@@ -479,13 +479,6 @@ form[name=fileUpload] {
 	margin-left: 3px;
 }
 
-#check {
-	align-self: center;
-	color: green;
-	display: none;
-	margin-left: 15px;
-}
-
 .added-tags {
 	margin-bottom: 20px;
 	display: flex;
@@ -554,6 +547,20 @@ form[name=fileUpload] {
 	display: none;
 }
 
+.check, .cross {
+	align-self: center;
+	display: none;
+	font-size: 20px;
+	margin-left: 15px;
+}
+
+.check {
+	color: green;
+}
+
+.cross {
+	color: red;
+}
 
 /* Responsive Design */
 

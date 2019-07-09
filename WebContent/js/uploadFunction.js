@@ -35,7 +35,8 @@ $(document).ready(() => {
 		let file = e.currentTarget.files["0"];
 		objectUrl = window.URL.createObjectURL(file);
 		$("#audioFake").prop("src", objectUrl);
-		$("#check").fadeIn(); /* Controllare se e' giusto che stia qui */
+		$("#track-field .file-input").nextAll(".check").fadeIn(); /* Controllare se e' giusto che stia qui */
+		$("#track-field .file-input").next(".cross").fadeOut();
 	});
 
 	//Preview dell'immagine
@@ -44,7 +45,7 @@ $(document).ready(() => {
 		let objectUrl = window.URL.createObjectURL(file);
 		$("#preview").prop("src", objectUrl);
 		$("#preview").parent().removeClass("hidden");
-		
+		$("#image-field .file-input").next(".cross").fadeOut();
 	});
 	
 });	

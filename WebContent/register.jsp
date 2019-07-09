@@ -16,26 +16,26 @@
 <hr class="hr-form">
 <form action="register" onsubmit="return validateForm()" method="post">
 
-	<label for="username">Username<br/></label>
+	<label for="username">Username*<br/></label>
 	<div class="form-field">
 		<span class="field-icon"><i class="fa fa-user"></i></span>
 		<input class="form-input-text" type="text" name="username" value="<%=username%>">
 	</div>
 	
 	
-	<label for="email">E-Mail<br/></label>
+	<label for="email">E-Mail*<br/></label>
 	<div class="form-field">
 		<span class="field-icon"><i class="fa fa-envelope"></i></span>
 		<input class="form-input-text" type="text" name="email" value="<%=email%>"><br/>
 	</div>
 	
-	<label for="password">Password<br/></label>
+	<label for="password">Password*<br/></label>
 	<div class="form-field">
 		<span class="field-icon"><i class="fa fa-key"></i></span>
 		<input class="form-input-text" type="password" name="password" value=""><br/>
 	</div>
 	
-	<label for="repeat-password">Ripeti Password<br/></label>
+	<label for="repeat-password">Ripeti Password*<br/></label>
 	<div class="form-field">
 		<span class="field-icon"><i class="fa fa-key"></i></span>
 		<input class="form-input-text" type="password" name="repeat-password" value=""><br/>
