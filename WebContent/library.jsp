@@ -14,14 +14,14 @@
 	<span class="user-name"><%=currentUser.getUsername()%></span>
 </div>
 
-<form action="/heaplay/uploadImage" name="fileUpload" method="POST" enctype="multipart/form-data"  >
+<form action="<%=response.encodeURL("/heaplay/uploadImage")%>" name="fileUpload" method="POST" enctype="multipart/form-data"  >
 	<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">
 	<input type="submit" id="srcImg" value="Carica" class="hidden"></input>
 </form>
 
 <nav class="content-nav">
-	<a class="trackButton <%=owned==null ? "selected": "" %>"  href="/heaplay/library">Caricati</a>
-	<a class="ownedTrackButton <%=owned!=null ? "selected": "" %>"  href="/heaplay/library?track=owned">Acquistati</a>
+	<a class="trackButton <%=owned==null ? "selected": "" %>"  href="<%=response.encodeURL("/heaplay/library") %>">Caricati</a>
+	<a class="ownedTrackButton <%=owned!=null ? "selected": "" %>"  href="<%=response.encodeURL("/heaplay/library?track=owned")%>">Acquistati</a>
 </nav> 
 
 <div class="user-tracks">
@@ -40,7 +40,7 @@
 		</div>
 	<%} %>
 	<br>
-	<form action="/heaplay/library<%=(owned!=null)? "?track=owned" : "" %>" method="POST">
+	<form action="<%=response.encodeURL("/heaplay/library"+ ((owned!=null) ? "track=owned" : ""))%>" method="POST">
 		<input type="hidden" value="<%=begin%>" name="begin" id="currentPage">
 		<%for( int i= 0; i< number; i+=5) {%>
 			<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	
@@ -53,7 +53,7 @@
 </div>
 
 <div class="playlist-form hidden">  
-  	<form class="playlist-form-content animate" action="/heaplay/uploadPlaylist" method="POST" onsubmit="return validatePlaylist(this)">
+  	<form class="playlist-form-content animate" action="<%=response.encodeURL("/heaplay/uploadPlaylist")%>" method="POST" onsubmit="return validatePlaylist(this)">
     	<div class="container" >
     		<span onclick="showHide($('.playlist-form'))" class="close" title="Chiudi">&times;</span>
 		</div>

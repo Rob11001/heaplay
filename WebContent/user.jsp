@@ -23,7 +23,7 @@
 
 <%
 if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
-	<form action="/heaplay/uploadImage" name="fileUpload" method="POST" enctype="multipart/form-data"  >
+	<form action="<%=response.encodeURL("/heaplay/uploadImage") %>" name="fileUpload" method="POST" enctype="multipart/form-data"  >
 		<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">
 		<input type="submit" id="srcImg" value="Carica" class="hidden"></input>
 	</form>
@@ -47,7 +47,7 @@ if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 			
 		<%} %>
 	</div>
-	<form action="/heaplay/user/<%=userPage.getUsername()%>" method="POST">
+	<form action="<%=response.encodeURL("/heaplay/user/"+userPage.getUsername()) %>" method="POST">
 		<input type="hidden" value="<%=begin%>" name="begin" id="currentPage"> 
 		<%for( int i= 0; i< number; i+=5) {%>
 			<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	

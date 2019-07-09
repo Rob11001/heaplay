@@ -23,7 +23,7 @@ import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
 
 
-@WebServlet("/track")
+@WebServlet("/filter/track")
 public class Track extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ public class Track extends HttpServlet {
 		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		
 		if(id == null || userName == null || trackName == null)
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));
 		else {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			TrackDao trackDao = new TrackDao(pool);
@@ -82,9 +82,9 @@ public class Track extends HttpServlet {
 				}
 				
 				request.setAttribute("currentTrack",track);
-				request.setAttribute("jspPath", "/track.jsp");
+				request.setAttribute("jspPath", response.encodeURL("/track.jsp"));
 				request.setAttribute("pageTitle", track.getName());
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 				rd.forward(request, response);
 			}
 		}

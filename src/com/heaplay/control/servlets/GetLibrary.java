@@ -28,7 +28,7 @@ public class GetLibrary extends HttpServlet {
 		String owned = request.getParameter("track");
 		
 		if(userBean == null)
-			response.sendRedirect(getServletContext().getContextPath()+"/login");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/login"));
 		else {
 			//Vedere cosa fare
 			Integer begin = request.getParameter("begin") == null ? 0 : Integer.parseInt(request.getParameter("begin"));
@@ -50,9 +50,9 @@ public class GetLibrary extends HttpServlet {
 		    	request.setAttribute("tracks", listOfTracks);
 		    	request.setAttribute("begin", begin);
 		    	request.setAttribute("numberOfTracks",numberOfTracks);
-		    	request.setAttribute("jspPath", "/library.jsp");
+		    	request.setAttribute("jspPath", response.encodeURL("/library.jsp"));
 				request.setAttribute("pageTitle", "Libreria");
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 				rd.forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();

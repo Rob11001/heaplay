@@ -26,7 +26,7 @@
 				</div>
 				<div class="info">
 					<span><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName().replaceAll("\\s","")%>?id=<%=track.getId()%>"><%=track.getName()%></a></span> <br>
-					<span>Di <a href="/heaplay/user/<%=track.getAuthorName()%>"><%=track.getAuthorName()%></a></span> <br>
+					<span>Di <a href="<%=response.encodeURL("/heaplay/user/"+track.getAuthorName()+"/"+track.getName().replaceAll("\\s","")+"?id="+track.getId()) %>"><%=track.getAuthorName()%></a></span> <br>
 					<span class="upload-date">Data : <%=track.getUploadDate()%></span> <br>
 					<span class="price"><%=(track.getType().equals("free")) ? "free" : (((PurchasableTrackBean)track).getPrice())%></span>
 				</div>

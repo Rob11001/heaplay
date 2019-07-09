@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.TrackBean;
-import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.TrackDao;
 
-@WebServlet("/removeTrack")
+@WebServlet("/admin/removeTrack")
 public class RemoveTrack extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,12 +23,11 @@ public class RemoveTrack extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String track_id = request.getParameter("track_id");
 		String disable = request.getParameter("disable");
 		String enable = request.getParameter("enable");
 		
-		if(user == null || !user.getAuth().equals("admin") || track_id == null)
+		if(track_id == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
 			TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));

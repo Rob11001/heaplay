@@ -17,7 +17,7 @@ import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.TrackDao;
 import com.heaplay.model.dao.UserDao;
 
-@WebServlet("/author")
+@WebServlet("/filter/author")
 public class User extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,9 +45,9 @@ public class User extends HttpServlet {
 	    		request.setAttribute("tracks", listOfTracks);
 	    		request.setAttribute("begin", begin);
 	    		request.setAttribute("numberOfTracks",numberOfTracks);
-	    		request.setAttribute("jspPath", "/user.jsp");
+	    		request.setAttribute("jspPath", response.encodeRedirectURL("/user.jsp"));
 				request.setAttribute("pageTitle", user);
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeRedirectURL("/_blank.jsp"));
 				rd.forward(request, response);
 			}else {
 				//Pagina di errore

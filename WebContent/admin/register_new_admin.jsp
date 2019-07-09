@@ -15,7 +15,7 @@
 		
 	<h2>Crea amministratore</h2>
 	<hr class="hr-form">
-	<form action="/heaplay/registerAdmin" onsubmit="return validateRegister(this)" method="post">
+	<form action="/heaplay/admin/registerAdmin" onsubmit="return validateRegister(this)" method="post">
 		<label for="username">Username<br/></label>
 		<input class="form-input-text" type="text" name="username" value="<%=username%>" required><br/>
 		
@@ -37,5 +37,5 @@
 	</form>
 <% } else {%>
 	<h3>Creato con successo</h3>
-	<a href="<%=response.encodeURL("/heaplay/operation?op=register")%>">Vuoi registrare un altro admin?</a>
+	<a href="<%=response.encodeURL("/heaplay/admin/operation?op=register")%>">Vuoi registrare un altro admin?</a>
 <% }%>

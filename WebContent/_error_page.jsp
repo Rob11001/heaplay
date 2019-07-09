@@ -25,7 +25,8 @@
 
 	<div class="error">
 		<!-- Trovare immagine da caricare -->
-		<span><%=error %><</span>>
+		<h3><span><%=error %></span></h3>
+		
 	</div>
 
 </body>

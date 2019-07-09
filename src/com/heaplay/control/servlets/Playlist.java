@@ -20,7 +20,7 @@ import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.PlaylistDao;
 import com.heaplay.model.dao.UserDao;
 
-@WebServlet("/playlist")
+@WebServlet("/filter/playlist")
 public class Playlist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,7 +33,7 @@ public class Playlist extends HttpServlet {
 		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		
 		if(user == null || playlistName == null)
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
 			try {
 				int start = (begin == null) ? 0 : Integer.parseInt(begin);
@@ -74,9 +74,9 @@ public class Playlist extends HttpServlet {
 						request.setAttribute("playlist", playlistBean);
 						request.setAttribute("number", size);
 						request.setAttribute("begin", start);
-						request.setAttribute("jspPath", "/playlist.jsp");
+						request.setAttribute("jspPath", response.encodeURL("/playlist.jsp"));
 						request.setAttribute("pageTitle", playlistBean.getName());
-						RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+						RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 						rd.forward(request, response);
 					}
 				}

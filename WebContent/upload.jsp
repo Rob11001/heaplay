@@ -9,7 +9,7 @@
 %>
 <h2>Carica</h2>
 <hr class="hr-form">
-<form action="upload" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()" autocomplete="off">
+<form action="<%=response.encodeURL("upload")%>" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()" autocomplete="off">
 				
 	<label for="songName">Nome del Brano*<br/></label>
 	<div class="form-field">
