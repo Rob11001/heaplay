@@ -94,6 +94,7 @@ public class Search extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
 			Gson gson = new Gson();
 			String objectJson = null;
 			

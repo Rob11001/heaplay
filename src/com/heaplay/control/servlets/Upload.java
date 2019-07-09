@@ -34,16 +34,18 @@ public class Upload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	//Lettura della sessione
     	HttpSession session = request.getSession();
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		
 		if(userBean != null) {
+			//Loggato
 			request.setAttribute("jspPath", response.encodeURL("/upload.jsp"));
 			request.setAttribute("pageTitle", "Upload");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 			rd.forward(request, response);
-		}
-		else {
+		} else {
+			//Non loggato
 			request.setAttribute("jspPath", "/login.jsp");
 			request.setAttribute("pageTitle", "Login");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
@@ -52,14 +54,13 @@ public class Upload extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Implementare upload e aggiungere i controlli necessari
+		// Lettura dei parametri
 		String trackName = request.getParameter("songName");
 		String radioBox = request.getParameter("purchasable");
 		String id = request.getParameter("authorId");
 		String duration = request.getParameter("duration");
 		String username = ((UserBean)request.getSession().getAttribute("user")).getUsername();
 		
-		//Aggiustare i tags
 		String[] tags = request.getParameterValues("tag");
 		ArrayList<TagBean> listTags = new ArrayList<TagBean>();
 		
@@ -68,7 +69,7 @@ public class Upload extends HttpServlet {
 			tagBean.setName(name);
 			listTags.add(tagBean);
 		}
-		
+		//Audio
 		Part audio = request.getPart("audio");
 		String audioFileName = audio.getSubmittedFileName();
 		System.out.println(audioFileName);
@@ -77,7 +78,7 @@ public class Upload extends HttpServlet {
 		byte[] audioBytes = audioStream.readAllBytes();
 		audioStream.close();
 
-		
+		//Immagine
 		Part image = request.getPart("image");
 		String imageFileName = image.getSubmittedFileName();
 		System.out.println(imageFileName);
@@ -105,12 +106,13 @@ public class Upload extends HttpServlet {
 			trackBean.setType("free");
 		else {
 			trackBean.setType("pagamento");
-			double price = Double.parseDouble(request.getParameter("price"));		//Dovremmo controllare che il prezzo passato � valido
+			double price = Double.parseDouble(request.getParameter("price"));	
 			purchasableTrack = new PurchasableTrackBean(trackBean);
 			purchasableTrack.setPrice(price);
 		}
 		
 		try {
+			//Creazione della track
 			if(purchasableTrack != null) {
 				PurchasableTrackDao purchasableTrackdao = new PurchasableTrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
 				purchasableTrackdao.doSave(purchasableTrack);
@@ -119,6 +121,7 @@ public class Upload extends HttpServlet {
 				trackDao.doSave(trackBean);
 			}
 			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));	
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(response.SC_INTERNAL_SERVER_ERROR);

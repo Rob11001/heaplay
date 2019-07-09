@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.UserBean;
@@ -25,13 +24,13 @@ public class RegisterAdmin extends HttpServlet {
 		request.setAttribute("pageTitle", "Registra admin");
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));	
 		rd.forward(request, response);
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
     	UserBean userBean = new UserBean();
-    	String username = request.getParameter("username");				//Lettura parametri
+    	//Lettura parametri
+    	String username = request.getParameter("username");				
     	String password = request.getParameter("password");
     	String email = request.getParameter("email");
     	String error = "";
@@ -40,50 +39,51 @@ public class RegisterAdmin extends HttpServlet {
     	if(username != null && !username.trim().equals(""))
     		request.setAttribute("username", username);
     	else
-    		error += "Username non inserito";
+    		error += "Username non inserito ";
   
     	if(password != null && !password.trim().equals(""))
     		request.setAttribute("password", password);
     	else 
-    		error += " Password non inserita";
+    		error += " Password non inserita ";
     	
     	if(email != null && !email.trim().equals(""))
     		request.setAttribute("email", email);
     	else
-    		error += "Email non inserita";
+    		error += "Email non inserita ";
     	
     	//Creazione dell'account
     	if(error.equals("")) {
+    		UserDao userDao = new UserDao(pool);
+    		
     		userBean.setEmail(email);
     		userBean.setPassword(password);
     		userBean.setUsername(username);
     		userBean.setActive(true);
     		userBean.setAuth("admin");
-    		UserDao userDao = new UserDao(pool);
     		
     		try {
 				userDao.doSave(userBean);
+				
 				ArrayList<String> keys = new ArrayList<String>();
 				keys.add(email);
-				keys.add(password);											//Problemi nel commit della query
+				keys.add(password);
 				userBean = userDao.doRetrieveByKey(keys);
 					
 			} catch (SQLException e) {
-				error = "Email o username già presenti"; 
-				e.printStackTrace();
+				error = "Email o username non disponibili"; 
 			}
     		
     		//Creazione riuscita e redirezione
 			if(userBean != null && userBean.getId() != -1) {
+				//Flag per indicare che la creazione è avvenuta con successo
 				request.getSession().setAttribute("created", "true");
 				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/admin/operation?op=register"));
-			}
-			else {
+			} else {
 				//Errore creazione e rinvio alla pagina di registrazione
-				error = "Email o username già presenti"; 
 				request.setAttribute("errorMessage", error);
 				request.setAttribute("jspPath", response.encodeURL("admin/register_new_admin.jsp"));
 				request.setAttribute("pageTitle", "Registra admin");
+				//Forward
 				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));	
 				rd.forward(request, response);
 			}

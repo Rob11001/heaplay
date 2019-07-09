@@ -27,26 +27,30 @@ public class User extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		String user = (String) request.getAttribute("userName");
     	Integer begin = request.getParameter("begin") == null ? 0 : Integer.parseInt(request.getParameter("begin"));
-		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
-		UserDao userDao = new UserDao(pool);
-		TrackDao trackDao = new TrackDao(pool);
 		UserBean currentUser = null;
 		ArrayList<TrackBean> listOfTracks = null;
 		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		
 		try {
+			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
+			UserDao userDao = new UserDao(pool);
+			TrackDao trackDao = new TrackDao(pool);
+			
 			currentUser = userDao.doRetrieveByName(user);
-			if(currentUser != null && currentUser.isActive()) {
+			if(currentUser != null && currentUser.isActive()) {	//Controllo se l'utente esiste ed è attivo
 				listOfTracks = trackDao.getTracksByAuthor(currentUser.getId(),begin,5,"");
 				int numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
+				
 				request.setAttribute("user", currentUser);
 	    		request.setAttribute("tracks", listOfTracks);
 	    		request.setAttribute("begin", begin);
 	    		request.setAttribute("numberOfTracks",numberOfTracks);
 	    		request.setAttribute("jspPath", response.encodeRedirectURL("/user.jsp"));
 				request.setAttribute("pageTitle", user);
+				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeRedirectURL("/_blank.jsp"));
 				rd.forward(request, response);
 			}else {

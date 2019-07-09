@@ -15,12 +15,14 @@ public class Logout extends HttpServlet {
        
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if(session != null) {									//Invalidamento della sessione
+		//Invalidamento della sessione
+		if(session != null) {									
 			session.removeAttribute("user");
 			session.removeAttribute("cart");
 			session.invalidate();	
 		}	
-		response.sendRedirect(getServletContext().getContextPath()+"/home");	//Redirezione alla home
+		//Redirezione alla home
+		response.sendRedirect(getServletContext().getContextPath()+"/home");	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -30,7 +30,7 @@ public class GetTags extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-	//Non funziona capire perch�
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Setto il content-type a json
 		response.setContentType("application/json");
@@ -47,7 +47,7 @@ public class GetTags extends HttpServlet {
 				return tagA.getName().compareToIgnoreCase(tagB.getName());
 			});
 			//Lettura parametri e selezione nella lista di quelli che corrispondono
-			String term = request.getParameter("query");			//Capire quale parametro leggere
+			String term = request.getParameter("query");			
 			listOfTags = (ArrayList<Bean>) listOfTags.stream().filter(p -> ((TagBean)p).getName().contains(term)).collect(Collectors.toList());
 			
 			//Creazione array

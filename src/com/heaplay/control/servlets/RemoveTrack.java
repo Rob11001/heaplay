@@ -23,6 +23,7 @@ public class RemoveTrack extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		String track_id = request.getParameter("track_id");
 		String disable = request.getParameter("disable");
 		String enable = request.getParameter("enable");
@@ -30,21 +31,28 @@ public class RemoveTrack extends HttpServlet {
 		if(track_id == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
+			
 			TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
 			ArrayList<String> keys = new ArrayList<String>();
 			keys.add(track_id);
+			
 			try {
+				//Lettura track
 				TrackBean track = (TrackBean) trackDao.doRetrieveByKey(keys); 
+				
 				if(track == null) {
 					//Fare qualcosa
 				} else {
 					if(enable != null) {
+						//Riabilito la track
 						track.setIndexable(true);
 						trackDao.doUpdate(track);
 					} else if(track.getType().equals("pagamento") || disable != null ) {
+						//Disabilito la track
 						track.setIndexable(false);
 						trackDao.doUpdate(track);
 					} else {
+						//La cancello
 						trackDao.doDelete(keys);
 					}
 				}
@@ -53,7 +61,6 @@ public class RemoveTrack extends HttpServlet {
 				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 			}
 		}
-	
 	}
 
 }

@@ -26,20 +26,27 @@ public class Purchase extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	//Lettura della sessione
     	HttpSession session = request.getSession();
     	UserBean user = (UserBean) session.getAttribute("user");
     	Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart");
     	
+    	//Controllo che il carrello abbia almeno un elemento
     	if(user == null || cart == null || cart.getItems().size() == 0)
     		response.sendRedirect(getServletContext().getContextPath()+"/home");
     	else {
-    		ArrayList<TrackBean> list = (ArrayList<TrackBean>) cart.getItems();
+    		//Dao
     		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
     		OwnedTrackDao ownedTrackDao = new OwnedTrackDao(pool);
     		PurchasableTrackDao purchasableTrackDao = new PurchasableTrackDao(pool);
+    		
+    		//Track da acquistare
+    		ArrayList<TrackBean> list = (ArrayList<TrackBean>) cart.getItems();
+    		
     		try {
 				for(int i=0; i < list.size(); i++) {
 					PurchasableTrackBean purchasableTrackBean = null;
+					//Controllo se a pagamento o meno
 					if(list.get(i).getType().equals("free")) 
 						purchasableTrackBean = new PurchasableTrackBean(list.get(i));
 					else {
@@ -47,6 +54,7 @@ public class Purchase extends HttpServlet {
 						purchasableTrackBean.setSold(purchasableTrackBean.getSold()+1);
 						purchasableTrackDao.doUpdate(purchasableTrackBean);
 					}
+					//Creazione delle ownedTracks
 					OwnedTrackBean track = new OwnedTrackBean(purchasableTrackBean);
 					track.setUserId(user.getId());
 					track.setPurchaseDate(new Timestamp(System.currentTimeMillis()));	
@@ -57,6 +65,7 @@ public class Purchase extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+    		//Pulizia del carrello
     		cart.getItems().clear();
     	}
     		
