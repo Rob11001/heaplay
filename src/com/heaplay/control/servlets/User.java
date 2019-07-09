@@ -40,7 +40,7 @@ public class User extends HttpServlet {
 			TrackDao trackDao = new TrackDao(pool);
 			
 			currentUser = userDao.doRetrieveByName(user);
-			if(currentUser != null && currentUser.isActive()) {	//Controllo se l'utente esiste ed è attivo
+			if(currentUser != null && currentUser.isActive() && !currentUser.getAuth().equals("admin")) {	//Controllo se l'utente esiste ed è attivo
 				listOfTracks = trackDao.getTracksByAuthor(currentUser.getId(),begin,5,"");
 				int numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
 				

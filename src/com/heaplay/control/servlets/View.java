@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.TrackBean;
-import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
 
 @WebServlet("/view")
@@ -29,33 +28,23 @@ public class View extends HttpServlet {
 			response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));
 		else {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
-			PurchasableTrackDao purchasableTrackDao = new PurchasableTrackDao(pool);
+			TrackDao trackDao = new TrackDao(pool);
 			
 			TrackBean bean = null;
 			List<String> keys = new ArrayList<String>();
 			keys.add(id);
 			
 			try {
-				//Lettura della track aumento like o plays e aggiornamento
-				bean = (TrackBean) purchasableTrackDao.doRetrieveByKey(keys);
-				if(bean == null) {
-					TrackDao trackDao = new TrackDao(pool);
-					bean = (TrackBean) trackDao.doRetrieveByKey(keys);
-					if(bean != null) {
-						if(like == null)
-							bean.setPlays(bean.getPlays()+1);
-						else 
-							bean.setLikes(bean.getLikes()+1);
-						trackDao.doUpdate(bean);
-					} else 
-						response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));
-				} else {
+				//Lettura della track, aumento likes o plays e aggiornamento
+				bean = (TrackBean) trackDao.doRetrieveByKey(keys);
+				if(bean != null) {
 					if(like == null)
 						bean.setPlays(bean.getPlays()+1);
 					else 
 						bean.setLikes(bean.getLikes()+1);
-					purchasableTrackDao.doUpdate(bean);
+					trackDao.doUpdate(bean);
 				}
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
