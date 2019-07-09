@@ -33,7 +33,7 @@
 			<%	} %>
 		</span><br/>
 		
-		<button class="form-input-button" type="submit">Registrati</button>
+		<button type="submit">Registrati</button>
 	</form>
 <% } else {%>
 	<h3>Creato con successo</h3>

@@ -241,9 +241,9 @@ nav > a:visited, .dropbtn > a:visited {
 }
 
 
-/******************************** Player Style ********************************/
+/******************************** Song & Playlist Style ********************************/
 
-.song {
+.song, .playlist {
 	display: flex;
 	white-space: nowrap;
 }
@@ -253,25 +253,20 @@ nav > a:visited, .dropbtn > a:visited {
 	background-color: transparent;
 }
 
-.song-image {
+.song-image, .playlist-image {
 	display: inline;
 }
 
-.song-image img {
+.song-image img, .playlist-image img {
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 	height: 110px;
 	width: 110px;
 }
 
-.song-content {
+.song-content, .playlist-content {
 	display: inline;
 	padding-left: 10px;
 }
-
-.author {
-	display: inline;
-}
-
 
 .circle-icon, .song .play, .song .pause {
 	height: 35px;
@@ -302,11 +297,12 @@ nav > a:visited, .dropbtn > a:visited {
 }
 
 .author {
-	font-size: 0.8em;
 	color: gray;	
+	display: inline;
+	font-size: 0.8em;
 }
 
-.song-name {
+.song-name, .playlist-name{
 	font-weight: 600;
 }
 
@@ -362,28 +358,46 @@ nav > a:visited, .dropbtn > a:visited {
 
 /******************************** User Page ********************************/
 
-.user-header {
+.page-header {
 	background-image: linear-gradient(to bottom right, 	rgba(128,128,128, 1) 5%, rgba(80, 80, 80, 0));
 	display: flex;
 	margin: -10px -20px 10px -20px;
 	padding: 15px 10px 10px 10px;
 }
 
-.user-image {
+.page-image {
 	border-radius: 50%;
 	height: 160px;
+	transition: opacity 0.3s linear;
 	width: 160px;
 }
 
-.user-name {
+.page-image:hover {
+	cursor: pointer;
+	opacity: 0.6;
+}
+
+.page-name, .page-subname {
 	background-color: var(--main-black);
 	color: white;
 	display: table;
-	font-size: 1.5em;
 	margin-left: 15px;
 	margin-top: 5px;
 	padding: 2px 3px;
 }
+
+.page-name {
+	font-size: 1.5em;
+}
+
+.page-subname a {
+	color: white;
+}
+
+#srcImg {
+
+}
+
 
 /******************************** Form ********************************/
 
@@ -411,7 +425,7 @@ form[name=fileUpload] {
 	padding: 4px 8px;
 }
 
-.form-input-text, .form-input-button, .file-input {
+.form-input-text, button, .file-input {
 	border-radius: 2px;
 	font-size: 1.1em;
 }
@@ -428,7 +442,7 @@ form[name=fileUpload] {
 	border: 1px solid var(--main-black);
 }
 
-.form-input-button, .file-input {
+button, .file-input {
 	background-color: var(--main-orange);
 	color: white;
 	cursor: pointer;
@@ -444,7 +458,7 @@ form[name=fileUpload] {
 	vertical-align: middle;
 }
 
-.form-input-button:hover, .file-input:hover {
+button:hover, .file-input:hover {
 	background-color: var(--main-orange-shade);
 }
 
@@ -486,9 +500,10 @@ form[name=fileUpload] {
 }
 
 .tag {
-	border: 1px solid var(--main-orange);
+	border: 2px solid var(--main-orange);
 	border-radius: 20px;
 	cursor: pointer;
+	font-size: 1em;
 	margin: 3px;
 	text-align: center;
 }
@@ -560,6 +575,19 @@ form[name=fileUpload] {
 
 .cross {
 	color: red;
+}
+
+.relative-container {
+	position: relative;
+}
+
+.middle-bottom {
+	left: 50%;
+	position: absolute;
+	text-align: center;
+	top: 75%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 /* Responsive Design */
@@ -639,7 +667,7 @@ form[name=fileUpload] {
 		}
 	}
 	
-	.user-header {
+	.page-header {
 		margin-left: -8px;
 		margin-right: -8px;
 	}	

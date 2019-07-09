@@ -10,9 +10,17 @@
 
 %>
 
-<div class="user-header">
-	<img class="user-image" src="/heaplay/getImage?id=<%=userPage.getId()%>&user=true" onclick = "inputFile($('#image'))"  width="150px">
-	<span class="user-name"><%=userPage.getUsername()%></span>
+<div class="page-header">
+	<div class="relative-container">
+		<img class="page-image" src="/heaplay/getImage?id=<%=userPage.getId()%>&user=true" onclick = "inputFile($('#image'))">
+		<%if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
+		<form class="middle-bottom" action="<%=response.encodeURL("/heaplay/uploadImage") %>" name="fileUpload" method="POST" enctype="multipart/form-data">
+			<input id="image" type="file" name ="image" accept="image/*" class ="hidden">
+			<button type="submit" id="srcImg"class="hidden">Conferma</button>
+		</form>
+	<%} %>
+	</div>
+	<span class="page-name"><%=userPage.getUsername()%></span>
 	<%if (currentUser != null && currentUser.getAuth().equals("admin")) {%>
 		<form action="/heaplay/removeUser" method="POST">
 			<input type="hidden" name="user_id" value="<%=userPage.getId()%>">
@@ -21,13 +29,7 @@
 	<% } %>
 </div>
 
-<%
-if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
-	<form action="<%=response.encodeURL("/heaplay/uploadImage") %>" name="fileUpload" method="POST" enctype="multipart/form-data"  >
-		<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">
-		<input type="submit" id="srcImg" value="Carica" class="hidden"></input>
-	</form>
-<%} %>
+
 <nav class="content-nav">
 	<a class="trackButton selected" onclick="selection(this,$('.playlistButton'),$('.user-playlist'),$('.user-tracks'))" href="#">Brani Caricati</a>
 	<a class="playlistButton" onclick="selection(this,$('.trackButton'),$('.user-tracks'),$('.user-playlist')),getPlaylist($('.user-playlist'))" href="#">Playlist</a>

@@ -127,25 +127,3 @@
   to {transform: scale(1)}
 }
 
-/*** Playlist ***/
-.playlist {
-	display: inline-flex;
-	flex-direction: column;
-	padding: 10px;
-}
-
-.playlist img {
-	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-	height: 100px;
-	width: 100px;
-}
-
-.playlist-info {
-	display: flex;
-	flex-direction: column; 
-}
-
-.playlist-info span{
-	padding: 2px;
-}
-

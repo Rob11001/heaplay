@@ -49,7 +49,7 @@
 	<%	} %>
 	</span><br/>
 	
-	<button class="form-input-button" type="submit">Registrati</button>
+	<button type="submit">Registrati</button>
 </form>
 
 <script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>

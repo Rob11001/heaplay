@@ -9,15 +9,17 @@
 	String owned = (String) request.getAttribute("owned");
 %>
 
-<div class="user-header">
-	<img class="user-image" src="/heaplay/getImage?id=<%=currentUser.getId()%>&user=true" onclick = "inputFile($('#image'))"  width="150px">
-	<span class="user-name"><%=currentUser.getUsername()%></span>
-</div>
 
-<form action="<%=response.encodeURL("/heaplay/uploadImage")%>" name="fileUpload" method="POST" enctype="multipart/form-data"  >
-	<input id = "image" type="file" name ="image" accept="image/*" class ="hidden">
-	<input type="submit" id="srcImg" value="Carica" class="hidden"></input>
-</form>
+<div class="page-header">
+	<div class="relative-container">
+	<img class="page-image" src="/heaplay/getImage?id=<%=currentUser.getId()%>&user=true" onclick = "inputFile($('#image'))">
+		<form class="middle-bottom" action="<%=response.encodeURL("/heaplay/uploadImage")%>" name="fileUpload" method="POST" enctype="multipart/form-data">
+			<input id="image" type="file" name ="image" accept="image/*" class ="hidden">
+			<button type="submit" id="srcImg"class="hidden">Conferma</button>
+		</form>
+	</div>
+	<span class="page-name"><%=currentUser.getUsername()%></span>
+</div>
 
 <nav class="content-nav">
 	<a class="trackButton <%=owned==null ? "selected": "" %>"  href="<%=response.encodeURL("/heaplay/library") %>">Caricati</a>
@@ -76,7 +78,7 @@
     			
     			<input type="hidden" name="track_id" id="track_id">
     			<div>
-    				<input class="button" type="submit" value="Aggiungi">
+    				<button class="button" type="submit" >Aggiungi</button>
     				<button class="close-button" type="button" onclick="showHide($('.playlist-form'))">Annulla</button>
     			</div>
     		</div>

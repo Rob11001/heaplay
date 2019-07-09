@@ -12,12 +12,18 @@ Integer begin = (Integer) request.getAttribute("begin");
 
 %>
 
-<div id = "playlist-page">
-	<h3>Playlist</h3>
-	<p>Qui mettiamo un logo e uno sfondo con nome dell'autore della playlist</p>
-	<!-- Settare una grandezza migliore per le frecce -->
-	<a onclick="prev()"><i class="fas fa-chevron-circle-left"></i></a> <a onclick="next()"><i class="fas fa-chevron-circle-right"></i></a>
+<div class="page-header">
+	<img class="page-image" src="/heaplay/getImage?id=<%=listOfTracks.get(0).getId()%>&extension=<%=listOfTracks.get(0).getImageExt()%>" onclick = "inputFile($('#image'))"  width="150px">
+	<div>
+		<span class="page-name"><%=playlist.getName()%></span>
+		<span class="page-subname"><a href="<%=response.encodeURL("/heaplay/user/"+playlist.getAuthorName())%>"><%=playlist.getAuthorName()%></a></span>
+	</div>
 </div>
+
+<!-- Settare una grandezza migliore per le frecce -->
+<a onclick="prev()"><i class="fas fa-chevron-circle-left"></i></a><!--
+ --><a onclick="next()"><i class="fas fa-chevron-circle-right"></i></a>
+
 
 <div class="user-tracks">
 	<%if(listOfTracks.size() == 0) { %>

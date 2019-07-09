@@ -33,7 +33,7 @@
 	<%	} %>
 	</span><br/>
 
-	<button class="form-input-button" type="submit">Login</button>
+	<button type="submit">Login</button>
 </form>
 
 <script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>

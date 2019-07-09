@@ -18,14 +18,12 @@
 	<div id="playlists">
 		<h3>Playlist più ascoltate</h3>
 		<div class="flex-container">
-	
 		</div>
 	</div>
 
 	<div id="songs">
 		<h3>Canzoni più ascoltate</h3>
 		<div class="flex-container">
-	
 		</div>
 	</div>
 <% } %>

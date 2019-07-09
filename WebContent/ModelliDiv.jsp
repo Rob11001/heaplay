@@ -20,11 +20,14 @@
 
 //Esempio div di una playlist
 <div class='playlist'>
-	<a href='/heaplay/user/bean.authorName/playlist/bean.name'><img width='100px' alt='Non trovata' src='/heaplay/getImage?id=" + bean.tracks[0].id + "&extension=...&user=true'></a>
-	<div class='playlist-info'>
-		<span><a href='/heaplay/user/bean.authorName/playlist/bean.name'>bean.name</a></span>	<br>
-		<span><a href='/heaplay/user/bean.authorName'>bean.authorName</a></span>
-	</div>
+    <div class='playlist-image'>
+    	<img alt='Non trovata' src='/heaplay/getImage?id=" + (bean.tracks.length > 0 ? bean.tracks[0].id : -1) + "'>
+    </div>
+    <div class='playlist-content'>
+    	<span class='author'><a href='/heaplay/user/" + bean.authorName + "'>" + bean.authorName + "</a></span>
+        <br/>
+        <span class='playlist-name'><a href='/heaplay/user/" + bean.authorName + "/playlist/" + bean.name + "'>" + bean.name + "</a></span>
+    </div>
 </div>
 
 //Esempio div di una track
