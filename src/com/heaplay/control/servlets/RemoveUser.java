@@ -17,7 +17,7 @@ import com.heaplay.model.dao.TrackDao;
 import com.heaplay.model.dao.UserDao;
 
 
-@WebServlet("/removeUser")
+@WebServlet("/admin/removeUser")
 public class RemoveUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,12 +27,11 @@ public class RemoveUser extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String user_id = request.getParameter("user_id");
 		String disable = request.getParameter("disable");
 		String enable  = request.getParameter("enable");
 		
-		if(user == null || !user.getAuth().equals("admin") || user_id == null)
+		if(user_id == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
@@ -70,7 +69,6 @@ public class RemoveUser extends HttpServlet {
 					userBean.setActive(true);
 					userDao.doUpdate(userBean);
 				}
-				response.sendRedirect(getServletContext().getContextPath()+"/home");
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {

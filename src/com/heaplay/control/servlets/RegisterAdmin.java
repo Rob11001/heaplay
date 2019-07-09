@@ -16,22 +16,16 @@ import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.UserDao;
 
-@WebServlet("/registerAdmin")
+@WebServlet("/admin/registerAdmin")
 public class RegisterAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		UserBean userBean = (UserBean) session.getAttribute("user");
-		
-		if(userBean != null && !userBean.getAuth().equals("admin"))														
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
-		else {
-			request.setAttribute("jspPath", "admin/register_new_admin.jsp");
-			request.setAttribute("pageTitle", "Registra admin");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");	
-			rd.forward(request, response);
-		}	
+		request.setAttribute("jspPath", "admin/register_new_admin.jsp");
+		request.setAttribute("pageTitle", "Registra admin");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");	
+		rd.forward(request, response);
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -82,7 +76,7 @@ public class RegisterAdmin extends HttpServlet {
     		//Creazione riuscita e redirezione
 			if(userBean != null && userBean.getId() != -1) {
 				request.getSession().setAttribute("created", "true");
-				response.sendRedirect(getServletContext().getContextPath()+"/operation?op=register");
+				response.sendRedirect(getServletContext().getContextPath()+"/admin/operation?op=register");
 			}
 			else {
 				//Errore creazione e rinvio alla pagina di registrazione

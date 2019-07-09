@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.beans.UserBean;
 
-@WebServlet("/operation")
+@WebServlet("/admin/operation")
 public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -21,7 +21,7 @@ public class Admin extends HttpServlet {
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		
 		
-		if(user == null || !user.getAuth().equals("admin") || operation == null) 
+		if(user == null || operation == null) 
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
 			if(operation.equals("register")) {
@@ -35,7 +35,7 @@ public class Admin extends HttpServlet {
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
 				rd.forward(request, response);
 			} else if(operation.equals("info")) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/info");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/info");
 				rd.forward(request, response);
 			} else {
 				response.sendRedirect(getServletContext().getContextPath()+"/home");

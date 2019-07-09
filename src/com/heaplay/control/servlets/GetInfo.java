@@ -1,7 +1,6 @@
 package com.heaplay.control.servlets;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
 import com.heaplay.model.dao.UserDao;
 
-@WebServlet("/info")
+@WebServlet("/admin/info")
 public class GetInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
