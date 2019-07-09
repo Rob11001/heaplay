@@ -25,11 +25,11 @@ public class Register extends HttpServlet {
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		
 		if(userBean != null)														//Se gi� loggato lo mando alla Home
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
-			request.setAttribute("jspPath", "/register.jsp");
+			request.setAttribute("jspPath", response.encodeURL("/register.jsp"));
 			request.setAttribute("pageTitle", "Registrati");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");	//Altrimenti lo mando alla pagian di registrazione
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));	//Altrimenti lo mando alla pagian di registrazione
 			rd.forward(request, response);
 		}
 	}
@@ -82,7 +82,7 @@ public class Register extends HttpServlet {
     		//Creazione riuscita e redirezione
 			if(userBean != null && userBean.getId() != -1) {
 				request.getSession().setAttribute("user", userBean);
-				response.sendRedirect(getServletContext().getContextPath()+"/home");
+				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 			}
 			else {
 				//Errore creazione e rinvio alla pagina di registrazione

@@ -30,15 +30,15 @@ public class Admin extends HttpServlet {
 					request.setAttribute("success", created);
 					request.getSession().removeAttribute("created");
 				}
-				request.setAttribute("jspPath", "admin/register_new_admin.jsp");
+				request.setAttribute("jspPath", response.encodeURL("admin/register_new_admin.jsp"));
 				request.setAttribute("pageTitle", "Crea amministratore");
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 				rd.forward(request, response);
 			} else if(operation.equals("info")) {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/info");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/admin/info"));
 				rd.forward(request, response);
 			} else {
-				response.sendRedirect(getServletContext().getContextPath()+"/home");
+				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 			}
 		}
 		

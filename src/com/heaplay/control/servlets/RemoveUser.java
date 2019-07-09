@@ -32,7 +32,7 @@ public class RemoveUser extends HttpServlet {
 		String enable  = request.getParameter("enable");
 		
 		if(user_id == null)
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			UserDao userDao = new UserDao(pool);

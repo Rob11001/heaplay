@@ -38,9 +38,9 @@ public class Upload extends HttpServlet {
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		
 		if(userBean != null) {
-			request.setAttribute("jspPath", "/upload.jsp");
+			request.setAttribute("jspPath", response.encodeURL("/upload.jsp"));
 			request.setAttribute("pageTitle", "Upload");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 			rd.forward(request, response);
 		}
 		else {
@@ -118,7 +118,7 @@ public class Upload extends HttpServlet {
 				TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
 				trackDao.doSave(trackBean);
 			}
-			response.sendRedirect(getServletContext().getContextPath()+"/home");	
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(response.SC_INTERNAL_SERVER_ERROR);

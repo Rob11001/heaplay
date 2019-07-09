@@ -25,11 +25,11 @@ public class Login extends HttpServlet {
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		
 		if(userBean != null)
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
-			request.setAttribute("jspPath", "/login.jsp");
+			request.setAttribute("jspPath", response.encodeURL("/login.jsp"));
 			request.setAttribute("pageTitle", "Login");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 			rd.forward(request, response);
 		}
 	}
@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
 		ArrayList<String> userKeys = new ArrayList<String>();
 		String errorMessage = "";
 		if(userBean != null)													//Controllo esistenza UserBean
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
 			String email = request.getParameter("email");						//Controllo parametri
 			
@@ -67,7 +67,7 @@ public class Login extends HttpServlet {
 					//Autenticazione dell'utente con redirezione
 					if(userBean != null && userBean.getId()!= -1) {
 						session.setAttribute("user", userBean);
-						response.sendRedirect(getServletContext().getContextPath()+"/home");
+						response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 					}
 					else {
 						errorMessage = "Email o password inserita non valida"; 

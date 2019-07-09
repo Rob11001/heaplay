@@ -27,8 +27,8 @@
 					<i class="fa fa-play color-white"></i>
 			</button>
 			<div>
-				<span class="author"><a href="/heaplay/user/<%=track.getAuthorName()%>"><%=track.getAuthorName()%></a></span><br>
-				<span class="song-name"><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName().replaceAll("\\s","")%>?id=<%=track.getId()%>"><%=track.getName()%></a></span>
+				<span class="author"><a href="<%=response.encodeURL("/heaplay/user/"+track.getAuthorName())%>"><%=track.getAuthorName()%></a></span><br>
+				<span class="song-name"><a href="<%=response.encodeURL("/heaplay/user/"+track.getAuthorName()+"/"+track.getName().replaceAll("\\s","")+"?id="+track.getId()) %>"><%=track.getName()%></a></span>
 			</div>
 		</div>
 		

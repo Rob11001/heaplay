@@ -27,7 +27,7 @@ public class RemoveTrackFromPlaylist extends HttpServlet {
 		String play_id = request.getParameter("play_id");
 		
 		if(user == null || track_id == null || play_id == null) 
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			PlaylistDao playlistDao =  new PlaylistDao(pool);

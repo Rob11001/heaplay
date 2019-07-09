@@ -28,7 +28,7 @@ public class UploadPlaylist extends HttpServlet {
 		String privacy = request.getParameter("privacy");	//Vedere come realizzarlo
 		
 		if(user == null || track_id == null || playlistName == null) 
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			PlaylistDao playlistDao = new PlaylistDao(pool);
@@ -62,7 +62,7 @@ public class UploadPlaylist extends HttpServlet {
 				} else 
 					//Vedere cosa fare; 
 					;
-				response.sendRedirect(getServletContext().getContextPath()+"/library");
+				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/library"));
 			} catch (SQLException e) {
 				e.printStackTrace();
 				response.sendError(response.SC_INTERNAL_SERVER_ERROR);

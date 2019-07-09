@@ -21,9 +21,9 @@ public class RegisterAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("jspPath", "admin/register_new_admin.jsp");
+		request.setAttribute("jspPath", response.encodeURL("admin/register_new_admin.jsp"));
 		request.setAttribute("pageTitle", "Registra admin");
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");	
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));	
 		rd.forward(request, response);
 	
 	}
@@ -76,15 +76,15 @@ public class RegisterAdmin extends HttpServlet {
     		//Creazione riuscita e redirezione
 			if(userBean != null && userBean.getId() != -1) {
 				request.getSession().setAttribute("created", "true");
-				response.sendRedirect(getServletContext().getContextPath()+"/admin/operation?op=register");
+				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/admin/operation?op=register"));
 			}
 			else {
 				//Errore creazione e rinvio alla pagina di registrazione
 				error = "Email o username già presenti"; 
 				request.setAttribute("errorMessage", error);
-				request.setAttribute("jspPath", "admin/register_new_admin.jsp");
+				request.setAttribute("jspPath", response.encodeURL("admin/register_new_admin.jsp"));
 				request.setAttribute("pageTitle", "Registra admin");
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");	
+				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));	
 				rd.forward(request, response);
 			}
     	}

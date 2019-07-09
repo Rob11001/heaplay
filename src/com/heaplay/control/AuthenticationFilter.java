@@ -24,7 +24,7 @@ public class AuthenticationFilter implements Filter {
 			chain.doFilter(request,response);
 		else {
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendRedirect(request.getServletContext().getContextPath()+"/home");
+			httpResponse.sendRedirect(request.getServletContext().getContextPath()+"/home"); //Vedere dove indirizzare
 		}
 			
 	}

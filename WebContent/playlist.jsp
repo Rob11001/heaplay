@@ -36,7 +36,7 @@ Integer begin = (Integer) request.getAttribute("begin");
 	<%} %>
 	<br>
 
-<form action="/heaplay/user/<%=userPage.getUsername()%>/playlist/<%=playlist.getName()%>?id=<%=playlist.getId()%>" method="POST"> 
+<form action="<%=response.encodeURL("/heaplay/user/"+userPage.getUsername()+"/playlist/"+playlist.getName()+"?id="+playlist.getId()) %>" method="POST"> 
 		<input type="hidden" value="<%=begin%>" name="begin" id="currentPage">
 		<%for( int i= 0; i< number; i+=10) {%>
 			<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	

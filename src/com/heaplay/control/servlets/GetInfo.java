@@ -40,9 +40,9 @@ public class GetInfo extends HttpServlet {
 			request.setAttribute("mostLiked", listOfLiked);
 			request.setAttribute("mostSold", listOfSold);
 			
-			request.setAttribute("jspPath", "admin/info.jsp");
+			request.setAttribute("jspPath", response.encodeURL("admin/info.jsp"));
 			request.setAttribute("pageTitle", "Info");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 			rd.forward(request, response);
 			
 		} catch (SQLException e) {

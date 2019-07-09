@@ -109,7 +109,7 @@ public class Search extends HttpServlet {
 			response.getWriter().write(objectJson);
 		}
 		else 
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		
 	}
 

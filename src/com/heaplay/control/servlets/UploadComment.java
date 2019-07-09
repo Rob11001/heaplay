@@ -26,7 +26,7 @@ public class UploadComment extends HttpServlet {
 		String comment = request.getParameter("comment");
 		
 		if(user == null || track_id == null || comment == null)
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
 			CommentDao commentDao = new CommentDao((ConnectionPool) getServletContext().getAttribute("pool"));
 			CommentBean commentBean = new CommentBean();

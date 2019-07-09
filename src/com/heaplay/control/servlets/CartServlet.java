@@ -27,7 +27,7 @@ public class CartServlet extends HttpServlet {
     	Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart"); 
     	
     	if(user == null) 
-    		response.sendRedirect(getServletContext().getContextPath()+"/login");
+    		response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/login"));
     	else {
     		if(cart == null) {
     			TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
@@ -39,9 +39,9 @@ public class CartServlet extends HttpServlet {
 					e.printStackTrace();
 				}
     		}
-    		request.setAttribute("jspPath", "/cart.jsp");
+    		request.setAttribute("jspPath", response.encodeURL("/cart.jsp"));
 			request.setAttribute("pageTitle", "Carrello");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/_blank.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher( response.encodeURL("/_blank.jsp"));
 			rd.forward(request, response);
     	}
 	}

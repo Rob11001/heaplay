@@ -31,17 +31,17 @@ public class RewriteUrl extends HttpServlet {
     	
     	if(params.length == 5 && params[params.length - 3].equals("user")) {
     		request.setAttribute("userName", params[params.length-2]);
-    		request.setAttribute("trackName", params[params.length-1]);
-    		RequestDispatcher rd = getServletContext().getRequestDispatcher("/track");
+    		request.setAttribute("trackName",  params[params.length-1].substring(0, params[params.length-1].indexOf(';') != -1 ? params[params.length-1].indexOf(';') : params[params.length-1].length()));
+    		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/filter/track"));
     		rd.forward(request, response);
     	} else if(params.length == 6 && params[params.length - 2].equals("playlist") && params[params.length - 4].equals("user")){
     		request.setAttribute("userName", params[params.length-3]);
-    		request.setAttribute("playlistName", params[params.length-1]);
-    		RequestDispatcher rd = getServletContext().getRequestDispatcher("/playlist");
+    		request.setAttribute("playlistName",  params[params.length-1].substring(0, params[params.length-1].indexOf(';') != -1 ? params[params.length-1].indexOf(';') : params[params.length-1].length()));
+    		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/filter/playlist"));
     		rd.forward(request, response);
     	} else if(params.length == 4 && params[params.length - 2].equals("user")){
-	    	request.setAttribute("userName", params[params.length-1]);
-	    	RequestDispatcher rd = getServletContext().getRequestDispatcher("/author");
+	    	request.setAttribute("userName", params[params.length-1].substring(0, params[params.length-1].indexOf(';') != -1 ? params[params.length-1].indexOf(';') : params[params.length-1].length()));
+	    	RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/filter/author"));
     		rd.forward(request, response);
     	} else {
     		//Pagina di errore
