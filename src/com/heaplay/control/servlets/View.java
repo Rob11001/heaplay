@@ -21,6 +21,7 @@ public class View extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		String id = request.getParameter("id");
 		String like = request.getParameter("like");
 				
@@ -29,10 +30,13 @@ public class View extends HttpServlet {
 		else {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			PurchasableTrackDao purchasableTrackDao = new PurchasableTrackDao(pool);
+			
 			TrackBean bean = null;
 			List<String> keys = new ArrayList<String>();
 			keys.add(id);
+			
 			try {
+				//Lettura della track aumento like o plays e aggiornamento
 				bean = (TrackBean) purchasableTrackDao.doRetrieveByKey(keys);
 				if(bean == null) {
 					TrackDao trackDao = new TrackDao(pool);
@@ -46,7 +50,10 @@ public class View extends HttpServlet {
 					} else 
 						response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));
 				} else {
-					bean.setPlays(bean.getPlays()+1);
+					if(like == null)
+						bean.setPlays(bean.getPlays()+1);
+					else 
+						bean.setLikes(bean.getLikes()+1);
 					purchasableTrackDao.doUpdate(bean);
 				}
 			} catch (SQLException e) {

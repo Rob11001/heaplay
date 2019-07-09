@@ -27,6 +27,7 @@ public class RemoveUser extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		String user_id = request.getParameter("user_id");
 		String disable = request.getParameter("disable");
 		String enable  = request.getParameter("enable");
@@ -34,31 +35,40 @@ public class RemoveUser extends HttpServlet {
 		if(user_id == null)
 			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
+			//Dao
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			UserDao userDao = new UserDao(pool);
 			TrackDao trackDao = new TrackDao(pool);
 			
 			try {
+				//Track dell'utente
 				ArrayList<TrackBean> list = trackDao.getTracksByAuthor(Long.parseLong(user_id), -1, -1,"all");
+				
 				if(enable == null) {
 					boolean flag = false;
+					
 					for (int i = 0 ; i < list.size(); i++)
 						if(disable != null || list.get(i).getType().equals("pagamento")) {
+							//Disabilità la track
 							flag=true;
 							list.get(i).setIndexable(false);
 							trackDao.doUpdate(list.get(i));
 						} else 
+							//Elimina la track
 							trackDao.doDelete(list.get(i).getKey());
 					ArrayList<String> keys = new ArrayList<String>();
 					keys.add(user_id);
 					UserBean userBean = userDao.doRetrieveByKey(keys);
 					if(disable == null && !flag) 
+						//Elimina l'utente
 						userDao.doDelete(keys);
 					else {
+						//Disabilita l'utente
 						userBean.setActive(false);
 						userDao.doUpdate(userBean);
 					}
 				} else {
+					//Abilita le track e l'utente
 					for (int i = 0 ; i < list.size(); i++) {
 							list.get(i).setIndexable(true);
 							trackDao.doUpdate(list.get(i));

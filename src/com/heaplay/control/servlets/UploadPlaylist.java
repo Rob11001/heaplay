@@ -22,17 +22,20 @@ public class UploadPlaylist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String track_id = request.getParameter("track_id");
 		String playlistName = request.getParameter("playlistName");
-		String privacy = request.getParameter("privacy");	//Vedere come realizzarlo
+		String privacy = request.getParameter("privacy");	
 		
 		if(user == null || track_id == null || playlistName == null) 
 			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
+			//Dao
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			PlaylistDao playlistDao = new PlaylistDao(pool);
 			TrackDao trackDao = new TrackDao(pool);
+			
 			ArrayList<String> keys = new ArrayList<String>();
 			keys.add(playlistName);
 			keys.add(user.getId()+"");
@@ -52,6 +55,7 @@ public class UploadPlaylist extends HttpServlet {
 				keys.add(track_id);
 				TrackBean track = (TrackBean) trackDao.doRetrieveByKey(keys);
 				ArrayList<TrackBean> list = (ArrayList<TrackBean>) playlist.getTracks();
+				
 				if(!list.contains(track)) {
 					list.add(track);
 					playlist.setTracks(list);
@@ -63,6 +67,7 @@ public class UploadPlaylist extends HttpServlet {
 					//Vedere cosa fare; 
 					;
 				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/library"));
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				response.sendError(response.SC_INTERNAL_SERVER_ERROR);

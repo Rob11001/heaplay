@@ -15,25 +15,41 @@
 		
 	<h2>Crea amministratore</h2>
 	<hr class="hr-form">
-	<form action="/heaplay/admin/registerAdmin" onsubmit="return validateRegister(this)" method="post">
-		<label for="username">Username<br/></label>
-		<input class="form-input-text" type="text" name="username" value="<%=username%>" required><br/>
-		
-		<label for="email">E-Mail<br/></label>
-		<input class="form-input-text" type="text" name="email" value="<%=email%>" required><br/>
-		
-		<label for="password">Password<br/></label>
-		<input class="form-input-text" type="password" name="password" value="" required><br/>
-			
+	<form action="<%=response.encodeURL("/heaplay/admin/registerAdmin") %>" onsubmit="return validateForm()" method="post">
+		<label for="username">Username*<br/></label>
+		<div class="form-field">
+			<span class="field-icon"><i class="fa fa-user"></i></span>
+			<input class="form-input-text" type="text" name="username" value="<%=username%>">
+		</div>
+	
+	
+		<label for="email">E-Mail*<br/></label>
+		<div class="form-field">
+			<span class="field-icon"><i class="fa fa-envelope"></i></span>
+			<input class="form-input-text" type="text" name="email" value="<%=email%>"><br/>
+		</div>
+	
+		<label for="password">Password*<br/></label>
+		<div class="form-field">
+			<span class="field-icon"><i class="fa fa-key"></i></span>
+			<input class="form-input-text" type="password" name="password" value=""><br/>
+		</div>
+	
+		<label for="repeat-password">Ripeti Password*<br/></label>
+		<div class="form-field">
+			<span class="field-icon"><i class="fa fa-key"></i></span>
+			<input class="form-input-text" type="password" name="repeat-password" value=""><br/>
+		</div>
+	
 		<span class="form-error">
-			<%
+		<%
 			if (error != null) {
-			%>
-			<%=error%>
-			<%	} %>
+		%>
+		<%=error%>
+		<%	} %>
 		</span><br/>
-		
-		<button type="submit">Registrati</button>
+
+		<button type="submit">Registra</button>
 	</form>
 <% } else {%>
 	<h3>Creato con successo</h3>

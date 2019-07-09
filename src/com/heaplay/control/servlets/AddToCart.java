@@ -26,24 +26,30 @@ public class AddToCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	//Lettura parametri
     	String track_id = request.getParameter("track_id");
+    	String remove = request.getParameter("remove");
+    	//Lettura dalla sessione
     	HttpSession session = request.getSession();
     	UserBean user = (UserBean) session.getAttribute("user");
     	Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart");
-    	String remove = request.getParameter("remove");
     	
+    	//Controllo
     	if(track_id == null || user == null) 
     		response.sendRedirect(getServletContext().getContextPath()+"/home");
     	else {
     		try {
+    			//Controllo del carrello
 				ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 				TrackDao trackDao = new TrackDao(pool);
 				if(cart == null) {
+					//Creazione del carrello
 					cart = new Cart<TrackBean>();
 					cart.setItems(trackDao.getCart(user.getId()));
 					session.setAttribute("cart", cart);
 				}
 				if(remove != null) {
+					//Rimozione elemento dal carrello
 					int size = cart.getItems().size();
 					ArrayList<TrackBean> list = (ArrayList<TrackBean>) cart.getItems();
 					list = (ArrayList<TrackBean>) list.stream().filter((p) -> p.getId() != Long.parseLong(track_id)).collect(Collectors.toList());
@@ -52,6 +58,7 @@ public class AddToCart extends HttpServlet {
 						trackDao.updateCart(cart.getItems(),user.getId());
 					}
 				} else {
+					//Inserimento elemento nel carello
 					ArrayList<String> keys = new ArrayList<String>();
 					keys.add(track_id);
 					TrackBean trackToAdd = (TrackBean) trackDao.doRetrieveByKey(keys);
@@ -66,7 +73,7 @@ public class AddToCart extends HttpServlet {
 					keys.add(track_id);
 					keys.add(user.getId()+"");
 					OwnedTrackBean bean = (OwnedTrackBean) ownedTrackDao.doRetrieveByKey(keys);
-					
+					//Controllo che non l'abbia già acquistata
 					if(list.size() ==  cart.getItems().size() && bean == null) {
 						cart.addItem(trackToAdd);
 						trackDao.saveCart(cart.getItems(), user.getId());

@@ -22,23 +22,27 @@ public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura del carrello
 		HttpSession session = request.getSession();
     	UserBean user = (UserBean) session.getAttribute("user");
     	Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart"); 
     	
+    	//Controllo
     	if(user == null) 
     		response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/login"));
     	else {
     		if(cart == null) {
+    			//Lettura o creazione del carrello se non è ancora nella sessione
     			TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
     			cart = new Cart<TrackBean>();
     			try {
 					cart.setItems(trackDao.getCart(user.getId()));
-					session.setAttribute("cart", cart);
+					session.setAttribute("cart", cart);	//Salvataggio nella sessione
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
     		}
+    		//Set degli attributi e forward
     		request.setAttribute("jspPath", response.encodeURL("/cart.jsp"));
 			request.setAttribute("pageTitle", "Carrello");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher( response.encodeURL("/_blank.jsp"));

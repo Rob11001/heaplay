@@ -29,19 +29,25 @@ public class GetPlaylists extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		String id = request.getParameter("id");
-		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String autocomplete = request.getParameter("autocomplete");
 		String track_id = request.getParameter("track_id");
+		UserBean user = (UserBean) request.getSession().getAttribute("user");
+		
 		
 		if(id == null && user == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
-			id = (id !=  null) ? id : user.getId()+"";
+			//Dao
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			PlaylistDao playlistDao =  new PlaylistDao(pool);
 			ArrayList<PlaylistBean> list = new ArrayList<PlaylistBean>();
+			
+			id = (id !=  null) ? id : user.getId()+""; //Setto l'id
+			
 			try {
+				//Lettura della playlist
 				list = (ArrayList<PlaylistBean>) playlistDao.getPlaylistByAuthor(Long.parseLong(id));
 			} catch (NumberFormatException e) {	
 				e.printStackTrace();
@@ -51,31 +57,39 @@ public class GetPlaylists extends HttpServlet {
 			
 			if(autocomplete != null && track_id != null) {
 				try {
+					response.setContentType("application/json");
 					TrackDao trackDao = new TrackDao(pool);
+					
 					ArrayList<String> keys = new ArrayList<String>();
 					keys.add(track_id);
+					//Lettura della track
 					TrackBean track = (TrackBean) trackDao.doRetrieveByKey(keys);
 					
+					//Selezione delle playlist che non contengono tale track
 					ArrayList<PlaylistBean> newList=(ArrayList<PlaylistBean>) list.stream().filter(p ->{
 						 boolean bol=p.getName().contains(autocomplete) && !p.getTracks().contains(track);			//Dava alcuni problemi
 						 return bol;
 					}).collect(Collectors.toList());
+					//Conversione in String[] e poi in JSON
 					String[] namesOfPlaylist = new String[newList.size()];
 					for(int i=0; i < newList.size(); i++) 
 						namesOfPlaylist[i] = newList.get(i).getName();	
-					response.setContentType("application/json");
 					Gson gson = new Gson();
 					String object = gson.toJson(namesOfPlaylist);
 					response.getWriter().write(object);
+					
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				
 			} else {
+				//Rimozione degli array di bytes
 				for(int i = 0; i < list.size() ; i++)
 					resetBytes(list.get(i).getTracks());
+				//Selezione solo delle playlist pubbliche
 				if(user == null || user.getId() != Long.parseLong(id)) 
 					list=(ArrayList<PlaylistBean>) list.stream().filter(p ->p.getPrivacy().equals("public")).collect(Collectors.toList());
-				
+				//Conversione in JSON
 				Gson gson = new Gson();
 				String object = gson.toJson(list);
 				response.getWriter().write(object);

@@ -40,9 +40,11 @@ $(document).ready( () => {
 					$("#content p").remove();
 					$(container).empty();
 					$(headerDiv).prependTo($("#content"));	
-					$(tableDiv).appendTo(container);
+					if(data.list.length > 0)
+						$(tableDiv).appendTo(container);
 					
 					let table = $("table");
+					//Scelta dell'header della table
 					if(typeOfSearch == "track")
 						$("<tr><th>Brano</th><th>Autore</th><th>Tipo</th><th>Action</th></tr>").appendTo(table);
 					else if(typeOfSearch == "tag")
@@ -97,9 +99,10 @@ $(document).ready( () => {
 
 //Dato un bean crea il div corrispondente
 function createDiv(bean,container,typeOfSearch) {
-	//Vari div in base al bean
+	//Button da aggiungere in base allo stato del brano o dell'user
 	const buttonTrack = (bean.indexable == true) ? "<button onclick='disableTrack(event)'>Blocca</button></td></tr>" : "<button onclick='enableTrack(event)'>Sblocca</button></td></tr>"; 
 	const buttonUser = (bean.active == true )  ? "<button onclick='disableUser(event)'>Blocca</button>" : "<button onclick='enableUser(event)'>Sblocca</button>";
+	//Varie table rows
 	const trackDiv = typeOfSearch == "track" ? "<tr><td ><span class='song-name'><a href='/heaplay/user/"+bean.authorName+"/"+bean.name.replace(/\s/g,'')+"?id="+bean.id+"'>"+bean.name+"</a></span></td><td><span class='author'><a href='/heaplay/user/"+bean.authorName+"'>"+bean.authorName+"</a></span></td><td><span>"+bean.type+"</span></td><td><input type='hidden' name='track_id' value='"+bean.id+"'><button onclick='removeTrack(this)'>Rimuovi</button>"+buttonTrack : "";
 	const tagDiv="<tr><td><span>"+bean.name+"</span></td><td><input type='hidden' value='"+bean.id+"'><button onclick='removeTag(this)'>Rimuovi</button></td></tr>";
 	const userDiv = "<tr><td><span class='author'><a href='/heaplay/user/"+bean.username+"'>"+bean.username+"</a></span></td><td><span>"+bean.auth+"</span></td><td><span class='active'>"+bean.active+"</span></td><td>"+buttonUser+"<button onclick='removeUser(this)'>Rimuovi</button><input type='hidden' value='"+bean.id+"'></td></tr>"
@@ -110,7 +113,6 @@ function createDiv(bean,container,typeOfSearch) {
 	//Creazione del div e inserimento
 	let ob = $(div);
 	$(ob).appendTo($(container));
-	
 }
 
 

@@ -18,12 +18,14 @@ public class RemoveTag extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		String tag_id = request.getParameter("tag_id");
 		
 		TagDao tagDao = new TagDao((ConnectionPool) getServletContext().getAttribute("pool"));
 		ArrayList<String> keys = new ArrayList<String>();
 		keys.add(tag_id);
 		try {
+			//Cancellazione
 			tagDao.doDelete(keys);
 		} catch (SQLException e) {
 			e.printStackTrace();

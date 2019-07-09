@@ -21,9 +21,11 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Session
 		HttpSession session = request.getSession();
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		
+		//Controllo se è già loggato o meno
 		if(userBean != null)
 			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
@@ -40,10 +42,12 @@ public class Login extends HttpServlet {
 		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 		ArrayList<String> userKeys = new ArrayList<String>();
 		String errorMessage = "";
+		
 		if(userBean != null)													//Controllo esistenza UserBean
 			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
-			String email = request.getParameter("email");						//Controllo parametri
+			//Controllo parametri
+			String email = request.getParameter("email");						
 			
 			if(email != null && !email.trim().equals("")) {
 				request.setAttribute("email", email);
@@ -61,6 +65,7 @@ public class Login extends HttpServlet {
 				errorMessage += " Password non inserita";
 			
 			if(errorMessage.equals(""))	{
+				//Valori inseriti correttamente
 				try {
 					UserDao userDao = new UserDao(pool);
 					userBean = userDao.doRetrieveByKey(userKeys);					

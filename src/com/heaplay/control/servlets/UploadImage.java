@@ -30,6 +30,7 @@ public class UploadImage extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		Part image = request.getPart("image");
 		
 		if(image != null) {
@@ -45,10 +46,12 @@ public class UploadImage extends HttpServlet {
 				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 			else {
 				try {
+					//Salvataggio dell'immagine
 					user.setUserImageExt(imageExt);
 					user.setUserImage(imageBytes);
 					userDao.doUpdate(user);
 					response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/library"));
+			
 				} catch (SQLException e) {
 					e.printStackTrace();
 					response.sendError(response.SC_INTERNAL_SERVER_ERROR);

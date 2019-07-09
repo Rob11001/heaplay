@@ -17,27 +17,34 @@ public class Admin extends HttpServlet {
        
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		String operation = request.getParameter("op");
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		
-		
+		//Controllo
 		if(user == null || operation == null) 
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
+			
 			if(operation.equals("register")) {
+				//Mando alla pagina di registrazione
 				String created = (String) request.getSession().getAttribute("created");
 				if(created != null) {
+					//Flag della sessione che serve a capire se la registrazione è riuscita
 					request.setAttribute("success", created);
 					request.getSession().removeAttribute("created");
 				}
+				//Set degli attributi nella request
 				request.setAttribute("jspPath", response.encodeURL("admin/register_new_admin.jsp"));
 				request.setAttribute("pageTitle", "Crea amministratore");
 				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 				rd.forward(request, response);
 			} else if(operation.equals("info")) {
+				//Inoltro alla pagina di info
 				RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/admin/info"));
 				rd.forward(request, response);
 			} else {
+				//Rimando alla home
 				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 			}
 		}

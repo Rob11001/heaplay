@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +21,7 @@ public class RemoveTrackFromPlaylist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Lettura parametri
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		String track_id = request.getParameter("track_id");
 		String play_id = request.getParameter("play_id");
@@ -29,15 +29,20 @@ public class RemoveTrackFromPlaylist extends HttpServlet {
 		if(user == null || track_id == null || play_id == null) 
 			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 		else {
+			//Dao
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			PlaylistDao playlistDao =  new PlaylistDao(pool);
+			
 			ArrayList<String> keys = new ArrayList<String>();
 			keys.add(play_id);
 			PlaylistBean playlist = null;
 			ArrayList<TrackBean> list = null;
+			
 			try {
+				//Ricerca playlist
 				playlist = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
 				list = (ArrayList<TrackBean>) playlist.getTracks();
+				//Eliminazione della track
 				for(int i = 0; i < list.size() ; i++)
 					if(list.get(i).getId() == Long.parseLong(track_id)) {
 						list.remove(i);

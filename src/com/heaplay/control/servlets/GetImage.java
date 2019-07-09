@@ -25,8 +25,9 @@ public class GetImage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	//Lettura parametri
     	String id = request.getParameter("id");
-    	String ext = request.getParameter("extension"); //Si potrebbe togliere
+    	String ext = request.getParameter("extension"); 
     	String user = request.getParameter("user");
     	
     	
@@ -34,42 +35,46 @@ public class GetImage extends HttpServlet {
     		response.sendRedirect(getServletContext().getContextPath()+"/home");
     	else {
     		byte[] imageBytes = null;
-  
-    		if(user == null && Long.parseLong(id) != -1) {
-	    		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
-	   
-	    		try {
-	    			if(ext == null) {
-	    				List<String> keys = new ArrayList<String>();
-		    			keys.add(id);
-		    			TrackBean bean = (TrackBean) trackDao.doRetrieveByKey(keys);
-	    				ext = bean.getImageExt();
-	    			}	
-	    			ext = ext.substring(ext.indexOf('.'), ext.length());
-		    		response.setContentType("image/"+ext);
+    		
+    		try {
+				if(user == null && Long.parseLong(id) != -1) {
+					//Immagine di una track
+					TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
+   
+					if(ext == null) {
+						List<String> keys = new ArrayList<String>();
+						keys.add(id);
+						TrackBean bean = (TrackBean) trackDao.doRetrieveByKey(keys);
+						ext = bean.getImageExt();
+					}	
+					ext = ext.substring(ext.indexOf('.'), ext.length());
+					response.setContentType("image/"+ext);
+					//Lettura image
 					imageBytes = trackDao.getImage(Long.parseLong(id));
-				} catch (SQLException | NumberFormatException e) {
-					e.printStackTrace();
-				}
-    		}
-    		else if(Long.parseLong(id) != -1){
-    			UserDao userDao = new UserDao((ConnectionPool) getServletContext().getAttribute("pool"));
-    			List<String> keys = new ArrayList<String>();
-    			keys.add(id);
-    			try {
+					
+				} else if(Long.parseLong(id) != -1){
+					//Immagine di un user
+					UserDao userDao = new UserDao((ConnectionPool) getServletContext().getAttribute("pool"));
+					List<String> keys = new ArrayList<String>();
+					keys.add(id);
 					UserBean userBean = userDao.doRetrieveByKey(keys);
+					
 					String extension = (userBean != null) ? userBean.getUserImageExt() : null;
 					extension = (extension == null ) ? "png" : extension.substring(extension.indexOf('.'), extension.length());
 					response.setContentType("image/" + extension);
-					imageBytes = userDao.getImage((userBean != null) ? userBean.getId() : 0);
-					
-				} catch (SQLException e) {
-					e.printStackTrace();
+					//Lettura image
+					imageBytes = userDao.getImage((userBean != null) ? userBean.getId() : 0);	
 				}
-    			
-    		}
+				
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+    		
     		OutputStream out = response.getOutputStream();
     		if(imageBytes == null ) {
+    			//Lettura immagine di default
     			File file = new File(getServletContext().getRealPath("/images/not_found.png"));
     			FileInputStream input = new FileInputStream(file);
     			imageBytes = input.readAllBytes();

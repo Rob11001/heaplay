@@ -29,14 +29,14 @@ $(document).ready(() => {
 		let seconds = e.currentTarget.duration;
 		$("#duration").val(Math.floor(seconds));
 		URL.revokeObjectURL(objectUrl);
+		$("#track-field .file-input").nextAll(".check").fadeIn(); /* Controllare se e' giusto che stia qui */
+		$("#track-field .file-input").next(".cross").fadeOut();
 	});
 
 	$("#audio").change(function(e){
 		let file = e.currentTarget.files["0"];
 		objectUrl = window.URL.createObjectURL(file);
 		$("#audioFake").prop("src", objectUrl);
-		$("#track-field .file-input").nextAll(".check").fadeIn(); /* Controllare se e' giusto che stia qui */
-		$("#track-field .file-input").next(".cross").fadeOut();
 	});
 
 	//Preview dell'immagine
