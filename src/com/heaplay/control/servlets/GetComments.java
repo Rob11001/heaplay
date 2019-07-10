@@ -33,12 +33,12 @@ public class GetComments extends HttpServlet {
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
 			try {
+				response.setContentType("application/json");
 				//Dao
 				ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 				CommentDao commentDao = new CommentDao(pool);
 				
 				ArrayList<Bean> list = (ArrayList<Bean>) commentDao.getCommentsByTrack(Long.parseLong(track_id),start,10);
-				
 				//Conversione in JSON
 				Gson gson = new Gson();
 				String object = gson.toJson(list);

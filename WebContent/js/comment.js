@@ -3,15 +3,14 @@ const loadComments = () => {
 	let src = $(".audio").children().prop("src");
 	let track_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
 	let container = $(".comment-container");
-	let begin = $(container).children().length - 1;
+	let begin = $(container).children().length;
 
 	$.ajax({
 		"type":"GET",
-		"url" : "/heaplay/getComments?track_id="+track_id+"&begin="+begin,
+		"url" : "/heaplay/getComments",
+		"data": "track_id="+track_id+"&begin="+begin,
 		"success": (data) => {
-				//Parsing dell'oggetto JSON	
-				let beans = JSON.parse(data);
-
+				let beans = data;
 				if(begin <= 0) {
 					$(container).empty();	
 				}	
@@ -28,15 +27,16 @@ const loadComments = () => {
 };
 
 function uploadComment(e) {
-	let url = "/heaplay/uploadComment";
+	let url = encodeSessionId("/heaplay/uploadComment");
 	let comment = $(e).parent().find("textarea").val();
 	let src = $(".audio").children().prop("src");
 	let track_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
 	
 	if(comment != "") {
 		$.ajax({
-			"url":url+"?track_id="+track_id+"&comment="+comment,
+			"url":url,
 			"type":"GET",
+			"data": "track_id="+track_id+"&comment="+comment,
 			"success" : () => {
 				loadComments();
 				$(e).parent().find("textarea").val("");

@@ -5,7 +5,7 @@ function removeFromCart(button) {
 
 	$.ajax({
 		"type" : "GET",
-		"url" : "/heaplay/addToCart?track_id="+track_id+"&remove=true",
+		"url" : encodeSessionId("/heaplay/addToCart")+"?track_id="+track_id+"&remove=true",
 		"beforeSend": () => {
 					$(".loading-cart").show();
 					$(".cart").hide();
@@ -34,7 +34,7 @@ function removeFromCart(button) {
 function purchase() {
 	$.ajax({
 		"type" : "GET",
-		"url" : "/heaplay/purchase",
+		"url" : encodeSessionId("/heaplay/purchase"),
 		"beforeSend": () => {
 					$(".loading-cart").show();
 					$(".cart").hide();
