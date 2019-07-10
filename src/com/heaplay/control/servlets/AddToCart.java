@@ -25,14 +25,15 @@ import com.heaplay.model.dao.TrackDao;
 public class AddToCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @SuppressWarnings("unchecked")
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	//Lettura parametri
     	String track_id = request.getParameter("track_id");
     	String remove = request.getParameter("remove");
     	//Lettura dalla sessione
     	HttpSession session = request.getSession();
     	UserBean user = (UserBean) session.getAttribute("user");
-    	Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart");
+		Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart");
     	
     	//Controllo
     	if(track_id == null || user == null) 
@@ -81,7 +82,7 @@ public class AddToCart extends HttpServlet {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
     	}
     		

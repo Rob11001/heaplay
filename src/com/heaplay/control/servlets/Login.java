@@ -84,7 +84,7 @@ public class Login extends HttpServlet {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 			}
 			else {

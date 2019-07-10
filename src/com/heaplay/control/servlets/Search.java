@@ -42,6 +42,7 @@ public class Search extends HttpServlet {
 		if(query != null && filter != null && !filter.equals("")) {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			ArrayList<Bean> list = null;
+			int numberOfTracks = (user!=null && user.getAuth().equals("admin")) ? 10 : 5;
 			try {
 				//In base al filtro
 				switch(filter) {
@@ -53,7 +54,7 @@ public class Search extends HttpServlet {
 								list = (ArrayList<Bean>) list.stream().filter((p)->((UserBean)p).isActive()).collect(Collectors.toList());
 							found = list.size();
 							if(autocomplete == null)
-								list = createSubList(list,start,(start+5) > found ? found : (start+5));
+								list = createSubList(list,start,(start+numberOfTracks) > found ? found : (start+numberOfTracks));
 							break;
 				case "track":TrackDao trackDao = new TrackDao(pool);
 							list = (ArrayList<Bean>) trackDao.doRetrieveAll(null);
@@ -63,7 +64,7 @@ public class Search extends HttpServlet {
 								list = (ArrayList<Bean>) list.stream().filter((p)->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 							found = list.size();
 							if(autocomplete == null)
-								list = createSubList(list,start,(start+5) > found ? found : (start+5));	
+								list = createSubList(list,start,(start+numberOfTracks) > found ? found : (start+numberOfTracks));	
 							resetBytes(list);
 							break;
 				case "playlist":PlaylistDao playlistDao = new PlaylistDao(pool);
@@ -72,7 +73,7 @@ public class Search extends HttpServlet {
 							list=(ArrayList<Bean>) list.stream().filter(p ->((PlaylistBean)p).getPrivacy().equals("public")).collect(Collectors.toList());
 							found = list.size();
 							if(autocomplete == null)
-								list = createSubList(list,start,(start+5) > found ? found : (start+5));
+								list = createSubList(list,start,(start+numberOfTracks) > found ? found : (start+numberOfTracks));
 							for(int i=0;i<list.size();i++)
 								resetBytes(((ArrayList<TrackBean>)((PlaylistBean)list.get(i)).getTracks()));
 							break;
@@ -89,7 +90,7 @@ public class Search extends HttpServlet {
 								if(user == null || !user.getAuth().equals("admin"))
 									list = (ArrayList<Bean>) listOfTags.stream().filter((p)->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 								found = list.size();
-								list = createSubList(listOfTags,start,(start+5) > found ? found : (start+5));
+								list = createSubList(list,start,(start+numberOfTracks) > found ? found : (start+numberOfTracks));
 								resetBytes(list);
 							}
 							break;

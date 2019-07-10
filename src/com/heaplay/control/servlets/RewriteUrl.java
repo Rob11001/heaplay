@@ -1,8 +1,6 @@
 package com.heaplay.control.servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,11 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.heaplay.model.ConnectionPool;
-import com.heaplay.model.beans.TrackBean;
-import com.heaplay.model.beans.UserBean;
-import com.heaplay.model.dao.TrackDao;
-import com.heaplay.model.dao.UserDao;
 
 @WebServlet("/user/*")
 public class RewriteUrl extends HttpServlet {
@@ -53,7 +46,7 @@ public class RewriteUrl extends HttpServlet {
     		//Pagina di errore
     		request.setAttribute("error_title", "Pagina non trovata - 404");
 			request.setAttribute("error", "La pagina \""+ url + "\" non è stata trovata o non esiste");
-			response.sendError(response.SC_NOT_FOUND);
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
     	}	
     }
 

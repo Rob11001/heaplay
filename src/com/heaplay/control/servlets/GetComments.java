@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.Bean;
-import com.heaplay.model.beans.CommentBean;
-import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.CommentDao;
-import com.heaplay.model.dao.UserDao;
 
 @WebServlet("/getComments")
 public class GetComments extends HttpServlet {
