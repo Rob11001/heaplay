@@ -12,7 +12,13 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<%
+	//Per risolvere il problema del logout
+	response.setHeader("Cache-Control","no-cache");
+	response.setHeader("Cache-Control","no-store");
+	response.setHeader("Pragma","no-cache");
+	response.setDateHeader ("Expires", 0);
+%>
 <title><%=pageTitle%></title>
 
 <%@ include file="/_links.jsp"%>
