@@ -214,6 +214,7 @@ nav > a:visited, .dropbtn > a:visited {
 
 .content-nav a:hover {
 	background-color: var(--main-orange);
+	border-radius: 10px;
 	color: white;
 }
 
@@ -225,7 +226,6 @@ nav > a:visited, .dropbtn > a:visited {
 .flex-container {
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-around;
 }
 
 .flex-container > * {
@@ -243,9 +243,10 @@ nav > a:visited, .dropbtn > a:visited {
 
 /******************************** Song & Playlist Style ********************************/
 
-.song, .playlist {
+.song, .playlist, .cart-item {
 	display: flex;
 	white-space: nowrap;
+	margin-left: 10px;
 }
 
 .song button {
@@ -263,7 +264,7 @@ nav > a:visited, .dropbtn > a:visited {
 	width: 110px;
 }
 
-.song-content, .playlist-content {
+.song-content, .playlist-content, .carted-content {
 	display: inline;
 	padding-left: 10px;
 }
@@ -306,6 +307,14 @@ nav > a:visited, .dropbtn > a:visited {
 	font-weight: 600;
 }
 
+.carted-remove {
+	align-self: center;
+	margin-left: 15px;
+}
+
+.price {
+	
+}
 
 /* Controls */
 
@@ -425,12 +434,12 @@ form[name=fileUpload] {
 	padding: 4px 8px;
 }
 
-.form-input-text, button, .file-input {
+input[type='text'], input[type='password'], button, .file-input {
 	border-radius: 2px;
 	font-size: 1.1em;
 }
 
-.form-input-text {
+input[type='text'], input[type='password'] {
 	border: 1px solid var(--main-black60);
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
@@ -438,7 +447,7 @@ form[name=fileUpload] {
 	padding: 0 3px;
 }
 
-.form-field:hover .form-input-text, .form-field:hover .field-icon{
+.form-field:hover input[type='text'], .form-field:hover input[type='password'], .form-field:hover .field-icon {
 	border: 1px solid var(--main-black);
 }
 

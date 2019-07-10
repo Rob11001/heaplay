@@ -26,7 +26,7 @@
     <div class='playlist-content'>
     	<span class='author'><a href='/heaplay/user/" + bean.authorName + "'>" + bean.authorName + "</a></span>
         <br/>
-        <span class='playlist-name'><a href='/heaplay/user/" + bean.authorName + "/playlist/" + bean.name + "'>" + bean.name + "</a></span>
+        <span class='playlist-name'><a href='/heaplay/user/" + bean.authorName + "/playlist/" + bean.name.replace(/\s/g,'') + "?id=" + bean.id + "'>" + bean.name + "</a></span>
     </div>
 </div>
 

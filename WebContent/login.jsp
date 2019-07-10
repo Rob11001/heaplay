@@ -16,13 +16,13 @@
 	<label for="email">E-Mail*<br/></label> 
 	<div class="form-field">
 		<span class="field-icon"><i class="fa fa-user"></i></span>
-		<input class="form-input-text" type="text" name="email"  value="<%=email%>" >
+		<input type="text" name="email"  value="<%=email%>" >
 	</div>
 		
 	<label for="password">Password*<br/></label>
 	<div class="form-field">
 		<span class="field-icon"><i class="fa fa-key"></i></span>
-		<input class="form-input-text" type="password" name="password" value="">
+		<input type="password" name="password" value="">
 	</div>
 	
 	<span class="form-error">

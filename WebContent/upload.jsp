@@ -14,7 +14,7 @@
 	<label for="songName">Nome del Brano*<br/></label>
 	<div class="form-field">
 		<span class="field-icon"><i class="fa fa-music"></i></span>
-		<input class="form-input-text" type="text" name="songName" id="songName" />
+		<input type="text" name="songName" id="songName" />
 	</div>
 	
 	<div class="form-field" id="track-field">
@@ -43,14 +43,14 @@
 		<label for="price">Prezzo*<br/></label>
 		<div class="form-field">
 			<span class="field-icon"><i class="fa fa-dollar-sign"></i></span>
-			<input class="form-input-text" type="text" name="price" id="price" min="0" max="666">
+			<input type="text" name="price" id="price" min="0" max="666">
 		</div>
 	</div>
 		
 	<label for="tags">Tag*<br/></label>
 	<div class="form-field">
 		<span class="field-icon"><i class="fa fa-hashtag"></i></span>
-		<input class="form-input-text" id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
+		<input id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
 		<button type="button" id="tagButton" onclick="addTag(this)">Aggiungi</button>
 	</div>
 	<datalist id="tagSuggestions"></datalist>
