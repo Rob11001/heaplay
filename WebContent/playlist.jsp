@@ -33,10 +33,10 @@ Integer begin = (Integer) request.getAttribute("begin");
 	<%for(int i=0;i<listOfTracks.size();i++) {	
 		TrackBean track = listOfTracks.get(i);	
 	%>
-		<div>
+		<div class="item">
 			<%@ include file="/_player.jsp"%>
 			<%if(currentUser != null && currentUser.getId() == userPage.getId()) {%>
-				<button onclick="removeFromPlaylist(this)">Rimuovi</button>
+				<button class="item-remove" onclick="removeFromPlaylist(this)">Rimuovi</button>
 			<%} %>
 		</div>
 	<%} %>

@@ -18,7 +18,7 @@
 			TrackBean track = list.get(i);
 			sum += track.getType().equals("free") ? 0 : (((PurchasableTrackBean)track).getPrice());
 		%>
-			<div class="cart-item">
+			<div class="item">
 				<div class="song-image">
 					<img 
 						src="/heaplay/getImage?id=<%=track.getId()%>&extension=<%=track.getImageExt()%>"
@@ -30,7 +30,7 @@
 					<span class="price">Costo: <%=(track.getType().equals("free")) ? "Gratuita" : (String.format("%.2f",((PurchasableTrackBean)track).getPrice()))%></span>
 					<span class="upload-date hidden">Data : <%=track.getUploadDate()%></span><br>
 				</div>
-				<button class="carted-remove" onclick="removeFromCart(this)">Rimuovi</button>
+				<button class="item-remove" onclick="removeFromCart(this)">Rimuovi</button>
 			</div>
 		<%} 
 		if(list.size() == 0) { %>

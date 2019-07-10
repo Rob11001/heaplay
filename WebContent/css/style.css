@@ -249,10 +249,10 @@ nav > a:visited, .dropbtn > a:visited {
 
 /******************************** Song & Playlist Style ********************************/
 
-.song, .playlist, .cart-item {
+.song, .playlist, .item {
 	display: flex;
 	white-space: nowrap;
-	margin-left: 10px;
+	margin: 5px;
 }
 
 .song button {
@@ -313,7 +313,7 @@ nav > a:visited, .dropbtn > a:visited {
 	font-weight: 600;
 }
 
-.carted-remove {
+.item-remove {
 	align-self: center;
 	margin-left: 15px;
 }

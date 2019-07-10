@@ -45,15 +45,27 @@ $(document).ready(() => {
 	
 	setPadding();
 	
-	let mqList = window.matchMedia("(max-width: 1024px)");
-	if(mqList.matches)
+	let mqListTablet = window.matchMedia("(max-width: 1024px)");
+	if(mqListTablet.matches)
 		dropdown.on("click", drop);
 	
-	mqList.addListener((e) => {
+	mqListTablet.addListener((e) => {
 		if(e.matches) {
 			dropdown.on("click", drop);
 		} else {
 			dropdown.off("click");
+		}
+	});
+	
+	let mqListMobile = window.matchMedia("(max-width: 420px)");
+	if(mqListMobile.matches)
+		cartDrop(true);
+	
+	mqListMobile.addListener((e) => {
+		if(e.matches) {
+			cartDrop(true);
+		} else {
+			cartDrop(false);
 		}
 	});
 	
