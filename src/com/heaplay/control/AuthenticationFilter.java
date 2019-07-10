@@ -23,8 +23,10 @@ public class AuthenticationFilter implements Filter {
 		if(userBean != null && userBean.getAuth().equals("admin"))
 			chain.doFilter(request,response);
 		else {
-			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendRedirect(request.getServletContext().getContextPath()+"/home"); //Vedere dove indirizzare
+			HttpServletResponse resp = (HttpServletResponse) response;
+			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+			request.setAttribute("error_title", "Pagina non trovata - 404");
+			request.setAttribute("error", "La pagina \""+ httpRequest.getRequestURL() + "\" non è stata trovata o non esiste");
 		}
 			
 	}

@@ -8,9 +8,6 @@
 	<div class="menu-bar">
 		<nav class="links">
 			<a href="<%=response.encodeURL("/heaplay/home") %>">Home</a>
-			<%if(user == null || !user.getAuth().equals("admin")) {%>
-				<a href="<%=response.encodeURL("/heaplay/library") %>">Libreria</a>
-			<%} %>
 		</nav>
 		<div class="search">
 			<select class="search-select" name="filter">
