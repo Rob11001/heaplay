@@ -21,45 +21,42 @@ $(document).ready( () => {
 
 	$(".search-button").click(() => {	//Listener della ricerca
 		let url = encodeSessionId("/heaplay/search")+"?q="+$(".search-box").val()+"&filter="+$(".search-select").val();//url creato dinamicamente (probabilmente bisogna filtrare ciò che è stato scritto dal utente)
-		if($(".search-box").val().toString() != "") { 
-			$.ajax({
-				"type":"GET",
-				"url" : url,
-				"beforeSend": () => {
-					$(".content-wrapper > *").not(".search-content").remove();
-					showHide($(".loading"),$("#content"));
-				},
-				"complete"  : () => {showHide($("#content"),$(".loading"))},
-				"success": (data) => {
-					let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca
-					const headerDiv ="<p>Elementi trovati: <span id='found'>"+data.length+"</span></p>";
-					const tableDiv = "<table></table>"
-
-					//Estrazione del container e rimozione degli elementi precedenti/inserimento dell'header
-					let container = $("#content .flex-container");
-					$("#content p").remove();
-					$(container).empty();
-					$(headerDiv).prependTo($("#content"));	
-					if(data.list.length > 0)
-						$(tableDiv).appendTo(container);
+		$.ajax({
+			"type":"GET",
+			"url" : url,
+			"beforeSend": () => {
+				$(".content-wrapper > *").not(".search-content").remove();
+				showHide($(".loading"),$("#content"));
+			},
+			"complete"  : () => {showHide($("#content"),$(".loading"))},
+			"success": (data) => {
+				let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca
+				const headerDiv ="<p>Elementi trovati: <span id='found'>"+data.length+"</span></p>";
+				const tableDiv = "<table></table>"
+				//Estrazione del container e rimozione degli elementi precedenti/inserimento dell'header
+				let container = $("#content .flex-container");
+				$("#content p").remove();
+				$(container).empty();
+				$(headerDiv).prependTo($("#content"));	
+				if(data.list.length > 0)
+				$(tableDiv).appendTo(container);
 					
-					let table = $("table");
-					//Scelta dell'header della table
-					if(typeOfSearch == "track")
-						$("<tr><th>Brano</th><th>Autore</th><th>Tipo</th><th>Action</th></tr>").appendTo(table);
-					else if(typeOfSearch == "tag")
-						$("<tr><th>Nome</th><th>Action</th></tr>").appendTo(table);
-					else if(typeOfSearch == "user")
-						$("<tr><th>Utente</th><th>Ruolo</th><th>Attivo</th><th>Action</th></tr>").appendTo(table);
+				let table = $("table");
+				//Scelta dell'header della table
+				if(typeOfSearch == "track")
+					$("<tr><th>Brano</th><th>Autore</th><th>Tipo</th><th>Action</th></tr>").appendTo(table);
+				else if(typeOfSearch == "tag")
+					$("<tr><th>Nome</th><th>Action</th></tr>").appendTo(table);
+				else if(typeOfSearch == "user")
+					$("<tr><th>Utente</th><th>Ruolo</th><th>Attivo</th><th>Action</th></tr>").appendTo(table);
 						
-					for(let i = 0 ; i < data.list.length; i++){
-						//Estrazione del bean
-						let bean = data.list[i];
-						createDiv(bean,table,typeOfSearch);
-					}	
-				}
-			});
-		}	
+				for(let i = 0 ; i < data.list.length; i++){
+					//Estrazione del bean
+					let bean = data.list[i];
+					createDiv(bean,table,typeOfSearch);
+				}	
+			}
+		});	
 	});
 
 	$(window).scroll(() => {
@@ -71,7 +68,7 @@ $(document).ready( () => {
 			let url = encodeSessionId("/heaplay/search")+"?q="+$(".search-box").val()+"&startFrom="+numberOfElements.toString()+"&filter="+$(".search-select").val(); //url creato dinamicamente (probabilmente bisogna filtrare ciò che è stato scritto dal utente)
 			let found = parseInt($("#found").text(),10); //Numero di elementi trovati dalla ricerca
 			//Effettuo la chiamata se esistono ancora elementi da caricare
-			if($(".search-box").val().toString() != "" && found > numberOfElements) { 
+			if( found > numberOfElements) { 
 				$.ajax({
 					"type":"GET",
 					"url" : url,

@@ -1,6 +1,8 @@
 package com.heaplay.control.servlets;
 
 import java.io.IOException;
+import java.net.ResponseCache;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +23,7 @@ public class Logout extends HttpServlet {
 			session.removeAttribute("cart");
 			session.invalidate();	
 		}	
+		
 		//Redirezione alla home
 		response.sendRedirect(getServletContext().getContextPath()+"/home");	
 	}

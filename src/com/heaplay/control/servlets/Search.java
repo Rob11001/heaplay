@@ -39,7 +39,7 @@ public class Search extends HttpServlet {
 		int found = 0;
 		UserBean user =(UserBean) request.getSession().getAttribute("user");
 		
-		if(query != null && !query.equals("") && filter != null && !filter.equals("")) {
+		if(query != null && filter != null && !filter.equals("")) {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			ArrayList<Bean> list = null;
 			try {
@@ -47,7 +47,8 @@ public class Search extends HttpServlet {
 				switch(filter) {
 				case "user": UserDao userDao = new UserDao(pool);
 							list = (ArrayList<Bean>) userDao.doRetrieveAll(null);
-							list = filter(query, list);
+							if(!query.equals(""))
+								list = filter(query, list);
 							if(user == null || !user.getAuth().equals("admin"))
 								list = (ArrayList<Bean>) list.stream().filter((p)->((UserBean)p).isActive()).collect(Collectors.toList());
 							found = list.size();
@@ -56,7 +57,8 @@ public class Search extends HttpServlet {
 							break;
 				case "track":TrackDao trackDao = new TrackDao(pool);
 							list = (ArrayList<Bean>) trackDao.doRetrieveAll(null);
-							list = filter(query, list);
+							if(!query.equals(""))
+								list = filter(query, list);
 							if(user == null || !user.getAuth().equals("admin"))
 								list = (ArrayList<Bean>) list.stream().filter((p)->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 							found = list.size();
@@ -77,7 +79,8 @@ public class Search extends HttpServlet {
 				case "tag":  TagDao tagDao = new TagDao(pool);
 							TrackDao track = new TrackDao(pool);
 							list = (ArrayList<Bean>) tagDao.doRetrieveAll(null);
-							list = filter(query, list);
+							if(!query.equals(""))
+								list = filter(query, list);
 							found = list.size();
 							if(autocomplete == null && (user == null || !user.getAuth().equals("admin"))) {
 								ArrayList<Bean> listOfTags = new ArrayList<Bean>();
