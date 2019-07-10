@@ -19,12 +19,15 @@
 </head>
 <body>
 	<script src="${pageContext.servletContext.contextPath}/js/_jquery-3.4.1.min.js" ></script>
+	<script src="${pageContext.servletContext.contextPath}/js/session.js" ></script>
+	
 	<%if(user == null || !user.getAuth().equals("admin")) {%>
 		<script src="${pageContext.servletContext.contextPath}/js/search.js" ></script>
 	<%} else { %>
 		<script src="${pageContext.servletContext.contextPath}/js/search-admin.js" ></script>
 	<% } %>
 	<script src="${pageContext.servletContext.contextPath}/js/menu.js" ></script>
+	
 	
 	<jsp:include page="/_header.jsp" />
 	

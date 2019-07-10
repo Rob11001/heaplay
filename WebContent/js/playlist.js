@@ -44,7 +44,7 @@ function removeFromPlaylist(button) {
 
 	$.ajax({
 		"type":"GET",
-		"url": "/heaplay/removeFromPlaylist?track_id="+track_id+"&play_id="+play_id,
+		"url": encodeSessionId("/heaplay/removeFromPlaylist")+"?track_id="+track_id+"&play_id="+play_id,
 		"success" : () => {
 			$(parent).remove();
 		}

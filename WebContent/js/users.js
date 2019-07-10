@@ -38,7 +38,7 @@ function addToCart(button) {
 	let track_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
 	$.ajax({
 		"type":"GET",
-		"url": "/heaplay/addToCart?track_id="+track_id,
+		"url": encodeSessionId("/heaplay/addToCart")+"?track_id="+track_id,
 		"success": () => {
 			$(button).off();
 			let div = $(button).parent();
@@ -53,7 +53,7 @@ function getPlaylist(container) {
 	let user_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
 	$.ajax({
 		"type" : "GET",
-		"url" : "/heaplay/getPlaylists?id="+user_id,
+		"url" : encodeSessionId("/heaplay/getPlaylists")+"?id="+user_id,
 		"success" : (data) => {
 			$(container).empty();
 			data = JSON.parse(data);
