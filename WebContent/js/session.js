@@ -10,7 +10,7 @@ const encodeSessionId = (url) => {
 	let sessionId = begin != 0 ? currentUrl.substring(begin,end) : currentUrl;
 	//Encode del sessionId
 	if(currentUrl.length != sessionId.length) 
-		url = url +sessionId;
+		url = url + sessionId;
 	
 	return url;
 };
