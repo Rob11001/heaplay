@@ -29,7 +29,7 @@ public class GetBestPlaylists extends HttpServlet {
 		
 		try {
 			//Presa delle playlist
-			ArrayList<PlaylistBean> list = (ArrayList<PlaylistBean>) playlistDao.getMostViewedPlaylists();
+			ArrayList<PlaylistBean> list = (ArrayList<PlaylistBean>) playlistDao.getMostViewedPlaylists(9);
 			for(int i = 0 ; i < list.size() ; i++) {
 				//Eliminazione dei bytes
 				resetBytes(list.get(i).getTracks());

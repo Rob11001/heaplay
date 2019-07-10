@@ -20,6 +20,7 @@ import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.OwnedTrackDao;
 import com.heaplay.model.dao.PurchasableTrackDao;
+import com.heaplay.model.dao.TrackDao;
 
 @WebServlet("/purchase")
 public class Purchase extends HttpServlet {
@@ -39,6 +40,7 @@ public class Purchase extends HttpServlet {
     		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
     		OwnedTrackDao ownedTrackDao = new OwnedTrackDao(pool);
     		PurchasableTrackDao purchasableTrackDao = new PurchasableTrackDao(pool);
+    		TrackDao trackDao = new TrackDao(pool);
     		
     		//Track da acquistare
     		ArrayList<TrackBean> list = (ArrayList<TrackBean>) cart.getItems();
@@ -62,11 +64,12 @@ public class Purchase extends HttpServlet {
 					ownedTrackDao.doSave(track);
 					
 				}
+	    		//Pulizia del carrello
+	    		cart.getItems().clear();
+	    		trackDao.updateCart(cart.getItems(), user.getId());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-    		//Pulizia del carrello
-    		cart.getItems().clear();
     	}
     		
     }

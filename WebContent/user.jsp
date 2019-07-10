@@ -54,8 +54,8 @@
 	</div>
 	<form class="pages-buttons" action="<%=response.encodeURL("/heaplay/user/"+userPage.getUsername()+((owned!=null) ? "?track=owned" : ""))%>" method="POST">
 		<input type="hidden" value="<%=begin%>" name="begin" id="currentPage"> 
-		<%for( int i= 0; i< number; i+=5) {%>
-			<button type="submit" onclick="beginValue(this)" id="<%=i%>"><%=i/5+1%></button>
+		<%for( int i= 0; i< number; i+=9) {%>
+			<button type="submit" onclick="beginValue(this)" id="<%=i%>"><%=i/9+1%></button>
 		<%} %>
 	</form>
 </div>

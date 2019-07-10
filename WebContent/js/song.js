@@ -16,7 +16,6 @@ $(document).ready(function init() {
 function addEventHandlers() {
 	$(".play").click(startAudio);
 	$(".play").click(view);
-	$(".like").click(like);
 }
 
 //Handlers
@@ -155,9 +154,12 @@ function updateCurrentTime (event) {
 function view(e) {
 	let url = $(e.currentTarget).parent().parent().parent().find(".audio").children().prop("src");
 	let id = url.substring(url.indexOf("id")+3,url.indexOf("&"));
+	let span = e.currentTarget;
+	
 	$.ajax({
 		"type":"GET",
-		"url" : "/heaplay/view?id="+id
+		"url" : "/heaplay/view",
+		"data": "id="+id
 	});
 }
 
@@ -165,11 +167,15 @@ function like(e) {
 	let url = $(e.currentTarget).parent().parent().parent().find(".audio").children().prop("src");
 	let id = url.substring(url.indexOf("id")+3,url.indexOf("&"));
 	console.log(id);
+	let span = e.currentTarget;
 	$.ajax({
 		"type":"GET",
-		"url" : "/heaplay/view?id="+id+"&like=true",
+		"url" : "/heaplay/view",
+		"data": "id="+id+"&like=true",
 		"success" : () => {
-			$(e.currentTarget).off();
+			$(span).prop("onclick",null);
+			let likes = Number.parseInt($(span).html().substring($(span).html().indexOf("</i>")+4,$(span).html().length))+1;
+			$(span).html("<i class='fa fa-thumbs-up'></i> "+ likes)
 			//Vedere come focusare il like
 		}
 	});

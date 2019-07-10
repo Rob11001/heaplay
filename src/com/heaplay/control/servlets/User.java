@@ -49,7 +49,7 @@ public class User extends HttpServlet {
 			if(currentUser != null && currentUser.isActive() && !currentUser.getAuth().equals("admin")) {	//Controllo se l'utente esiste ed è attivo
 				if(owned == null) {
 					//Tracks caricate
-					listOfTracks = trackDao.getTracksByAuthor(currentUser.getId(),begin,5,"");
+					listOfTracks = trackDao.getTracksByAuthor(currentUser.getId(),begin,9,"");
 					numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
 				} else if(userBean != null && userBean.getId() == currentUser.getId()){
 					//Track acquistate

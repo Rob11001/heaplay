@@ -35,7 +35,7 @@ public class GetLikedTracks extends HttpServlet {
 			//Selezione delle prime 5
 			int size = list.size();
 			if(size > 0)
-				listOfObjects.addAll(list.subList(0, (size < 5) ? size : 5));
+				listOfObjects.addAll(list.subList(0, (size < 12) ? size : 12));
 			resetBytes(listOfObjects);
 			//Conversione in JSON
 			Gson gson = new Gson();
