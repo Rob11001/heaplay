@@ -104,33 +104,64 @@ nav > a:visited, .dropbtn > a:visited {
 
 /* Sezione Ricerca */
 .search {
-	flex: 3;
+	flex: 6;
 	display: flex;
 }
 
-.search > * {
-	border: 2px solid var(--main-blue);
+
+							/* Select Style */
+							
+.custom-select {
+	display: flex;
 }
 
-.search-select {
-	border-top-left-radius: 20px;
-	border-bottom-left-radius: 20px;
-	font-size: 1em;
-	padding: 0 5px;
-	width: 14%;
+.custom-select select {
+	display: none;
 }
+
+.select-selected {
+	border: 1px solid var(--main-black60);
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+	color: white;
+	cursor: pointer;
+	user-select: none;
+	padding: 0 3px;
+}
+
+.select-items {
+	display: flex;
+}
+
+.select-items div {
+	border-bottom: 1px solid var(--main-black60);
+	border-top: 1px solid var(--main-black60);
+	cursor: pointer;
+	user-select: none;
+	padding: 0 4px;
+}
+
+.select-items div:hover, .list-selected {
+	border-bottom: 1px solid var(--main-black);
+	border-top: 1px solid var(--main-black);
+	color: white;
+	font-weight: bold;
+}
+
+
+							/* Searchbox Style */
 
 .search-box {
 	border-left: none;
-	font-size: 1em;
-	padding: 0 5px;
 	transition: width 0.5s ease-in-out;
-	width: 30%;
 }
 
 .search-box:focus {
+	border-color: var(--main-black);
 	width: 80%;
 }
+
+							/* Search Button Style */
 
 .search-button {
 	border-left: none;
@@ -164,7 +195,6 @@ nav > a:visited, .dropbtn > a:visited {
 	box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
 	display: none;
 	flex-direction: column;
-	right: 30px;
 	min-width: 160px;
 	position: absolute;
 	z-index: 2;
