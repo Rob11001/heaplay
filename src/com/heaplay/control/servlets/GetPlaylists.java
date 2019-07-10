@@ -34,7 +34,6 @@ public class GetPlaylists extends HttpServlet {
 		String autocomplete = request.getParameter("autocomplete");
 		String track_id = request.getParameter("track_id");
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
-		System.out.println(id);
 		
 		if(id == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
