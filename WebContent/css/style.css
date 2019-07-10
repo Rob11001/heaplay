@@ -145,6 +145,8 @@ nav > a:visited, .dropbtn > a:visited {
 
 /* Sezione Utente */
 .user {
+	align-items: center;
+	display: flex;
 	flex: 1;
 	justify-content: flex-end;
 }

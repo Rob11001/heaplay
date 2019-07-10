@@ -59,7 +59,7 @@
 	<form action="<%=response.encodeURL("/heaplay/user/"+userPage.getUsername()+((owned!=null) ? "?track=owned" : ""))%>" method="POST">
 		<input type="hidden" value="<%=begin%>" name="begin" id="currentPage"> 
 		<%for( int i= 0; i< number; i+=5) {%>
-			<input type="submit" value="<%=i/5+1%>" onclick="beginValue(this)" id="<%=i%>">	
+			<button type="submit" onclick="beginValue(this)" id="<%=i%>"><%=i/5+1%></button>
 		<%} %>
 	</form>
 </div>

@@ -34,7 +34,7 @@
 						<%if(!user.getAuth().equals("admin")) {%>
 							<a href="<%=response.encodeURL("/heaplay/user/" + user.getUsername()) %>">Area Utente</a>
 							<a href="<%=response.encodeURL("/heaplay/upload")%>">Carica</a>
-							<a href="<%=response.encodeURL("/heaplay/cart")%>">Carrello</a>
+							<!-- <a href="<%=response.encodeURL("/heaplay/cart")%>">Carrello</a>  -->
 						<%} else {%>
 							<a href="<%=response.encodeURL("/heaplay/admin/operation?op=register")%>">Registra Admin</a>
 							<a href="<%=response.encodeURL("/heaplay/admin/operation?op=info")%>">Info</a>
@@ -42,6 +42,10 @@
 						<a href="<%=response.encodeURL("/heaplay/logout")%>">Logout</a>
 					</div>
 				</div>
+				<%if(!user.getAuth().equals("admin")) {%>
+				<a href="<%=response.encodeURL("/heaplay/cart")%>"><i class="fa fa-shopping-cart"></i></a>
+				<%} %>
+				
 			<%} %>
 		</nav>
 	</div>
