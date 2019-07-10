@@ -42,7 +42,7 @@ public class UploadComment extends HttpServlet {
 				commentDao.doSave(commentBean);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 		}
 	}

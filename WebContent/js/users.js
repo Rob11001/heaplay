@@ -53,10 +53,10 @@ function getPlaylist(container) {
 	let user_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
 	$.ajax({
 		"type" : "GET",
-		"url" : encodeSessionId("/heaplay/getPlaylists")+"?id="+user_id,
+		"url" : encodeSessionId("/heaplay/getPlaylists"),
+		"data": "id="+user_id,
 		"success" : (data) => {
 			$(container).empty();
-			data = JSON.parse(data);
 			for(let i = 0 ; i < data.length; i++){
 				//Estrazione del bean
 				let bean = data[i];

@@ -35,10 +35,10 @@ public class GetPlaylists extends HttpServlet {
 		String track_id = request.getParameter("track_id");
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		
-		
-		if(id == null && user == null)
+		if(id == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
+			response.setContentType("application/json");
 			//Dao
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			PlaylistDao playlistDao =  new PlaylistDao(pool);
@@ -57,7 +57,6 @@ public class GetPlaylists extends HttpServlet {
 			
 			if(autocomplete != null && track_id != null) {
 				try {
-					response.setContentType("application/json");
 					TrackDao trackDao = new TrackDao(pool);
 					
 					ArrayList<String> keys = new ArrayList<String>();

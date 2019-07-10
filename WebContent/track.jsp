@@ -16,13 +16,7 @@
 	<% 
 	UserBean user = (UserBean) session.getAttribute("user");
 	if(user != null) {
-		if(user.getId() != track.getAuthor()) {
-			if(user.getAuth().equals("admin")) { %>		
-				<form action="/heaplay/removeTrack" method="POST">
-					<input type="hidden" name="track_id" value="<%=track.getId()%>">
-					<input type="submit" value="Blocca">
-				</form>	
-			<% } else {%>
+		if(user.getId() != track.getAuthor() && !user.getAuth().equals("admin")) {	%>
 			<div>
 				<%if(track.getType().equals("pagamento")) { 
 					PurchasableTrackBean pTrack = (PurchasableTrackBean) track;
@@ -42,16 +36,17 @@
 			</div>
 			<% } %>
 			<br>
-		<%} %>
 	<%} else { %>
-		<p>Link per loggare oppure registrarsi per lasciare un commento</p>
+		<span><a href="/heaplay/login">Logga </a> oppure <a href="/heaplay/register">registrati </a>per poter commentare</span><a></a>
 	<%} %>
 	<h3>Commenti</h3>
 	<hr class="hr-form">
+	<%if(user != null && !user.getAuth().equals("admin")) {%>
 	<div class="write-comment">
 			<textarea class="form-input-textarea" maxlength="255" placeholder="Scrivi un commento"></textarea>
 			<button onclick="uploadComment(this)">Invia</button>
 	</div>
+	<%} %>
 	<div class="comment-container">
 	</div>
 	

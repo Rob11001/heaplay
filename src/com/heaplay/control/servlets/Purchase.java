@@ -26,7 +26,8 @@ import com.heaplay.model.dao.TrackDao;
 public class Purchase extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @SuppressWarnings("unchecked")
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	//Lettura della sessione
     	HttpSession session = request.getSession();
     	UserBean user = (UserBean) session.getAttribute("user");

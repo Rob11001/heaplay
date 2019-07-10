@@ -26,6 +26,7 @@ import com.heaplay.model.dao.TrackDao;
 public class Track extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Lettura dei parametri
 		String id = request.getParameter("id");
@@ -57,14 +58,14 @@ public class Track extends HttpServlet {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 			
 			if(track == null || !track.isIndexable() || !track.getAuthorName().equals(userName) || !track.getName().replaceAll("\\s","").equals(trackName)) {
 				//pagina di errore
 				request.setAttribute("error_title", "Pagina non trovata - 404");
 				request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
-				response.sendError(response.SC_NOT_FOUND);
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			} else {
 				if(user !=  null) {
 					try {
@@ -86,7 +87,7 @@ public class Track extends HttpServlet {
 					
 					} catch (SQLException e) {
 						e.printStackTrace();
-						response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+						response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 					}
 				}
 				//Set degli attributi

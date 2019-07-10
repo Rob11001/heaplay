@@ -22,7 +22,8 @@ import com.heaplay.model.dao.TrackDao;
 public class GetLikedTracks extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
- 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 	@SuppressWarnings("deprecation")
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
  		response.setContentType("application/JSON");
  		ArrayList<Bean> list = new ArrayList<Bean>();
  		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));

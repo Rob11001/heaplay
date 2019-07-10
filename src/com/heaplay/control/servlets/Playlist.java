@@ -47,18 +47,18 @@ public class Playlist extends HttpServlet {
 					/*Pagina di errore*/
 					request.setAttribute("error_title", "Pagina non trovata - 404");
 					request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
-					response.sendError(response.SC_NOT_FOUND);
+					response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				} else {
 					ArrayList<String> keys = new ArrayList<String>();
 					keys.add(id);
 					PlaylistBean playlistBean = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
-					
+					System.out.println(playlistBean);
 					//Controllo nome playlist e se non è privata
 					if(playlistBean == null || !playlistBean.getName().replaceAll("\\s","").equals(playlistName) || !playlistBean.getAuthorName().equals(user) || (playlistBean.getPrivacy().equals("private") && (currentUser == null || !playlistBean.getAuthorName().equals(currentUser.getUsername())))) {
 						/*Pagina di errore*/
 						request.setAttribute("error_title", "Pagina non trovata - 404");
 						request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
-						response.sendError(response.SC_NOT_FOUND);
+						response.sendError(HttpServletResponse.SC_NOT_FOUND);
 					} else {
 						//Lettura delle tracks della playlist
 						ArrayList<TrackBean> list = (ArrayList<TrackBean>) playlistBean.getTracks();
@@ -90,7 +90,7 @@ public class Playlist extends HttpServlet {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 			
 		}
