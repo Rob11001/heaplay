@@ -56,7 +56,7 @@ $(document).ready( () => {
 
 	$(window).scroll(() => {
 		let container = $("#content .flex-container");
-		let numberOfElements = $(container).children().length - 1;
+		let numberOfElements = $(container).children().length;
 		
 		//Effettuo la chiamata solo quando ho già effettuato una ricerca e ho raggiunto il bottom della pagina
 		if(numberOfElements > 0  && ($(window).scrollTop() + $(window).height() >= $(document).height()-1)) {
