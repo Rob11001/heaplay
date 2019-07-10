@@ -513,11 +513,6 @@ button:hover, .file-input:hover {
 	opacity: 1;
 }
 
-.form-input-textarea {
-	resize: none;
-	max-width: 100%;
-}
-
 #tagButton {
 	margin-left: 3px;
 }
@@ -554,6 +549,29 @@ button:hover, .file-input:hover {
 
 .write-comment {
 	display: flex;
+	flex-flow: column;
+	margin-top: 5px;
+}
+
+.write-comment textarea {
+	border-color: var(--main-black);
+	border-left: 0;
+	border-right: 0;
+	border-width: 1px;
+	border-top: 0;
+	font-size: 1em;
+	resize: none;
+	transition: border-width 0.2s linear;
+	width: 100%;
+}
+
+.write-comment textarea:focus {
+	border-width: 2px;
+}
+
+.write-comment button {
+	align-self: flex-end;
+	margin-top: 5px;
 }
 
 

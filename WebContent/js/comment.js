@@ -51,4 +51,5 @@ $(document).ready(() => {
 		if($(window).scrollTop() + $(window).height() >= $(document).height()-1)
 			loadComments();
 	});
+	
 });
