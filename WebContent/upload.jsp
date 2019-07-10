@@ -55,8 +55,7 @@
 	</div>
 	<datalist id="tagSuggestions"></datalist>
 	
-	<div class="added-tags">
-	</div>
+	<div class="added-tags"></div>
 		
 	<input type="hidden" name="authorId" value="<%=user.getId()%>">
 	<input type="hidden" name="duration" id="duration"> 

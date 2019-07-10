@@ -8,6 +8,7 @@ const searchElement = (list,el) => {
 };
 
 const removeTag = (object) =>{
+	$(object).next("input[name='tag']").remove();
 	$(object).remove();
 };
 
@@ -16,7 +17,8 @@ const addTag = (button) => {
 	let val = $(divParent).find("#autocomplete").val();
 	let list = document.getElementsByName("tag");
 	if(val !== "" && !searchElement(list,val)) {
-		$( "<input type='text' class='tag' readonly='readonly' size='" + val.length +"' name='tag' value='" + val + "' onclick='removeTag(this)'>" ).appendTo(divParent.find(".added-tags"));
+		$( "<span class='tag' onclick='removeTag(this)'>" + val + "</span>" ).appendTo(divParent.find(".added-tags"));
+		$( "<input type='hidden' name='tag' value='" + val +"'>" ).appendTo(divParent.find(".added-tags"));
 		$("input[name='tags']").val("");
 	
 	}

@@ -29,7 +29,7 @@
 				%>
 					<span class="price">Prezzo: <%=pTrack.getPrice()%> </span>
 				<%} else {%>
-					<span> Free </span>
+					<span> Gratuita </span>
 				<%} %>
 				<br>
 				<%if(!cart.getItems().contains(track) && owned.equals("false")) { %>

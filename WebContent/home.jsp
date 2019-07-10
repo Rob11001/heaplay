@@ -6,6 +6,8 @@
 <%
 	UserBean user = (UserBean)session.getAttribute("user");
 %>
+<h2>Homepage</h2>
+<hr class="hr-form">
 <%if(user == null || !user.getAuth().equals("admin")){%>
 	<div id="playlists">
 		<h3>Playlist più ascoltate</h3>
