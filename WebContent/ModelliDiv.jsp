@@ -76,7 +76,10 @@
 					</tr>
 				</table>
 			</div>
-			<span class='like'><i class='fa fa-thumbs-up'></i></span>
+			<div class='song-buttons'>
+				<span>bean.plays riproduzioni</span>
+				<span class='song-button' onclick='like(event)' title='Aggiungi Mi Piace'><i class='fa fa-thumbs-up'></i> bean.likes</span>
+			</div>		
 	</div>
 </div>
 

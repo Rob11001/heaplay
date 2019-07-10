@@ -23,7 +23,7 @@ public class View extends HttpServlet {
 		//Lettura parametri
 		String id = request.getParameter("id");
 		String like = request.getParameter("like");
-				
+		
 		if(id == null)
 			response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));
 		else {
