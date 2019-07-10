@@ -242,6 +242,10 @@ nav > a:visited, .dropbtn > a:visited {
 	width: 70px;
 }
 
+.pages-buttons {
+	text-align: center;
+}
+
 
 /******************************** Song & Playlist Style ********************************/
 
@@ -363,8 +367,17 @@ nav > a:visited, .dropbtn > a:visited {
 	background-color: var(--main-orange);
 	border-radius: 50%;
 	cursor: pointer; /* Cursor on hover */
-	height: 25px; /* Slider handle height */
-	width: 25px; /* Set a specific slider handle width */
+	height: 15px; /* Slider handle height */
+	width: 15px; /* Set a specific slider handle width */
+}
+
+.song-buttons {
+	display: flex;
+}
+
+.song-buttons .song-button {
+	display: inline;
+	font-size: 1em;
 }
 
 /******************************** User Page ********************************/
@@ -386,6 +399,11 @@ nav > a:visited, .dropbtn > a:visited {
 .page-image:hover {
 	cursor: pointer;
 	opacity: 0.6;
+}
+
+.not-user:hover {
+	cursor: default !important; 
+	opacity: 1 !important;
 }
 
 .page-name, .page-subname {
@@ -573,7 +591,7 @@ button:hover, .file-input:hover {
 	display: none;
 }
 
-.check, .cross {
+.check, .cross, .song-button {
 	align-self: center;
 	display: none;
 	font-size: 20px;

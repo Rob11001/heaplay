@@ -1,5 +1,8 @@
 <%@page import="com.heaplay.model.beans.UserBean"%>
-<%UserBean user = (UserBean)session.getAttribute("user"); 
+<%
+UserBean currentUserLocal = (UserBean)session.getAttribute("user"); 
+UserBean userPageLocal= (UserBean)request.getAttribute("user");
+
 %>
 
 <div class="song">
@@ -53,7 +56,11 @@
 			</table>
 		</div>
 		
-		<span class="like"><i class="fa fa-thumbs-up"></i></span>
-		
+		<div class="song-buttons">
+			<span class="song-button" onclick="like(event)" title="Aggiungi Mi Piace"><i class="fa fa-thumbs-up"></i> <%=track.getPlays()%></span>
+			<%if(track.isIndexable() && userPageLocal != null && currentUserLocal != null && currentUserLocal.getId() == userPageLocal.getId() ) {%>
+			<span class="song-button" onclick="addToPlaylist(this)" title="Aggiungi a una Playlist")><i class="fa fa-plus"></i></span>
+			<% }%>
+		</div>		
 	</div>	
 </div>

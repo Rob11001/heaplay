@@ -9,7 +9,7 @@ $(document).ready(() => {
 });
 
 function addToPlaylist(button) {
-	let parent = $(button).parent();
+	let parent = $(button).parent().parent().parent();
 	let audioSrc = $(parent).find(".audio").children().prop("src");
 	let track_id = audioSrc.substring(audioSrc.indexOf("id")+3,audioSrc.indexOf("&"));
 	$("#track_id").val(track_id);

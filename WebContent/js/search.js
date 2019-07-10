@@ -1,4 +1,5 @@
 const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
+
 const selectOption = (toShow,button) => {
 	$(".only").hide();
 	$(".only").removeClass("only");
@@ -11,6 +12,7 @@ const selectOption = (toShow,button) => {
 			$(children[i]).removeClass("selected");
 	$(button).addClass("selected");		
 };
+
 $(document).ready( () => {
 
 	const showHide = (x,y) => { 	

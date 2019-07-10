@@ -164,6 +164,7 @@ function view(e) {
 function like(e) {
 	let url = $(e.currentTarget).parent().parent().parent().find(".audio").children().prop("src");
 	let id = url.substring(url.indexOf("id")+3,url.indexOf("&"));
+	console.log(id);
 	$.ajax({
 		"type":"GET",
 		"url" : "/heaplay/view?id="+id+"&like=true",
