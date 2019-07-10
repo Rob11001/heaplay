@@ -42,6 +42,7 @@ public class UploadImage extends HttpServlet {
 		
 			UserDao userDao = new UserDao((ConnectionPool) getServletContext().getAttribute("pool"));
 			UserBean user = (UserBean) request.getSession().getAttribute("user");
+		
 			if(user == null)
 				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 			else {
@@ -50,7 +51,7 @@ public class UploadImage extends HttpServlet {
 					user.setUserImageExt(imageExt);
 					user.setUserImage(imageBytes);
 					userDao.doUpdate(user);
-					response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/library"));
+					response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/user/"+user.getUsername()));
 			
 				} catch (SQLException e) {
 					e.printStackTrace();

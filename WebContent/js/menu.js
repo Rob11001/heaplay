@@ -1,7 +1,31 @@
 var prevScrollpos = window.pageYOffset;
 
+const cartDrop = (flag) => {
+	if(flag == true) {
+		let div = $(".fa-shopping-cart").parent();
+		if(div != undefined) {
+			//Rimozione precedente
+			$(div).remove();
+			//Creazione del nuovo
+			let parent = $(".dropdown-content");
+			$($(parent).children()[$(parent).children().length-1]).before("<a href='"+encodeSessionId("/heaplay/cart")+"'>Carrello</a>");
+		}
+	} else {
+		let div = $(".dropdown-content").children()[2];
+		if(div != undefined) {
+			//Rimozione precedente
+			$(div).remove();
+			//Creazione nuovo
+			$("<a href="+encodeSessionId("/heaplay/cart")+"'><i class='fa fa-shopping-cart'></i></a>").appendTo($("nav.user"));
+		}
+	}
+};
+
+
+
+
 $(document).ready(() => {
-		
+
 	let dropdown = $(".dropdown");
 	let dropContent = $(".dropdown-content");
 	
