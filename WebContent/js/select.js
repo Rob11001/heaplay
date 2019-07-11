@@ -1,12 +1,12 @@
 $(document).ready(() => {
 	const hideSearchBar = () => {
-		$(".search-box").fadeOut();
+		$("#search-box").fadeOut();
 		$(".search-button").fadeOut();
 	};
 	
 	const showSearchBar = () => {
-		$(".search-box").fadeIn();
-		$(".search-button").fadeIn();
+		$("#search-box").delay(400).fadeIn();
+		$(".search-button").delay(400).fadeIn();
 	};
 	
 	let selectSelected = $("<div class='select-selected'></div>");
@@ -28,7 +28,10 @@ $(document).ready(() => {
 			$(e.target).addClass("list-selected");
 			selectSelected.html($(e.target).html());
 			trueSelect.val(trueSelect.children(":nth-child(" + (i + 1) + ")").val());
-			selectItems.hide("slide", () => {selectSelected.html(selectSelected.html() + " ▸"); showSearchBar()});			
+			selectItems.hide("slide", () => {
+				selectSelected.html(selectSelected.html()); 
+				showSearchBar();
+				});			
 		});		
 	});
 	
@@ -37,15 +40,18 @@ $(document).ready(() => {
 	selectSelected.on("click", (e) => {
 		if(selectItems.css("display") == "none") {
 			hideSearchBar();
-			selectItems.show("slide", () => selectSelected.html(selectSelected.html().replace("▸", "◂")))
+			selectItems.delay(400).show("slide", () => selectSelected.html(selectSelected.html()))
 		}
 		else {
-			selectItems.hide("slide", () => selectSelected.html(selectSelected.html().replace("◂", "▸")));
+			selectItems.hide("slide", () => selectSelected.html(selectSelected.html()));
 			showSearchBar();
 		}
 	});
 	
-	$(document).click(() => selectItems.hide("slide", () => {selectSelected.html(selectSelected.html().replace("◂", "▸")); showSearchBar() }));
+	$(document).click(() => selectItems.hide("slide", () => {
+		selectSelected.html(selectSelected.html()); 
+		showSearchBar();
+		}));
 	selectSelected.click((e) => e.stopPropagation());
 	
 });

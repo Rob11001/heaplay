@@ -20,7 +20,7 @@
 					<option value="user">Utenti</option>
 				</select>
 			</div><!-- 
-			--><input class="search-box" type="text" name="q" placeholder="Cerca..." list="suggestions" onkeyup="autocompleteSearch(this,$('#suggestions'))" onkeypress="searchOnEnterButton(event)"><!--
+			--><input id="search-box" type="text" name="q" placeholder="Cerca..." list="suggestions" onkeyup="autocompleteSearch(this,$('#suggestions'))" onkeypress="searchOnEnterButton(event)"><!--
 			--><datalist id="suggestions"></datalist><button class="search-button"><i class="fa fa-search"></i></button>
 		</div>
 		<nav class="user">
@@ -36,7 +36,6 @@
 						<%if(!user.getAuth().equals("admin")) {%>
 							<a href="<%=response.encodeURL("/heaplay/user/" + user.getUsername()) %>">Area Utente</a>
 							<a href="<%=response.encodeURL("/heaplay/upload")%>">Carica</a>
-							<!-- <a href="<%=response.encodeURL("/heaplay/cart")%>">Carrello</a>  -->
 						<%} else {%>
 							<a href="<%=response.encodeURL("/heaplay/admin/operation?op=register")%>">Registra Admin</a>
 							<a href="<%=response.encodeURL("/heaplay/admin/operation?op=info")%>">Info</a>

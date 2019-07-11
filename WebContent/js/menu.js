@@ -16,7 +16,7 @@ const cartDrop = (flag) => {
 			//Rimozione precedente
 			$(div).remove();
 			//Creazione nuovo
-			$("<a href="+encodeSessionId("/heaplay/cart")+"'><i class='fa fa-shopping-cart'></i></a>").appendTo($("nav.user"));
+			$("<a href='"+encodeSessionId("/heaplay/cart")+"'><i class='fa fa-shopping-cart'></i></a>").appendTo($("nav.user"));
 		}
 	}
 };
@@ -27,6 +27,7 @@ const cartDrop = (flag) => {
 $(document).ready(() => {
 
 	let dropdown = $(".dropdown");
+	let dropbtn = $(".dropbtn");
 	let dropContent = $(".dropdown-content");
 	
 	const setPadding = () => {
@@ -45,20 +46,28 @@ $(document).ready(() => {
 	
 	setPadding();
 	
+	
+	let dropContentHide = () => dropContent.hide(400);
 	let mqListTablet = window.matchMedia("(max-width: 1024px)");
-	if(mqListTablet.matches)
+	if(mqListTablet.matches) {
 		dropdown.on("click", drop);
+		$(document).on("click", dropContentHide);
+		dropdown.click((e) => e.stopPropagation());
+	}
 	
 	mqListTablet.addListener((e) => {
 		if(e.matches) {
 			dropdown.on("click", drop);
+			$(document).on("click", dropContentHide);
+			dropdown.click((e) => e.stopPropagation());
 		} else {
 			dropdown.off("click");
+			$(document).off("click", dropContentHide);
 			dropContent.css("display", "");
 		}
 	});
 	
-	let mqListMobile = window.matchMedia("(max-width: 420px)");
+	let mqListMobile = window.matchMedia("(max-width: 426px)");
 	if(mqListMobile.matches)
 		cartDrop(true);
 	
@@ -67,6 +76,19 @@ $(document).ready(() => {
 			cartDrop(true);
 		} else {
 			cartDrop(false);
+		}
+	});
+	
+	let mqListSmallTablet = window.matchMedia("(max-width: 560px)");
+	if(mqListSmallTablet.matches) {
+		dropbtn.find("a i").removeClass("fa fa-caret-down");
+	}
+	
+	mqListSmallTablet.addListener((e) => {
+		if(e.matches) {
+			dropbtn.find("a i").removeClass("fa fa-caret-down");
+		} else {
+			dropbtn.find("a i").addClass("fa fa-caret-down");
 		}
 	});
 	
@@ -86,11 +108,5 @@ $(document).ready(() => {
 	};
 	
 	window.onresize = setPadding;
-	
-	$(document).click(() => dropContent.hide(400));
-
-	dropdown.click((e) => e.stopPropagation());
-	
-	
 
 });
