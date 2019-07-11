@@ -2,6 +2,7 @@
 <%@page import="com.heaplay.model.beans.TrackBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.heaplay.model.beans.UserBean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 UserBean currentUser = ((UserBean) session.getAttribute("user"));
 UserBean userPage = (UserBean) request.getAttribute("userPage");

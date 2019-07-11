@@ -363,10 +363,6 @@ nav > a:visited, .dropbtn > a:visited {
 	margin-left: 15px;
 }
 
-.price {
-	
-}
-
 /* Controls */
 
 .controls {
@@ -563,9 +559,10 @@ button:hover, .file-input:hover {
 }
 
 .added-tags {
-	margin-bottom: 20px;
 	display: flex;
-	flex-flow: row wrap;
+	flex-flow: row wrap;	
+	margin-bottom: 20px;
+	max-width: 50%;
 }
 
 .tag {
@@ -576,6 +573,14 @@ button:hover, .file-input:hover {
 	margin: 3px;
 	padding: 1px 5px;
 	text-align: center;
+}
+
+.track-info .added-tags {
+	max-width: 90%;
+}
+
+.track-info .tag { 
+	cursor: auto;	
 }
 
 .form-error {
@@ -592,6 +597,29 @@ button:hover, .file-input:hover {
 }
 
 /******************************** Track Page ********************************/
+
+.track-info {
+	
+}
+
+.add-cart {
+	align-items: center;
+	border: 2px solid var(--main-black60);
+	border-radius: 20px;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	padding: 10px 15px;
+}
+
+.add-cart:hover {
+	border-color: var(--main-black);
+}
+
+.price {
+	color: var(--main-orange-shade);
+	font-size: 1.3em;
+}
 
 .write-comment {
 	display: flex;
@@ -643,6 +671,11 @@ button:hover, .file-input:hover {
 	word-wrap: break-word;
 }
 
+/********************* Cart ***************************/
+
+.cart-sum {
+	margin-bottom: 20px;	
+}
 
 /* Classes of support */
 
@@ -690,6 +723,10 @@ button:hover, .file-input:hover {
 	color: var(--main-blue);	
 }
 
+.between {
+	justify-content: space-between;
+}
+
 /* Responsive Design */
 
 @media only screen and (max-width: 1024px) {
@@ -702,6 +739,10 @@ button:hover, .file-input:hover {
 	
 	input[type='text'], input[type='password'] {
 		width: 50%;
+	}
+	
+	.between {
+		justify-content: space-evenly;
 	}
 }
 

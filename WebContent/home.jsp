@@ -3,6 +3,7 @@
 <%@page import="com.heaplay.model.beans.TrackBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.heaplay.model.beans.UserBean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	UserBean user = (UserBean)session.getAttribute("user");
 %>
@@ -10,13 +11,13 @@
 <hr class="hr-form">
 <%if(user == null || !user.getAuth().equals("admin")){%>
 	<div id="playlists">
-		<h3>Playlist più ascoltate</h3>
+		<h3>Playlist piÃ¹ ascoltate</h3>
 		<div class="flex-container">
 		</div>
 	</div>
 
 	<div id="songs">
-		<h3>Canzoni più ascoltate</h3>
+		<h3>Canzoni piÃ¹ ascoltate</h3>
 		<div class="flex-container">
 		</div>
 	</div>

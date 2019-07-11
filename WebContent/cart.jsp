@@ -3,6 +3,7 @@
 <%@page import="com.heaplay.model.beans.TrackBean"%>
 <%@page import="com.heaplay.model.beans.Cart"%>
 <%@page import="com.heaplay.model.beans.UserBean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	UserBean user = (UserBean)session.getAttribute("user");
 	Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart");
@@ -27,20 +28,20 @@
 			<div class="carted-content">
 				<span class="author"><a href="<%=response.encodeURL("/heaplay/user/"+track.getAuthorName()+"/"+track.getName().replaceAll("\\s","")+"?id="+track.getId()) %>"><%=track.getAuthorName()%></a></span> <br>
 				<span class="song-name"><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName().replaceAll("\\s","")%>?id=<%=track.getId()%>"><%=track.getName()%></a></span> <br>
-				<span class="price">Costo: <%=(track.getType().equals("free")) ? "Gratuita" : (String.format("%.2f",((PurchasableTrackBean)track).getPrice()))%></span>
-				<span class="upload-date hidden">Data : <%=track.getUploadDate()%></span><br>
+				<span>Prezzo: <span class="price"><%=(track.getType().equals("free")) ? "Gratuita" : (String.format("%.2f",((PurchasableTrackBean)track).getPrice())) + "€"%></span></span>
+				<span class="upload-date hidden">Aggiunto in Data: <%=track.getUploadDate()%></span><br>
 			</div>
 			<button class="item-remove" onclick="removeFromCart(this)">Rimuovi</button>
 		</div>
 	<%} 
 	if(list.size() == 0) { %>
-		<p>Il tuo carrello � al momento vuoto</p>
+		<p>Il tuo carrello è al momento vuoto</p>
 	<%} else {%>
 		<br>
 		<div class="cart-sum" >
-			<span>Costo Totale: <span id="sum"><%=String.format("%.2f",sum) %></span></span> <br>
-			<button onclick="purchase()">Acquista</button>
+			<span>Prezzo Totale: <span id="sum" class="price"><%=String.format("%.2f",sum)%> €</span></span> <br>
 		</div>
+		<button onclick="purchase()">Acquista</button>
 	<%} %>
 </div>
 <div class="loading-cart hidden">
