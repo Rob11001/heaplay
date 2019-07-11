@@ -192,7 +192,7 @@ public class CommentDao implements DaoModel {
 		ResultSet rs = null; 
 		List<Bean> list =  new ArrayList<Bean>(); 
 		CommentBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME +" WHERE track_id=? LIMIT "+ offset+","+numberToLoad;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME +",users WHERE track_id=? AND active='1' LIMIT "+ offset+","+numberToLoad;
 		
 		try {
 			con = pool.getConnection();

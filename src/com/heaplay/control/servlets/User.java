@@ -65,6 +65,10 @@ public class User extends HttpServlet {
 				}
 				
 				if(!flagError) {
+					if(userBean != null)
+						for(int i = 0 ; i < listOfTracks.size() ; i++)
+							listOfTracks.get(i).setLiked(userDao.checkIfLiked(userBean.getId(), listOfTracks.get(i).getId()));
+					
 					request.setAttribute("user", currentUser);
 		    		request.setAttribute("tracks", listOfTracks);
 		    		request.setAttribute("begin", begin);
@@ -83,6 +87,7 @@ public class User extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			request.setAttribute("error", e.getMessage());
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}

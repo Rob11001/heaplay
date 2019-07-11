@@ -85,9 +85,7 @@ public class TrackDao implements DaoModel {
 					if(tagBean == null) {
 						tagDao.doSave(tag);
 						con.commit();
-						do{														//A volte ritornava null anche se il tag era stato creato
-							tagBean=(TagBean) tagDao.doRetrieveByKey(keys);
-						} while(tagBean == null);
+						tagBean=(TagBean) tagDao.doRetrieveByKey(keys);
 					}
 					ps.setLong(2, tagBean.getId());
 				}

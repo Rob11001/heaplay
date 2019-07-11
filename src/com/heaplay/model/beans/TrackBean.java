@@ -28,6 +28,7 @@ public class TrackBean extends Bean implements Serializable, Cloneable {
 	private long author;
 	private String authorName;
 	private List<TagBean> tags;
+	private boolean liked;
 	
 	public TrackBean() {
 		this.id = this.author = -1;
@@ -36,7 +37,7 @@ public class TrackBean extends Bean implements Serializable, Cloneable {
 		this.track = null;
 		this.image = null;
 		this.uploadDate = null;
-		this.indexable = false;
+		this.indexable = this.liked = false;
 		this.tags = new ArrayList<TagBean>();
 	}
 
@@ -78,6 +79,14 @@ public class TrackBean extends Bean implements Serializable, Cloneable {
 	
 	public void setTrack(byte[] track) {
 		this.track = track;
+	}
+	
+	public boolean isLiked() {
+		return liked;
+	}
+
+	public void setLiked(boolean liked) {
+		this.liked = liked;
 	}
 	
 	public String getTrackExt() {

@@ -52,7 +52,6 @@ public class Playlist extends HttpServlet {
 					ArrayList<String> keys = new ArrayList<String>();
 					keys.add(id);
 					PlaylistBean playlistBean = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
-					System.out.println(playlistBean);
 					//Controllo nome playlist e se non è privata
 					if(playlistBean == null || !playlistBean.getName().replaceAll("\\s","").equals(playlistName) || !playlistBean.getAuthorName().equals(user) || (playlistBean.getPrivacy().equals("private") && (currentUser == null || !playlistBean.getAuthorName().equals(currentUser.getUsername())))) {
 						/*Pagina di errore*/
@@ -76,6 +75,9 @@ public class Playlist extends HttpServlet {
 						ArrayList<TrackBean> sublist = new ArrayList<TrackBean>();
 						sublist.addAll(list.subList(start, list.size() < start+10 ? list.size() : start+10));
 						playlistBean.setTracks(sublist);
+						if(currentUser != null)
+							for(int i = 0; i < sublist.size() ; i++)
+								sublist.get(i).setLiked(userDao.checkIfLiked(currentUser.getId(), sublist.get(i).getId()));
 						//Attributi della request
 						request.setAttribute("userPage", userBean);
 						request.setAttribute("playlist", playlistBean);

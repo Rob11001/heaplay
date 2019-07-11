@@ -20,6 +20,7 @@ import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.OwnedTrackDao;
 import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
+import com.heaplay.model.dao.UserDao;
 
 
 @WebServlet("/filter/track")
@@ -84,7 +85,11 @@ public class Track extends HttpServlet {
 						OwnedTrackBean bean = (OwnedTrackBean) ownedTrackDao.doRetrieveByKey(keys);
 						owned = (bean == null) ? "false" : "true";
 						request.setAttribute("owned", owned);
-					
+						
+						UserDao userDao = new UserDao(pool);
+						track.setLiked(userDao.checkIfLiked(user.getId(), track.getId()));
+						
+						
 					} catch (SQLException e) {
 						e.printStackTrace();
 						response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

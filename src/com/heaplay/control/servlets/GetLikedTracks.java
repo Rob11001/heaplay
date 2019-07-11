@@ -16,7 +16,9 @@ import com.google.gson.Gson;
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.Bean;
 import com.heaplay.model.beans.TrackBean;
+import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.TrackDao;
+import com.heaplay.model.dao.UserDao;
 
 @WebServlet("/getLikedTracks")
 public class GetLikedTracks extends HttpServlet {
@@ -26,7 +28,10 @@ public class GetLikedTracks extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
  		response.setContentType("application/JSON");
  		ArrayList<Bean> list = new ArrayList<Bean>();
- 		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
+ 		UserBean user = (UserBean) request.getSession().getAttribute("user");
+ 		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
+ 		TrackDao trackDao = new TrackDao(pool);
+ 		UserDao userDao = new UserDao(pool);
  		
  		try {
 			//Filtro delle tracks
@@ -38,6 +43,9 @@ public class GetLikedTracks extends HttpServlet {
 			if(size > 0)
 				listOfObjects.addAll(list.subList(0, (size < 12) ? size : 12));
 			resetBytes(listOfObjects);
+			if(user != null)
+				for(int i=0; i < listOfObjects.size(); i++)
+					((TrackBean)listOfObjects.get(i)).setLiked(userDao.checkIfLiked(user.getId(),((TrackBean)listOfObjects.get(i)).getId()));
 			//Conversione in JSON
 			Gson gson = new Gson();
 			String objectJson = gson.toJson(listOfObjects);

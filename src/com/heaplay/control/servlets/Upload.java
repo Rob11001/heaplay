@@ -72,7 +72,6 @@ public class Upload extends HttpServlet {
 		//Audio
 		Part audio = request.getPart("audio");
 		String audioFileName = audio.getSubmittedFileName();
-		System.out.println(audioFileName);
 		String audioExt=audioFileName.substring(audioFileName.lastIndexOf('.'),audioFileName.length()).toLowerCase();
 		InputStream audioStream =audio.getInputStream();
 		byte[] audioBytes = audioStream.readAllBytes();
@@ -81,7 +80,6 @@ public class Upload extends HttpServlet {
 		//Immagine
 		Part image = request.getPart("image");
 		String imageFileName = image.getSubmittedFileName();
-		System.out.println(imageFileName);
 		String imageExt=imageFileName.substring(imageFileName.lastIndexOf('.'),imageFileName.length()).toLowerCase();
 		InputStream imageStream =image.getInputStream();
 		byte[] imageBytes = imageStream.readAllBytes();

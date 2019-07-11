@@ -294,5 +294,65 @@ public class UserDao implements DaoModel {
 		
 		return number;			
 	}
+	
+	
+	public synchronized void saveLike(long userId,long trackId) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		String selectQuery = "INSERT INTO liked(user_id,track_id) VALUES(?,?)";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			
+			ps.setLong(1, userId);
+			ps.setLong(2, trackId);
+			
+			ps.executeUpdate();
+			
+			con.commit();
+			
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+				
+	}
+	
+	
+	public synchronized boolean checkIfLiked(long userId,long trackId) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		ResultSet rs = null; 
+		boolean flag = false;
+		String selectQuery = "SELECT * FROM liked WHERE track_id=? AND user_id=?";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(selectQuery);
+			ps.setLong(1, trackId);
+			ps.setLong(2, userId);
+			
+			rs = ps.executeQuery();
+			
+			
+			if(rs.next()) 
+				flag = true;
+			
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+		
+		return flag;			
+	}
 
 }

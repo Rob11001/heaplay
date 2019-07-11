@@ -43,15 +43,15 @@ public class Search extends HttpServlet {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			ArrayList<Bean> list = null;
 			int numberOfTracks = (user!=null && user.getAuth().equals("admin")) ? 10 : 5;
+			UserDao userDao = new UserDao(pool);
 			try {
 				//In base al filtro
 				switch(filter) {
-				case "user": UserDao userDao = new UserDao(pool);
-							list = (ArrayList<Bean>) userDao.doRetrieveAll(null);
+				case "user": list = (ArrayList<Bean>) userDao.doRetrieveAll(null);
 							if(!query.equals(""))
 								list = filter(query, list);
 							if(user == null || !user.getAuth().equals("admin"))
-								list = (ArrayList<Bean>) list.stream().filter((p)->((UserBean)p).isActive()).collect(Collectors.toList());
+								list = (ArrayList<Bean>) list.stream().filter((p)->((UserBean)p).isActive() && ((UserBean)p).getAuth().equals("user")).collect(Collectors.toList());
 							found = list.size();
 							if(autocomplete == null)
 								list = createSubList(list,start,(start+numberOfTracks) > found ? found : (start+numberOfTracks));
@@ -63,8 +63,12 @@ public class Search extends HttpServlet {
 							if(user == null || !user.getAuth().equals("admin"))
 								list = (ArrayList<Bean>) list.stream().filter((p)->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 							found = list.size();
-							if(autocomplete == null)
+							if(autocomplete == null) {
 								list = createSubList(list,start,(start+numberOfTracks) > found ? found : (start+numberOfTracks));	
+								if(user != null)
+									for(int i=0;i<list.size();i++)
+										((TrackBean)list.get(i)).setLiked(userDao.checkIfLiked(user.getId(),((TrackBean)list.get(i)).getId()));
+							}
 							resetBytes(list);
 							break;
 				case "playlist":PlaylistDao playlistDao = new PlaylistDao(pool);
@@ -74,8 +78,14 @@ public class Search extends HttpServlet {
 							found = list.size();
 							if(autocomplete == null)
 								list = createSubList(list,start,(start+numberOfTracks) > found ? found : (start+numberOfTracks));
-							for(int i=0;i<list.size();i++)
+							for(int i=0;i<list.size();i++) {
 								resetBytes(((ArrayList<TrackBean>)((PlaylistBean)list.get(i)).getTracks()));
+								if(user != null) {
+									ArrayList<TrackBean> listOfTracks = (ArrayList<TrackBean>) ((PlaylistBean)list.get(i)).getTracks();
+									for(int j=0;j<listOfTracks.size();i++)
+										listOfTracks.get(i).setLiked(userDao.checkIfLiked(user.getId(),listOfTracks.get(i).getId()));
+								}
+							}	
 							break;
 				case "tag":  TagDao tagDao = new TagDao(pool);
 							TrackDao track = new TrackDao(pool);
@@ -91,6 +101,9 @@ public class Search extends HttpServlet {
 									list = (ArrayList<Bean>) listOfTags.stream().filter((p)->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 								found = list.size();
 								list = createSubList(list,start,(start+numberOfTracks) > found ? found : (start+numberOfTracks));
+								if(user != null)
+									for(int i=0;i<list.size();i++)
+										((TrackBean)list.get(i)).setLiked(userDao.checkIfLiked(user.getId(),((TrackBean)list.get(i)).getId()));
 								resetBytes(list);
 							}
 							break;

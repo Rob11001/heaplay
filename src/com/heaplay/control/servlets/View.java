@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.TrackBean;
+import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.TrackDao;
+import com.heaplay.model.dao.UserDao;
 
 @WebServlet("/view")
 public class View extends HttpServlet {
@@ -23,6 +25,7 @@ public class View extends HttpServlet {
 		//Lettura parametri
 		String id = request.getParameter("id");
 		String like = request.getParameter("like");
+		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		
 		if(id == null)
 			response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));
@@ -40,8 +43,11 @@ public class View extends HttpServlet {
 				if(bean != null) {
 					if(like == null)
 						bean.setPlays(bean.getPlays()+1);
-					else 
+					else if(user != null) {
 						bean.setLikes(bean.getLikes()+1);
+						UserDao userDao = new UserDao(pool);
+						userDao.saveLike(user.getId(), bean.getId());
+					}	
 					trackDao.doUpdate(bean);
 				}
 				
