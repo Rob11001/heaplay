@@ -1,4 +1,5 @@
 <%@page import="com.heaplay.model.beans.UserBean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 UserBean currentUserLocal = (UserBean)session.getAttribute("user"); 
 UserBean userPageLocal= (UserBean)request.getAttribute("user");
@@ -17,7 +18,7 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 
 	<div class="song-image">
 		<%if(track != null) {%>
-		<!-- Conterrà l'immagine della track -->
+		<!-- ConterrÃ  l'immagine della track -->
 		<img 
 			src="/heaplay/getImage?id=<%=track.getId()%>&extension=<%=track.getImageExt()%>"
 			alt="Errore">
