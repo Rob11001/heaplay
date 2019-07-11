@@ -158,7 +158,7 @@ function view(e) {
 	
 	$.ajax({
 		"type":"GET",
-		"url" : "/heaplay/view",
+		"url" : encodeSessionId("/heaplay/view"),
 		"data": "id="+id
 	});
 }
@@ -169,13 +169,12 @@ function like(e) {
 	let span = e.currentTarget;
 	$.ajax({
 		"type":"GET",
-		"url" : "/heaplay/view",
+		"url" : encodeSessionId("/heaplay/view"),
 		"data": "id="+id+"&like=true",
 		"success" : () => {
 			$(span).prop("onclick",null);
 			let likes = Number.parseInt($(span).html().substring($(span).html().indexOf("</i>")+4,$(span).html().length))+1;
 			$(span).html("<i class='fa fa-thumbs-up'></i> "+ likes)
-			//Vedere come focusare il like
 		}
 	});
 }
