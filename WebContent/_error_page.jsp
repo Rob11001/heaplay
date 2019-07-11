@@ -8,7 +8,7 @@
 	
 	//Per gestire anche le eccezioni
 	String title = error_title != null ? error_title : "Errore";
-	error = error != null ? error : exception.getMessage();
+	error = error != null ? error : "La pagina ricercata non è stata trovata o non esiste";
 %>
 
 

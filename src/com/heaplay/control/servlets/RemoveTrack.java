@@ -28,9 +28,12 @@ public class RemoveTrack extends HttpServlet {
 		String disable = request.getParameter("disable");
 		String enable = request.getParameter("enable");
 		
-		if(track_id == null)
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
-		else {
+		if(track_id == null) {
+			//Pagina di errore
+    		request.setAttribute("error_title", "Pagina non trovata - 404");
+			request.setAttribute("error", "La pagina non è stata trovata o non esiste");
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		} else {
 			
 			TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
 			ArrayList<String> keys = new ArrayList<String>();
@@ -58,6 +61,7 @@ public class RemoveTrack extends HttpServlet {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				request.setAttribute("error", e.getMessage());
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 		}

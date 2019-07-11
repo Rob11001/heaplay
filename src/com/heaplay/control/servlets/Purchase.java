@@ -70,6 +70,8 @@ public class Purchase extends HttpServlet {
 	    		trackDao.updateCart(cart.getItems(), user.getId());
 			} catch (SQLException e) {
 				e.printStackTrace();
+				request.setAttribute("error", e.getMessage());
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
     	}
     		

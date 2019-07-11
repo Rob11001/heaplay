@@ -79,7 +79,12 @@ public class Register extends HttpServlet {
 				userBean = userDao.doRetrieveByKey(keys);
 					
 			} catch (SQLException e) {
-				error = "Username o Email non disponibili";
+				if(e.getErrorCode() == 1062 && e.getMessage().contains("'username'"))
+					error = "Username non disponibile";
+				else if(e.getErrorCode() == 1062 && e.getMessage().contains("'email'"))
+					error = "Email non disponibile";
+				else
+					error = "Errore nella registrazione riprovare";
 			}
     		
     		//Creazione riuscita e redirezione

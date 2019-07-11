@@ -82,6 +82,7 @@ public class AddToCart extends HttpServlet {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				request.setAttribute("error", e.getMessage());
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
     	}
