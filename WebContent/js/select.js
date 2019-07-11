@@ -37,7 +37,7 @@ $(document).ready(() => {
 	selectSelected.on("click", (e) => {
 		if(selectItems.css("display") == "none") {
 			hideSearchBar();
-			selectItems.show("slide", () => selectSelected.html(selectSelected.html().replace("▸", "◂")))
+			selectItems.show("slide", () => selectSelected.html(selectSelected.html().replace("▸", "◂")));
 		}
 		else {
 			selectItems.hide("slide", () => selectSelected.html(selectSelected.html().replace("◂", "▸")));

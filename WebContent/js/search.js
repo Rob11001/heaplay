@@ -121,11 +121,12 @@ function autocompleteSearch(el,suggestions) {
 }
 
 
-function autocomplete(el,suggestions,url) {
+function autocomplete(el,suggestions,url,data) {
 	if($(el).val().length > 1) {
 		$.ajax({
 			"type":"GET",
 			"url" : url,
+			"data": data,
 			"cache":false,
 			"success": (data) => {
 				$(suggestions).empty();
