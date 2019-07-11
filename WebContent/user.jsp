@@ -15,7 +15,7 @@
 	<div class="relative-container">
 		<img class="page-image <%if(currentUser == null || currentUser.getId() != userPage.getId()){%>not-user <%}%>" src="/heaplay/getImage?id=<%=userPage.getId()%>&user=true" <%if(currentUser != null && currentUser.getId() == userPage.getId()){%> title="Cambia Immagine" <%} %> onclick = "inputFile($('#image'))">
 		<%if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
-		<form class="middle-bottom" action="<%=response.encodeURL("/heaplay/uploadImage") %>" name="fileUpload" method="POST" enctype="multipart/form-data">
+		<form class="middle-bottom" action="<%=response.encodeURL("/heaplay/uploadImage") %>" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return checkImage(this)">
 			<input id="image" type="file" name ="image" accept="image/*" class ="hidden">
 			<button type="submit" id="srcImg"class="hidden">Conferma</button>
 		</form>
