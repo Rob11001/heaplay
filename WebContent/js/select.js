@@ -40,7 +40,7 @@ $(document).ready(() => {
 	selectSelected.on("click", (e) => {
 		if(selectItems.css("display") == "none") {
 			hideSearchBar();
-			selectItems.delay(400).show("slide", () => selectSelected.html(selectSelected.html()))
+			selectItems.delay(400).show("slide", () => selectSelected.html(selectSelected.html()));
 		}
 		else {
 			selectItems.hide("slide", () => selectSelected.html(selectSelected.html()));

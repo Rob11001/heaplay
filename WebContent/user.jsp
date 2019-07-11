@@ -15,7 +15,7 @@
 	<div class="relative-container">
 		<img class="page-image <%if(currentUser == null || currentUser.getId() != userPage.getId()){%>not-user <%}%>" src="/heaplay/getImage?id=<%=userPage.getId()%>&user=true" <%if(currentUser != null && currentUser.getId() == userPage.getId()){%> title="Cambia Immagine" <%} %> onclick = "inputFile($('#image'))">
 		<%if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
-		<form class="middle-bottom" action="<%=response.encodeURL("/heaplay/uploadImage") %>" name="fileUpload" method="POST" enctype="multipart/form-data">
+		<form class="middle-bottom" action="<%=response.encodeURL("/heaplay/uploadImage") %>" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return checkImage(this)">
 			<input id="image" type="file" name ="image" accept="image/*" class ="hidden">
 			<button type="submit" id="srcImg"class="hidden">Conferma</button>
 		</form>
@@ -66,13 +66,13 @@
     	<fieldset>
     		<legend>Playlist</legend>
     		<div class="container-playlist">
-    			<div class="playlist-selection">
-    				<label for="playlist-selection">Seleziona la playlist : </label>
+    			<div class="playlist-selection form-field">
+    				<label for="playlist-selection">Seleziona la playlist <br> </label>
     				<input id="playlist-selection" type="text" list="listOfPlaylist" name="playlistName" placeholder="Inserire nome playlist" onkeyup="autocompletePlaylist(this,$('#listOfPlaylist'))">
     				<datalist id="listOfPlaylist">
     				</datalist>
     			</div>
-    			<div class="radio-buttons">
+    			<div class="form-field">
     				<input id="public-button" class="form-input-radio" type="radio" value="public" name="privacy" placeholder="Pubblica" checked="checked">
     				<label for="public-button" >Pubblica</label>
     				
@@ -80,10 +80,10 @@
     				<label for ="private-button">Privata</label>
     			</div>
     			
-    			<input type="hidden" name="track_id" id="track_id">
+    			<input type="hidden" name="track_id" id="track_id"> 
     			<div>
     				<button class="button" type="submit" >Aggiungi</button>
-    				<button class="close-button" type="button" onclick="showHide($('.playlist-form'))">Annulla</button>
+    				<button class="button" type="button" onclick="showHide($('.playlist-form'))">Annulla</button>
     			</div>
     		</div>
     	</fieldset>

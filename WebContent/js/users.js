@@ -18,11 +18,11 @@ function selection(selected,prev,toHide,toShow){
 	$(toHide).addClass("hidden");
 }
 
+//Upload image for user
 function inputFile(input) {
 	$(input).trigger("click");
 	$("#srcImg").removeClass("hidden");
 }
-
 
 $(document).ready(() => {
 	// Capire come prendere dall'input il file e inviarlo alla servlet per salvare l'immagine
@@ -33,6 +33,12 @@ $(document).ready(() => {
 	});		
 });
 
+function checkImage(form) {
+	let input = form["image"];
+	return (input.files[0] != null && input.files[0] != undefined && input.files[0] != "");
+}
+
+//Cart
 function addToCart(button) {
 	let src = $(".audio").children().prop("src");
 	let track_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
@@ -48,6 +54,7 @@ function addToCart(button) {
 	});
 }
 
+//Playlist
 function getPlaylist(container) {
 	let src = $('.page-image').prop("src");
 	let user_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));

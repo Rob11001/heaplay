@@ -31,8 +31,9 @@ function autocompletePlaylist(el,suggestions) {
 	let auto = $(el).val();
 	let audioSrc = $('#track_id').val();
 	let track_id = audioSrc.substring(audioSrc.indexOf("id")+3,audioSrc.indexOf("&"));
-	let url = "/heaplay/getPlaylists?autocomplete="+auto+"&track_id="+track_id;
-	autocomplete(el,suggestions,url);
+	let url = "/heaplay/getPlaylists";
+	let data = "autocomplete="+auto+"&track_id="+track_id;
+	autocomplete(el,suggestions,url,data);
 }
 
 function removeFromPlaylist(button) {
@@ -44,7 +45,8 @@ function removeFromPlaylist(button) {
 
 	$.ajax({
 		"type":"GET",
-		"url": encodeSessionId("/heaplay/removeFromPlaylist")+"?track_id="+track_id+"&play_id="+play_id,
+		"url": encodeSessionId("/heaplay/removeFromPlaylist"),
+		"data" : "track_id="+track_id+"&play_id="+play_id,
 		"success" : () => {
 			$(parent).remove();
 		}

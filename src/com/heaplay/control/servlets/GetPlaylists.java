@@ -35,7 +35,7 @@ public class GetPlaylists extends HttpServlet {
 		String track_id = request.getParameter("track_id");
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		
-		if(id == null)
+		if(id == null && autocomplete == null)
 			response.sendRedirect(getServletContext().getContextPath()+"/home");
 		else {
 			response.setContentType("application/json");
@@ -54,7 +54,7 @@ public class GetPlaylists extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 			if(autocomplete != null && track_id != null) {
 				try {
 					TrackDao trackDao = new TrackDao(pool);
@@ -69,10 +69,12 @@ public class GetPlaylists extends HttpServlet {
 						 boolean bol=p.getName().contains(autocomplete) && !p.getTracks().contains(track);			//Dava alcuni problemi
 						 return bol;
 					}).collect(Collectors.toList());
+					
 					//Conversione in String[] e poi in JSON
 					String[] namesOfPlaylist = new String[newList.size()];
 					for(int i=0; i < newList.size(); i++) 
 						namesOfPlaylist[i] = newList.get(i).getName();	
+					
 					Gson gson = new Gson();
 					String object = gson.toJson(namesOfPlaylist);
 					response.getWriter().write(object);

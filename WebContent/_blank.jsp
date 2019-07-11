@@ -26,7 +26,7 @@
 <body>
 	<script src="${pageContext.servletContext.contextPath}/js/_jquery-3.4.1.min.js" ></script>
 	<script src="${pageContext.servletContext.contextPath}/js/_jquery-ui.min.js" ></script>
-	
+	<script src="${pageContext.servletContext.contextPath}/js/autocomplete.js" ></script>	
 	<script src="${pageContext.servletContext.contextPath}/js/session.js" ></script>
 	
 	<%if(user == null || !user.getAuth().equals("admin")) {%>
