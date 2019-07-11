@@ -10,14 +10,16 @@
 			<a href="<%=response.encodeURL("/heaplay/home") %>">Home</a>
 		</nav>
 		<div class="search">
-			<select class="search-select" name="filter">
-				<option value="track">Brani</option>
-				<option value="tag">Tags</option>
-				<%if(user == null || !user.getAuth().equals("admin")) { %>
-					<option value="playlist">Playlist</option>
-				<%} %>
-				<option value="user">Utenti</option>
-			</select><!-- 
+			<div class="custom-select relative-container">
+				<select name="filter" class="search-select">
+					<option value="track">Brani</option>
+					<option value="tag">Tags</option>
+					<%if(user == null || !user.getAuth().equals("admin")) { %>
+						<option value="playlist">Playlist</option>
+					<%} %>
+					<option value="user">Utenti</option>
+				</select>
+			</div><!-- 
 			--><input class="search-box" type="text" name="q" placeholder="Cerca..." list="suggestions" onkeyup="autocompleteSearch(this,$('#suggestions'))" onkeypress="searchOnEnterButton(event)"><!--
 			--><datalist id="suggestions"></datalist><button class="search-button"><i class="fa fa-search"></i></button>
 		</div>
@@ -28,7 +30,7 @@
 			<%} else { %>
 				<div class="dropdown">
 					<div class="dropbtn">
-						<a href="#"><%=user.getUsername()%></a>
+						<a href="#"><%=user.getUsername()%> <i class="fa fa-caret-down" style="display: inline"></i></a>
 					</div>					
 					<div class="dropdown-content">
 						<%if(!user.getAuth().equals("admin")) {%>

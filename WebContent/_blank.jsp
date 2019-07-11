@@ -25,6 +25,8 @@
 </head>
 <body>
 	<script src="${pageContext.servletContext.contextPath}/js/_jquery-3.4.1.min.js" ></script>
+	<script src="${pageContext.servletContext.contextPath}/js/_jquery-ui.min.js" ></script>
+	
 	<script src="${pageContext.servletContext.contextPath}/js/session.js" ></script>
 	
 	<%if(user == null || !user.getAuth().equals("admin")) {%>
@@ -33,6 +35,7 @@
 		<script src="${pageContext.servletContext.contextPath}/js/search-admin.js" ></script>
 	<% } %>
 	<script src="${pageContext.servletContext.contextPath}/js/menu.js" ></script>
+	<script src="${pageContext.servletContext.contextPath}/js/select.js" ></script>
 	
 	
 	<jsp:include page="/_header.jsp" />

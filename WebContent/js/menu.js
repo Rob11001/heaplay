@@ -54,6 +54,7 @@ $(document).ready(() => {
 			dropdown.on("click", drop);
 		} else {
 			dropdown.off("click");
+			dropContent.css("display", "");
 		}
 	});
 	
@@ -89,5 +90,7 @@ $(document).ready(() => {
 	$(document).click(() => dropContent.hide(400));
 
 	dropdown.click((e) => e.stopPropagation());
+	
+	
 
 });
