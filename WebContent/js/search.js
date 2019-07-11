@@ -112,38 +112,3 @@ function createDiv(bean,container,typeOfSearch) {
 		ob.find(".audio").prop("src","/heaplay/getAudio?id="+ bean.id +"&extension="+bean.trackExt);
 }
 
-
-//Esegue una chiamata ad ogni pressione del tasto 
-
-function autocompleteSearch(el,suggestions) {
-	let url = encodeSessionId("/heaplay/search")+"?q="+$(el).val()+"&filter="+$(".search-select").val()+"&auto=true";
-	autocomplete(el,suggestions,url);
-}
-
-
-function autocomplete(el,suggestions,url,data) {
-	if($(el).val().length > 1) {
-		$.ajax({
-			"type":"GET",
-			"url" : url,
-			"data": data,
-			"cache":false,
-			"success": (data) => {
-				$(suggestions).empty();
-				data = data.filter((item,pos,array) => {
-					return array.indexOf(item) == pos;
-				});
-				for(let i=0;i<data.length;i++) {
-					let option = "<option value='"+data[i]+"'>"+data[i]+"</option>";
-					$(option).appendTo(suggestions);
-				}	
-			}
-		});
-	}
-}
-
-//Funzione per effettuare la ricerca al click del tasto Enter
-function searchOnEnterButton(e) {
-	if(e.keyCode === 13) //keyCode per il tasto Enter
-		$(".search-button").trigger("click");
-}
