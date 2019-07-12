@@ -46,21 +46,21 @@ public class User extends HttpServlet {
 			boolean flagError = false;
 			
 			currentUser = userDao.doRetrieveByName(user);
-			if(currentUser != null && currentUser.isActive() && !currentUser.getAuth().equals("admin")) {	//Controllo se l'utente esiste ed è attivo
+			if(currentUser != null && currentUser.isActive() && !currentUser.getAuth().equals("admin")) {	//Controllo se l'utente esiste ed ï¿½ attivo
 				if(owned == null) {
 					//Tracks caricate
 					listOfTracks = trackDao.getTracksByAuthor(currentUser.getId(),begin,9,"");
 					numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
 				} else if(userBean != null && userBean.getId() == currentUser.getId()){
 					//Track acquistate
-					listOfTracks = (ArrayList<TrackBean>) ownedTrackDao.getOwnedTrackByUser(currentUser.getId(),begin,5);
+					listOfTracks = (ArrayList<TrackBean>) ownedTrackDao.getOwnedTrackByUser(currentUser.getId(),(long) begin,5);
 					numberOfTracks = ownedTrackDao.getNumberOfTrackByUser(currentUser.getId());
 					request.setAttribute("owned", owned);	//Flag
 				} else {
-					HttpServletResponse resp = (HttpServletResponse) response;
+					HttpServletResponse resp = response;
 					resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 					request.setAttribute("error_title", "Pagina non trovata - 404");
-					request.setAttribute("error", "La pagina \""+ ((HttpServletRequest)request).getRequestURL() + "\" non è stata trovata o non esiste");
+					request.setAttribute("error", "La pagina \""+ request.getRequestURL() + "\" non ï¿½ stata trovata o non esiste");
 					flagError = true;
 				}
 				
@@ -82,7 +82,7 @@ public class User extends HttpServlet {
 			}else {
 				//Pagina di errore
 				request.setAttribute("error_title", "Pagina non trovata - 404");
-				request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
+				request.setAttribute("error", "La pagina \""+ requestURL + "\" non ï¿½ stata trovata o non esiste");
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
 		} catch (SQLException e) {
