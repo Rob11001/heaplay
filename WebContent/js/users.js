@@ -24,8 +24,18 @@ function inputFile(input) {
 	$("#srcImg").removeClass("hidden");
 }
 
+//Show and hide confirm button
+function hideConfirmButton(el) {
+	if(!$(el).hasClass("hidden"))
+		$(el).addClass("hidden");	
+}
+
+function showConfirmButton(el) {
+	if($("#image")[0].files.length > 0)
+		$(el).removeClass("hidden");
+}
+
 $(document).ready(() => {
-	// Capire come prendere dall'input il file e inviarlo alla servlet per salvare l'immagine
 	$("#image").change(function(e){
 		let file = e.currentTarget.files["0"];
 		let objectUrl = window.URL.createObjectURL(file);
