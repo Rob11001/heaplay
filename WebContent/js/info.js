@@ -1,6 +1,15 @@
-
+/***Info functions ***/
 $(document).ready( () => {
-	$(".mostViewedButton").trigger("click");
+	//Caricamento API
+	google.charts.load('current', {'packages':['corechart']});
+	//Necessita di aspettare
+	setTimeout(() => {
+		$(".mostViewedButton").trigger("click");
+	},500);
+	//Listener per riadattare i grafici
+	window.addEventListener('resize', function () {
+        getInfo($(".selected"));
+    }, false);
 });
 
 //Funzioni per prendere info
@@ -37,8 +46,8 @@ function drawChart(data,type) {
     content.addRows(arr);
 	
 	let options = {'title':'Brani',
-                       'width':500,
-                       'height':300};
+                       'width':$("#info-bar").width()-10,
+                       'height':$("#info-bar").height()};
 
    	let chart = new google.visualization.BarChart(document.getElementById("info-bar"));
     chart.draw(content, options);
