@@ -138,9 +138,10 @@ public class Search extends HttpServlet {
 
 	private ArrayList<Bean> filter(String query,ArrayList<Bean> list) {
 		Pattern regex = Pattern.compile("^.*" + query + ".*$", Pattern.CASE_INSENSITIVE); /* equivale a /^.* " + query + ".*$/i */
-		ArrayList<Bean> newList=(ArrayList<Bean>) list.stream().filter(p ->p.getBeanName().contains(query)).collect(Collectors.toList());
+		
+		ArrayList<Bean> newList=(ArrayList<Bean>) list.stream().filter(p ->regex.matcher(p.getBeanName()).matches()).collect(Collectors.toList());
+		
 		return newList;
-	
 	}
 	
 	@SuppressWarnings("rawtypes")
