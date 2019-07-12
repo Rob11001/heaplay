@@ -204,7 +204,7 @@ public class OwnedTrackDao implements DaoModel {
 		ResultSet rs = null;
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 		
-		String selectQuery = "SELECT * FROM " + TABLE_NAME +",tracks WHERE user_id=? AND track_id=id LIMIT "+begin+","+end;
+		String selectQuery = "SELECT * FROM " + TABLE_NAME +",tracks WHERE user_id=? AND track_id=id  GROUP BY tracks.id LIMIT "+begin+","+end;
 		
 		try {
 			con = pool.getConnection();

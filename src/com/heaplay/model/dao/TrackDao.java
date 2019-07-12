@@ -450,7 +450,7 @@ public class TrackDao implements DaoModel {
 		ResultSet rs = null;
 		TrackBean bean = null;
 		String allSelection =  (!all.equals("all")) ?   "AND indexable='1'" : "";
-		String selectQuery = (begin!=-1 && end != -1) ? "SELECT * FROM " + TABLE_NAME + " WHERE author=? AND indexable='1' LIMIT "+begin+","+end : "SELECT * FROM " + TABLE_NAME + " WHERE author=? "+ allSelection ;
+		String selectQuery = (begin!=-1 && end != -1) ? "SELECT * FROM " + TABLE_NAME + " WHERE author=? AND indexable='1' GROUP BY id LIMIT "+begin+","+end : "SELECT * FROM " + TABLE_NAME + " WHERE author=? "+ allSelection ;
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 
 		try {
@@ -743,7 +743,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null;
 		TrackBean bean = null;
-		String selectQuery ="SELECT * FROM " + TABLE_NAME + " WHERE indexable='1'  ORDER BY "+param+" DESC LIMIT "+begin+","+end;
+		String selectQuery ="SELECT * FROM " + TABLE_NAME + " WHERE indexable='1' GROUP BY id ORDER BY "+param+" DESC LIMIT "+begin+","+end;
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 
 		try {
