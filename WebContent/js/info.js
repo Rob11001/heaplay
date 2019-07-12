@@ -1,3 +1,18 @@
+
+/***Info functions ***/
+$(document).ready( () => {
+	//Caricamento API
+	google.charts.load('current', {'packages':['corechart']});
+	//Necessita di aspettare
+	setTimeout(() => {
+		$(".mostViewedButton").trigger("click");
+	},500);
+	//Listener per riadattare i grafici
+	window.addEventListener('resize', function () {
+        getInfo($(".selected"));
+    }, false);
+});
+
 //Funzioni per prendere info
 
 const getInfo = (el) => {
@@ -31,7 +46,9 @@ function drawChart(data,type) {
     content.addColumn('number', type);
     content.addRows(arr);
 	
-	let options = {'title':'Brani'};
+	let options = {'title':'Brani',
+                       'width':$("#info-bar").width()-10,
+                       'height':$("#info-bar").height()};
 
    	let chart = new google.visualization.BarChart(document.getElementById("info-bar"));
     chart.draw(content, options);

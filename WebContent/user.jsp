@@ -13,7 +13,7 @@
 %>
 
 <div class="page-header">
-	<div class="relative-container">
+	<div class="relative-container" onmouseenter="showConfirmButton($('#srcImg'))" onmouseleave="hideConfirmButton($('#srcImg'))">
 		<img class="page-image <%if(currentUser == null || currentUser.getId() != userPage.getId()){%>not-user <%}%>" src="/heaplay/getImage?id=<%=userPage.getId()%>&user=true" <%if(currentUser != null && currentUser.getId() == userPage.getId()){%> title="Cambia Immagine" <%} %> onclick = "inputFile($('#image'))">
 		<%if(currentUser != null && userPage.getId() == currentUser.getId()) {%>
 		<form class="middle-bottom" action="<%=response.encodeURL("/heaplay/uploadImage") %>" name="fileUpload" method="POST" enctype="multipart/form-data" onsubmit="return checkImage(this)">
