@@ -39,7 +39,7 @@ $(document).ready( () => {
 				$(container).empty();
 				$(headerDiv).prependTo($("#content"));	
 				if(data.list.length > 0)
-				$(tableDiv).appendTo(container);
+					$(tableDiv).appendTo(container);
 					
 				let table = $("table");
 				//Scelta dell'header della table
@@ -61,12 +61,13 @@ $(document).ready( () => {
 
 	$(window).scroll(() => {
 		let container = $("table");
-		let numberOfElements = $(container).children().length - 1;
+		let numberOfElements = $(container).children().length-1;
 		
 		//Effettuo la chiamata solo quando ho già effettuato una ricerca e ho raggiunto il bottom della pagina
 		if(numberOfElements > 0  && ($(window).scrollTop() + $(window).height() >= $(document).height()-1)) {
 			let url = encodeSessionId("/heaplay/search")+"?q="+$("#search-box").val()+"&startFrom="+numberOfElements.toString()+"&filter="+$(".search-select").val(); //url creato dinamicamente (probabilmente bisogna filtrare ciò che è stato scritto dal utente)
 			let found = parseInt($("#found").text(),10); //Numero di elementi trovati dalla ricerca
+		
 			//Effettuo la chiamata se esistono ancora elementi da caricare
 			if( found > numberOfElements) { 
 				$.ajax({
@@ -74,7 +75,7 @@ $(document).ready( () => {
 					"url" : url,
 					"success": (data) => {
 						let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca
-						numberOfElements = $(container).children().length - 1;
+						numberOfElements = $(container).children().length-1;
 						
 						//Ulteriore controllo 
 						if(found > numberOfElements) {

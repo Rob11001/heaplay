@@ -122,7 +122,12 @@ public class Upload extends HttpServlet {
 	
 		} catch (SQLException e) {
 			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			request.setAttribute("errorMessage", "Caricamento non riuscito, Nome del brano già usato");
+			request.setAttribute("jspPath", response.encodeURL("/upload.jsp"));
+			request.setAttribute("pageTitle", "Upload");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
+			rd.forward(request, response);
+			
 		}	
 	}
 }
