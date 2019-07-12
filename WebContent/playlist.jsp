@@ -14,7 +14,7 @@ Integer begin = (Integer) request.getAttribute("begin");
 %>
 
 <div class="page-header">
-	<img class="page-image" src="/heaplay/getImage?id=<%=listOfTracks.get(0).getId()%>&extension=<%=listOfTracks.get(0).getImageExt()%>" onclick = "inputFile($('#image'))"  width="150px">
+	<img class="page-image <%if(currentUser == null || currentUser.getId() != userPage.getId()){%>not-user <%}%>" src="/heaplay/getImage?id=<%=listOfTracks.get(0).getId()%>&extension=<%=listOfTracks.get(0).getImageExt()%>" onclick = "inputFile($('#image'))"  width="150px">
 	<div>
 		<span class="page-name"><%=playlist.getName()%></span>
 		<span class="page-subname"><a href="<%=response.encodeURL("/heaplay/user/"+playlist.getAuthorName())%>"><%=playlist.getAuthorName()%></a></span>

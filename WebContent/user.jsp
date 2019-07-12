@@ -61,17 +61,16 @@
 
 <div class="playlist-form hidden">  
   	<form class="playlist-form-content animate" action="<%=response.encodeURL("/heaplay/uploadPlaylist")%>" method="POST" onsubmit="return validatePlaylist(this)">
-    	<div class="container" >
+    	<div class="close-container" >
     		<span onclick="showHide($('.playlist-form'))" class="close" title="Chiudi">&times;</span>
 		</div>
-    	<fieldset>
-    		<legend>Playlist</legend>
     		<div class="container-playlist">
-    			<div class="playlist-selection form-field">
-    				<label for="playlist-selection">Seleziona la playlist <br> </label>
-    				<input id="playlist-selection" type="text" list="listOfPlaylist" name="playlistName" placeholder="Inserire nome playlist" onkeyup="autocompletePlaylist(this,$('#listOfPlaylist'))">
-    				<datalist id="listOfPlaylist">
-    				</datalist>
+    			<h2>Aggiungi ad una Playlist</h2>
+    			<label for="playlistName">Nome Playlist<br></label>
+    			<div class="form-field">
+    				<span class="field-icon"><i class="fa fa-stream"></i></span>
+    				<input id="playlist-selection" type="text" list="listOfPlaylist" name="playlistName" placeholder="Inizia a scrivere..." onkeyup="autocompletePlaylist(this,$('#listOfPlaylist'))">
+    				<datalist id="listOfPlaylist"></datalist>
     			</div>
     			<div class="form-field">
     				<input id="public-button" class="form-input-radio" type="radio" value="public" name="privacy" placeholder="Pubblica" checked="checked">
@@ -84,11 +83,9 @@
     			<input type="hidden" name="track_id" id="track_id"> 
     			<div>
     				<button class="button" type="submit" >Aggiungi</button>
-    				<button class="button" type="button" onclick="showHide($('.playlist-form'))">Annulla</button>
+    				<button class="button" type="button" onclick="showHide($('.playlist-form'))" style="margin-top: 5px">Annulla</button>
     			</div>
-    		</div>
-    	</fieldset>
-    	
+    		</div>    	
   </form>
 </div>
 

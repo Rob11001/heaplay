@@ -198,7 +198,7 @@ public class OwnedTrackDao implements DaoModel {
 		return list;
 	}
 
-	public synchronized List<TrackBean> getOwnedTrackByUser(Long id,int begin,int end) throws SQLException {
+	public synchronized List<TrackBean> getOwnedTrackByUser(Long id,Long begin,int end) throws SQLException {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;

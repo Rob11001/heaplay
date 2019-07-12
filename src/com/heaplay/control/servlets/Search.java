@@ -3,6 +3,7 @@ package com.heaplay.control.servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -136,7 +137,7 @@ public class Search extends HttpServlet {
 	}
 
 	private ArrayList<Bean> filter(String query,ArrayList<Bean> list) {
-		/*String regex = "/^.*"+query+".*$/"; Non usata*/
+		Pattern regex = Pattern.compile("^.*" + query + ".*$", Pattern.CASE_INSENSITIVE); /* equivale a /^.* " + query + ".*$/i */
 		ArrayList<Bean> newList=(ArrayList<Bean>) list.stream().filter(p ->p.getBeanName().contains(query)).collect(Collectors.toList());
 		return newList;
 	

@@ -16,6 +16,7 @@ import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.PlaylistBean;
 import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
+import com.heaplay.model.dao.OwnedTrackDao;
 import com.heaplay.model.dao.PlaylistDao;
 import com.heaplay.model.dao.UserDao;
 
@@ -46,17 +47,17 @@ public class Playlist extends HttpServlet {
 				if(userBean == null) {
 					/*Pagina di errore*/
 					request.setAttribute("error_title", "Pagina non trovata - 404");
-					request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
+					request.setAttribute("error", "La pagina \""+ requestURL + "\" non ï¿½ stata trovata o non esiste");
 					response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				} else {
 					ArrayList<String> keys = new ArrayList<String>();
 					keys.add(id);
 					PlaylistBean playlistBean = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
-					//Controllo nome playlist e se non è privata
+					//Controllo nome playlist e se non ï¿½ privata
 					if(playlistBean == null || !playlistBean.getName().replaceAll("\\s","").equals(playlistName) || !playlistBean.getAuthorName().equals(user) || (playlistBean.getPrivacy().equals("private") && (currentUser == null || !playlistBean.getAuthorName().equals(currentUser.getUsername())))) {
 						/*Pagina di errore*/
 						request.setAttribute("error_title", "Pagina non trovata - 404");
-						request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
+						request.setAttribute("error", "La pagina \""+ requestURL + "\" non ï¿½ stata trovata o non esiste");
 						response.sendError(HttpServletResponse.SC_NOT_FOUND);
 					} else {
 						//Lettura delle tracks della playlist
@@ -64,12 +65,28 @@ public class Playlist extends HttpServlet {
 						int size = list.size();
 						//Selezione delle tracks
 						if(playlistBean.getPrivacy().equals("public"))
-							list = (ArrayList<TrackBean>) list.stream().filter((p) ->((TrackBean)p).isIndexable()).collect(Collectors.toList());
+							list = (ArrayList<TrackBean>) list.stream().filter((p) ->p.isIndexable()).collect(Collectors.toList());
 						if(size > list.size()) {
-							//Aggiornamento delle tracks nella playlist eliminando quelle non più disponibili (Bloccate)
+							//Aggiornamento delle tracks nella playlist eliminando quelle non piï¿½ disponibili (Bloccate)
 							size = list.size();
 							playlistBean.setTracks(list);
 							playlistDao.doUpdate(playlistBean);
+						}
+						// Aggiunto da Marco, controllare
+						if(currentUser == null) {
+							for(int i = 0; i < list.size(); i++)
+								if(list.get(i).getType().equals("pagamento")) 
+										list.remove(i);
+						}
+						else if(currentUser.getUsername().equals(user)) {
+							OwnedTrackDao owTrackDao = new OwnedTrackDao(pool);
+							ArrayList<TrackBean> ownedTracks = (ArrayList<TrackBean>) owTrackDao.getOwnedTrackByUser(currentUser.getId(), Long.MAX_VALUE, 0);
+							for(int i = 0; i < list.size(); i++) {
+								if(list.get(i).getType().equals("pagamento")) {
+									if(!ownedTracks.contains(list.get(i)))
+										list.remove(i);
+								}
+							}
 						}
 						//Sottolista
 						ArrayList<TrackBean> sublist = new ArrayList<TrackBean>();

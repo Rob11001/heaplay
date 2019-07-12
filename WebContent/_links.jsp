@@ -4,4 +4,3 @@
 <link rel="stylesheet" type="text/css" href="/heaplay/css/reset.css">
 <link rel="stylesheet" type="text/css" href="/heaplay/css/style.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/heaplay/css/prova.css">

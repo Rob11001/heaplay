@@ -418,6 +418,7 @@ nav > a:visited, .dropbtn > a:visited {
 
 .song-buttons .song-button {
 	display: inline;
+	cursor: pointer;
 	font-size: 1em;
 }
 
@@ -677,6 +678,76 @@ button:hover, .file-input:hover {
 	margin-bottom: 20px;	
 }
 
+/********************* Modal Form Playlist ***********************/
+
+.close-container {
+	display: flex;
+	justify-content: flex-end;
+	height: 15px;
+}
+
+/* The playlist-form (background) */
+.playlist-form {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* playlist-form Content/Box */
+.playlist-form-content {
+  align-content: center;
+  background-color: white;
+  border: 0;
+  border-radius: 20px;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */  
+  padding: 20px;
+  padding-top: 0px;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  font-size: 35px; 
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus,
+.close-button:hover,
+.close-button:focus {
+  color: red;
+  cursor: pointer;
+}
+
+.container-playlist {
+	display: flex;
+	flex-direction:column;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+
 /* Classes of support */
 
 .color-white {
@@ -744,6 +815,23 @@ button:hover, .file-input:hover {
 	.between {
 		justify-content: space-evenly;
 	}
+}
+
+@media only screen and (max-width: 800px) {
+	.playlist-form-content {
+		width: 65%;
+	}	
+}
+
+@media only screen and (max-width: 560px)  {
+	.menu-bar {
+		margin: 0;
+		max-width: 100%;
+	}
+	
+	.playlist-form-content {
+		width: 80%;
+	}	
 }
 
 @media only screen and (max-width: 426px) {
@@ -820,12 +908,5 @@ button:hover, .file-input:hover {
 	#tagButton {
 		margin-left: 0;
 		margin-top: 3px;
-	}
-}
-
-@media only screen and (max-width: 560px)  {
-	.menu-bar {
-		margin: 0;
-		max-width: 100%;
 	}
 }
