@@ -1,12 +1,14 @@
 //Esempi dei vari modelli di Div usati (più comodo averli scritti così)
 
 //Esempio div dell'user
-<div class='user-div'>
-	<a href='/heaplay/user/"+bean.username+"'>
-	<img width='100px'
-		alt='Non trovata'
-		src='/heaplay/getImage?id=" + bean.id + "&extension=...&user=true'></a>
-		<span><a href='/heaplay/user/"+bean.username+"'>"<h4>+bean.username+<h4>"</a></span>
+
+<div class='item'>
+	<div class='user-image'>
+		<img width='100px' alt='Non trovata'src='/heaplay/getImage?id=" + bean.id + "&extension=...&user=true'>
+    </div>
+    <div class='user-content'>
+    	<span><a href='/heaplay/user/"+bean.username+"'>" + bean.username+ "</a></span>
+    </div>
 </div>
 
 

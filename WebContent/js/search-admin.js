@@ -32,7 +32,7 @@ $(document).ready( () => {
 			"success": (data) => {
 				let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca
 				const headerDiv ="<p>Elementi trovati: <span id='found'>"+data.length+"</span></p>";
-				const tableDiv = "<table></table>"
+				const tableDiv = "<table class='admin-table'></table>"
 				//Estrazione del container e rimozione degli elementi precedenti/inserimento dell'header
 				let container = $("#content .flex-container");
 				$("#content p").remove();
@@ -44,11 +44,11 @@ $(document).ready( () => {
 				let table = $("table");
 				//Scelta dell'header della table
 				if(typeOfSearch == "track")
-					$("<tr><th>Brano</th><th>Autore</th><th>Tipo</th><th>Action</th></tr>").appendTo(table);
+					$("<tr><th>Brano</th><th>Autore</th><th>Tipo</th><th>Azione</th></tr>").appendTo(table);
 				else if(typeOfSearch == "tag")
-					$("<tr><th>Nome</th><th>Action</th></tr>").appendTo(table);
+					$("<tr><th>Nome</th><th>Azione</th></tr>").appendTo(table);
 				else if(typeOfSearch == "user")
-					$("<tr><th>Utente</th><th>Ruolo</th><th>Attivo</th><th>Action</th></tr>").appendTo(table);
+					$("<tr><th>Utente</th><th>Ruolo</th><th>Attivo</th><th>Azione</th></tr>").appendTo(table);
 						
 				for(let i = 0 ; i < data.list.length; i++){
 					//Estrazione del bean
@@ -100,9 +100,9 @@ function createDiv(bean,container,typeOfSearch) {
 	const buttonTrack = (bean.indexable == true) ? "<button onclick='disableTrack(event)'>Blocca</button></td></tr>" : "<button onclick='enableTrack(event)'>Sblocca</button></td></tr>"; 
 	const buttonUser = (bean.active == true )  ? "<button onclick='disableUser(event)'>Blocca</button>" : "<button onclick='enableUser(event)'>Sblocca</button>";
 	//Varie table rows
-	const trackDiv = typeOfSearch == "track" ? "<tr><td ><span class='song-name'><a href='"+encodeSessionId("/heaplay/user/"+bean.authorName+"/"+bean.name.replace(/\s/g,''))+"?id="+bean.id+"'>"+bean.name+"</a></span></td><td><span class='author'><a href='"+encodeSessionId("/heaplay/user/"+bean.authorName)+"'>"+bean.authorName+"</a></span></td><td><span>"+bean.type+"</span></td><td><input type='hidden' name='track_id' value='"+bean.id+"'><button onclick='removeTrack(this)'>Rimuovi</button>"+buttonTrack : "";
-	const tagDiv="<tr><td><span>"+bean.name+"</span></td><td><input type='hidden' value='"+bean.id+"'><button onclick='removeTag(this)'>Rimuovi</button></td></tr>";
-	const userDiv = "<tr><td><span class='author'><a href='"+encodeSessionId("/heaplay/user/"+bean.username)+"'>"+bean.username+"</a></span></td><td><span>"+bean.auth+"</span></td><td><span class='active'>"+bean.active+"</span></td><td>"+buttonUser+"<button onclick='removeUser(this)'>Rimuovi</button><input type='hidden' value='"+bean.id+"'></td></tr>"
+	const trackDiv = typeOfSearch == "track" ? "<tr><td ><span><b><a href='"+encodeSessionId("/heaplay/user/"+bean.authorName+"/"+bean.name.replace(/\s/g,''))+"?id="+bean.id+"'>"+bean.name+"</a></b></span></td><td><span><a href='"+encodeSessionId("/heaplay/user/"+bean.authorName)+"'>"+bean.authorName+"</a></span></td><td><span>"+bean.type+"</span></td><td><input type='hidden' name='track_id' value='"+bean.id+"'><button onclick='removeTrack(this)'>Rimuovi</button>"+buttonTrack : "";
+	const tagDiv="<tr><td><span><b>"+bean.name+"</b></span></td><td><input type='hidden' value='"+bean.id+"'><button onclick='removeTag(this)'>Rimuovi</button></td></tr>";
+	const userDiv = "<tr><td><span><b><a href='"+encodeSessionId("/heaplay/user/"+bean.username)+"'>"+bean.username+"</a></b></span></td><td><span>"+bean.auth+"</span></td><td><span class='active'>"+bean.active+"</span></td><td>"+buttonUser+"<button onclick='removeUser(this)'>Rimuovi</button><input type='hidden' value='"+bean.id+"'></td></tr>"
 	const playlistDiv= typeOfSearch == "playlist" ? "<div class='playlist'><div class='playlist-image'><img alt='Non trovata' src='/heaplay/getImage?id=" + (bean.tracks.length > 0 ? bean.tracks[0].id : -1) + "'></div><div class='playlist-content'><span class='author'><a href='"+encodeSessionId("/heaplay/user/" + bean.authorName)+"'>" + bean.authorName + "</a></span><br/><span class='playlist-name'><a href='"+encodeSessionId("/heaplay/user/" + bean.authorName + "/playlist/" + bean.name.replace(/\s/g,''))+ "?id=" + bean.id + "'>" + bean.name + "</a></span></div></div>" : "";
 	const commentDiv ="<div class='comment'><span class='comment-author'><b><a href='"+encodeSessionId("/heaplay/user/"+bean.author)+"'>"+bean.author+"</a></b></span><span class='comment-body'>"+bean.body+"</span></div>";
 	

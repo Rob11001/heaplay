@@ -44,7 +44,7 @@ header {
 	transition: top 0.3s;
 	vertical-align: middle;
 	width: 100%;
-	z-index: 1;
+	z-index: 10;
 }
 
 footer {
@@ -212,7 +212,8 @@ nav > a:visited, .dropbtn > a:visited {
 	flex-direction: column;
 	min-width: 160px;
 	position: absolute;
-	z-index: 2;
+	right: 8px;
+	z-index: 20;
 }
 
 .dropdown-content a {
@@ -305,17 +306,17 @@ nav > a:visited, .dropbtn > a:visited {
 	background-color: transparent;
 }
 
-.song-image, .playlist-image {
+.song-image, .playlist-image, .user-image {
 	display: inline;
 }
 
-.song-image img, .playlist-image img {
+.song-image img, .playlist-image img, .user-image img {
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 	height: 110px;
 	width: 110px;
 }
 
-.song-content, .playlist-content, .carted-content {
+.song-content, .playlist-content, .carted-content, .user-content {
 	display: inline;
 	padding-left: 10px;
 }
@@ -689,7 +690,7 @@ button:hover, .file-input:hover {
 /* The playlist-form (background) */
 .playlist-form {
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 100; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -747,6 +748,62 @@ button:hover, .file-input:hover {
   to {transform: scale(1)}
 }
 
+/************************** Administration *********************/
+
+/* #info-bar { */
+/* 	width: 100%; */
+/* 	height: 400px; */
+/* } */
+
+.admin-table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+.admin-table th {
+	background-color: var(--main-orange);
+	color: white;
+}
+
+.admin-table th:last-child {
+	border-right: 0;
+}
+
+.admin-table tr {
+	height: 35px;
+}
+
+.admin-table tr:first-child {
+	height: 45px;
+}
+
+.admin-table tr:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
+.admin-table tr:nth-child(even) {
+	background-color: white;
+}
+
+.admin-table td {
+	height: inherit;
+}
+
+.admin-table td:nth-child(2),
+.admin-table td:nth-child(3) {
+	text-align: center;
+}
+
+.admin-table td:last-child {
+	border-right: 0;
+	display: flex;
+	justify-content: space-around;
+}
+
+.admin-table tr:last-child td {
+	border-bottom: 0;
+}
 
 /* Classes of support */
 

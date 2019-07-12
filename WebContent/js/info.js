@@ -1,8 +1,3 @@
-
-$(document).ready( () => {
-	$(".mostViewedButton").trigger("click");
-});
-
 //Funzioni per prendere info
 
 const getInfo = (el) => {
@@ -36,9 +31,7 @@ function drawChart(data,type) {
     content.addColumn('number', type);
     content.addRows(arr);
 	
-	let options = {'title':'Brani',
-                       'width':500,
-                       'height':300};
+	let options = {'title':'Brani'};
 
    	let chart = new google.visualization.BarChart(document.getElementById("info-bar"));
     chart.draw(content, options);

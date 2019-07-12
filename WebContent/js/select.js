@@ -5,8 +5,8 @@ $(document).ready(() => {
 	};
 	
 	const showSearchBar = () => {
-		$("#search-box").delay(400).fadeIn();
-		$(".search-button").delay(400).fadeIn();
+		$("#search-box").delay(300).fadeIn();
+		$(".search-button").delay(300).fadeIn();
 	};
 	
 	let selectSelected = $("<div class='select-selected'></div>");
@@ -40,7 +40,7 @@ $(document).ready(() => {
 	selectSelected.on("click", (e) => {
 		if(selectItems.css("display") == "none") {
 			hideSearchBar();
-			selectItems.delay(400).show("slide", () => selectSelected.html(selectSelected.html()));
+			selectItems.delay(300).show("slide", () => selectSelected.html(selectSelected.html()));
 		}
 		else {
 			selectItems.hide("slide", () => selectSelected.html(selectSelected.html()));
