@@ -53,7 +53,7 @@ public class User extends HttpServlet {
 					numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
 				} else if(userBean != null && userBean.getId() == currentUser.getId()){
 					//Track acquistate
-					listOfTracks = (ArrayList<TrackBean>) ownedTrackDao.getOwnedTrackByUser(currentUser.getId(),(long) begin,5);
+					listOfTracks = (ArrayList<TrackBean>) ownedTrackDao.getOwnedTrackByUser(currentUser.getId(), begin,5);
 					numberOfTracks = ownedTrackDao.getNumberOfTrackByUser(currentUser.getId());
 					request.setAttribute("owned", owned);	//Flag
 				} else {

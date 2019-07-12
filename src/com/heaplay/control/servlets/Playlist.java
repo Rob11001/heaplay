@@ -80,10 +80,18 @@ public class Playlist extends HttpServlet {
 						}
 						else if(!currentUser.getUsername().equals(user)) {
 							OwnedTrackDao owTrackDao = new OwnedTrackDao(pool);
-							ArrayList<TrackBean> ownedTracks = (ArrayList<TrackBean>) owTrackDao.getOwnedTrackByUser(currentUser.getId(), Long.MAX_VALUE, 0);
+							ArrayList<TrackBean> ownedTracks = (ArrayList<TrackBean>) owTrackDao.getOwnedTrackByUser(currentUser.getId(), 0, Integer.MAX_VALUE);
+							System.out.println(ownedTracks.toString());
+							
 							for(int i = 0; i < list.size(); i++) {
 								if(list.get(i).getType().equals("pagamento")) {
-									if(!ownedTracks.contains(list.get(i)))
+									boolean found = false;
+									for(int j = 0; j < ownedTracks.size(); j++) 
+										if(ownedTracks.get(j).getId() == list.get(i).getId()) {
+											found = true;
+											break;
+										}
+									if(!found)
 										list.remove(i);
 								}
 							}
