@@ -44,9 +44,14 @@ public class View extends HttpServlet {
 					if(like == null)
 						bean.setPlays(bean.getPlays()+1);
 					else if(user != null) {
-						bean.setLikes(bean.getLikes()+1);
 						UserDao userDao = new UserDao(pool);
-						userDao.saveLike(user.getId(), bean.getId());
+						if(!userDao.checkIfLiked(user.getId(), bean.getId())) {
+							bean.setLikes(bean.getLikes()+1);
+							userDao.saveLike(user.getId(), bean.getId());
+						} else {
+							bean.setLikes(bean.getLikes()-1);
+							userDao.removeLike(user.getId(), bean.getId());
+						}
 					}	
 					trackDao.doUpdate(bean);
 				}

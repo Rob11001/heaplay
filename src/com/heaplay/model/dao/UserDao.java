@@ -323,6 +323,32 @@ public class UserDao implements DaoModel {
 				
 	}
 	
+	public synchronized void removeLike(long userId,long trackId) throws SQLException {
+		PreparedStatement ps = null;
+		Connection con = null;
+		String removeQuery = "DELETE FROM liked WHERE user_id=? AND track_id=?";
+		
+		try {
+			con = pool.getConnection();
+			ps = con.prepareStatement(removeQuery);
+			
+			ps.setLong(1, userId);
+			ps.setLong(2, trackId);
+			
+			ps.executeUpdate();
+			
+			con.commit();
+			
+		} finally {
+			try {
+				if(ps != null)
+					ps.close();
+			} finally {
+				pool.releaseConnection(con);
+			}
+		}
+				
+	}
 	
 	public synchronized boolean checkIfLiked(long userId,long trackId) throws SQLException {
 		PreparedStatement ps = null;
