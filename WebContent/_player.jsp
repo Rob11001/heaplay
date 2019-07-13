@@ -45,7 +45,7 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 					onchange="setCurrentTime(this)" value="0" min="0"
 					max=<%=track!=null ? track.getDuration() : 100%>></td>
 					<td><%if(track != null) {%>
-						<span><%=String.format("%2d:%2d", track.getDuration()/60,track.getDuration()%60)%></span>
+						<span><%=String.format("%02d:%02d", track.getDuration()/60,track.getDuration()%60)%></span>
 					<%} %></td>
 				</tr>
 				<tr class="hidden">
