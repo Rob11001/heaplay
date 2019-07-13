@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
 import com.heaplay.model.beans.TrackBean;
+import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.TrackDao;
 
-@WebServlet("/admin/removeTrack")
+@WebServlet("/removeTrack")
 public class RemoveTrack extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,8 +28,9 @@ public class RemoveTrack extends HttpServlet {
 		String track_id = request.getParameter("track_id");
 		String disable = request.getParameter("disable");
 		String enable = request.getParameter("enable");
+		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		
-		if(track_id == null) {
+		if(track_id == null || user == null) {
 			//Pagina di errore
     		request.setAttribute("error_title", "Pagina non trovata - 404");
 			request.setAttribute("error", "La pagina non è stata trovata o non esiste");
@@ -40,13 +42,18 @@ public class RemoveTrack extends HttpServlet {
 			keys.add(track_id);
 			
 			try {
+				
 				//Lettura track
 				TrackBean track = (TrackBean) trackDao.doRetrieveByKey(keys); 
 				
 				if(track == null) {
 					//Fare qualcosa
 				} else {
-					if(enable != null) {
+					if(!user.getAuth().equals("admin") && track.getAuthor() != user.getId()) {
+						request.setAttribute("error_title", "Pagina non trovata - 404");
+						request.setAttribute("error", "La pagina non è stata trovata o non esiste");
+						response.sendError(HttpServletResponse.SC_NOT_FOUND);
+					} else if(enable != null) {
 						//Riabilito la track
 						track.setIndexable(true);
 						trackDao.doUpdate(track);
@@ -58,6 +65,8 @@ public class RemoveTrack extends HttpServlet {
 						//La cancello
 						trackDao.doDelete(keys);
 					}
+					if(!user.getAuth().equals("admin") && track.getAuthor() == user.getId())
+						response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
