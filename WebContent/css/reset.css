@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 :root {
-	--content-wrapper: white;
 	--main-black: rgba(45, 49, 66, 1); /* #2D3142 */
 	--main-black60: rgba(45, 49, 66, 0.6);
 	--main-orange: rgba(244, 81, 30, 1); /* #F4511E */

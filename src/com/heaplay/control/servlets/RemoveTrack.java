@@ -32,7 +32,6 @@ public class RemoveTrack extends HttpServlet {
 		
 		if(track_id == null || user == null) {
 			//Pagina di errore
-			request.setAttribute("error", "La pagina non è stata trovata o non esiste");
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		} else {
 			
@@ -49,8 +48,6 @@ public class RemoveTrack extends HttpServlet {
 					//Fare qualcosa
 				} else {
 					if(!user.getAuth().equals("admin") && track.getAuthor() != user.getId()) {
-						request.setAttribute("error_title", "Pagina non trovata - 404");
-						request.setAttribute("error", "La pagina non è stata trovata o non esiste");
 						response.sendError(HttpServletResponse.SC_NOT_FOUND);
 					} else if(enable != null) {
 						//Riabilito la track
@@ -69,7 +66,6 @@ public class RemoveTrack extends HttpServlet {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				request.setAttribute("error", e.getMessage());
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 		}

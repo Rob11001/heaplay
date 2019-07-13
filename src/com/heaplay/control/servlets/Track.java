@@ -64,8 +64,6 @@ public class Track extends HttpServlet {
 			
 			if(track == null || !track.isIndexable() || !track.getAuthorName().equals(userName) || !track.getName().replaceAll("\\s","").equals(trackName)) {
 				//pagina di errore
-				request.setAttribute("error_title", "Pagina non trovata - 404");
-				request.setAttribute("error", "La pagina \""+ requestURL + "\" non è stata trovata o non esiste");
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			} else {
 				if(user !=  null) {

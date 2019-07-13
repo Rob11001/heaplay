@@ -6,9 +6,9 @@
 %>
 <header>
 	<div class="menu-bar">
-		<nav class="links">
-			<a href="<%=response.encodeURL("/heaplay/home") %>">Home</a>			
-		</nav>
+		<div class="logo-wrapper">
+			<a title="Homepage" href="<%=response.encodeURL("/heaplay/home") %>"><img class="logo" src="/heaplay/images/logo.svg"></a>		
+		</div>	
 		<div class="search">
 			<div class="custom-select relative-container">
 				<select name="filter" class="search-select">

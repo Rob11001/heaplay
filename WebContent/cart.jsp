@@ -20,16 +20,18 @@
 		sum += track.getType().equals("free") ? 0 : (((PurchasableTrackBean)track).getPrice());
 	%>
 		<div class="item">
-			<div class="song-image">
-				<img 
-					src="/heaplay/getImage?id=<%=track.getId()%>&extension=<%=track.getImageExt()%>"
-				alt="Errore">
-			</div>
-			<div class="carted-content">
-				<span class="author"><a href="<%=response.encodeURL("/heaplay/user/"+track.getAuthorName()+"/"+track.getName().replaceAll("\\s","")+"?id="+track.getId()) %>"><%=track.getAuthorName()%></a></span> <br>
-				<span class="song-name"><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName().replaceAll("\\s","")%>?id=<%=track.getId()%>"><%=track.getName()%></a></span> <br>
-				<span>Prezzo: <span class="price"><%=(track.getType().equals("free")) ? "Gratuita" : (String.format("%.2f",((PurchasableTrackBean)track).getPrice())) + "€"%></span></span>
-				<span class="upload-date hidden">Aggiunto in Data: <%=track.getUploadDate()%></span><br>
+			<div class="carted">
+				<div class="song-image">
+					<img 
+						src="/heaplay/getImage?id=<%=track.getId()%>&extension=<%=track.getImageExt()%>"
+					alt="Errore">
+				</div>
+				<div class="carted-content">
+					<span class="author"><a href="<%=response.encodeURL("/heaplay/user/"+track.getAuthorName()+"/"+track.getName().replaceAll("\\s","")+"?id="+track.getId()) %>"><%=track.getAuthorName()%></a></span> <br>
+					<span class="song-name"><a href="/heaplay/user/<%=track.getAuthorName()%>/<%=track.getName().replaceAll("\\s","")%>?id=<%=track.getId()%>"><%=track.getName()%></a></span> <br>
+					<span>Prezzo: <span class="price"><%=(track.getType().equals("free")) ? "Gratuita" : (String.format("%.2f",((PurchasableTrackBean)track).getPrice())) + "€"%></span></span>
+					<span class="upload-date hidden">Aggiunto in Data: <%=track.getUploadDate()%></span><br>
+				</div>
 			</div>
 			<button class="item-remove" onclick="removeFromCart(this)">Rimuovi</button>
 		</div>

@@ -56,7 +56,7 @@ if(track != null ) {%>
 
 
 <%if(user == null) { %>
-	<span><a href="/heaplay/login">Accedi</a> oppure <a href="/heaplay/register">registrati</a> per poter commentare.</span><a></a>
+	<span><b><a href="/heaplay/login">Accedi</a></b> oppure <b><a href="/heaplay/register">registrati</a></b> per poter commentare.</span><a></a>
 <%} %>
 <h3>Commenti</h3>
 <hr class="hr-form">

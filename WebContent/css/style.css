@@ -21,6 +21,23 @@ footer {
 	width: 100%;
 }
 
+.logo-wrapper {
+	margin: 0 15px;
+}
+
+.logo-wrapper a:hover {
+	opacity: 1;
+}
+
+.logo {
+	width: 55px;
+	height: auto;
+}
+
+.logo:hover {
+	opacity: 1;
+}
+
 .footer-info {
 	color: white;
 	margin: auto;
@@ -206,7 +223,7 @@ nav > a:visited, .dropbtn > a:visited {
 /******************************** Main Content ********************************/
 
 .content-wrapper {
-	background-color: var(--content-wrapper);
+	background-color: white;
 	margin: 0 auto;
 	max-width: 85%;
 	min-height: calc(100vh - var(--footer-height) - var(--header-height));
@@ -260,10 +277,14 @@ nav > a:visited, .dropbtn > a:visited {
 
 /******************************** Song & Playlist Style ********************************/
 
-.song, .playlist, .item {
+.song, .playlist, .carted, .item {
 	display: flex;
 	white-space: nowrap;
 	margin: 5px;
+}
+
+.item {
+	flex-wrap: wrap;
 }
 
 .song button {
@@ -275,15 +296,28 @@ nav > a:visited, .dropbtn > a:visited {
 	display: inline;
 }
 
-.song-image img, .playlist-image img, .user-image img {
+.song-image img, .playlist-image img {
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 	height: 110px;
 	width: 110px;
 }
 
+.user-image img {
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+}
+
 .song-content, .playlist-content, .carted-content, .user-content {
 	display: inline;
 	padding-left: 10px;
+}
+
+.user-content { 
+	align-self: center;
+	font-size: 1.2em;
+	font-weight: bold;	
 }
 
 .circle-icon, .song .circle-icon {
@@ -383,6 +417,10 @@ nav > a:visited, .dropbtn > a:visited {
 	display: inline;
 	cursor: pointer;
 	font-size: 1em;
+}
+
+.playlist-control {
+	margin-left: 10px;
 }
 
 /******************************** User Page ********************************/
@@ -577,7 +615,7 @@ button:hover, .file-input:hover {
 }
 
 .price {
-	color: var(--main-orange-shade);
+	color: var(--main-orange);
 	font-size: 1.3em;
 }
 
@@ -815,7 +853,7 @@ button:hover, .file-input:hover {
 .error {
 	background-color: var(--main-orange);
 	color: white;
-	height: 100%;
+	height: 100vh;
 	text-align: center;
 	vertical-align: middle;
 }

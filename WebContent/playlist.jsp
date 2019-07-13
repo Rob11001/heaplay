@@ -21,10 +21,10 @@ Integer begin = (Integer) request.getAttribute("begin");
 	</div>
 </div>
 
-<!-- Settare una grandezza migliore per le frecce -->
-<button class="circle-icon" onclick="prev()"><i class="fas fa-chevron-left"></i></button>
-<button class="circle-icon" onclick="next()"><i class="fas fa-chevron-right"></i></button>
-
+<div class="playlist-control">
+	<button class="circle-icon" title="Indietro" onclick="prev()"><i class="fas fa-chevron-left"></i></button>
+	<button class="circle-icon" title="Avanti" onclick="next()"><i class="fas fa-chevron-right"></i></button>
+</div>
 
 <div class="user-tracks">
 	<%if(listOfTracks.size() == 0) { %>

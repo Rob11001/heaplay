@@ -25,8 +25,6 @@ public class AuthenticationFilter implements Filter {
 		else {
 			HttpServletResponse resp = (HttpServletResponse) response;
 			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-			request.setAttribute("error_title", "Pagina non trovata - 404");
-			request.setAttribute("error", "La pagina \""+ httpRequest.getRequestURL() + "\" non è stata trovata o non esiste");
 		}
 			
 	}

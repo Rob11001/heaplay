@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<%@ include file="/_links.jsp"%>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%
@@ -20,8 +20,6 @@
 	response.setDateHeader ("Expires", 0);
 %>
 <title><%=pageTitle%></title>
-
-<%@ include file="/_links.jsp"%>
 </head>
 <body>
 	<script src="${pageContext.servletContext.contextPath}/js/_jquery-3.4.1.min.js" ></script>

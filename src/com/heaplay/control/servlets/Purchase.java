@@ -35,7 +35,7 @@ public class Purchase extends HttpServlet {
     	
     	//Controllo che il carrello abbia almeno un elemento
     	if(user == null || cart == null || cart.getItems().size() == 0)
-    		response.sendError(HttpServletResponse.SC_NOT_FOUND);
+    		response.sendRedirect(getServletContext().getContextPath()+"/home");
     	else {
     		//Dao
     		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
@@ -70,7 +70,6 @@ public class Purchase extends HttpServlet {
 	    		trackDao.updateCart(cart.getItems(), user.getId());
 			} catch (SQLException e) {
 				e.printStackTrace();
-				request.setAttribute("error", e.getMessage());
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
     	}

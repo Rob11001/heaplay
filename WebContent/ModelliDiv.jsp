@@ -4,7 +4,7 @@
 
 <div class='item'>
 	<div class='user-image'>
-		<img width='100px' alt='Non trovata'src='/heaplay/getImage?id=" + bean.id + "&extension=...&user=true'>
+		<img alt='Non trovata'src='/heaplay/getImage?id=" + bean.id + "&extension=...&user=true'>
     </div>
     <div class='user-content'>
     	<span><a href='/heaplay/user/"+bean.username+"'>" + bean.username+ "</a></span>
@@ -23,7 +23,7 @@
 //Esempio div di una playlist
 <div class='playlist'>
     <div class='playlist-image'>
-    	<img alt='Non trovata' src='/heaplay/getImage?id=" + (bean.tracks.length > 0 ? bean.tracks[0].id : -1) + "'>
+    	<a href='/heaplay/user/" + bean.authorName + "/playlist/" + bean.name.replace(/\s/g,'') + "?id=" + bean.id + "'><img alt='Non trovata' src='/heaplay/getImage?id=" + (bean.tracks.length > 0 ? bean.tracks[0].id : -1) + "'></a>
     </div>
     <div class='playlist-content'>
     	<span class='author'><a href='/heaplay/user/" + bean.authorName + "'>" + bean.authorName + "</a></span>

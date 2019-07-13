@@ -24,7 +24,6 @@ public class Admin extends HttpServlet {
 		//Controllo
 		if(user == null || operation == null) {
 			//Pagina di errore
-			request.setAttribute("error", "La pagina \""+ request.getRequestURL() + "\" non è stata trovata o non esiste");
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		} else {
 			

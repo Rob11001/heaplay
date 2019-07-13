@@ -15,8 +15,6 @@ public class ServletFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-		request.setAttribute("error_title", "Pagina non trovata - 404");
-		request.setAttribute("error", "La pagina \""+ ((HttpServletRequest)request).getRequestURL() + "\" non è stata trovata o non esiste");		
 	}
 
 	

@@ -59,8 +59,6 @@ public class User extends HttpServlet {
 				} else {
 					HttpServletResponse resp = response;
 					resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-					request.setAttribute("error_title", "Pagina non trovata - 404");
-					request.setAttribute("error", "La pagina \""+ request.getRequestURL() + "\" non � stata trovata o non esiste");
 					flagError = true;
 				}
 				
@@ -81,12 +79,10 @@ public class User extends HttpServlet {
 				}
 			}else {
 				//Pagina di errore
-				request.setAttribute("error", "La pagina \""+ requestURL + "\" non � stata trovata o non esiste");
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("error", e.getMessage());
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
