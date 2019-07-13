@@ -3,6 +3,7 @@ package com.heaplay.control.servlets;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
+import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.dao.TrackDao;
 
 @WebServlet("/getAudio")
@@ -26,16 +28,22 @@ public class GetAudio extends HttpServlet {
     		response.sendRedirect(getServletContext().getContextPath()+"/home");
     	else {
     		//Set content type
-    		ext = ext.substring(ext.indexOf('.'), ext.length());
+    		ext = ext.substring(ext.indexOf('.')+1, ext.length());
     		response.setContentType("audio/"+ext);
+    		response.setHeader("Accept-Ranges", "bytes");
     		
     		TrackDao trackDao = new TrackDao((ConnectionPool) getServletContext().getAttribute("pool"));
     		byte[] trackBytes = null;
+    		ArrayList<String> keys = new ArrayList<String>();
+    		keys.add(id);
+    		
     		
     		try {
     			//Lettura bytes
 				trackBytes = trackDao.getAudio(Long.parseLong(id));
-			} catch (SQLException | NumberFormatException e) {
+				response.setContentLengthLong(trackBytes.length);
+	    		
+    		} catch (SQLException | NumberFormatException e) {
 				e.printStackTrace();
 			}
     		

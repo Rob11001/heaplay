@@ -20,7 +20,7 @@ function addEventHandlers() {
 
 //Handlers
 function loadAudio(){
-	audio.trigger('load');
+	$(audio[0]).trigger('load');
 }
 //Metodo chiamato per inizializzare
 function startAudio(e){
@@ -120,12 +120,11 @@ function setCurrentTime(params) {
 		let min = Math.floor(currentTime/60), sec = Math.round(currentTime%60);
 		min = timePadder(min);						
 		sec = timePadder(sec);
-	
 		$(time).html( min + ":" + sec);
-		audio.prop("currentTime",currentTime);
+		$(audio[0]).prop("currentTime",currentTime+"");
 		if(audio.prop("currentTime") == 0) {
 			loadAudio();
-			audio.prop("currentTime",currentTime);
+			audio.prop("currentTime",currentTime+"");
 		}	
 		playAudio();
 	}
