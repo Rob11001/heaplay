@@ -43,7 +43,7 @@ function removeFromPlaylist(button) {
 	url = $(parent).find(".audio").children().prop("src");
 	let track_id = url.substring(url.indexOf("id")+3,url.indexOf("&"));
 
-	$.ajax({
+	let request = $.ajax({
 		"type":"GET",
 		"url": encodeSessionId("/heaplay/removeFromPlaylist"),
 		"data" : "track_id="+track_id+"&play_id="+play_id,
@@ -51,6 +51,7 @@ function removeFromPlaylist(button) {
 			$(parent).remove();
 		}
 	});
+	setTimeout(() =>abortRequest(request),10000);
 }
 
 

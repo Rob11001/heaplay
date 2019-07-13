@@ -1,6 +1,6 @@
 $(document).ready(() => {
 	//Ajax che mette nella home le track più votate
-	$.ajax({
+	let request = $.ajax({
 		"type":"GET",
 		"url" : "/heaplay/getLikedTracks",
 		"success": (data) => {
@@ -17,9 +17,10 @@ $(document).ready(() => {
 				addEventHandlers();
 			}
 	});
+	setTimeout(() =>abortRequest(request),10000);
 	
 	//Ajax che mette nella home le playlist più ascoltate
-	$.ajax({
+	let otherRequest = $.ajax({
 		"type":"GET",
 		"url" : "/heaplay/getBestPlaylists",
 		"success": (beans) => {
@@ -33,5 +34,6 @@ $(document).ready(() => {
 				}	
 			}
 	});
+	setTimeout(() =>abortRequest(otherRequest),10000);
 	
 });

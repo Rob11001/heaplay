@@ -3,7 +3,7 @@ function removeFromCart(button) {
 	let src = $(button).parent().find(".song-image").children().prop("src");
 	let track_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
 
-	$.ajax({
+	let request = $.ajax({
 		"type" : "GET",
 		"url" : encodeSessionId("/heaplay/addToCart")+"?track_id="+track_id+"&remove=true",
 		"beforeSend": () => {
@@ -29,10 +29,11 @@ function removeFromCart(button) {
 			}
 		}
 	});
+	setTimeout(() =>abortRequest(request),10000);
 }
 
 function purchase() {
-	$.ajax({
+	let request = $.ajax({
 		"type" : "GET",
 		"url" : encodeSessionId("/heaplay/purchase"),
 		"beforeSend": () => {
@@ -48,4 +49,5 @@ function purchase() {
 			$("<p>Acquisto completato con successo</p>").appendTo($(".cart"));
 		}
 	});
+	setTimeout(() =>abortRequest(request),10000);
 }

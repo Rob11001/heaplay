@@ -63,7 +63,7 @@ function ShowAndHide(status) {
 function autocompleteTags(el,suggestions) {
 	let url = "/heaplay/getTags?query="+$(el).val();
 	if($(el).val().length > 1) {
-		$.ajax({
+		let request = $.ajax({
 			"type":"GET",
 			"url" : url,
 			"cache":false,
@@ -75,6 +75,7 @@ function autocompleteTags(el,suggestions) {
 				}	
 			}
 		});
+		setTimeout(() =>abortRequest(request),10000);
 	}
 
 }

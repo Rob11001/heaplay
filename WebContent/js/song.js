@@ -166,7 +166,7 @@ function like(e) {
 	let url = $(e.currentTarget).parent().parent().parent().find(".audio").children().prop("src");
 	let id = url.substring(url.indexOf("id")+3,url.indexOf("&"));
 	let span = e.currentTarget;
-	$.ajax({
+	let request = $.ajax({
 		"type":"GET",
 		"url" : encodeSessionId("/heaplay/view"),
 		"data": "id="+id+"&like=true",
@@ -180,6 +180,7 @@ function like(e) {
 			}
 		}
 	});
+	setTimeout(() =>abortRequest(request),10000);
 }
 
 
