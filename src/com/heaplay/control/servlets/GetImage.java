@@ -32,7 +32,7 @@ public class GetImage extends HttpServlet {
     	
     	
     	if( id == null ) 												//Controllo probabilmente necessario
-    		response.sendRedirect(getServletContext().getContextPath()+"/home");
+    		response.sendError(HttpServletResponse.SC_NOT_FOUND);
     	else {
     		byte[] imageBytes = null;
     		

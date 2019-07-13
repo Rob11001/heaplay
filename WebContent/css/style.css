@@ -1,39 +1,5 @@
 @charset "UTF-8";
 
-:root {
-	--content-wrapper: white;
-	--main-black: rgba(45, 49, 66, 1);
-	--main-black60: rgba(45, 49, 66, 0.6);
-	--main-orange: rgba(244, 81, 30, 1);
-	--main-orange-shade: #DB481B; 
-	--main-blue: #1872FF;
-}
-
-html { 
-	--header-height: 50px;
-	--footer-height: 70px;
-	color: var(--main-black);
-	font-size: 16px;
-}
-
-html * {
-	font-family: 'Roboto', sans-serif;
-}
-
-body {
-	background-color: var(--main-black);
-	height: 100%;
-	margin: 0;
-}
-
-a {
-	color: var(--main-black);
-}
-
-a:hover {
-	opacity: 0.8;
-}
-
 header {
 	background-color: var(--main-orange);
 	box-shadow: 0 1px 0 rgba(12, 13, 14, 0.1), 0 1px 6px rgba(59, 64, 69, 0.1);
@@ -216,7 +182,7 @@ nav > a:visited, .dropbtn > a:visited {
 }
 
 .dropdown-content a {
-	color: #2D3142;
+	color: var(--main-black);
 	display: block;
 	padding: 12px 16px;
 	text-align: left;
@@ -320,19 +286,16 @@ nav > a:visited, .dropbtn > a:visited {
 	padding-left: 10px;
 }
 
-.circle-icon, .song .play, .song .pause {
-	height: 35px;
-	text-align: center;
-	vertical-align: middle;
-	width: 35px;
-}
-
-.song .play, .song .pause {
+.circle-icon, .song .circle-icon {
 	background-color: var(--main-orange);
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
 	font-size: 1em;
+	height: 35px;
+	text-align: center;
+	vertical-align: middle;
+	width: 35px;
 }
 
 .song-info {
@@ -363,7 +326,7 @@ nav > a:visited, .dropbtn > a:visited {
 	margin-left: 15px;
 }
 
-/* Controls */
+/*+++++ Controls +++++++++++*/
 
 .controls {
 	display: flex;
@@ -463,10 +426,6 @@ nav > a:visited, .dropbtn > a:visited {
 
 .page-subname a {
 	color: white;
-}
-
-#srcImg {
-
 }
 
 
@@ -751,11 +710,6 @@ button:hover, .file-input:hover {
 
 /************************** Administration *********************/
 
-/* #info-bar { */
-/* 	width: 100%; */
-/* 	height: 400px; */
-/* } */
-
 .admin-table {
 	width: 100%;
 	border-collapse: separate;
@@ -806,7 +760,7 @@ button:hover, .file-input:hover {
 	border-bottom: 0;
 }
 
-/* Classes of support */
+/*************************** Support Classes ***************************************/
 
 .color-white {
 	color: white;
@@ -856,119 +810,22 @@ button:hover, .file-input:hover {
 	justify-content: space-between;
 }
 
-/* Responsive Design */
+/*************************** Error ********************************/
 
-@media only screen and (max-width: 1024px) {
-	
-	nav > a:hover, .dropbtn > a:hover {
-		background-color: transparent;
-		border-radius: 0;
-	}
-	
-	
-	input[type='text'], input[type='password'] {
-		width: 50%;
-	}
-	
-	.between {
-		justify-content: space-evenly;
-	}
+.error {
+	background-color: var(--main-orange);
+	color: white;
+	height: 100%;
+	text-align: center;
+	vertical-align: middle;
 }
 
-@media only screen and (max-width: 800px) {
-	.playlist-form-content {
-		width: 65%;
-	}	
+.error a {
+	color: var(--main-black);
+	text-decoration: underline;
 }
 
-@media only screen and (max-width: 560px)  {
-	.menu-bar {
-		margin: 0;
-		max-width: 100%;
-	}
-	
-	.playlist-form-content {
-		width: 80%;
-	}	
-	
-	.dropdown-content {
-		right: 8px;
-	}
-}
-
-@media only screen and (max-width: 426px) {
-	
-	header {
-		height: auto;
-	}	
-	
-	header nav {
-		flex-flow: column wrap;
-		align-items: center;
-	}
-	
-	.menu-bar {
-		flex-flow: column wrap;
-		order: 2;
-	}
-	
-	.search {
-		justify-content: center;
-		order: 1;
-	}
-	
-	.dropbtn {
-		display: flex;
-		order: 3;
-	}
-
-	.dropdown-content {
-		display: none;
-		border-radius: 0;
-		flex-flow: row;
-		height: auto;
-		justify-content: center;
-		right: 0;
-		width: 100%;
-	}
-	
-	.dropdown-content a:hover {
-		border-radius: 20px;
-	}
-	
-	.content-wrapper {
-		max-width: 100vw;
-		margin: 0;
-		padding-left: 8px;
-		padding-right: 8px;
-	}
-	
-	@media only screen and (max-width: 360px) {
-		body {
-			min-width: fit-content;
-		}
-	
-		.content-wrapper {
-			min-width: fit-content;
-		} 
-		
-		footer {
-			min-width: fit-content;
-			margin: 0;
-		}
-	}
-	
-	.page-header {
-		margin-left: -8px;
-		margin-right: -8px;
-	}	
-	
-	input[type='text'], input[type='password'] {
-		width: 70%;
-	}
-	
-	#tagButton {
-		margin-left: 0;
-		margin-top: 3px;
-	}
+.error img {
+	max-width: 50%;
+	height: auto;	
 }

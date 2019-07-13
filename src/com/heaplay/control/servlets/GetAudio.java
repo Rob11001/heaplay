@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.heaplay.model.ConnectionPool;
-import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.dao.TrackDao;
 
 @WebServlet("/getAudio")
@@ -25,7 +24,7 @@ public class GetAudio extends HttpServlet {
     	String ext = request.getParameter("extension");
     	
     	if( id == null || ext == null) 												//Controllo probabilmente necessario
-    		response.sendRedirect(getServletContext().getContextPath()+"/home");
+    		response.sendError(HttpServletResponse.SC_NOT_FOUND);
     	else {
     		//Set content type
     		ext = ext.substring(ext.indexOf('.')+1, ext.length());

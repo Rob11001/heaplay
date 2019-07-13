@@ -80,9 +80,9 @@ public class Register extends HttpServlet {
 					
 			} catch (SQLException e) {
 				if(e.getErrorCode() == 1062 && e.getMessage().contains("'username'"))
-					error = "Username non disponibile";
+					error = "Username già in uso";
 				else if(e.getErrorCode() == 1062 && e.getMessage().contains("'email'"))
-					error = "Email non disponibile";
+					error = "Email già in uso";
 				else
 					error = "Errore nella registrazione riprovare";
 			}

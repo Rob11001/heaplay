@@ -29,7 +29,7 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 	
 	<div class="song-content">
 		<div class="song-info">
-			<button class="play">
+			<button class="circle-icon play">
 					<i class="fa fa-play color-white"></i>
 			</button>
 			<div>
@@ -44,7 +44,7 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 					<td><span class="song-time">00:00</span></td>
 					<td><input type="range"
 					name="slider" step="1" class="slider slider-bar"
-					onchange="setCurrentTime(this)" value="0" min="0"
+					oninput="setCurrentTime(this)" value="0" min="0"
 					max=<%=playerTrack!=null ? playerTrack.getDuration() : 100%>></td>
 					<td><%if(playerTrack != null) {%>
 						<span><%=String.format("%02d:%02d", playerTrack.getDuration()/60,playerTrack.getDuration()%60)%></span>
@@ -53,7 +53,7 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 				<tr class="hidden">
 					<td><i class="fa fa-volume-down"></i></td>
 					<td><input type="range" name="volume" step=".1" class="slider volume"
-						onchange="setVolume(this)" value="1" min="0" max="1"></td>
+						oninput="setVolume(this)" value="1" min="0" max="1"></td>
 					<td><i class="fa fa-volume-up"></i></td>
 				</tr>
 			</table>

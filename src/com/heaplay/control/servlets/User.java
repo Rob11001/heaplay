@@ -81,7 +81,6 @@ public class User extends HttpServlet {
 				}
 			}else {
 				//Pagina di errore
-				request.setAttribute("error_title", "Pagina non trovata - 404");
 				request.setAttribute("error", "La pagina \""+ requestURL + "\" non � stata trovata o non esiste");
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}

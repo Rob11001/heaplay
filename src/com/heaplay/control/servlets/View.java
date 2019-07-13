@@ -28,7 +28,7 @@ public class View extends HttpServlet {
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		
 		if(id == null)
-			response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		else {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
 			TrackDao trackDao = new TrackDao(pool);

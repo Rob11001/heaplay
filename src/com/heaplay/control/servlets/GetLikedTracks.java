@@ -59,7 +59,8 @@ public class GetLikedTracks extends HttpServlet {
 		doGet(request, response);
 	}
  	
-	private static void  resetBytes(List<Bean> array) {			
+	@SuppressWarnings("unused")
+	private static void resetBytes(List<Bean> array) {			
 		for(int i=0;i<array.size();i++) {
 			TrackBean track = (TrackBean) array.get(i);
 			track.setImage(null);

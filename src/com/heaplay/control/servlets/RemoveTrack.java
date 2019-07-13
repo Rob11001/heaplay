@@ -30,7 +30,6 @@ public class RemoveTrack extends HttpServlet {
 		
 		if(track_id == null) {
 			//Pagina di errore
-    		request.setAttribute("error_title", "Pagina non trovata - 404");
 			request.setAttribute("error", "La pagina non è stata trovata o non esiste");
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		} else {

@@ -35,7 +35,7 @@ public class Playlist extends HttpServlet {
 		int start = (begin == null) ? 0 : Integer.parseInt(begin);
 		
 		if(user == null || playlistName == null)
-			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		else {
 			try {
 				//Dao

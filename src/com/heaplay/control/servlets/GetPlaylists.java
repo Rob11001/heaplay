@@ -36,7 +36,7 @@ public class GetPlaylists extends HttpServlet {
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		
 		if(id == null && autocomplete == null)
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		else {
 			response.setContentType("application/json");
 			//Dao

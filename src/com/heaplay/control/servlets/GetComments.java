@@ -27,7 +27,7 @@ public class GetComments extends HttpServlet {
 		
 		
 		if(track_id == null || begin == null)
-			response.sendRedirect(getServletContext().getContextPath()+"/home");
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		else {
 			try {
 				response.setContentType("application/json");

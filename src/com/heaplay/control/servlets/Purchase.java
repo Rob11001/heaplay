@@ -35,7 +35,7 @@ public class Purchase extends HttpServlet {
     	
     	//Controllo che il carrello abbia almeno un elemento
     	if(user == null || cart == null || cart.getItems().size() == 0)
-    		response.sendRedirect(getServletContext().getContextPath()+"/home");
+    		response.sendError(HttpServletResponse.SC_NOT_FOUND);
     	else {
     		//Dao
     		ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");

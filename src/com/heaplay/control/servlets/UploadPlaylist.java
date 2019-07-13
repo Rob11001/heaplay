@@ -29,7 +29,7 @@ public class UploadPlaylist extends HttpServlet {
 		String privacy = request.getParameter("privacy");	
 		
 		if(user == null || track_id == null || playlistName == null) 
-			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		else {
 			//Dao
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");

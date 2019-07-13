@@ -54,7 +54,6 @@ public class GetInfo extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-    		request.setAttribute("error_title", "Pagina non trovata - 404");
 			request.setAttribute("error", "La pagina \""+ request.getRequestURL() + "\" non è stata trovata o non esiste");
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}

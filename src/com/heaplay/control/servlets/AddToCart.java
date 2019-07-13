@@ -37,7 +37,7 @@ public class AddToCart extends HttpServlet {
     	
     	//Controllo
     	if(track_id == null || user == null) 
-    		response.sendRedirect(getServletContext().getContextPath()+"/home");
+    		response.sendError(HttpServletResponse.SC_NOT_FOUND);
     	else {
     		try {
     			//Controllo del carrello

@@ -39,7 +39,7 @@ public class Track extends HttpServlet {
 		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		
 		if(id == null || userName == null || trackName == null)
-			response.sendRedirect(response.encodeURL(getServletContext().getContextPath()+"/home"));
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		else {
 			//Dao
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");

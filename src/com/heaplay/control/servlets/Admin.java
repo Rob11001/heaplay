@@ -24,7 +24,6 @@ public class Admin extends HttpServlet {
 		//Controllo
 		if(user == null || operation == null) {
 			//Pagina di errore
-    		request.setAttribute("error_title", "Pagina non trovata - 404");
 			request.setAttribute("error", "La pagina \""+ request.getRequestURL() + "\" non è stata trovata o non esiste");
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		} else {
@@ -48,7 +47,7 @@ public class Admin extends HttpServlet {
 				rd.forward(request, response);
 			} else {
 				//Rimando alla home
-				response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
 		}
 		
