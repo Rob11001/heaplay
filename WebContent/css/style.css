@@ -212,7 +212,6 @@ nav > a:visited, .dropbtn > a:visited {
 	flex-direction: column;
 	min-width: 160px;
 	position: absolute;
-	right: 8px;
 	z-index: 20;
 }
 
@@ -635,8 +634,10 @@ button:hover, .file-input:hover {
 	border-right: 0;
 	border-width: 1px;
 	border-top: 0;
-	font-size: 1em;
-	resize: none;
+	font-size: 1.1em;
+	max-height: 10em;
+	line-height: 1.5em;
+	resize: vertical;
 	transition: border-width 0.2s linear;
 	width: 100%;
 }
@@ -889,6 +890,10 @@ button:hover, .file-input:hover {
 	.playlist-form-content {
 		width: 80%;
 	}	
+	
+	.dropdown-content {
+		right: 8px;
+	}
 }
 
 @media only screen and (max-width: 426px) {

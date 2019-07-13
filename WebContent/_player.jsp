@@ -1,6 +1,8 @@
 <%@page import="com.heaplay.model.beans.UserBean"%>
+<%@page import="com.heaplay.model.beans.TrackBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+TrackBean playerTrack = (TrackBean) request.getAttribute("track");
 UserBean currentUserLocal = (UserBean)session.getAttribute("user"); 
 UserBean userPageLocal= (UserBean)request.getAttribute("user");
 
@@ -9,18 +11,18 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 <div class="song">
 	<audio preload="none" class="audio" ontimeupdate="updateCurrentTime(this)">
 		<!-- Problemi con il caricamento dell'audio -->
-		<% if(track != null) {%>
+		<% if(playerTrack != null) {%>
 		<source
-			src="/heaplay/getAudio?id=<%=track.getId()%>&extension=<%=track.getTrackExt()%>"
-			type="audio/<%=track.getTrackExt().substring(1)%>">
+			src="/heaplay/getAudio?id=<%=playerTrack.getId()%>&extension=<%=playerTrack.getTrackExt()%>"
+			type="audio/<%=playerTrack.getTrackExt().substring(1)%>">
 		<%} %>
 	</audio>
 
 	<div class="song-image">
-		<%if(track != null) {%>
+		<%if(playerTrack != null) {%>
 		<!-- Conterrà l'immagine della track -->
 		<img 
-			src="/heaplay/getImage?id=<%=track.getId()%>&extension=<%=track.getImageExt()%>"
+			src="/heaplay/getImage?id=<%=playerTrack.getId()%>&extension=<%=playerTrack.getImageExt()%>"
 			alt="Errore">
 		<%} %>
 	</div>
@@ -31,8 +33,8 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 					<i class="fa fa-play color-white"></i>
 			</button>
 			<div>
-				<span class="author"><a href="<%=response.encodeURL("/heaplay/user/"+track.getAuthorName())%>"><%=track.getAuthorName()%></a></span><br>
-				<span class="song-name"><a href="<%=response.encodeURL("/heaplay/user/"+track.getAuthorName()+"/"+track.getName().replaceAll("\\s","")+"?id="+track.getId()) %>"><%=track.getName()%></a></span>
+				<span class="author"><a href="<%=response.encodeURL("/heaplay/user/"+playerTrack.getAuthorName())%>"><%=playerTrack.getAuthorName()%></a></span><br>
+				<span class="song-name"><a href="<%=response.encodeURL("/heaplay/user/"+playerTrack.getAuthorName()+"/"+playerTrack.getName().replaceAll("\\s","")+"?id="+playerTrack.getId()) %>"><%=playerTrack.getName()%></a></span>
 			</div>
 		</div>
 		
@@ -43,9 +45,9 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 					<td><input type="range"
 					name="slider" step="1" class="slider slider-bar"
 					onchange="setCurrentTime(this)" value="0" min="0"
-					max=<%=track!=null ? track.getDuration() : 100%>></td>
-					<td><%if(track != null) {%>
-						<span><%=String.format("%2d:%2d", track.getDuration()/60,track.getDuration()%60)%></span>
+					max=<%=playerTrack!=null ? playerTrack.getDuration() : 100%>></td>
+					<td><%if(playerTrack != null) {%>
+						<span><%=String.format("%2d:%2d", playerTrack.getDuration()/60,playerTrack.getDuration()%60)%></span>
 					<%} %></td>
 				</tr>
 				<tr class="hidden">
@@ -57,9 +59,9 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 			</table>
 		</div>
 		<div class="song-buttons">
-			<span><%=track.getPlays()%> <%if(track.getPlays() == 1) { %>riproduzione <%} else { %>riproduzioni<%} %></span>
-			<span class="song-button" onclick="<%=track.isLiked() ? "" : "like(event)"  %>" title="Aggiungi Mi Piace"><i class="<%=track.isLiked() ? "fa fa-thumbs-up" : "far fa-thumbs-up" %>"></i> <%=track.getLikes()%></span>
-			<%if(track.isIndexable() && userPageLocal != null && currentUserLocal != null && currentUserLocal.getId() == userPageLocal.getId() ) {%>
+			<span><%=playerTrack.getPlays()%> <%if(playerTrack.getPlays() == 1) { %>riproduzione <%} else { %>riproduzioni<%} %></span>
+			<span class="song-button" onclick="<%=playerTrack.isLiked() ? "" : "like(event)"  %>" title="Aggiungi Mi Piace"><i class="<%=playerTrack.isLiked() ? "fa fa-thumbs-up" : "far fa-thumbs-up" %>"></i> <%=playerTrack.getLikes()%></span>
+			<%if(playerTrack.isIndexable() && userPageLocal != null && currentUserLocal != null && currentUserLocal.getId() == userPageLocal.getId() ) {%>
 			<span class="song-button" onclick="addToPlaylist(this)" title="Aggiungi a una Playlist")><i class="fa fa-plus"></i></span>
 			<% }%>
 		</div>		

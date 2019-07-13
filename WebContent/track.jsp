@@ -14,6 +14,7 @@ if(track != null ) {%>
 
 	<div class="flex-container between">
 		<div class="track-info">
+			<%request.setAttribute("track", track);%>
 			<%@ include file="/_player.jsp"%>
 			<div class="added-tags">
 				<%ArrayList<TagBean> tags = (ArrayList<TagBean>) track.getTags();
@@ -50,7 +51,7 @@ if(track != null ) {%>
 
 
 <%if(user == null) { %>
-	<span><a href="/heaplay/login">Logga </a> oppure <a href="/heaplay/register">registrati </a>per poter commentare</span><a></a>
+	<span><a href="/heaplay/login">Accedi</a> oppure <a href="/heaplay/register">registrati</a> per poter commentare.</span><a></a>
 <%} %>
 <h3>Commenti</h3>
 <hr class="hr-form">
@@ -61,7 +62,6 @@ if(track != null ) {%>
 </div>
 <%} %>
 <div class="comment-container"></div>
-
 
 
 <script src="${pageContext.servletContext.contextPath}/js/song.js" ></script>
