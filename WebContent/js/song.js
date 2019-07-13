@@ -171,9 +171,13 @@ function like(e) {
 		"url" : encodeSessionId("/heaplay/view"),
 		"data": "id="+id+"&like=true",
 		"success" : () => {
-			$(span).prop("onclick",null);
-			let likes = Number.parseInt($(span).html().substring($(span).html().indexOf("</i>")+4,$(span).html().length))+1;
-			$(span).html("<i class='fa fa-thumbs-up'></i> "+ likes)
+			if($($(span).children()).hasClass("far fa-thumbs-up")) {
+				let likes = Number.parseInt($(span).html().substring($(span).html().indexOf("</i>")+4,$(span).html().length))+1;
+				$(span).html("<i class='fa fa-thumbs-up'></i> "+ likes)
+			} else {
+				let likes = Number.parseInt($(span).html().substring($(span).html().indexOf("</i>")+4,$(span).html().length))-1;
+				$(span).html("<i class='far fa-thumbs-up'></i> "+ likes)
+			}
 		}
 	});
 }

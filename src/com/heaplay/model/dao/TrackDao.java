@@ -30,7 +30,7 @@ public class TrackDao implements DaoModel {
 		String insertQuery = "INSERT INTO " + TABLE_NAME
 				+ " (name,type,plays,track,track_extension,image,image_extension,indexable,author,upload_date,likes,duration,author_name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		String insertTags = "INSERT INTO  tagged(track_id,tag_id) VALUES (?,?) ";
-		String getId = "SELECT id FROM "+ TABLE_NAME + " WHERE name= ? AND author=?";
+		String getId = "SELECT id FROM "+ TABLE_NAME + " WHERE name= ? AND author=? AND upload_date=?";
 		
 		try {
 			con = pool.getConnection();
@@ -58,6 +58,7 @@ public class TrackDao implements DaoModel {
 			ps = con.prepareStatement(getId);
 			ps.setString(1, trackBean.getName());
 			ps.setLong(2, trackBean.getAuthor());
+			ps.setTimestamp(3, trackBean.getUploadDate());
 			
 			ResultSet rs = ps.executeQuery();
 			rs.next();

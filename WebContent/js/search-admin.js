@@ -126,7 +126,7 @@ function removeTrack(button) {
 	
 	$.ajax({
 		"type":"GET",
-		"url" :encodeSessionId("/heaplay/admin/removeTrack")+"?track_id="+track_id,
+		"url" :encodeSessionId("/heaplay/removeTrack")+"?track_id="+track_id,
 		"success": () => {
 			$(button).parent().parent().remove();
 		}
@@ -139,7 +139,7 @@ function disableTrack(event) {
 	
 	$.ajax({
 		"type":"GET",
-		"url" :encodeSessionId("/heaplay/admin/removeTrack")+"?track_id="+track_id+"&disable=true",
+		"url" :encodeSessionId("/heaplay/removeTrack")+"?track_id="+track_id+"&disable=true",
 		"success": () => {
 			$(button).html("Sblocca");
 			$(button).off();
@@ -154,7 +154,7 @@ function enableTrack(event) {
 	
 	$.ajax({
 		"type":"GET",
-		"url" :encodeSessionId("/heaplay/admin/removeTrack")+"?track_id="+track_id+"&enable=true",
+		"url" :encodeSessionId("/heaplay/removeTrack")+"?track_id="+track_id+"&enable=true",
 		"success": () => {
 			$(button).html("Blocca");
 			$(button).off();

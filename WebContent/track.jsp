@@ -43,7 +43,12 @@ if(track != null ) {%>
 					<span><b>Acquistata</b></span>
 				<%} %>
 			</div>
-		<%}%>
+		<%} else if(user.getId() == track.getAuthor()) { %>
+				<form action="<%=response.encodeURL("/heaplay/removeTrack")%>" method ="POST">
+					<input type="hidden" name="track_id" value="<%=track.getId()%>">
+					<button type="submit">Rimuovi</button>
+				</form>
+		<% } %>
 	<%}%>
 	</div>
 <%} %>

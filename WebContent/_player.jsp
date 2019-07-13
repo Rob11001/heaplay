@@ -60,7 +60,7 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 		</div>
 		<div class="song-buttons">
 			<span><%=playerTrack.getPlays()%> <%if(playerTrack.getPlays() == 1) { %>riproduzione <%} else { %>riproduzioni<%} %></span>
-			<span class="song-button" onclick="<%=playerTrack.isLiked() ? "" : "like(event)"  %>" title="Aggiungi Mi Piace"><i class="<%=playerTrack.isLiked() ? "fa fa-thumbs-up" : "far fa-thumbs-up" %>"></i> <%=playerTrack.getLikes()%></span>
+			<span class="song-button" onclick="like(event)" title="Aggiungi Mi Piace"><i class="<%=playerTrack.isLiked() ? "fa fa-thumbs-up" : "far fa-thumbs-up" %>"></i> <%=playerTrack.getLikes()%></span>
 			<%if(playerTrack.isIndexable() && userPageLocal != null && currentUserLocal != null && currentUserLocal.getId() == userPageLocal.getId() ) {%>
 			<span class="song-button" onclick="addToPlaylist(this)" title="Aggiungi a una Playlist")><i class="fa fa-plus"></i></span>
 			<% }%>
