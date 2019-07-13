@@ -54,7 +54,7 @@ $(document).ready( () => {
 		}	
 	});
 
-	$(window).scroll(() => {
+	const onScroll = () => {
 		let container = $("#content .flex-container");
 		let numberOfElements = $(container).children().length;
 		
@@ -64,12 +64,13 @@ $(document).ready( () => {
 			let found = parseInt($("#found").text(),10); //Numero di elementi trovati dalla ricerca
 			//Effettuo la chiamata se esistono ancora elementi da caricare
 			if($("#search-box").val().toString() != "" && found > numberOfElements) { 
+				$(window).off("scroll");
 				$.ajax({
 					"type":"GET",
 					"url" : url,
 					"success": (data) => {
 						let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca
-						numberOfElements = $(container).children().length - 1;
+						numberOfElements = $(container).children().length;
 						
 						//Ulteriore controllo 
 						if(found > numberOfElements) {
@@ -83,11 +84,13 @@ $(document).ready( () => {
 							if(typeOfSearch == "track" || typeOfSearch == "tag")
 								addEventHandlers();
 						}
+						$(window).scroll(onScroll);
 					}
 				});
 			}
 		}	
-	});
+	};
+	$(window).scroll(onScroll);
 
 });
 

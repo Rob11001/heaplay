@@ -255,7 +255,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null;
 		TrackBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME;
+		String selectQuery = "SELECT id,author,image_extension,indexable,likes,name,plays,track_extension,type,upload_date,duration,author_name FROM " + TABLE_NAME;
 		ArrayList<Bean> list = new ArrayList<Bean>();
 
 		try {
@@ -269,17 +269,17 @@ public class TrackDao implements DaoModel {
 				bean = new TrackBean();
 				bean.setId(rs.getLong("id"));
 				bean.setAuthor(rs.getLong("author"));
-				bean.setImage(rs.getBytes("image"));
+//				bean.setImage(rs.getBytes("image"));
 				bean.setImageExt(rs.getString("image_extension"));
 				bean.setIndexable(rs.getBoolean("indexable"));
 				bean.setLikes(rs.getLong("likes"));
 				bean.setName(rs.getString("name"));
 				bean.setPlays(rs.getLong("plays"));
-				bean.setTrack(rs.getBytes("track"));
+//				bean.setTrack(rs.getBytes("track"));
 				bean.setTrackExt(rs.getString("track_extension"));
 				bean.setType(rs.getString("type"));
 				bean.setUploadDate(rs.getTimestamp("upload_date"));
-				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
+//				bean.setTags(tag.getTagsByTrack(rs.getLong("id")));
 				bean.setDuration(rs.getInt("duration"));
 				bean.setAuthorName(rs.getString("author_name"));
 				list.add(bean);
@@ -303,7 +303,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null;
 		TrackBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME + " , contains WHERE playlist_id=? AND track_id=id";
+		String selectQuery = "SELECT id,author,image_extension,indexable,likes,name,plays,track_extension,type,upload_date,duration,author_name FROM " + TABLE_NAME + " , contains WHERE playlist_id=? AND track_id=id";
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 
 		try {
@@ -317,13 +317,13 @@ public class TrackDao implements DaoModel {
 				bean = new TrackBean();
 				bean.setId(rs.getLong("id"));
 				bean.setAuthor(rs.getLong("author"));
-				bean.setImage(rs.getBytes("image"));
+//				bean.setImage(rs.getBytes("image"));
 				bean.setImageExt(rs.getString("image_extension"));
 				bean.setIndexable(rs.getBoolean("indexable"));
 				bean.setLikes(rs.getLong("likes"));
 				bean.setName(rs.getString("name"));
 				bean.setPlays(rs.getLong("plays"));
-				bean.setTrack(rs.getBytes("track"));
+//				bean.setTrack(rs.getBytes("track"));
 				bean.setTrackExt(rs.getString("track_extension"));
 				bean.setType(rs.getString("type"));
 				bean.setUploadDate(rs.getTimestamp("upload_date"));
@@ -521,7 +521,7 @@ public class TrackDao implements DaoModel {
 		ResultSet rs = null;
 		ArrayList<Bean> list = new ArrayList<Bean>();
 		TrackBean bean = null;
-		String selectQuery = "SELECT * FROM " + TABLE_NAME + ",tagged WHERE track_id=id AND tag_id=?";
+		String selectQuery = "SELECT id,author,image_extension,indexable,likes,name,plays,track_extension,type,upload_date,duration,author_name FROM " + TABLE_NAME + ",tagged WHERE track_id=id AND tag_id=?";
 		
 		try {
 			con = pool.getConnection();
@@ -534,13 +534,13 @@ public class TrackDao implements DaoModel {
 				bean = new TrackBean();
 				bean.setId(rs.getLong("id"));
 				bean.setAuthor(rs.getLong("author"));
-				bean.setImage(rs.getBytes("image"));
+//				bean.setImage(rs.getBytes("image"));
 				bean.setImageExt(rs.getString("image_extension"));
 				bean.setIndexable(rs.getBoolean("indexable"));
 				bean.setLikes(rs.getLong("likes"));
 				bean.setName(rs.getString("name"));
 				bean.setPlays(rs.getLong("plays"));
-				bean.setTrack(rs.getBytes("track"));
+//				bean.setTrack(rs.getBytes("track"));
 				bean.setTrackExt(rs.getString("track_extension"));
 				bean.setType(rs.getString("type"));
 				bean.setUploadDate(rs.getTimestamp("upload_date"));

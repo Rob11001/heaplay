@@ -41,8 +41,7 @@ public class GetLikedTracks extends HttpServlet {
 			//Selezione delle prime 5
 			int size = list.size();
 			if(size > 0)
-				listOfObjects.addAll(list.subList(0, (size < 12) ? size : 12));
-			resetBytes(listOfObjects);
+				listOfObjects.addAll(list.subList(0, (size < 9) ? size : 9));
 			if(user != null)
 				for(int i=0; i < listOfObjects.size(); i++)
 					((TrackBean)listOfObjects.get(i)).setLiked(userDao.checkIfLiked(user.getId(),((TrackBean)listOfObjects.get(i)).getId()));

@@ -59,17 +59,18 @@ $(document).ready( () => {
 		});	
 	});
 
-	$(window).scroll(() => {
+
+	const onScroll = () => {
 		let container = $("table");
 		let numberOfElements = $(container).children().length-1;
-		
+			
 		//Effettuo la chiamata solo quando ho già effettuato una ricerca e ho raggiunto il bottom della pagina
 		if(numberOfElements > 0  && ($(window).scrollTop() + $(window).height() >= $(document).height()-1)) {
 			let url = encodeSessionId("/heaplay/search")+"?q="+$("#search-box").val()+"&startFrom="+numberOfElements.toString()+"&filter="+$(".search-select").val(); //url creato dinamicamente (probabilmente bisogna filtrare ciò che è stato scritto dal utente)
 			let found = parseInt($("#found").text(),10); //Numero di elementi trovati dalla ricerca
-		
 			//Effettuo la chiamata se esistono ancora elementi da caricare
 			if( found > numberOfElements) { 
+				$(window).off("scroll");
 				$.ajax({
 					"type":"GET",
 					"url" : url,
@@ -85,15 +86,16 @@ $(document).ready( () => {
 								//Creazione del div
 								createDiv(bean,container,typeOfSearch);	
 							}	
+							$(window).scroll(onScroll);
 						}
 					}
 				});
 			}
-		}	
-	});
+		}
+	};
 
+	$(window).scroll(onScroll);
 });
-
 
 //Dato un bean crea il div corrispondente
 function createDiv(bean,container,typeOfSearch) {

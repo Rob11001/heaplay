@@ -42,7 +42,7 @@ public class Search extends HttpServlet {
 		
 		if(query != null && filter != null && !filter.equals("")) {
 			ConnectionPool pool = (ConnectionPool) getServletContext().getAttribute("pool");
-			ArrayList<Bean> list = null;
+			ArrayList<Bean> list = new ArrayList<Bean>();
 			int numberOfTracks = (user!=null && user.getAuth().equals("admin")) ? 10 : 5;
 			UserDao userDao = new UserDao(pool);
 			try {
@@ -70,7 +70,6 @@ public class Search extends HttpServlet {
 									for(int i=0;i<list.size();i++)
 										((TrackBean)list.get(i)).setLiked(userDao.checkIfLiked(user.getId(),((TrackBean)list.get(i)).getId()));
 							}
-							resetBytes(list);
 							break;
 				case "playlist":PlaylistDao playlistDao = new PlaylistDao(pool);
 							list = (ArrayList<Bean>) playlistDao.doRetrieveAll(null);
@@ -80,7 +79,6 @@ public class Search extends HttpServlet {
 							if(autocomplete == null)
 								list = createSubList(list,start,(start+numberOfTracks) > found ? found : (start+numberOfTracks));
 							for(int i=0;i<list.size();i++) {
-								resetBytes(((ArrayList<TrackBean>)((PlaylistBean)list.get(i)).getTracks()));
 								if(user != null) {
 									ArrayList<TrackBean> listOfTracks = (ArrayList<TrackBean>) ((PlaylistBean)list.get(i)).getTracks();
 									for(int j=0;j<listOfTracks.size();i++)
@@ -105,7 +103,6 @@ public class Search extends HttpServlet {
 								if(user != null)
 									for(int i=0;i<list.size();i++)
 										((TrackBean)list.get(i)).setLiked(userDao.checkIfLiked(user.getId(),((TrackBean)list.get(i)).getId()));
-								resetBytes(list);
 							}
 							break;
 				}
@@ -143,15 +140,7 @@ public class Search extends HttpServlet {
 		
 		return newList;
 	}
-	
-	@SuppressWarnings("rawtypes")
-	private static void  resetBytes(ArrayList list) {			
-		for(int i=0;i<list.size();i++) {
-			TrackBean track = (TrackBean) list.get(i);
-			track.setImage(null);
-			track.setTrack(null);
-		}
-	}
+
 	
 	private static ArrayList<Bean> createSubList(ArrayList<Bean> list, int begin, int end) {
 		ArrayList<Bean> sublist = new ArrayList<Bean>();
