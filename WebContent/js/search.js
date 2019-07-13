@@ -1,4 +1,7 @@
 const timePadder = (data,pad="0") => (data < 10) ? pad.toString()+data.toString() : data.toString();
+const abortRequest = (request) => {
+	request.abort();
+};
 
 const selectOption = (toShow,button) => {
 	$(".only").hide();
@@ -23,34 +26,36 @@ $(document).ready( () => {
 	$(".search-button").click(() => {	//Listener della ricerca
 		let url = encodeSessionId("/heaplay/search")+"?q="+$("#search-box").val()+"&filter="+$(".search-select").val();//url creato dinamicamente (probabilmente bisogna filtrare ciò che è stato scritto dal utente)
 		if($("#search-box").val().toString() != "") { 
-			$.ajax({
-				"type":"GET",
-				"url" : url,
-				"beforeSend": () => {
-					$(".content-wrapper > *").not(".search-content").remove();
-					showHide($(".loading"),$("#content"));
-				},
-				"complete"  : () => {showHide($("#content"),$(".loading"))},
-				"success": (data) => {
-					let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca
-					const headerDiv ="<p>Elementi trovati: <span id='found'>"+data.length+"</span></p>";
+			let request = $.ajax({
+					"type":"GET",
+					"url" : url,
+					"beforeSend": () => {
+						$(".content-wrapper > *").not(".search-content").remove();
+						showHide($(".loading"),$("#content"));
+					},
+					"complete"  : () => {showHide($("#content"),$(".loading"))},
+					"success": (data) => {
+						let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca
+						const headerDiv ="<p>Elementi trovati: <span id='found'>"+data.length+"</span></p>";
+						
+						//Estrazione del container e rimozione degli elementi precedenti/inserimento dell'header
+						let container = $("#content .flex-container");
+						$("#content p").remove();
+						$(container).empty();
+						$(headerDiv).prependTo($("#content"));	
 					
-					//Estrazione del container e rimozione degli elementi precedenti/inserimento dell'header
-					let container = $("#content .flex-container");
-					$("#content p").remove();
-					$(container).empty();
-					$(headerDiv).prependTo($("#content"));	
+						for(let i = 0 ; i < data.list.length; i++){
+							//Estrazione del bean
+							let bean = data.list[i];
+							createDiv(bean,container,typeOfSearch);
+						}	
+						//Aggiunta dei vari handlers
+						if(typeOfSearch == "track" || typeOfSearch == "tag")
+							addEventHandlers();
+					}
+				});
+				setTimeout(() =>abortRequest(request),10000);
 				
-					for(let i = 0 ; i < data.list.length; i++){
-						//Estrazione del bean
-						let bean = data.list[i];
-						createDiv(bean,container,typeOfSearch);
-					}	
-					//Aggiunta dei vari handlers
-					if(typeOfSearch == "track" || typeOfSearch == "tag")
-						addEventHandlers();
-				}
-			});
 		}	
 	});
 
@@ -65,7 +70,7 @@ $(document).ready( () => {
 			//Effettuo la chiamata se esistono ancora elementi da caricare
 			if($("#search-box").val().toString() != "" && found > numberOfElements) { 
 				$(window).off("scroll");
-				$.ajax({
+				let request = $.ajax({
 					"type":"GET",
 					"url" : url,
 					"success": (data) => {
@@ -87,6 +92,7 @@ $(document).ready( () => {
 						$(window).scroll(onScroll);
 					}
 				});
+				setTimeout(() =>abortRequest(request),10000);
 			}
 		}	
 	};

@@ -68,7 +68,7 @@ function addToCart(button) {
 function getPlaylist(container) {
 	let src = $('.page-image').prop("src");
 	let user_id = src.substring(src.indexOf("id")+3,src.indexOf("&"));
-	$.ajax({
+	let request = $.ajax({
 		"type" : "GET",
 		"url" : encodeSessionId("/heaplay/getPlaylists"),
 		"data": "id="+user_id,
@@ -84,4 +84,5 @@ function getPlaylist(container) {
 				$("<p>Non sono presenti playlist</p>").appendTo(container);
 		}
 	});
+	setTimeout(() =>{abortRequest(request);},10000);
 }

@@ -8,7 +8,7 @@ function autocompleteSearch(el,suggestions) {
 
 function autocomplete(el,suggestions,url,data) {
 	if($(el).val().length > 1) {
-		$.ajax({
+		let request = $.ajax({
 			"type":"GET",
 			"url" : url,
 			"data": data,
@@ -24,6 +24,7 @@ function autocomplete(el,suggestions,url,data) {
 				}	
 			}
 		});
+		setTimeout(() =>abortRequest(request),10000);
 	}
 }
 

@@ -19,7 +19,7 @@ const getInfo = (el) => {
 	let url = $(el).prop("href");
 	let selection = url.substring(url.indexOf("#")+1,url.length);
 	
-	$.ajax({
+	let request = $.ajax({
 		"type" : "GET",
 		"url" : encodeSessionId("/heaplay/getInfo"),
 		"data": "select="+selection,
@@ -29,6 +29,7 @@ const getInfo = (el) => {
 
 		}
 	});
+	setTimeout(() =>abortRequest(request),10000);
 
 };
 

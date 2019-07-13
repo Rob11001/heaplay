@@ -5,7 +5,7 @@ const loadComments = () => {
 	let container = $(".comment-container");
 	let begin = $(container).children().length;
 
-	$.ajax({
+	let request = $.ajax({
 		"type":"GET",
 		"url" : "/heaplay/getComments",
 		"data": "track_id="+track_id+"&begin="+begin,
@@ -24,6 +24,7 @@ const loadComments = () => {
 				}	
 			}
 	});
+	setTimeout(() =>abortRequest(request),10000);
 };
 
 function uploadComment(e) {

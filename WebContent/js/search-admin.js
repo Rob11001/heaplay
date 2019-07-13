@@ -11,6 +11,10 @@ const selectOption = (toShow,button) => {
 			$(children[i]).removeClass("selected");
 	$(button).addClass("selected");		
 };
+const abortRequest = (request) => {
+	request.abort();
+};
+
 
 $(document).ready( () => {
 
@@ -21,7 +25,7 @@ $(document).ready( () => {
 
 	$(".search-button").click(() => {	//Listener della ricerca
 		let url = encodeSessionId("/heaplay/search")+"?q="+$("#search-box").val()+"&filter="+$(".search-select").val();//url creato dinamicamente (probabilmente bisogna filtrare ciò che è stato scritto dal utente)
-		$.ajax({
+		let request = $.ajax({
 			"type":"GET",
 			"url" : url,
 			"beforeSend": () => {
@@ -57,6 +61,7 @@ $(document).ready( () => {
 				}	
 			}
 		});	
+		setTimeout(() =>abortRequest(request),10000);
 	});
 
 
@@ -71,7 +76,7 @@ $(document).ready( () => {
 			//Effettuo la chiamata se esistono ancora elementi da caricare
 			if( found > numberOfElements) { 
 				$(window).off("scroll");
-				$.ajax({
+				let request = $.ajax({
 					"type":"GET",
 					"url" : url,
 					"success": (data) => {
@@ -90,6 +95,7 @@ $(document).ready( () => {
 						}
 					}
 				});
+				setTimeout(() => abortRequest(request),10000);
 			}
 		}
 	};
