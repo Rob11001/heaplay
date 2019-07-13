@@ -32,7 +32,7 @@ Integer begin = (Integer) request.getAttribute("begin");
 	<%} %>
 	
 	<%for(int i=0;i<listOfTracks.size();i++) {	
-		TrackBean track = listOfTracks.get(i);	
+		request.setAttribute("track", listOfTracks.get(i));	
 	%>
 		<div class="item">
 			<%@ include file="/_player.jsp"%>

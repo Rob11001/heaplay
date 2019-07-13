@@ -45,11 +45,12 @@ function uploadComment(e) {
 	}	
 }
 
+
 $(document).ready(() => {
 	loadComments();
 	$(window).scroll(() => {
 		if($(window).scrollTop() + $(window).height() >= $(document).height()-1)
 			loadComments();
 	});
-	
+		
 });

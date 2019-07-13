@@ -42,7 +42,7 @@
 		<%} %>
 		
 		<%for(int i=0;i<listOfTracks.size();i++) {	//Problema al numero massimo di track che posso mantenere in player in una pagina --> Capire come poter passare ad un altra pagina  per vedere le restanti
-			TrackBean track = listOfTracks.get(i);	
+			request.setAttribute("track", listOfTracks.get(i));	
 		%>
 			<%@ include file="/_player.jsp"%>			
 		<%} %>
