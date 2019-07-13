@@ -23,6 +23,8 @@ import com.heaplay.model.beans.TrackBean;
 import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
+import com.mysql.cj.jdbc.exceptions.PacketTooBigException;
+import com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping;
 
 @WebServlet("/upload")
 @MultipartConfig(
@@ -120,14 +122,21 @@ public class Upload extends HttpServlet {
 			}
 			response.sendRedirect(response.encodeRedirectURL(getServletContext().getContextPath()+"/home"));	
 	
-		} catch (SQLException e) {
+		} catch (PacketTooBigException e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "Caricamento non riuscito, Nome del brano già usato");
+			request.setAttribute("errorMessage", "La grandezza del brano dev'essere di massimo 20MB");
 			request.setAttribute("jspPath", response.encodeURL("/upload.jsp"));
 			request.setAttribute("pageTitle", "Upload");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
 			rd.forward(request, response);
 			
-		}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "C'è stato un problema con il caricamento, riprova");
+			request.setAttribute("jspPath", response.encodeURL("/upload.jsp"));
+			request.setAttribute("pageTitle", "Upload");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/_blank.jsp"));
+			rd.forward(request, response);
+		}
 	}
 }

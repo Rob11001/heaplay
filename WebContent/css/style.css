@@ -298,6 +298,7 @@ nav > a:visited, .dropbtn > a:visited {
 
 .song-image img, .playlist-image img {
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 10px;
 	height: 110px;
 	width: 110px;
 }
@@ -361,12 +362,6 @@ nav > a:visited, .dropbtn > a:visited {
 }
 
 /*+++++ Controls +++++++++++*/
-
-.controls {
-	display: flex;
-	flex-flow: column;
-	align-items: center;
-}
 
 .fa-volume-down, .fa-volume-up {
 	font-size: 0.9em;

@@ -52,5 +52,6 @@
 	
 	<button type="submit">Registrati</button>
 </form>
+<p>Già registrato? Effettua il <b><a href=<%=response.encodeURL("/heaplay/login")%>>login</a></b></p>
 
 <script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>

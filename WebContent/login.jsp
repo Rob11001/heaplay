@@ -36,5 +36,6 @@
 
 	<button type="submit">Login</button>
 </form>
+<p>Sei un nuovo utente? <b><a href="<%=response.encodeURL("/heaplay/register")%>">Registrati</a></b></p>
 
 <script src="${pageContext.servletContext.contextPath}/js/validate.js"></script>
