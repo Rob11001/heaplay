@@ -52,7 +52,6 @@ public class User extends HttpServlet {
 					numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
 				} else if(userBean != null && userBean.getId() == currentUser.getId()){
 					//Track acquistate
-					System.out.println(begin);
 					listOfTracks = (ArrayList<TrackBean>) ownedTrackDao.getOwnedTrackByUser(currentUser.getId(), begin,9);
 					numberOfTracks = ownedTrackDao.getNumberOfTrackByUser(currentUser.getId());
 					request.setAttribute("owned", owned);	//Flag

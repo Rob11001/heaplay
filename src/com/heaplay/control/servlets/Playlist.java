@@ -32,7 +32,7 @@ public class Playlist extends HttpServlet {
 		String id = request.getParameter("id"); 
 		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		UserBean currentUser = (UserBean) request.getSession().getAttribute("user");
-		int start = (begin == null) ? 0 : Integer.parseInt(begin);
+		int start = (begin == null || Integer.parseInt(begin) == 0) ? 0 : Integer.parseInt(begin)+1;
 		
 		if(user == null || playlistName == null)
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -90,9 +90,12 @@ public class Playlist extends HttpServlet {
 										list.remove(i);
 								}
 							}
+							size = list.size();
 						}
 						//Sottolista
 						ArrayList<TrackBean> sublist = new ArrayList<TrackBean>();
+						if(start >= list.size()) 
+							start = 0;
 						sublist.addAll(list.subList(start, list.size() < start+10 ? list.size() : start+10));
 						playlistBean.setTracks(sublist);
 						if(currentUser != null)
