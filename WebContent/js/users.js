@@ -1,7 +1,7 @@
 let prevImage;
 //Setta il valore per la prossima chiamata
 function beginValue(button) {
-	let value = button.value*5 -5;
+	let value = $(button).html()*9 - 9;
 	$(button).parent().find($("input[type=hidden]")).prop("value",value);
 }
 //Mette il focus alla pagina corrente
