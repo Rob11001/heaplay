@@ -1,4 +1,4 @@
-//Funzioni per far scorrere le track
+let prevImage;
 //Setta il valore per la prossima chiamata
 function beginValue(button) {
 	let value = button.value*5 -5;
@@ -21,7 +21,6 @@ function selection(selected,prev,toHide,toShow){
 //Upload image for user
 function inputFile(input) {
 	$(input).trigger("click");
-	$("#srcImg").removeClass("hidden");
 }
 
 //Show and hide confirm button
@@ -36,10 +35,20 @@ function showConfirmButton(el) {
 }
 
 $(document).ready(() => {
+	//To show the image preview
 	$("#image").change(function(e){
 		let file = e.currentTarget.files["0"];
-		let objectUrl = window.URL.createObjectURL(file);
-		$(".page-image").prop("src", objectUrl);
+		if(file != undefined) {
+			let objectUrl = window.URL.createObjectURL(file);
+			if(prevImage == undefined)
+				prevImage = $(".page-image").prop("src");
+			$(".page-image").prop("src", objectUrl);
+			showConfirmButton($("#srcImg"));
+		} else {
+			hideConfirmButton($("#srcImg"));
+			if(prevImage != undefined)
+				$(".page-image").prop("src", prevImage);
+		}
 	});		
 });
 
