@@ -21,17 +21,17 @@ Integer begin = (Integer) request.getAttribute("begin");
 	</div>
 </div>
 
+<%if(currentUser != null && currentUser.getId() == userPage.getId()) {%>
+<form style="float: right;"action="<%=response.encodeURL("/heaplay/removePlaylist")%>" method = "POST">
+	<input type="hidden" name="play_id" value="<%=playlist.getId()%>">
+	<button type="submit" class="item-remove">Elimina Playlist</button>		
+</form>
+	
+<%} %>
+	
 <div class="playlist-control">
 	<button class="circle-icon" title="Indietro" onclick="prev()"><i class="fas fa-chevron-left"></i></button>
 	<button class="circle-icon" title="Avanti" onclick="next()"><i class="fas fa-chevron-right"></i></button>
-	<%if(currentUser != null && currentUser.getId() == userPage.getId()) {%>
-		<form action="<%=response.encodeURL("/heaplay/removePlaylist")%>" method = "POST">
-			<input type="hidden" name="play_id" value="<%=playlist.getId()%>">
-			<button type="submit" class="item-remove">Elimina Playlist</button>		
-		</form>
-	
-	<%} %>
-	
 </div>
 
 <div class="user-tracks">
