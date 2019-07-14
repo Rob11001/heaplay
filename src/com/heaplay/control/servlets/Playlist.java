@@ -77,7 +77,6 @@ public class Playlist extends HttpServlet {
 						else if(!currentUser.getUsername().equals(user)) {
 							OwnedTrackDao owTrackDao = new OwnedTrackDao(pool);
 							ArrayList<TrackBean> ownedTracks = (ArrayList<TrackBean>) owTrackDao.getOwnedTrackByUser(currentUser.getId(), 0, Integer.MAX_VALUE);
-							System.out.println(ownedTracks.toString());
 							
 							for(int i = 0; i < list.size(); i++) {
 								if(list.get(i).getType().equals("pagamento")) {
