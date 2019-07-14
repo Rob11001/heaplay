@@ -22,7 +22,8 @@ const loadComments = () => {
 					let bean = beans[i];
 					createDiv(bean,container,"comment");
 				}	
-			}
+			},
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)	
 	});
 	setTimeout(() =>abortRequest(request),10000);
 };
@@ -41,7 +42,8 @@ function uploadComment(e) {
 			"success" : () => {
 				loadComments();
 				$(e).parent().find("textarea").val("");
-			}
+			},
+			"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 		});
 	}	
 }

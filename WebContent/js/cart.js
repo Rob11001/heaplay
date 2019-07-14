@@ -38,7 +38,8 @@ function removeFromCart(button) {
 				$(cartDiv).empty();
 				$("<p>Il tuo carrello è al momento vuoto</p>").appendTo(cartDiv);
 			}
-		}
+		},
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 	});
 	setTimeout(() =>abortRequest(request),10000);
 }
@@ -58,7 +59,8 @@ function purchase() {
 		"success": () => {
 			$(".cart").empty();
 			$("<p>Acquisto completato con successo</p>").appendTo($(".cart"));
-		}
+		},
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 	});
 	setTimeout(() =>abortRequest(request),10000);
 }

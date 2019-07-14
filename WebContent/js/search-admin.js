@@ -59,7 +59,8 @@ $(document).ready( () => {
 					let bean = data.list[i];
 					createDiv(bean,table,typeOfSearch);
 				}	
-			}
+			},
+			"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 		});	
 		setTimeout(() =>abortRequest(request),10000);
 	});
@@ -93,7 +94,8 @@ $(document).ready( () => {
 							}	
 							$(window).scroll(onScroll);
 						}
-					}
+					},
+					"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 				});
 				setTimeout(() => abortRequest(request),10000);
 			}

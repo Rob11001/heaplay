@@ -15,7 +15,8 @@ $(document).ready(() => {
 					createDiv(bean,container,"track");
 				}	
 				addEventHandlers();
-			}
+			},
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)	
 	});
 	setTimeout(() =>abortRequest(request),10000);
 	
@@ -32,7 +33,8 @@ $(document).ready(() => {
 					let bean = beans[i];
 					createDiv(bean,container,"playlist");
 				}	
-			}
+			},
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)	
 	});
 	setTimeout(() =>abortRequest(otherRequest),10000);
 	

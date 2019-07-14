@@ -52,7 +52,8 @@ $(document).ready( () => {
 						//Aggiunta dei vari handlers
 						if(typeOfSearch == "track" || typeOfSearch == "tag")
 							addEventHandlers();
-					}
+					},
+					"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 				});
 				setTimeout(() =>abortRequest(request),10000);
 				
@@ -90,7 +91,8 @@ $(document).ready( () => {
 								addEventHandlers();
 						}
 						$(window).scroll(onScroll);
-					}
+					},
+					"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 				});
 				setTimeout(() =>abortRequest(request),10000);
 			}

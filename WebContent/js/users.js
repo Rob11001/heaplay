@@ -82,7 +82,8 @@ function getPlaylist(container) {
 			
 			if(data.length == 0)
 				$("<p>Non sono presenti playlist</p>").appendTo(container);
-		}
+		},
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 	});
 	setTimeout(() =>{abortRequest(request);},10000);
 }

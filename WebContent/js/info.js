@@ -27,7 +27,8 @@ const getInfo = (el) => {
 			$("#info-bar").empty();
 			google.charts.setOnLoadCallback(drawChart(data,selection));
 
-		}
+		},
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 	});
 	setTimeout(() =>abortRequest(request),10000);
 

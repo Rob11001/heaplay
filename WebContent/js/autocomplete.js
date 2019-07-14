@@ -22,7 +22,8 @@ function autocomplete(el,suggestions,url,data) {
 					let option = "<option value='"+data[i]+"'>"+data[i]+"</option>";
 					$(option).appendTo(suggestions);
 				}	
-			}
+			},
+			"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 		});
 		setTimeout(() =>abortRequest(request),10000);
 	}

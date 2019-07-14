@@ -49,7 +49,8 @@ function removeFromPlaylist(button) {
 		"data" : "track_id="+track_id+"&play_id="+play_id,
 		"success" : () => {
 			$(parent).remove();
-		}
+		},
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 	});
 	setTimeout(() =>abortRequest(request),10000);
 }
