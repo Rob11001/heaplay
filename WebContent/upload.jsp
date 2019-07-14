@@ -51,7 +51,7 @@
 	<div class="form-field">
 		<span class="field-icon"><i class="fa fa-hashtag"></i></span>
 		<input id="autocomplete" type="text" name="tags" list="tagSuggestions" onkeyup="autocompleteTags(this,$('#tagSuggestions'))"/>
-		<button type="button" id="tagButton" onclick="addTag(this)">Aggiungi</button>
+		<button type="button" id="tagButton" onclick="addTag(this)" >Aggiungi</button>
 	</div>
 	<datalist id="tagSuggestions"></datalist>
 	
