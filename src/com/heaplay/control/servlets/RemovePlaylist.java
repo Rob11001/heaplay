@@ -36,7 +36,7 @@ public class RemovePlaylist extends HttpServlet {
 				try {
 					//Ricerca playlist
 					playlistDao.doDelete(keys);
-					
+					response.sendRedirect(response.encodeURL("/heaplay/user/"+user.getUsername()));
 				} catch (SQLException e) {
 					e.printStackTrace();
 					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
