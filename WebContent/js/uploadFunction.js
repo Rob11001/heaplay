@@ -37,17 +37,21 @@ $(document).ready(() => {
 
 	$("#audio").change(function(e){
 		let file = e.currentTarget.files["0"];
-		objectUrl = window.URL.createObjectURL(file);
-		$("#audioFake").prop("src", objectUrl);
+		if(file != undefined) {
+			objectUrl = window.URL.createObjectURL(file);
+			$("#audioFake").prop("src", objectUrl);
+		}
 	});
 
 	//Preview dell'immagine
 	$("#image").change(function(e){
 		let file = e.currentTarget.files["0"];
-		let objectUrl = window.URL.createObjectURL(file);
-		$("#preview").prop("src", objectUrl);
-		$("#preview").parent().removeClass("hidden");
-		$("#image-field .file-input").next(".cross").fadeOut();
+		if(file != undefined) {
+			let objectUrl = window.URL.createObjectURL(file);
+			$("#preview").prop("src", objectUrl);
+			$("#preview").parent().removeClass("hidden");
+			$("#image-field .file-input").next(".cross").fadeOut();
+		}
 	});
 	
 });	
