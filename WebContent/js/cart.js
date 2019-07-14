@@ -16,13 +16,24 @@ function removeFromCart(button) {
 		}, 
 		"success": () => {
 			let price = $(button).parent().find(".price").html();
-			price = price == "free" ? 0 : price; 
+			price = price.replace(/\,/,'.');
+			if(price == "Gratuita")
+				price = 0;
+			else {
+				let int = price.substring(0,1) * 100;
+				int = Number.parseInt(int) + Number.parseInt(price.substring(2,4));
+				price = int;
+			}
+			
 			let cartDiv = $(".cart");
-			let numberOfElements = $(cartDiv).children().length;
 			$(button).parent().remove();
-			if(price > 0 && numberOfElements > 1 ) {
-				let newValue = (Number.parseFloat($("#sum").html())-Number.parseFloat(price));
-				$("#sum").html(newValue);
+			let numberOfElements = $(cartDiv).children().length;
+
+			if( numberOfElements > 3 ) {
+				let newValue = $("#sum").html().substring(0,1) * 100;
+				newValue = Number.parseInt(newValue) + Number.parseInt($("#sum").html().substring(2,4));
+				newValue = newValue - price;
+				$("#sum").html(Math.floor(newValue/100)+","+newValue%100+" €");
 			} else {
 				$(cartDiv).empty();
 				$("<p>Il tuo carrello è al momento vuoto</p>").appendTo(cartDiv);
