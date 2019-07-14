@@ -80,7 +80,7 @@ function validateForm() {
 	
 	let priceDiv = $("#divPrice");
 	let price = $("input[name='price']"); 
-	let priceRegex = /^\d{0,1}(\.\d{1,2})?$/;
+	let priceRegex = /^\d{0,1}([,\.]\d{1,2})?$/;
 
 	if(price.length != 0) {
 		if(priceDiv.css("display") != "none" && price.val() != "") {

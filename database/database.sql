@@ -147,4 +147,4 @@ create table liked (
 );
 
 insert into users(username,email,password,auth) values("admin","admin@admin.it",md5("password"),"admin");
-set global max_allowed_packet=2097152; 
+set global max_allowed_packet=20971520; 
