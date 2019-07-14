@@ -53,6 +53,16 @@ $(document).ready(() => {
 			$("#image-field .file-input").next(".cross").fadeOut();
 		}
 	});
+
+	$("form").keypress(function(e) {
+  		if (e.which == 13) {
+			let form = e.currentTarget;
+			let tagInput = form["tags"];
+			if($(tagInput).val() != "") 
+				$("#tagButton").trigger("click");
+			return false;
+		}
+	});
 	
 });	
 		
@@ -81,5 +91,5 @@ function autocompleteTags(el,suggestions) {
 		});
 		setTimeout(() =>abortRequest(request),10000);
 	}
-
 }
+
