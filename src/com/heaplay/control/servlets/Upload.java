@@ -24,7 +24,6 @@ import com.heaplay.model.beans.UserBean;
 import com.heaplay.model.dao.PurchasableTrackDao;
 import com.heaplay.model.dao.TrackDao;
 import com.mysql.cj.jdbc.exceptions.PacketTooBigException;
-import com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping;
 
 @WebServlet("/upload")
 @MultipartConfig(
@@ -106,7 +105,8 @@ public class Upload extends HttpServlet {
 			trackBean.setType("free");
 		else {
 			trackBean.setType("pagamento");
-			double price = Double.parseDouble(request.getParameter("price"));	
+			String p = request.getParameter("price").replaceAll(",", ".");
+			double price = Double.parseDouble(p);	
 			purchasableTrack = new PurchasableTrackBean(trackBean);
 			purchasableTrack.setPrice(price);
 		}
