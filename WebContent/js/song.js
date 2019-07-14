@@ -153,13 +153,14 @@ function updateCurrentTime (event) {
 function view(e) {
 	let url = $(e.currentTarget).parent().parent().parent().find(".audio").children().prop("src");
 	let id = url.substring(url.indexOf("id")+3,url.indexOf("&"));
-	let span = e.currentTarget;
 	
-	$.ajax({
+	let request = $.ajax({
 		"type":"GET",
 		"url" : encodeSessionId("/heaplay/view"),
-		"data": "id="+id
+		"data": "id="+id,
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 	});
+	setTimeout(() =>abortRequest(request),10000);
 }
 
 function like(e) {
@@ -178,7 +179,8 @@ function like(e) {
 				let likes = Number.parseInt($(span).html().substring($(span).html().indexOf("</i>")+4,$(span).html().length))-1;
 				$(span).html("<i class='far fa-thumbs-up'></i> "+ likes)
 			}
-		}
+		},
+		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 	});
 	setTimeout(() =>abortRequest(request),10000);
 }
