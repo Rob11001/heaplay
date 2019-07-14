@@ -62,7 +62,7 @@ public class Track extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 			
-			if(track == null || !track.isIndexable() || !track.getAuthorName().equals(userName) || !track.getName().replaceAll("\\s","").equals(trackName)) {
+			if(track == null || !track.isIndexable() || !track.getAuthorName().equals(userName) || !track.getName().replaceAll("\\s|!|\\*|\\'|\\(|\\)|\\;|\\:|@|&|=|\\$|\\,|\\/|\\?|\\#|\\[|\\]","").equals(trackName)) {
 				//pagina di errore
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			} else {

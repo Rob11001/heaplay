@@ -52,7 +52,7 @@ public class Playlist extends HttpServlet {
 					keys.add(id);
 					PlaylistBean playlistBean = (PlaylistBean) playlistDao.doRetrieveByKey(keys);
 					//Controllo nome playlist e se non � privata
-					if(playlistBean == null || !playlistBean.getName().replaceAll("\\s","").equals(playlistName) || !playlistBean.getAuthorName().equals(user) || (playlistBean.getPrivacy().equals("private") && (currentUser == null || !playlistBean.getAuthorName().equals(currentUser.getUsername())))) {
+					if(playlistBean == null || !playlistBean.getName().replaceAll("\\s|!|\\*|\\'|\\(|\\)|\\;|\\:|@|&|=|\\$|\\,|\\/|\\?|\\#|\\[|\\]","").equals(playlistName) || !playlistBean.getAuthorName().equals(user) || (playlistBean.getPrivacy().equals("private") && (currentUser == null || !playlistBean.getAuthorName().equals(currentUser.getUsername())))) {
 						/*Pagina di errore*/
 						response.sendError(HttpServletResponse.SC_NOT_FOUND);
 					} else {

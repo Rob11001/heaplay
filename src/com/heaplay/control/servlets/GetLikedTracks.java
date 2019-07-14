@@ -35,7 +35,7 @@ public class GetLikedTracks extends HttpServlet {
  		
  		try {
 			//Filtro delle tracks
- 			list = (ArrayList<Bean>) trackDao.doRetrieveAll((a,b) -> new Long(((TrackBean)a).getLikes() - ((TrackBean)b).getLikes()).intValue());
+ 			list = (ArrayList<Bean>) trackDao.doRetrieveAll((a,b) -> new Long(((TrackBean)b).getLikes() - ((TrackBean)a).getLikes()).intValue());
 			list = (ArrayList<Bean>) list.stream().filter((p) ->((TrackBean)p).isIndexable()).collect(Collectors.toList());
 			ArrayList<Bean> listOfObjects = new ArrayList<Bean>();
 			//Selezione delle prime 5

@@ -34,7 +34,7 @@ UserBean userPageLocal= (UserBean)request.getAttribute("user");
 			</button>
 			<div>
 				<span class="author"><a href="<%=response.encodeURL("/heaplay/user/"+playerTrack.getAuthorName())%>"><%=playerTrack.getAuthorName()%></a></span><br>
-				<span class="song-name"><a href="<%=response.encodeURL("/heaplay/user/"+playerTrack.getAuthorName()+"/"+playerTrack.getName().replaceAll("\\s","")+"?id="+playerTrack.getId()) %>"><%=playerTrack.getName()%></a></span>
+				<span class="song-name"><a href="<%=response.encodeURL("/heaplay/user/"+playerTrack.getAuthorName()+"/"+playerTrack.getName().replaceAll("\\s|!|\\*|\\'|\\(|\\)|\\;|\\:|@|&|=|\\$|\\,|\\/|\\?|\\#|\\[|\\]","")+"?id="+playerTrack.getId()) %>"><%=playerTrack.getName()%></a></span>
 			</div>
 		</div>
 		
