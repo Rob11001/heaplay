@@ -35,7 +35,6 @@ public class User extends HttpServlet {
     	String owned = request.getParameter("track");
 		UserBean currentUser = null;
 		ArrayList<TrackBean> listOfTracks = null;
-		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		int numberOfTracks = 0;
 		
 		try {
@@ -53,7 +52,7 @@ public class User extends HttpServlet {
 					numberOfTracks = trackDao.getNumberOfTracksOfAuthor(currentUser.getId());
 				} else if(userBean != null && userBean.getId() == currentUser.getId()){
 					//Track acquistate
-					listOfTracks = (ArrayList<TrackBean>) ownedTrackDao.getOwnedTrackByUser(currentUser.getId(), begin,5);
+					listOfTracks = (ArrayList<TrackBean>) ownedTrackDao.getOwnedTrackByUser(currentUser.getId(), begin,9);
 					numberOfTracks = ownedTrackDao.getNumberOfTrackByUser(currentUser.getId());
 					request.setAttribute("owned", owned);	//Flag
 				} else {

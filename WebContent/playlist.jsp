@@ -50,7 +50,7 @@ Integer begin = (Integer) request.getAttribute("begin");
 <form class="pages-buttons" action="<%=response.encodeURL("/heaplay/user/"+userPage.getUsername()+"/playlist/"+playlist.getName()+"?id="+playlist.getId()) %>" method="POST"> 
 		<input type="hidden" value="<%=begin%>" name="begin" id="currentPage">
 		<%for( int i= 0; i< number; i+=10) {%>
-			<button type="submit" onclick="beginValue(this)" id="<%=i%>"><%=i/5+1%></button>
+			<button type="submit" onclick="beginValue(this)" id="<%=i%>"><%=i/10+1%></button>
 		<%} %>
 	</form>
 </div>
