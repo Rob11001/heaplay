@@ -418,6 +418,10 @@ nav > a:visited, .dropbtn > a:visited {
 	margin-left: 10px;
 }
 
+.playlist-control .item-remove {
+	float: right;
+}
+
 /******************************** User Page ********************************/
 
 .page-header {

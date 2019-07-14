@@ -24,6 +24,10 @@ Integer begin = (Integer) request.getAttribute("begin");
 <div class="playlist-control">
 	<button class="circle-icon" title="Indietro" onclick="prev()"><i class="fas fa-chevron-left"></i></button>
 	<button class="circle-icon" title="Avanti" onclick="next()"><i class="fas fa-chevron-right"></i></button>
+	<%if(currentUser != null && currentUser.getId() == userPage.getId()) {%>
+	<button class="item-remove" onclick="removePlaylist(this)">Elimina Playlist</button>
+	<%} %>
+	
 </div>
 
 <div class="user-tracks">
