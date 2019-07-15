@@ -595,10 +595,6 @@ button:hover, .file-input:hover {
 
 /******************************** Track Page ********************************/
 
-.track-info {
-	
-}
-
 .add-cart {
 	align-items: center;
 	border: 2px solid var(--main-black60);
