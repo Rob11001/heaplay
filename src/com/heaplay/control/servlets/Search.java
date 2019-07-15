@@ -51,6 +51,8 @@ public class Search extends HttpServlet {
 				case "user": list = (ArrayList<Bean>) userDao.doRetrieveAll(null);
 							if(!query.equals(""))
 								list = filter(query, list);
+							if(user != null && user.getAuth().equals("admin"))
+								list = (ArrayList<Bean>) list.stream().filter((p)->((UserBean)p).getId()!=user.getId()).collect(Collectors.toList());
 							if(user == null || !user.getAuth().equals("admin"))
 								list = (ArrayList<Bean>) list.stream().filter((p)->((UserBean)p).isActive() && ((UserBean)p).getAuth().equals("user")).collect(Collectors.toList());
 							found = list.size();
