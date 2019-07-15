@@ -17,21 +17,22 @@ $(document).ready( () => {
 
 const getInfo = (el) => {
 	let url = $(el).prop("href");
-	let selection = url.substring(url.indexOf("#")+1,url.length);
-	
-	let request = $.ajax({
-		"type" : "GET",
-		"url" : encodeSessionId("/heaplay/getInfo"),
-		"data": "select="+selection,
-		"success": (data) => {
-			$("#info-bar").empty();
-			google.charts.setOnLoadCallback(drawChart(data,selection));
+	if(url != undefined) {
+		let selection = url.substring(url.indexOf("#")+1,url.length);
+		
+		let request = $.ajax({
+			"type" : "GET",
+			"url" : encodeSessionId("/heaplay/getInfo"),
+			"data": "select="+selection,
+			"success": (data) => {
+				$("#info-bar").empty();
+				google.charts.setOnLoadCallback(drawChart(data,selection));
 
-		},
-		"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
-	});
-	setTimeout(() =>abortRequest(request),10000);
-
+			},
+			"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
+		});
+		setTimeout(() =>abortRequest(request),10000);
+	}
 };
 
 //Funzione per disegnare i grafici

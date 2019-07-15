@@ -30,7 +30,6 @@ public class Playlist extends HttpServlet {
 		String playlistName = (String) request.getAttribute("playlistName");
 		String begin = request.getParameter("begin");
 		String id = request.getParameter("id"); 
-		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		UserBean currentUser = (UserBean) request.getSession().getAttribute("user");
 		int start = (begin == null || Integer.parseInt(begin) == 0) ? 0 : Integer.parseInt(begin)+1;
 		

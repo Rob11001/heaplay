@@ -36,7 +36,6 @@ public class Track extends HttpServlet {
 		HttpSession session = request.getSession();
 		Cart<TrackBean> cart = (Cart<TrackBean>) session.getAttribute("cart");
 		UserBean user = (UserBean) session.getAttribute("user");
-		StringBuffer requestURL = (StringBuffer) request.getAttribute("requestURL");
 		
 		if(id == null || userName == null || trackName == null)
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
