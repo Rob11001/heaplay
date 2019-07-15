@@ -264,7 +264,7 @@ public class TrackDao implements DaoModel {
 			ps = con.prepareStatement(selectQuery);
 
 			rs = ps.executeQuery();
-			TagDao tag = new TagDao(pool);
+//			TagDao tag = new TagDao(pool);
 
 			while (rs.next()) {
 				bean = new TrackBean();
