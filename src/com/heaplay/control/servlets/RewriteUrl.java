@@ -18,9 +18,6 @@ public class RewriteUrl extends HttpServlet {
     	//Lettura URL e parametri
     	String URI = request.getRequestURI();
     	String[] params = URI.split("/");
-    	StringBuffer url = request.getRequestURL();
-    	
-    	request.setAttribute("requestURL", url);
     	
     	if(params.length == 5 && params[params.length - 3].equals("user")) {
     		//Pagina della track
