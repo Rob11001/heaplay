@@ -35,6 +35,7 @@ $(document).ready( () => {
 					},
 					"complete"  : () => {showHide($("#content"),$(".loading"))},
 					"success": (data) => {
+						$("#more").remove();
 						let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca
 						const headerDiv ="<p>Elementi trovati: <span id='found'>"+data.length+"</span></p>";
 						
@@ -52,6 +53,8 @@ $(document).ready( () => {
 						//Aggiunta dei vari handlers
 						if(typeOfSearch == "track" || typeOfSearch == "tag")
 							addEventHandlers();
+						if($(container).children().length < found)
+							$(container).after("<p class='loading' id='more'>Scorri per mostrare altro</p>");
 					},
 					"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 				});
@@ -77,7 +80,7 @@ $(document).ready( () => {
 					"success": (data) => {
 						let typeOfSearch = url.substring(url.indexOf("&filter")+8,url.length); //Controllo il tipo di ricerca
 						numberOfElements = $(container).children().length;
-						
+						$("#more").remove();
 						//Ulteriore controllo 
 						if(found > numberOfElements) {
 							for(let i = 0 ; i < data.list.length; i++){
@@ -91,6 +94,8 @@ $(document).ready( () => {
 								addEventHandlers();
 						}
 						$(window).scroll(onScroll);
+						if($(container).children().length < found)
+							$(container).after("<p class='loading' id='more'>Scorri per mostrare altro</p>");
 					},
 					"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 				});

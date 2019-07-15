@@ -744,7 +744,7 @@ public class TrackDao implements DaoModel {
 		Connection con = null;
 		ResultSet rs = null;
 		TrackBean bean = null;
-		String selectQuery ="SELECT * FROM " + TABLE_NAME + " WHERE indexable='1' GROUP BY id ORDER BY "+param+" DESC LIMIT "+begin+","+end;
+		String selectQuery ="SELECT id,author,image_extension,indexable,likes,name,plays,track_extension,type,upload_date,duration,author_name FROM " + TABLE_NAME + " WHERE indexable='1' GROUP BY id ORDER BY "+param+" DESC LIMIT "+begin+","+end;
 		ArrayList<TrackBean> list = new ArrayList<TrackBean>();
 
 		try {
@@ -757,13 +757,13 @@ public class TrackDao implements DaoModel {
 				bean = new TrackBean();
 				bean.setId(rs.getLong("id"));
 				bean.setAuthor(rs.getLong("author"));
-				bean.setImage(rs.getBytes("image"));
+//				bean.setImage(rs.getBytes("image"));
 				bean.setImageExt(rs.getString("image_extension"));
 				bean.setIndexable(rs.getBoolean("indexable"));
 				bean.setLikes(rs.getLong("likes"));
 				bean.setName(rs.getString("name"));
 				bean.setPlays(rs.getLong("plays"));
-				bean.setTrack(rs.getBytes("track"));
+//				bean.setTrack(rs.getBytes("track"));
 				bean.setTrackExt(rs.getString("track_extension"));
 				bean.setType(rs.getString("type"));
 				bean.setUploadDate(rs.getTimestamp("upload_date"));
