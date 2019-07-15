@@ -53,8 +53,8 @@ $(document).ready( () => {
 						//Aggiunta dei vari handlers
 						if(typeOfSearch == "track" || typeOfSearch == "tag")
 							addEventHandlers();
-						if($(container).children().length < found)
-							$(container).after("<p class='loading' id='more'>Scorri per mostrare altro</p>");
+						if($(container).children().length < data.length)
+							$(container).after("<p style='text-align:center;' id='more'>Scorri per mostrare altro</p>");
 					},
 					"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 				});
@@ -95,7 +95,7 @@ $(document).ready( () => {
 						}
 						$(window).scroll(onScroll);
 						if($(container).children().length < found)
-							$(container).after("<p class='loading' id='more'>Scorri per mostrare altro</p>");
+							$(container).after("<p style='text-align:center;' id='more'>Scorri per mostrare altro</p>");
 					},
 					"error": (status,error) => console.log("Errore:"+error+" StatusCode:"+status)
 				});
