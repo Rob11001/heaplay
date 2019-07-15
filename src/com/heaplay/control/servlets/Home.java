@@ -16,7 +16,7 @@ public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setHeader("Cache-Control", "private,no-store,no-cache");
+//		response.setHeader("Cache-Control", "private,no-store,no-cache");
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		if(user == null || user.getAuth().equals("user")) {
 			request.setAttribute("jspPath", response.encodeURL("/home.jsp"));

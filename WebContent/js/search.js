@@ -17,7 +17,7 @@ const selectOption = (toShow,button) => {
 };
 
 $(document).ready( () => {
-
+	
 	const showHide = (x,y) => { 	
 		$(x).show();
 		$(y).hide();

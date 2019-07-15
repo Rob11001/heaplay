@@ -14,8 +14,5 @@ public class JspFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-				
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
 	}
 }
