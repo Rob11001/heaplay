@@ -43,6 +43,10 @@
 	.dropdown-content {
 		right: 8px;
 	}
+	
+	.drop-admin {
+		right: 0;
+	}
 }
 
 @media only screen and (max-width: 426px) {

@@ -32,7 +32,7 @@
 					<div class="dropbtn">
 						<a href="#"><%=user.getUsername()%> <i class="fa fa-caret-down" style="display: inline"></i></a>
 					</div>					
-					<div class="dropdown-content">
+					<div class="dropdown-content <%if(user.getAuth().equals("admin")) {%>drop-admin <%}%>">
 						<%if(!user.getAuth().equals("admin")) {%>
 							<a href="<%=response.encodeURL("/heaplay/user/" + user.getUsername()) %>">Area Utente</a>
 							<a href="<%=response.encodeURL("/heaplay/upload")%>">Carica</a>
